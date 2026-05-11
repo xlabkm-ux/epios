@@ -40,10 +40,10 @@
 - [x] ✅ API роуты и DTO — 2026-05-12
 - [x] ✅ Эмиссия событий трассировки — 2026-05-12
 
-### Неделя 4: Demo Shell и Mission Room
-- [ ] Layout демо-оболочки
-- [ ] Universal Mission Room UI
-- [ ] Визуализация узлов и патчей
+### Неделя 4: Demo Shell и Mission Room (ЗАВЕРШЕНО)
+- [x] ✅ Layout демо-оболочки — 2026-05-12
+- [x] ✅ Universal Mission Room UI — 2026-05-12
+- [x] ✅ Визуализация узлов и патчей — 2026-05-12
 
 ### Неделя 5: MCP Apps и Approval Flow
 - [ ] MCPAppRegistry и валидация моста

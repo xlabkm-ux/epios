@@ -60,6 +60,15 @@ export class PostgresMissionRepository implements MissionRepositoryPort {
 
     if (!record) return null;
 
+    return this.mapToDomain(record);
+  }
+
+  async findAll(): Promise<Mission[]> {
+    const records = await this.db.select().from(missions);
+    return records.map((record) => this.mapToDomain(record));
+  }
+
+  private mapToDomain(record: typeof missions.$inferSelect): Mission {
     return {
       id: record.id,
       title: record.title,

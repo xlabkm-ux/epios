@@ -3,6 +3,7 @@ import {
   AddNodeUseCase,
   AddEdgeUseCase,
   PatchNodeUseCase,
+  GetMissionGraphUseCase,
 } from "@epos/application";
 import { AddNodeDto, AddEdgeDto, PatchNodeDto } from "../dto/index.js";
 
@@ -12,8 +13,16 @@ export async function mappingRoutes(
     addNodeUseCase: AddNodeUseCase;
     addEdgeUseCase: AddEdgeUseCase;
     patchNodeUseCase: PatchNodeUseCase;
+    getMissionGraphUseCase: GetMissionGraphUseCase;
   },
 ) {
+  fastify.get<{ Params: { missionId: string } }>(
+    "/missions/:missionId/graph",
+    async (request) => {
+      return options.getMissionGraphUseCase.execute(request.params.missionId);
+    },
+  );
+
   fastify.post<{ Params: { missionId: string }; Body: AddNodeDto }>(
     "/missions/:missionId/nodes",
     async (request, reply) => {

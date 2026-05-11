@@ -8,9 +8,11 @@ import {
 } from "@epos/infrastructure-postgres";
 import {
   CreateMissionUseCase,
+  ListMissionsUseCase,
   AddNodeUseCase,
   AddEdgeUseCase,
   PatchNodeUseCase,
+  GetMissionGraphUseCase,
 } from "@epos/application";
 import { missionRoutes } from "./routes/mission.routes.js";
 import { mappingRoutes } from "./routes/mapping.routes.js";
@@ -42,9 +44,11 @@ export function buildServer(deps: ServerDependencies = {}) {
   }
 
   const createMissionUseCase = new CreateMissionUseCase(missionRepo);
+  const listMissionsUseCase = new ListMissionsUseCase(missionRepo);
   const addNodeUseCase = new AddNodeUseCase(missionRepo, graphRepo);
   const addEdgeUseCase = new AddEdgeUseCase(missionRepo, graphRepo);
   const patchNodeUseCase = new PatchNodeUseCase(graphRepo);
+  const getMissionGraphUseCase = new GetMissionGraphUseCase(graphRepo);
 
   app.get("/health", async () => {
     return {
@@ -54,11 +58,12 @@ export function buildServer(deps: ServerDependencies = {}) {
     };
   });
 
-  app.register(missionRoutes, { createMissionUseCase });
+  app.register(missionRoutes, { createMissionUseCase, listMissionsUseCase });
   app.register(mappingRoutes, {
     addNodeUseCase,
     addEdgeUseCase,
     patchNodeUseCase,
+    getMissionGraphUseCase,
   });
 
   return app;
