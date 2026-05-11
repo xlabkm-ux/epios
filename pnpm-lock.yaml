@@ -147,6 +147,25 @@ importers:
         specifier: ^1.6.0
         version: 1.6.1(@types/node@25.6.2)
 
+  packages/infrastructure-mcp:
+    dependencies:
+      '@epos/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@epos/observability':
+        specifier: workspace:*
+        version: link:../observability
+      '@epos/ports':
+        specifier: workspace:*
+        version: link:../ports
+    devDependencies:
+      typescript:
+        specifier: ^5.4.5
+        version: 5.9.3
+      vitest:
+        specifier: ^1.6.0
+        version: 1.6.1(@types/node@25.6.2)
+
   packages/infrastructure-postgres:
     dependencies:
       '@epos/ports':

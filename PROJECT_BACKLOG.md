@@ -45,10 +45,10 @@
 - [x] ✅ Universal Mission Room UI — 2026-05-12
 - [x] ✅ Визуализация узлов и патчей — 2026-05-12
 
-### Неделя 5: MCP Apps и Approval Flow
-- [ ] MCPAppRegistry и валидация моста
-- [ ] ClaimApp и ApprovalApp
-- [ ] Аудит MCP команд
+### Неделя 5: MCP Apps и Approval Flow (ЗАВЕРШЕНО)
+- [x] ✅ MCPAppRegistry и валидация моста — 2026-05-12
+- [x] ✅ ClaimApp и ApprovalApp — 2026-05-12
+- [x] ✅ Аудит MCP команд — 2026-05-12
 
 ### Неделя 6: Полировка и Релиз-кандидат
 - [ ] Четыре демо-сценария

@@ -13,9 +13,18 @@ import {
   AddEdgeUseCase,
   PatchNodeUseCase,
   GetMissionGraphUseCase,
+  SubmitClaimUseCase,
+  CastVoteUseCase,
 } from "@epos/application";
 import { missionRoutes } from "./routes/mission.routes.js";
 import { mappingRoutes } from "./routes/mapping.routes.js";
+import { governanceRoutes } from "./routes/governance.routes.js";
+import { mcpRoutes } from "./routes/mcp.routes.js";
+import { InMemoryGovernanceRepository } from "@epos/infrastructure-runtime";
+import {
+  InMemoryMCPAppRegistry,
+  MockMCPBridge,
+} from "@epos/infrastructure-mcp";
 
 dotenv.config();
 
@@ -50,6 +59,14 @@ export function buildServer(deps: ServerDependencies = {}) {
   const patchNodeUseCase = new PatchNodeUseCase(graphRepo);
   const getMissionGraphUseCase = new GetMissionGraphUseCase(graphRepo);
 
+  // Week 5: Governance & MCP
+  const governanceRepo = new InMemoryGovernanceRepository();
+  const submitClaimUseCase = new SubmitClaimUseCase(graphRepo, governanceRepo);
+  const castVoteUseCase = new CastVoteUseCase(governanceRepo, graphRepo);
+
+  const mcpRegistry = new InMemoryMCPAppRegistry();
+  const mcpBridge = new MockMCPBridge(mcpRegistry);
+
   app.get("/health", async () => {
     return {
       ok: true,
@@ -65,6 +82,8 @@ export function buildServer(deps: ServerDependencies = {}) {
     patchNodeUseCase,
     getMissionGraphUseCase,
   });
+  app.register(governanceRoutes, { submitClaimUseCase, castVoteUseCase });
+  app.register(mcpRoutes, { registry: mcpRegistry, bridge: mcpBridge });
 
   return app;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import GraphCanvas from "./GraphCanvas";
 import { Share2, Info, ShieldCheck } from "lucide-react";
 import { useMission } from "../context/MissionContext";
+import { GovernancePanel } from "./GovernancePanel";
 
 const MissionRoom: React.FC = () => {
   const { missions, selectedMissionId } = useMission();
@@ -103,6 +104,19 @@ const MissionRoom: React.FC = () => {
       {/* Main Area */}
       <div style={{ flex: 1, position: "relative", display: "flex" }}>
         <GraphCanvas />
+
+        {/* Governance Panel (Absolute Left) */}
+        <div
+          style={{
+            position: "absolute",
+            left: "20px",
+            top: "20px",
+            width: "300px",
+            zIndex: 5,
+          }}
+        >
+          <GovernancePanel missionId={selectedMission.id} />
+        </div>
 
         {/* Right Panel (Node Details) */}
         <div
