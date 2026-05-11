@@ -3,6 +3,7 @@
   "version": "0.1.0-alpha",
   "description": "Epistemic Operating System v1.0 — a platform for traceable reasoning and human-in-the-loop AI workflows.",
   "license": "Apache-2.0",
+  "type": "module",
   "engines": {
     "node": ">=22.0.0"
   },
@@ -21,13 +22,30 @@
     "db:seed": "pnpm --filter @epos/infrastructure-postgres seed",
     "db:reset": "pnpm db:down && docker compose up -d postgres && pnpm db:migrate && pnpm db:seed",
     "ci": "pnpm lint && pnpm typecheck && pnpm test",
-    "ci:release": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+    "ci:release": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0",
-    "prettier": "^3.2.5",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@eslint/js": "^10.0.1",
     "eslint": "^9.2.0",
-    "turbo": "^1.13.3"
+    "globals": "^17.6.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.59.2",
+    "vitest": "^1.6.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
   }
 }

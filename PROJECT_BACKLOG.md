@@ -9,10 +9,13 @@
 - [x] ✅ Базовая структура папок (apps, packages) — 2026-05-11
 - [x] ✅ AGENT.md адаптирован под проект — 2026-05-11
 - [x] ✅ Настройка pnpm workspace — 2026-05-11
-- [ ] Docker Compose с PostgreSQL
-- [ ] Начальные миграции
-- [ ] Скелет пакетов (domain, application, api)
-- [ ] Скелет demo-shell
+- [x] ✅ Docker Compose с PostgreSQL — 2026-05-11
+- [x] ✅ Начальные миграции — 2026-05-11
+- [x] ✅ Скелет пакетов (domain, application, api) — 2026-05-11
+- [x] ✅ Скелет demo-shell — 2026-05-11
+- [x] ✅ CI/CD (GitHub Actions) — 2026-05-11
+- [x] ✅ Security scanning (Gitleaks) — 2026-05-11
+- [x] ✅ Conventional Commits & Husky — 2026-05-11
 
 ### Неделя 2: Ядро Домена и Персистентность
 - [ ] Реализация агрегата Mission

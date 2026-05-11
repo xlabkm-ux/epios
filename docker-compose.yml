@@ -2,16 +2,17 @@ services:
   postgres:
     image: postgres:16
     container_name: epos-postgres
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: epos
-      POSTGRES_PASSWORD: epos_dev_password
-      POSTGRES_DB: epos_dev
+      POSTGRES_USER: ${POSTGRES_USER:-epos}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-epos_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-epos_dev}
     ports:
       - "5432:5432"
     volumes:
       - epos_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U epos -d epos_dev"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-epos} -d ${POSTGRES_DB:-epos_dev}"]
       interval: 5s
       timeout: 5s
       retries: 10
