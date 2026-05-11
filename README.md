@@ -16,11 +16,53 @@ Epistemic OS is not a chat product or a generic agent framework. It is a platfor
 
 ## Project Status
 
+> [!CAUTION]
+> **Alpha Status**: This project is in active early development. It is currently for **internal development and architecture validation only**. APIs and domain models are subject to breaking changes.
+
 - **Status**: Alpha / MVP Development
 - **MVP Goal**: Universal Mission Room (6-week horizon)
-- **Target**: Internal development and architecture validation
+- **Primary License**: Apache-2.0
 
-## Getting Started
+## Architecture
+
+### System Context (C4 Level 1)
+
+```mermaid
+graph TD
+    User([Human User])
+    MCPApps([MCP Applications])
+    EPOS[Epistemic OS Kernel]
+    Models[AI Model Providers]
+    DB[(PostgreSQL)]
+
+    User <--> |Interacts| EPOS
+    MCPApps <--> |Safe Bridge| EPOS
+    EPOS --> |Prompts| Models
+    EPOS --> |Persists| DB
+```
+
+### Container Structure (C4 Level 2)
+
+```mermaid
+graph TD
+    subgraph Apps
+        Shell[Demo Shell - React/Vite]
+    end
+
+    subgraph Kernel [Epistemic OS Monorepo]
+        API[API Adapter]
+        App[Application Logic]
+        Domain[Domain Core]
+        InfraP[Infra: Postgres]
+        InfraM[Infra: MCP]
+    end
+
+    Shell --> API
+    API --> App
+    App --> Domain
+    InfraP -.-> |Implements| App
+    InfraM -.-> |Implements| App
+```
 
 ### Prerequisites
 

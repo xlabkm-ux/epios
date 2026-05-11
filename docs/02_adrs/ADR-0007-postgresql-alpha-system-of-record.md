@@ -4,14 +4,14 @@
 Accepted
 
 ## Context
-Epistemic OS requires durable persistence for missions, nodes, evidence, artifacts, approvals, decisions, traces, outbox events, and idempotency. In-memory or simple file-based storage is insufficient for architecture validation.
+The system needs durable persistence for missions, nodes, evidence, artifacts, approvals, decisions, traces, outbox and idempotency.
 
 ## Decision
-Use **PostgreSQL** as the primary system of record from the alpha phase.
+Use **PostgreSQL** as the system of record from alpha.
 
 ## Consequences
-- **Positive**: Production-shaped persistence from day one; supports transactional outbox; enables a relational graph MVP; avoids a later "SQLite migration cliff."
-- **Negative**: Requires more local setup (Docker) than in-memory storage; schema discipline and migration management are required immediately.
+- **Positive**: production-shaped persistence from day one; transactional outbox support; relational graph MVP possible; avoids SQLite migration cliff.
+- **Negative**: more setup than in-memory/SQLite; schema discipline needed immediately.
 
 ## Revisit Trigger
-Do not revisit for the MVP. Consider storage extensions (e.g., specialized graph or vector DBs) after the MVP phase.
+Do not revisit for MVP. Revisit storage extensions after MVP.

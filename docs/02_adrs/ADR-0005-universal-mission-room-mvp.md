@@ -4,18 +4,14 @@
 Accepted
 
 ## Context
-The first MVP needs a domain broad enough to prove the operating model (epistemic nodes, evidence, artifacts, approvals) but narrow enough to deliver within a six-week horizon.
+The first MVP needs a domain broad enough to prove the operating model but narrow enough for six weeks.
 
 ## Decision
-Use the **Universal Mission Room** as the MVP domain, supporting four key scenarios:
-1. Architectural documents.
-2. Project planning.
-3. Research review.
-4. Decision support.
+Use **Universal Mission Room** as MVP domain with demo scenarios: architectural documents, project planning, research review, and decision support.
 
 ## Consequences
-- **Positive**: Demonstrates a reusable platform flow; avoids implementing all specialized legacy workflows; aligns with the Mission-first architecture.
-- **Negative**: Specialized workflows are deferred; demo templates must be carefully scoped to avoid bloat.
+- **Positive**: demonstrates reusable platform flow; avoids implementing all ChatAVG workflows; aligns with Mission-first architecture.
+- **Negative**: some specialized workflows are deferred; demo templates must be carefully scoped.
 
 ## Revisit Trigger
-Revisit after the MVP demo and initial user feedback to decide on the next set of supported domains.
+Revisit after MVP demo feedback.

@@ -4,14 +4,14 @@
 Accepted
 
 ## Context
-The project requires fast delivery, a shared language across UI/API/Domain layers, and strong typing. We need to minimize the "switching cost" for the core development team during the bootstrap phase.
+The project needs fast delivery, shared language across UI/API/domain, and strong typing.
 
 ## Decision
-Use **TypeScript** for the v1.0 core. Defer the use of Go or Rust to future infrastructure components only (e.g., high-throughput relays, sandbox controllers).
+Use **TypeScript** for v1.0 core. Defer Go/Rust to future infrastructure components only.
 
 ## Consequences
-- **Positive**: Faster MVP delivery; unified codebase; lower team switching cost; easier integration between MCP, UI, and API.
-- **Negative**: Some infrastructure paths may eventually require rewriting for performance; TypeScript runtime constraints may appear later for high-throughput services.
+- **Positive**: faster MVP; unified codebase; lower team switching cost; easy MCP/UI/API integration.
+- **Negative**: some infrastructure paths may later need rewriting; TypeScript runtime constraints may appear for high-throughput services.
 
 ## Revisit Trigger
-Revisit after the MVP if specific infrastructure bottlenecks are measured and TypeScript is proven insufficient for those components.
+Revisit after MVP if infrastructure bottlenecks are measured.

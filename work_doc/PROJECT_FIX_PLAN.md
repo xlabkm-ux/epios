@@ -28,16 +28,16 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 **Goal**: Resolve document drift, fix ADR conflicts, and implement a structured "Docs as Code" system.
 
 ### Sprint 2.1: Documentation Stabilization Pass
-- [ ] **Document Register**: Create `docs/00_project/DOCUMENT_REGISTER.md` with status/owner tracking.
-- [ ] **ADR Resolution**: 
-    - Fix numbering conflict between EPOS-04 and EPOS-09.
-    - Create individual ADR files for `ADR-0001` through `ADR-0010` and `ADR-0026` in `docs/02_adrs/`.
-- [ ] **License Finalization**: Finalize `ADR-0026-license-choice.md` as **Apache-2.0** and transition to `Accepted`.
-- [ ] **Status Update**: Transition core documents (EPOS-00 to EPOS-11) from `Draft` to `Accepted for MVP Bootstrap`.
-- [ ] **Open Decisions**: Create `docs/00_project/OPEN_DECISIONS_REGISTER.md`.
-- [ ] **Documentation Structure**: Implement **Diátaxis framework** (Reference / Explanation / How-to / Tutorial) in `docs/`.
-- [ ] **README Polish**: Add "Alpha - internal dev only" status, Quickstart, and **Mermaid/C4 architecture diagrams**.
-- [ ] **Project Map**: Create/Update `PROJECT_MAP.md` with visual architecture representation.
+- [x] **Document Register**: Create `docs/00_project/DOCUMENT_REGISTER.md` with status/owner tracking.
+- [x] **ADR Resolution**: 
+    - [x] Fix numbering conflict between EPOS-04 and EPOS-09.
+    - [x] Create individual ADR files for `ADR-0001` through `ADR-0010` and `ADR-0026` in `docs/02_adrs/`.
+- [x] **License Finalization**: Finalize `ADR-0026-license-choice.md` as **Apache-2.0** and transition to `Accepted`.
+- [x] **Status Update**: Transition core documents (EPOS-00 to EPOS-11) from `Draft` to `Accepted for MVP Bootstrap`.
+- [x] **Open Decisions**: Create `docs/00_project/OPEN_DECISIONS_REGISTER.md`.
+- [x] **Documentation Structure**: Implement **Diátaxis framework** (Reference / Explanation / How-to / Tutorial) in `docs/`.
+- [x] **README Polish**: Add "Alpha - internal dev only" status, Quickstart, and **Mermaid/C4 architecture diagrams**.
+- [x] **Project Map**: Create/Update `PROJECT_MAP.md` with visual architecture representation.
 
 ---
 

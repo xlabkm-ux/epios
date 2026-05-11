@@ -4,17 +4,14 @@
 Accepted
 
 ## Context
-Model Context Protocol (MCP) Apps are central to the interactive inspection and approval surfaces (e.g., ClaimApp, ApprovalApp). They are a core part of the "operating layer" we are building.
+MCP Apps are central to interactive inspection and approval surfaces. They should not be postponed if the MVP is meant to prove the operating model.
 
 ## Decision
-Include **MCP Apps** in the MVP v1.0, specifically:
-- ClaimApp
-- EvidenceViewer
-- ApprovalApp
+Include **MCP Apps** in MVP: ClaimApp, EvidenceViewer, and ApprovalApp.
 
 ## Consequences
-- **Positive**: Proves the safe interactive layer; aligns UX with the platform model; validates bridge security early.
-- **Negative**: Increases MVP complexity; requires significant security testing (Week 5).
+- **Positive**: proves safe interactive layer; aligns UX with platform model; validates bridge security early.
+- **Negative**: increases MVP complexity; requires security testing in Week 5.
 
 ## Revisit Trigger
-If schedule risk becomes critical, reduce the scope to only ClaimApp and ApprovalApp.
+If schedule risk becomes critical, reduce to ClaimApp + ApprovalApp only.

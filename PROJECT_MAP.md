@@ -26,12 +26,40 @@
 
 ## 🔗 Граф зависимостей (принципиальный)
 
+```mermaid
+graph TD
+    subgraph apps
+        DS[demo-shell]
+    end
+
+    subgraph packages
+        API[api]
+        APP[application]
+        PORT[ports]
+        DOM[domain]
+        IPG[infrastructure-postgres]
+        IMCP[infrastructure-mcp]
+        IMOD[infrastructure-models]
+        OBS[observability]
+    end
+
+    DS --> API
+    API --> APP
+    APP --> DOM
+    APP --> PORT
+    IPG --> PORT
+    IMCP --> PORT
+    IMOD --> PORT
+    DOM --> OBS
+    PORT --> OBS
+```
+
 `domain` ← `ports` ← `application` ← `api` ← `demo-shell`
 `ports` ← `infrastructure-*`
 
 ## 🛠️ Технологический стек
 
-- **Runtime**: Node.js v20+
+- **Runtime**: Node.js v22 (LTS)
 - **Manager**: pnpm
 - **Language**: TypeScript
 - **Database**: PostgreSQL (Drizzle/Kysely)

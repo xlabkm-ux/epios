@@ -2,16 +2,25 @@
 
 This directory contains the **Engineering and Development Documentation** for Epistemic OS.
 
-## Documentation Structure
+## Documentation Structure (Diátaxis)
 
-Engineering documentation is organized into the following areas:
+We follow the **Diátaxis documentation framework**, organizing content by its purpose:
 
-1.  **[00_project/](00_project/DOCUMENT_REGISTER.md)**: Document register, project standards, and governance.
-2.  **01_architecture/**: Deep dives into specific architectural components.
-3.  **[02_adrs/](02_adrs/)**: Architecture Decision Records (ADRs).
-4.  **03_specs/**: Technical specifications for modules and APIs.
-5.  **04_delivery/**: Release notes, deployment plans, and DORA metrics.
-6.  **05_runbooks/**: Operational guides and troubleshooting.
+| Category | Purpose | Directory |
+|----------|---------|-----------|
+| **Tutorials** | Learning-oriented (Step-by-step) | `docs/06_tutorials/` (Future) |
+| **How-to Guides** | Goal-oriented (Practical tasks) | `docs/05_runbooks/` |
+| **Explanation** | Understanding-oriented (Concepts) | `docs/01_architecture/` |
+| **Reference** | Information-oriented (Technical data) | `docs/00_project/`, `docs/02_adrs/`, `docs/03_specs/` |
+
+### Engineering Directories:
+
+1.  **[00_project/](00_project/DOCUMENT_REGISTER.md)**: Document register, project standards, and governance. (Reference)
+2.  **01_architecture/**: Deep dives into specific architectural components. (Explanation)
+3.  **[02_adrs/](02_adrs/)**: Architecture Decision Records (ADRs). (Reference)
+4.  **03_specs/**: Technical specifications for modules and APIs. (Reference)
+5.  **04_delivery/**: Release notes, deployment plans, and DORA metrics. (Reference)
+6.  **05_runbooks/**: Operational guides and troubleshooting. (How-to)
 
 ## Document Register
 
