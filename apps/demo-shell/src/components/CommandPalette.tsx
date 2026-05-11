@@ -29,6 +29,7 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       <div
+        data-testid="command-palette-overlay"
         style={{
           position: "fixed",
           top: 0,
@@ -72,6 +73,7 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
             <Search size={20} color="var(--text-dim)" />
             <input
               autoFocus
+              data-testid="command-palette-input"
               placeholder="Type a command or search..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -107,11 +109,13 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
                 icon={<Plus size={16} />}
                 label="Create New Mission"
                 shortcut="N"
+                onClick={onClose}
               />
               <CommandItem
                 icon={<Zap size={16} />}
                 label="Jump to Active Mission"
                 shortcut="J"
+                onClick={onClose}
               />
             </CommandGroup>
 
@@ -120,11 +124,13 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
                 icon={<MessageSquare size={16} />}
                 label="Add Epistemic Node"
                 shortcut="A"
+                onClick={onClose}
               />
               <CommandItem
                 icon={<Shield size={16} />}
                 label="Add Evidence Node"
                 shortcut="E"
+                onClick={onClose}
               />
             </CommandGroup>
           </div>
@@ -174,8 +180,11 @@ const CommandItem: React.FC<{
   icon: React.ReactNode;
   label: string;
   shortcut?: string;
-}> = ({ icon, label, shortcut }) => (
+  onClick?: () => void;
+}> = ({ icon, label, shortcut, onClick }) => (
   <button
+    onClick={onClick}
+    data-testid={`command-item-${label.toLowerCase().replace(/\s+/g, "-")}`}
     style={{
       width: "100%",
       display: "flex",

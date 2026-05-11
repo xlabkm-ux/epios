@@ -11,6 +11,7 @@ const MissionRoom: React.FC = () => {
   if (!selectedMission) {
     return (
       <div
+        data-testid="mission-room-empty"
         style={{
           flex: 1,
           display: "flex",
@@ -26,6 +27,7 @@ const MissionRoom: React.FC = () => {
 
   return (
     <div
+      data-testid="mission-room-active"
       style={{
         flex: 1,
         display: "flex",
@@ -50,7 +52,10 @@ const MissionRoom: React.FC = () => {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
           <div>
-            <h2 style={{ fontSize: "1.1rem", fontWeight: 600 }}>
+            <h2
+              data-testid="mission-title"
+              style={{ fontSize: "1.1rem", fontWeight: 600 }}
+            >
               {selectedMission.title}
             </h2>
             <div

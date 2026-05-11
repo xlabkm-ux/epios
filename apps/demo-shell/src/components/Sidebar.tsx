@@ -184,6 +184,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   return (
     <button
       onClick={onClick}
+      data-testid={`nav-${label.toLowerCase().replace(/\s+/g, "-")}`}
       style={{
         display: "flex",
         alignItems: "center",
