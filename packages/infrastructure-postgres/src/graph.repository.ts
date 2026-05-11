@@ -97,4 +97,45 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       createdAt: record.createdAt,
     }));
   }
+
+  async findNodeById(id: string): Promise<EpistemicNode | null> {
+    const [record] = await this.db
+      .select()
+      .from(epistemicNodes)
+      .where(eq(epistemicNodes.id, id));
+
+    if (!record) return null;
+
+    return {
+      id: record.id,
+      missionId: record.missionId,
+      type: record.type as NodeType,
+      content: record.content,
+      strength: record.strength as NodeStrength,
+      evidence:
+        record.evidence as unknown as import("@epos/domain").EvidenceRef[],
+      metadata: record.metadata as Record<string, unknown>,
+      createdAt: record.createdAt,
+      updatedAt: record.updatedAt,
+    };
+  }
+
+  async findEdgeById(id: string): Promise<EpistemicEdge | null> {
+    const [record] = await this.db
+      .select()
+      .from(epistemicEdges)
+      .where(eq(epistemicEdges.id, id));
+
+    if (!record) return null;
+
+    return {
+      id: record.id,
+      missionId: record.missionId,
+      sourceNodeId: record.sourceNodeId,
+      targetNodeId: record.targetNodeId,
+      type: record.type as EpistemicEdgeType,
+      metadata: record.metadata as Record<string, unknown>,
+      createdAt: record.createdAt,
+    };
+  }
 }

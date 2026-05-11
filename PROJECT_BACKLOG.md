@@ -35,10 +35,10 @@
 - [x] ✅ Репозитории PostgreSQL — 2026-05-12
 - [x] ✅ Тесты инвариантов домена — 2026-05-12
 
-### Неделя 3: Use Cases и API
-- [ ] Реализация основных Use Cases (CreateMission, Mapping, Patch)
-- [ ] API роуты и DTO
-- [ ] Эмиссия событий трассировки
+### Неделя 3: Use Cases и API (ЗАВЕРШЕНО)
+- [x] ✅ Реализация основных Use Cases (CreateMission, Mapping, Patch) — 2026-05-12
+- [x] ✅ API роуты и DTO — 2026-05-12
+- [x] ✅ Эмиссия событий трассировки — 2026-05-12
 
 ### Неделя 4: Demo Shell и Mission Room
 - [ ] Layout демо-оболочки
