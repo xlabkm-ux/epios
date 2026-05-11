@@ -26,6 +26,10 @@
 - [x] ✅ Mermaid диаграммы в README и PROJECT_MAP — 2026-05-12
 
 ### Неделя 2: Ядро Домена и Персистентность (ТЕКУЩИЙ ЭТАП)
+- [x] ✅ Sprint 3.1: Enforcement & Quality — 2026-05-12
+  - [x] Dependency Cruiser boundaries
+  - [x] Vitest coverage thresholds (80%)
+  - [x] GitHub backlog preparation (EPOS-12)
 - [ ] Реализация агрегата Mission
 - [ ] EpistemicNode и EvidenceRef
 - [ ] Репозитории PostgreSQL

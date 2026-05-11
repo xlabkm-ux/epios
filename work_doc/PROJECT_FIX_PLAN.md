@@ -45,11 +45,11 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 **Goal**: Automate architectural boundaries and prepare the detailed backlog for domain development.
 
 ### Sprint 3.1: Enforcement & Quality
-- [ ] **Dependency Boundaries**: Implement **dependency-cruiser** to enforce `domain ← application ← infrastructure` constraints in CI.
-- [ ] **Quality Gates**: Set **Vitest coverage thresholds** (min 80% for `packages/domain`).
-- [ ] **GitHub Backlog**: Transfer issues from EPOS-10/11 to **GitHub Projects & Issues**.
-- [ ] **Week 2 Planning**: Create `EPOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md`.
-- [ ] **Milestones**: Initialize GitHub Milestones for Release Gates (W1-W6).
+- [x] **Dependency Boundaries**: Implement **dependency-cruiser** to enforce `domain ← application ← infrastructure` constraints in CI.
+- [x] **Quality Gates**: Set **Vitest coverage thresholds** (min 80% for `packages/domain`).
+- [x] **GitHub Backlog**: Transfer issues from EPOS-10/11 to **GitHub Projects & Issues**.
+- [x] **Week 2 Planning**: Create `EPOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md`.
+- [x] **Milestones**: Initialize GitHub Milestones for Release Gates (W1-W6).
 
 ---
 
