@@ -25,15 +25,15 @@
 - [x] ✅ Diátaxis структура в /docs — 2026-05-12
 - [x] ✅ Mermaid диаграммы в README и PROJECT_MAP — 2026-05-12
 
-### Неделя 2: Ядро Домена и Персистентность (ТЕКУЩИЙ ЭТАП)
+### Неделя 2: Ядро Домена и Персистентность (ЗАВЕРШЕНО)
 - [x] ✅ Sprint 3.1: Enforcement & Quality — 2026-05-12
   - [x] Dependency Cruiser boundaries
   - [x] Vitest coverage thresholds (80%)
   - [x] GitHub backlog preparation (EPOS-12)
-- [ ] Реализация агрегата Mission
-- [ ] EpistemicNode и EvidenceRef
-- [ ] Репозитории PostgreSQL
-- [ ] Тесты инвариантов домена
+- [x] ✅ Реализация агрегата Mission — 2026-05-12
+- [x] ✅ EpistemicNode и EvidenceRef — 2026-05-12
+- [x] ✅ Репозитории PostgreSQL — 2026-05-12
+- [x] ✅ Тесты инвариантов домена — 2026-05-12
 
 ### Неделя 3: Use Cases и API
 - [ ] Реализация основных Use Cases (CreateMission, Mapping, Patch)

@@ -1,6 +1,6 @@
-import { Mission } from '@epos/domain';
+import { Mission } from "@epos/domain";
 
 export interface MissionRepositoryPort {
   save(mission: Mission): Promise<void>;
-  findById(missionId: string): Promise<Mission | null>;
+  findById(id: string): Promise<Mission | null>;
 }

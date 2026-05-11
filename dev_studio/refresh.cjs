@@ -147,146 +147,32 @@ function parseEnvFile(envPath) {
   return vars;
 }
 
-// ── Генерация Mermaid ───────────────────────────────────
+const { execSync } = require('child_process');
 
-function buildHighLevelMermaid(componentMap) {
-  const lines = ['```mermaid', 'graph LR'];
-  const nodeIds = new Map();
-  let counter = 0;
+// ── Генерация Mermaid через Dependency Cruiser ──────────
 
-  function nodeId(label) {
-    if (!nodeIds.has(label)) {
-      nodeIds.set(label, `H${counter++}`);
+function getMermaidFromDepCruise(scope) {
+  try {
+    console.log(`  [DepCruise] Генерация графа для: ${scope}...`);
+    // Используем конфигурацию проекта для точного анализа
+    const cmd = `npx depcruise --output-type mermaid --config .dependency-cruiser.cjs ${scope}`;
+    const output = execSync(cmd, { encoding: 'utf-8', maxBuffer: 1024 * 1024 * 10 });
+    
+    // DepCruise выводит чистый Mermaid код без markdown-ограждений
+    if (output && output.includes('graph')) {
+      return `\`\`\`mermaid\n${output.trim()}\n\`\`\``;
     }
-    return nodeIds.get(label);
+    return '```mermaid\ngraph LR\n  Error["Не удалось извлечь Mermaid"]\n```';
+  } catch (e) {
+    console.error(`  [DepCruise] Ошибка: ${e.message}`);
+    return '```mermaid\ngraph LR\n  Error["Ошибка Dependency Cruiser"]\n```';
   }
-
-  const folderDeps = new Set();
-
-  for (const [component, files] of Object.entries(componentMap)) {
-    for (const f of files) {
-      const parts = f.relative.split('/');
-      const moduleName = parts[0];
-      const fromLabel = `${component}/${moduleName}`;
-      
-      for (const imp of f.analysis.imports) {
-        if (imp.from.startsWith('.') || imp.from.startsWith('@epos/')) {
-          // Упрощенный поиск зависимостей для монорепозитория
-          for (const [tComp, tFiles] of Object.entries(componentMap)) {
-             // Если это внутренний пакет (@epos/...)
-             if (imp.from.startsWith('@epos/')) {
-                const pkgName = imp.from.split('/')[1];
-                const toLabel = `packages/${pkgName}`;
-                if (fromLabel !== toLabel) folderDeps.add(`${fromLabel}|${toLabel}`);
-             } else {
-                // Если это относительный путь
-                const sourceDir = path.dirname(f.absolute);
-                const targetAbs = path.resolve(sourceDir, imp.from);
-                for (const tf of tFiles) {
-                  if (tf.absolute === targetAbs || tf.absolute === (targetAbs + '.js') || tf.absolute === (targetAbs + '.ts') || tf.absolute === (targetAbs + '.tsx')) {
-                    const tParts = tf.relative.split('/');
-                    const tModuleName = tParts[0];
-                    const toLabel = `${tComp}/${tModuleName}`;
-                    if (fromLabel !== toLabel) folderDeps.add(`${fromLabel}|${toLabel}`);
-                  }
-                }
-             }
-          }
-        }
-      }
-    }
-  }
-
-  const folders = new Set();
-  folderDeps.forEach(dep => {
-    const [from, to] = dep.split('|');
-    folders.add(from);
-    folders.add(to);
-  });
-
-  folders.forEach(f => {
-    lines.push(`  ${nodeId(f)}["${f}"]`);
-  });
-
-  folderDeps.forEach(dep => {
-    const [from, to] = dep.split('|');
-    lines.push(`  ${nodeId(from)} --> ${nodeId(to)}`);
-  });
-
-  lines.push('```');
-  return lines.join('\n');
-}
-
-function buildMermaid(componentMap) {
-  const lines = ['```mermaid', 'graph LR'];
-  const nodeIds = new Map();
-  let counter = 0;
-
-  function nodeId(label) {
-    if (!nodeIds.has(label)) {
-      nodeIds.set(label, `N${counter++}`);
-    }
-    return nodeIds.get(label);
-  }
-
-  for (const [component, files] of Object.entries(componentMap)) {
-    const compId = nodeId(component);
-    lines.push(`  subgraph ${compId}["${component}"]`);
-
-    const folders = {};
-    files.forEach(f => {
-      const folder = path.dirname(f.relative).replace(/\\/g, '/');
-      if (!folders[folder]) folders[folder] = [];
-      folders[folder].push(f);
-    });
-
-    for (const [folder, folderFiles] of Object.entries(folders)) {
-      const folderId = nodeId(`${component}/${folder}`);
-      lines.push(`    subgraph ${folderId}["${folder}"]`);
-      folderFiles.forEach(f => {
-        const baseName = path.basename(f.relative);
-        const fId = nodeId(`${component}/${f.relative}`);
-        lines.push(`      ${fId}["${baseName}"]`);
-      });
-      lines.push(`    end`);
-    }
-    lines.push('  end');
-  }
-
-  const drawn = new Set();
-  for (const [component, files] of Object.entries(componentMap)) {
-    for (const f of files) {
-      const fromId = nodeId(`${component}/${f.relative}`);
-
-      for (const imp of f.analysis.imports) {
-        if (imp.from.startsWith('.')) {
-          const sourceDir = path.dirname(f.absolute);
-          const targetAbs = path.resolve(sourceDir, imp.from);
-          for (const [tComp, tFiles] of Object.entries(componentMap)) {
-            for (const tf of tFiles) {
-              if (tf.absolute === targetAbs || tf.absolute === (targetAbs + '.js') || tf.absolute === (targetAbs + '.ts') || tf.absolute === (targetAbs + '.tsx')) {
-                const toId = nodeId(`${tComp}/${tf.relative}`);
-                const edgeKey = `${fromId}-${toId}`;
-                if (!drawn.has(edgeKey) && fromId !== toId) {
-                  lines.push(`  ${fromId} --> ${toId}`);
-                  drawn.add(edgeKey);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  lines.push('```');
-  return lines.join('\n');
 }
 
 // ── Генерация PROJECT_MAP.md ────────────────────────────
 
 function generateMap() {
-  console.log('[DevStudio] Сканирование проекта EPOS...');
+  console.log('[DevStudio] Сканирование проекта EPOS (Интеграция с DepCruise)...');
   
   const componentMap = {};
   const allEnvVars = new Set();
@@ -302,6 +188,12 @@ function generateMap() {
     });
   }
 
+  // Используем профессиональный инструмент для диаграмм
+  const mermaidHigh = getMermaidFromDepCruise('packages apps');
+  // Для детальной карты можно использовать другие настройки или тот же депкруз
+  const mermaidDetailed = mermaidHigh; 
+
+  // Собираем .env
   const envVars = parseEnvFile(path.join(ROOT, '.env.example'));
   const envFromCode = parseEnvFile(path.join(ROOT, '.env'));
 
@@ -339,13 +231,13 @@ function generateMap() {
   sections.push('## Высокоуровневая архитектура');
   sections.push('> Связи между основными пакетами и приложениями');
   sections.push('');
-  sections.push(buildHighLevelMermaid(componentMap));
+  sections.push(mermaidHigh);
   sections.push('');
 
   sections.push('## Детальная карта компонентов');
   sections.push('> Полный граф зависимостей всех файлов проекта');
   sections.push('');
-  sections.push(buildMermaid(componentMap));
+  sections.push(mermaidDetailed);
   sections.push('');
 
   for (const [component, files] of Object.entries(componentMap)) {

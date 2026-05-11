@@ -7,6 +7,14 @@ export type MissionStatus =
   | "completed"
   | "archived";
 
+export type MissionMode = "autonomous" | "assisted" | "manual";
+
+export type MissionSensitivity =
+  | "public"
+  | "internal"
+  | "confidential"
+  | "restricted";
+
 export type MissionBrief = {
   goal: string;
   context?: string;
@@ -15,11 +23,22 @@ export type MissionBrief = {
   unknowns: string[];
 };
 
+export type MissionActor = {
+  type: string;
+  id: string;
+};
+
 export type Mission = {
-  missionId: string;
+  id: string;
   title: string;
   brief: MissionBrief;
   status: MissionStatus;
+  mode: MissionMode;
+  sensitivity: MissionSensitivity;
+  desiredArtifactType?: string;
+  createdBy: MissionActor;
+  createdAt: Date;
+  updatedAt: Date;
   version: number;
 };
 
