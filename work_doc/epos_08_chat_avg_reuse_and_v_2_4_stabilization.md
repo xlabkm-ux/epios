@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPOS-08-CHATAVG-REUSE-V2_4-STABILIZATION`  
 **Version:** Draft 0.1  
-**Status:** For Review / Approval  
+**Status:** Accepted for MVP Bootstrap  
 **Depends on:** `EPOS-00`, `EPOS-01`, `EPOS-02`, `EPOS-03`, `EPOS-04`, `EPOS-05`, `EPOS-06`, `EPOS-07`  
 **Strategic decision:** ChatAVG v2.3 development is closed; ChatAVG v2.4 is a stabilized release; Epistemic OS v1.0 is a new repository and new platform project.  
 

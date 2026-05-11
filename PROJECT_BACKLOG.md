@@ -1,0 +1,44 @@
+# PROJECT BACKLOG: Epistemic OS (epos)
+
+Этот файл является оперативным трекером задач и синхронизирован с основным роадмапом в `work_doc/epos_03_mvp_scope_and_6_week_roadmap.md`.
+
+## 🚀 MVP Роадмап (6 недель)
+
+### Неделя 1: Репозиторий и Инфраструктура (ТЕКУЩИЙ ЭТАП)
+- [x] ✅ Репозиторий инициализирован — 2026-05-11
+- [x] ✅ Базовая структура папок (apps, packages) — 2026-05-11
+- [x] ✅ AGENT.md адаптирован под проект — 2026-05-11
+- [x] ✅ Настройка pnpm workspace — 2026-05-11
+- [ ] Docker Compose с PostgreSQL
+- [ ] Начальные миграции
+- [ ] Скелет пакетов (domain, application, api)
+- [ ] Скелет demo-shell
+
+### Неделя 2: Ядро Домена и Персистентность
+- [ ] Реализация агрегата Mission
+- [ ] EpistemicNode и EvidenceRef
+- [ ] Репозитории PostgreSQL
+- [ ] Тесты инвариантов домена
+
+### Неделя 3: Use Cases и API
+- [ ] Реализация основных Use Cases (CreateMission, Mapping, Patch)
+- [ ] API роуты и DTO
+- [ ] Эмиссия событий трассировки
+
+### Неделя 4: Demo Shell и Mission Room
+- [ ] Layout демо-оболочки
+- [ ] Universal Mission Room UI
+- [ ] Визуализация узлов и патчей
+
+### Неделя 5: MCP Apps и Approval Flow
+- [ ] MCPAppRegistry и валидация моста
+- [ ] ClaimApp и ApprovalApp
+- [ ] Аудит MCP команд
+
+### Неделя 6: Полировка и Релиз-кандидат
+- [ ] Четыре демо-сценария
+- [ ] E2E smoke тесты
+- [ ] MVP RC Tag
+
+---
+*Агент обязан обновлять этот файл после каждого спринта.*

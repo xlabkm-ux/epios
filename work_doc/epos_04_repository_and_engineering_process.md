@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPOS-04-REPOSITORY-ENGINEERING-PROCESS`  
 **Version:** Draft 0.1  
-**Status:** For Review / Approval  
+**Status:** Accepted for MVP Bootstrap  
 **Depends on:** `EPOS-00`, `EPOS-01`, `EPOS-02`, `EPOS-03`  
 **Repository model:** Open-source from day one  
 **Target MVP horizon:** 6 weeks or faster  
@@ -101,8 +101,10 @@ Rationale:
 License decision must be captured in:
 
 ```text
-ADR-0008-license-choice.md
+ADR-0026-license-choice.md
 ```
+
+Note: ADR numbering is authoritative in EPOS-09. Older ADR numbering references in EPOS-04 are superseded by EPOS-09.
 
 ---
 
@@ -486,9 +488,10 @@ ADR-0004-postgresql-first-alpha.md
 ADR-0005-typeScript-core-language-policy.md
 ADR-0006-mcp-apps-in-mvp.md
 ADR-0007-neutral-demo-shell-first.md
-ADR-0008-license-choice.md
-ADR-0009-durable-runtime-port-before-temporal-commitment.md
-ADR-0010-modelgateway-is-capability-boundary.md
+ADR-0008-mcp-apps-in-mvp.md
+ADR-0009-layered-hexagonal-architecture.md
+ADR-0010-domain-free-of-infrastructure.md
+ADR-0026-license-choice.md
 ```
 
 ---

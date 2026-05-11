@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPOS-00-PROJECT-BRIEF`  
 **Version:** Draft 0.1  
-**Status:** For Review / Approval  
+**Status:** Accepted for MVP Bootstrap  
 **Repository model:** Open-source from day one  
 **Target MVP horizon:** 6 weeks or faster  
 **Deployment target for MVP:** Internal dev only  
@@ -193,7 +193,7 @@ docs/README.md
 .gitignore
 ```
 
-License decision is still open and must be recorded in an ADR.
+License decision is captured in ADR-0026-license-choice.md (Apache-2.0).
 
 Recommended default for discussion:
 
@@ -514,6 +514,11 @@ Planned document sequence:
 7. `EPOS-06-MCP-APPS-AND-SECURITY.md` — registry, bridge, apps, policy.
 8. `EPOS-07-RUNTIME-AND-OBSERVABILITY.md` — durable runtime, traces, evals, release gates.
 9. `EPOS-08-CHATAVG-REUSE-AND-V2_4-STABILIZATION.md` — extraction matrix and v2.4 closure.
+10. `EPOS-09-ADR-PACK-AND-DECISION-INDEX.md` — central ADR and decision ledger.
+11. `EPOS-10-BOOTSTRAP-CHECKLIST.md` — technical implementation sequence for Week 1.
+12. `EPOS-11-WEEK-1-ISSUES.md` — GitHub issues and PR bodies for Week 1.
+
+EPOS-00 is the strategic foundation, not the current full document index. The current authoritative document index lives in `docs/00_project/DOCUMENT_REGISTER.md`.
 
 Each document should be reviewed and approved before creating the next one.
 
@@ -523,16 +528,19 @@ Each document should be reviewed and approved before creating the next one.
 
 The following decisions remain open:
 
-| Decision | Options | Recommended Default |
-|---|---|---|
-| License | Apache-2.0 / MIT / AGPL / dual license | Apache-2.0 |
-| Package manager | pnpm / npm / yarn | pnpm |
-| Web framework | Next.js / Vite React / Remix | Vite React for demo shell, unless SSR needed |
-| API framework | Express / Fastify / Hono / NestJS | Fastify or Hono for clean typed boundary |
-| ORM/query | Drizzle / Prisma / Kysely / raw SQL | Drizzle or Kysely |
-| Workflow runtime in MVP | Temporal / lightweight internal runner first | lightweight port + Temporal-ready adapter; use Temporal only if setup cost acceptable |
-| Auth in MVP | none / dev auth / simple local user | dev auth with explicit internal-only warning |
-| LLM provider for demo | OpenAI / local fake provider / both | fake deterministic provider + optional OpenAI adapter |
+| Decision | Options | Recommended Default | Status |
+|---|---|---|---|
+| License | Apache-2.0 / MIT / AGPL / dual license | Apache-2.0 | Accepted (ADR-0026) |
+| Package manager | pnpm / npm / yarn | pnpm | Accepted |
+| Web framework | Next.js / Vite React / Remix | Vite React for demo shell | Accepted |
+| API framework | Express / Fastify / Hono / NestJS | Fastify or Hono | Accepted (Fastify) |
+| ORM/query | Drizzle / Prisma / Kysely / raw SQL | Drizzle or Kysely | Accepted (Drizzle) |
+| Workflow runtime | Temporal / lightweight runner | lightweight runner | Accepted (Internal) |
+| Auth in MVP | none / dev auth / local user | dev auth | Accepted |
+| LLM provider | OpenAI / fake / both | fake + OpenAI | Accepted |
+
+The current authoritative list of open and closed technical decisions lives in `docs/00_project/OPEN_DECISIONS_REGISTER.md`.
+ADR numbering is authoritative in EPOS-09.
 
 ---
 

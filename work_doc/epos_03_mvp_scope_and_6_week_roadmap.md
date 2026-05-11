@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPOS-03-MVP-SCOPE-ROADMAP`  
 **Version:** Draft 0.1  
-**Status:** For Review / Approval  
+**Status:** Accepted for MVP Bootstrap  
 **Depends on:** `EPOS-00-PROJECT-BRIEF`, `EPOS-01-ARCHITECTURE-FOUNDATION`, `EPOS-02-DOMAIN-MODEL`  
 **Target MVP horizon:** 6 weeks or faster  
 **Repository model:** Open-source from day one  
