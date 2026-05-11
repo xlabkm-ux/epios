@@ -1,0 +1,25 @@
+{
+  "name": "epos",
+  "version": "1.0.0",
+  "description": "Epistemic Operating System v1.0 is an operating layer for structured reasoning, evidence-backed artifacts, explicit human decisions, and safe AI-assisted actions.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "npm run dev --prefix apps/demo-shell",
+    "build": "npm run build --workspace-root",
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xlabkm-ux/epos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xlabkm-ux/epos/issues"
+  },
+  "homepage": "https://github.com/xlabkm-ux/epos#readme"
+}
