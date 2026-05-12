@@ -1,26 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 import GraphCanvas from "./GraphCanvas";
-import { Share2, Info, ShieldCheck } from "lucide-react";
+import {
+  Share2,
+  ShieldCheck,
+  Zap,
+  Maximize2,
+  Minimize2,
+  XCircle,
+} from "lucide-react";
 import { useMission } from "../context/MissionContext";
 import { GovernancePanel } from "./GovernancePanel";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MissionRoom: React.FC = () => {
-  const { missions, selectedMissionId } = useMission();
+  const { missions, selectedMissionId, selectedNodeId, graphStates } =
+    useMission();
+  const [isFocusMode, setIsFocusMode] = useState(false);
+  const [showMissionCard, setShowMissionCard] = useState(false);
   const selectedMission = missions.find((m) => m.id === selectedMissionId);
+
+  const selectedNode =
+    selectedMissionId && selectedNodeId
+      ? graphStates[selectedMissionId]?.nodes.find(
+          (n: { id: string }) => n.id === selectedNodeId,
+        )
+      : null;
 
   if (!selectedMission) {
     return (
       <div
         data-testid="mission-room-empty"
+        className="animate-fade-in"
         style={{
           flex: 1,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           color: "var(--text-dim)",
+          background:
+            "radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.05) 0%, transparent 80%)",
         }}
       >
-        Select a mission to begin
+        <div style={{ textAlign: "center" }}>
+          <div
+            className="glow-box"
+            style={{
+              width: "80px",
+              height: "80px",
+              borderRadius: "24px",
+              border: "2px solid var(--border)",
+              margin: "0 auto 2rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "var(--bg-card)",
+            }}
+          >
+            <ShieldCheck size={32} color="var(--border)" />
+          </div>
+          <h2
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: 600,
+              marginBottom: "0.75rem",
+              color: "var(--text-main)",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Awaiting Mission Assignment
+          </h2>
+          <p
+            style={{
+              fontSize: "0.95rem",
+              color: "var(--text-dim)",
+              maxWidth: "300px",
+              margin: "0 auto",
+              lineHeight: 1.5,
+            }}
+          >
+            Select a neural mission from the synchronized repository to begin.
+          </p>
+        </div>
       </div>
     );
   }
@@ -28,6 +88,7 @@ const MissionRoom: React.FC = () => {
   return (
     <div
       data-testid="mission-room-active"
+      className="animate-fade-in"
       style={{
         flex: 1,
         display: "flex",
@@ -36,108 +97,35 @@ const MissionRoom: React.FC = () => {
         position: "relative",
       }}
     >
-      {/* Header */}
-      <header
+      {/* Main Area (Now full height since header is gone) */}
+      <div
         style={{
-          height: "64px",
-          borderBottom: "1px solid var(--border)",
+          flex: 1,
+          position: "relative",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 2rem",
-          backgroundColor: "rgba(10, 10, 15, 0.8)",
-          backdropFilter: "blur(10px)",
-          zIndex: 10,
+          overflow: "hidden",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-          <div>
-            <h2
-              data-testid="mission-title"
-              style={{ fontSize: "1.1rem", fontWeight: 600 }}
-            >
-              {selectedMission.title}
-            </h2>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                fontSize: "0.75rem",
-                color: "var(--text-dim)",
-              }}
-            >
-              <ShieldCheck size={12} color="var(--success)" />
-              <span>Traceability Active</span>
-              <span style={{ color: "var(--border)" }}>|</span>
-              <span>ID: {selectedMission.id}</span>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <button
-            className="glass"
-            style={{
-              padding: "0.5rem 1rem",
-              borderRadius: "6px",
-              fontSize: "0.85rem",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
-            <Share2 size={16} />
-            Share
-          </button>
-          <button
-            style={{
-              padding: "0.5rem 1.25rem",
-              borderRadius: "6px",
-              fontSize: "0.85rem",
-              backgroundColor: "var(--primary)",
-              color: "var(--bg-dark)",
-              fontWeight: 600,
-              boxShadow: "0 0 15px var(--primary-glow)",
-            }}
-          >
-            Analyze with AI
-          </button>
-        </div>
-      </header>
-
-      {/* Main Area */}
-      <div style={{ flex: 1, position: "relative", display: "flex" }}>
         <GraphCanvas />
-
-        {/* Governance Panel (Absolute Left) */}
-        <div
-          style={{
-            position: "absolute",
-            left: "20px",
-            top: "20px",
-            width: "300px",
-            zIndex: 5,
-          }}
-        >
-          <GovernancePanel missionId={selectedMission.id} />
-        </div>
 
         {/* Right Panel (Node Details) */}
         <div
-          className="glass"
+          className="premium-card"
           style={{
-            width: "320px",
-            height: "calc(100vh - 100px)",
-            margin: "20px",
-            borderRadius: "12px",
+            width: "360px",
+            height: "calc(100vh - 120px)",
+            margin: "24px",
             position: "absolute",
             right: 0,
             zIndex: 5,
-            padding: "1.5rem",
+            padding: "1.75rem",
             display: "flex",
             flexDirection: "column",
-            gap: "1.5rem",
+            gap: "1.75rem",
+            transform: selectedNode ? "translateX(0)" : "translateX(420px)",
+            transition: "transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)",
+            backgroundColor: "rgba(20, 20, 30, 0.95)",
+            backdropFilter: "blur(20px)",
           }}
         >
           <div
@@ -147,132 +135,682 @@ const MissionRoom: React.FC = () => {
               alignItems: "center",
             }}
           >
-            <h3
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <h3
+                style={{
+                  fontSize: "0.75rem",
+                  color: "var(--primary)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.15em",
+                  fontWeight: 700,
+                }}
+              >
+                Intelligence properties
+              </h3>
+              {selectedNode && (
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "var(--text-dim)",
+                    fontFamily: "var(--font-mono)",
+                    backgroundColor: "rgba(255,255,255,0.05)",
+                    padding: "2px 6px",
+                    borderRadius: "4px",
+                  }}
+                >
+                  #{selectedNode.data.hierarchicalId}
+                </span>
+              )}
+            </div>
+            <button
+              onClick={() => setSelectedNodeId(null)}
               style={{
-                fontSize: "0.9rem",
                 color: "var(--text-dim)",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
               }}
             >
-              Node Properties
-            </h3>
-            <Info size={16} color="var(--text-dim)" />
+              <ShieldCheck size={18} />
+            </button>
           </div>
 
-          <div style={{ flex: 1 }}>
-            <div style={{ marginBottom: "1.5rem" }}>
-              <label
-                style={{
-                  display: "block",
-                  fontSize: "0.8rem",
-                  color: "var(--text-dim)",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Label
-              </label>
-              <input
-                type="text"
-                value="Initial Hypotheses"
-                readOnly
-                style={{ width: "100%" }}
-              />
-            </div>
+          {selectedNode ? (
+            <>
+              <div style={{ flex: 1, overflowY: "auto", paddingRight: "10px" }}>
+                <div style={{ marginBottom: "2rem" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      padding: "4px 10px",
+                      borderRadius: "6px",
+                      backgroundColor: "rgba(255,255,255,0.03)",
+                      fontSize: "0.7rem",
+                      fontWeight: 700,
+                      color:
+                        selectedNode.data.type === "HYPOTHESIS"
+                          ? "var(--primary)"
+                          : "var(--success)",
+                      marginBottom: "1.25rem",
+                      border: `1px solid ${selectedNode.data.type === "HYPOTHESIS" ? "var(--primary)44" : "var(--success)44"}`,
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "6px",
+                        height: "6px",
+                        borderRadius: "50%",
+                        backgroundColor: "currentColor",
+                      }}
+                    />
+                    {selectedNode.data.type}
+                  </div>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "var(--text-dim)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                      marginBottom: "0.75rem",
+                    }}
+                  >
+                    Core Content
+                  </label>
+                  <div
+                    style={{
+                      width: "100%",
+                      minHeight: "120px",
+                      backgroundColor: "rgba(0,0,0,0.3)",
+                      border: "1px solid var(--border)",
+                      borderRadius: "12px",
+                      padding: "1.25rem",
+                      fontSize: "0.95rem",
+                      lineHeight: 1.6,
+                      color: "var(--text-main)",
+                      fontFamily: "var(--font-sans)",
+                    }}
+                  >
+                    {selectedNode.data.label}
+                  </div>
+                </div>
 
-            <div style={{ marginBottom: "1.5rem" }}>
-              <label
-                style={{
-                  display: "block",
-                  fontSize: "0.8rem",
-                  color: "var(--text-dim)",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Description
-              </label>
-              <textarea
-                style={{ width: "100%", height: "100px", resize: "none" }}
-                value="The core hypothesis for the current mission. Subject to updates from evidence nodes."
-                readOnly
-              />
-            </div>
-
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  fontSize: "0.8rem",
-                  color: "var(--text-dim)",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Evidence Trace
-              </label>
-              <div
-                style={{
-                  fontSize: "0.85rem",
-                  padding: "0.75rem",
-                  border: "1px dashed var(--border)",
-                  borderRadius: "6px",
-                  color: "var(--text-dim)",
-                }}
-              >
-                No active evidence linked to this node.
+                <div>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "var(--text-dim)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                      marginBottom: "0.75rem",
+                    }}
+                  >
+                    Epistemic Traceability
+                  </label>
+                  <div
+                    style={{
+                      fontSize: "0.85rem",
+                      padding: "1rem",
+                      border: "1px dashed var(--border)",
+                      borderRadius: "10px",
+                      color: "var(--text-dim)",
+                      backgroundColor: "rgba(255,255,255,0.01)",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {selectedNode.data.type === "EVIDENCE"
+                      ? "Cryptographic proof of source origin verified via MCP adapter. Trace ID: EP-4492-X."
+                      : "Hypothetical construct awaiting empirical validation. Linked dependencies: 3."}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div style={{ display: "flex", gap: "0.75rem" }}>
-            <button
+              <div
+                style={{ display: "flex", gap: "0.75rem", marginTop: "auto" }}
+              >
+                <button
+                  className="glass"
+                  onClick={() => alert(`Editing node ${selectedNode.id}`)}
+                  style={{
+                    flex: 1,
+                    padding: "0.85rem",
+                    borderRadius: "10px",
+                    fontSize: "0.9rem",
+                    fontWeight: 600,
+                    color: "var(--text-main)",
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() =>
+                    alert(
+                      `Purging node ${selectedNode.id} from neural graph...`,
+                    )
+                  }
+                  style={{
+                    flex: 1,
+                    padding: "0.85rem",
+                    borderRadius: "10px",
+                    border: "1px solid var(--error)",
+                    fontSize: "0.9rem",
+                    fontWeight: 600,
+                    color: "var(--error)",
+                    backgroundColor: "rgba(239, 68, 68, 0.05)",
+                  }}
+                >
+                  Purge
+                </button>
+              </div>
+            </>
+          ) : (
+            <div
               style={{
                 flex: 1,
-                padding: "0.6rem",
-                borderRadius: "6px",
-                border: "1px solid var(--border)",
-                fontSize: "0.85rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--text-dim)",
+                gap: "1rem",
               }}
             >
-              Patch
-            </button>
-            <button
-              style={{
-                flex: 1,
-                padding: "0.6rem",
-                borderRadius: "6px",
-                border: "1px solid var(--border)",
-                fontSize: "0.85rem",
-              }}
-            >
-              Delete
-            </button>
-          </div>
+              <div style={{ opacity: 0.3 }}>
+                <ShieldCheck size={48} />
+              </div>
+              <p
+                style={{
+                  fontSize: "0.9rem",
+                  textAlign: "center",
+                  maxWidth: "200px",
+                  lineHeight: 1.5,
+                }}
+              >
+                Select a node to analyze its epistemic properties.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Bottom Status Bar */}
       <footer
+        className="desktop-only"
         style={{
-          height: "32px",
+          height: "36px",
           backgroundColor: "var(--bg-sidebar)",
           borderTop: "1px solid var(--border)",
-          padding: "0 1rem",
+          padding: "0 1.5rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          fontSize: "0.7rem",
+          fontSize: "0.65rem",
           color: "var(--text-dim)",
+          fontFamily: "var(--font-mono)",
+          letterSpacing: "0.02em",
+          position: "relative",
         }}
       >
-        <div style={{ display: "flex", gap: "1.5rem" }}>
-          <span>PostgreSQL: Connected</span>
-          <span>Drizzle ORM: Sync</span>
+        {/* Left Side: Mission Title Trigger */}
+        <div
+          onMouseEnter={() => setShowMissionCard(true)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            cursor: "pointer",
+            color: "var(--primary)",
+            fontWeight: 600,
+            transition: "all 0.3s ease",
+          }}
+        >
+          <Zap size={12} fill="currentColor" />
+          <span>{selectedMission.title}</span>
+
+          {/* Expanded Mission Details Card (Primary Command Center) */}
+          <AnimatePresence>
+            {showMissionCard && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                className="premium-card"
+                style={{
+                  position: "absolute",
+                  bottom: "45px",
+                  left: "1.5rem",
+                  width: "1000px",
+                  padding: "2.5rem",
+                  background: "rgba(10, 10, 15, 0.98)",
+                  backdropFilter: "blur(40px)",
+                  zIndex: 110,
+                  boxShadow:
+                    "0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(0, 242, 255, 0.15)",
+                  border: "1px solid var(--border)",
+                }}
+              >
+                {/* Header of Card */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    marginBottom: "2.5rem",
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        fontSize: "0.65rem",
+                        color: "var(--primary)",
+                        fontWeight: 700,
+                        letterSpacing: "0.2em",
+                        textTransform: "uppercase",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      Mission Command Center
+                    </div>
+                    <h2
+                      style={{
+                        fontSize: "1.75rem",
+                        fontWeight: 700,
+                        color: "var(--text-main)",
+                        letterSpacing: "-0.02em",
+                        margin: 0,
+                      }}
+                    >
+                      {selectedMission.title}
+                    </h2>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        marginTop: "0.5rem",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "6px",
+                          height: "6px",
+                          borderRadius: "50%",
+                          backgroundColor: "var(--success)",
+                          boxShadow: "0 0 8px var(--success)",
+                        }}
+                      />
+                      <span
+                        style={{
+                          fontSize: "0.7rem",
+                          color: "var(--success)",
+                          fontWeight: 700,
+                        }}
+                      >
+                        OPERATIONAL
+                      </span>
+                      <span style={{ color: "var(--border)", opacity: 0.3 }}>
+                        |
+                      </span>
+                      <span
+                        style={{
+                          fontSize: "0.7rem",
+                          color: "var(--text-dim)",
+                          fontFamily: "var(--font-mono)",
+                        }}
+                      >
+                        UUID: {selectedMission.id}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowMissionCard(false);
+                    }}
+                    style={{
+                      color: "var(--text-dim)",
+                      background: "rgba(255,255,255,0.05)",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: "8px",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <XCircle size={24} />
+                  </button>
+                </div>
+
+                {/* Two-Column Grid (Swapped) */}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1.2fr",
+                    gap: "3rem",
+                  }}
+                >
+                  {/* Left Column: Governance Hub */}
+                  <div
+                    style={{
+                      borderRight: "1px solid var(--border)",
+                      paddingRight: "3rem",
+                    }}
+                  >
+                    <GovernancePanel
+                      missionId={selectedMission.id}
+                      minimal={true}
+                    />
+                  </div>
+
+                  {/* Right Column: Mission Strategy */}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "2rem",
+                    }}
+                  >
+                    <section>
+                      <label
+                        style={{
+                          display: "block",
+                          fontSize: "0.7rem",
+                          color: "var(--text-dim)",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.1em",
+                          fontWeight: 700,
+                          marginBottom: "0.75rem",
+                        }}
+                      >
+                        Strategic Goal
+                      </label>
+                      <div
+                        style={{
+                          padding: "1.25rem",
+                          borderRadius: "12px",
+                          background: "rgba(255,255,255,0.02)",
+                          border: "1px solid var(--border)",
+                          lineHeight: 1.6,
+                          color: "var(--text-main)",
+                        }}
+                      >
+                        {selectedMission.brief.goal}
+                      </div>
+                    </section>
+
+                    {selectedMission.brief.successCriteria?.length > 0 && (
+                      <section>
+                        <label
+                          style={{
+                            display: "block",
+                            fontSize: "0.7rem",
+                            color: "var(--text-dim)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.1em",
+                            fontWeight: 700,
+                            marginBottom: "0.75rem",
+                          }}
+                        >
+                          Tactical Success Criteria
+                        </label>
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr",
+                            gap: "0.75rem",
+                          }}
+                        >
+                          {selectedMission.brief.successCriteria.map(
+                            (c: string, i: number) => (
+                              <div
+                                key={i}
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "0.5rem",
+                                  fontSize: "0.8rem",
+                                  color: "var(--text-main)",
+                                  opacity: 0.8,
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "4px",
+                                    height: "4px",
+                                    borderRadius: "50%",
+                                    backgroundColor: "var(--primary)",
+                                  }}
+                                />
+                                {c}
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Action Hub */}
+                    <div
+                      style={{
+                        borderTop: "1px solid var(--border)",
+                        paddingTop: "1.5rem",
+                        marginTop: "auto",
+                        display: "flex",
+                        gap: "1rem",
+                      }}
+                    >
+                      <button
+                        className="glow-box"
+                        onClick={() =>
+                          alert("Deep Neural Synthesis Initiated...")
+                        }
+                        style={{
+                          flex: 2,
+                          padding: "1rem",
+                          borderRadius: "10px",
+                          backgroundColor: "var(--primary)",
+                          color: "var(--bg-dark)",
+                          fontWeight: 700,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "0.75rem",
+                          boxShadow: "0 0 30px var(--primary-glow)",
+                        }}
+                      >
+                        <Zap size={18} fill="currentColor" />
+                        Analyze Workspace
+                      </button>
+
+                      <button
+                        className="glass"
+                        onClick={() => setIsFocusMode(!isFocusMode)}
+                        style={{
+                          flex: 1,
+                          padding: "1rem",
+                          borderRadius: "10px",
+                          color: "var(--text-main)",
+                          fontWeight: 600,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "0.5rem",
+                        }}
+                      >
+                        {isFocusMode ? (
+                          <Maximize2 size={18} />
+                        ) : (
+                          <Minimize2 size={18} />
+                        )}
+                        {isFocusMode ? "Exit Zen" : "Focus"}
+                      </button>
+
+                      <button
+                        className="glass"
+                        onClick={() => alert("Ref Link Copied")}
+                        style={{
+                          padding: "1rem",
+                          borderRadius: "10px",
+                          color: "var(--text-main)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Share2 size={18} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-        <div style={{ display: "flex", gap: "1.5rem" }}>
-          <span>Nodes: 2</span>
-          <span>Edges: 1</span>
-          <span style={{ color: "var(--primary)" }}>Vite HMR Active</span>
+
+        {/* Right Side: Connection Status (Existing) */}
+        <div
+          className="status-trigger"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            cursor: "pointer",
+            padding: "8px 0",
+          }}
+        >
+          <div
+            style={{
+              width: "4px",
+              height: "4px",
+              borderRadius: "50%",
+              backgroundColor: "var(--primary)",
+              boxShadow: "0 0 8px var(--primary)",
+            }}
+          />
+          <span style={{ color: "var(--primary)", fontWeight: 600 }}>
+            EPOS_SHELL_CONNECTED
+          </span>
+
+          {/* Hover Panel */}
+          <div className="status-popup premium-card">
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: "2rem",
+                }}
+              >
+                <span style={{ opacity: 0.5 }}>DATABASE</span>
+                <span style={{ color: "var(--success)" }}>
+                  POSTGRESQL_READY
+                </span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: "2rem",
+                }}
+              >
+                <span style={{ opacity: 0.5 }}>KERNEL_API</span>
+                <span>v1.0.0-PROD</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: "2rem",
+                }}
+              >
+                <span style={{ opacity: 0.5 }}>LATENCY</span>
+                <span style={{ color: "var(--primary)" }}>12ms</span>
+              </div>
+              <div
+                style={{
+                  borderTop: "1px solid var(--border)",
+                  paddingTop: "0.5rem",
+                  marginTop: "0.5rem",
+                  fontSize: "0.6rem",
+                  opacity: 0.4,
+                }}
+              >
+                SECURE_ENCLAVE_ACTIVE // TRACE_LEVEL: DEBUG
+              </div>
+            </div>
+          </div>
         </div>
+
+        <style>{`
+          .status-trigger {
+            position: relative;
+          }
+          .status-popup {
+            position: absolute;
+            bottom: 45px;
+            right: 0;
+            width: 240px;
+            padding: 1.25rem;
+            background: rgba(15, 15, 25, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid var(--primary-glow) !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 20px var(--primary-glow) !important;
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 100;
+          }
+          .status-trigger:hover .status-popup {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+          }
+
+          /* Edge Label Hover Logic */
+          .react-flow__edge-label {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+          }
+          
+          .react-flow__edge:hover .react-flow__edge-label,
+          .react-flow__edge.edge-highlighted .react-flow__edge-label {
+            opacity: 1;
+          }
+
+          /* Hide label background when label is hidden */
+          .react-flow__edge-labelbg {
+             opacity: 0;
+             transition: opacity 0.2s ease;
+          }
+
+          .react-flow__edge:hover .react-flow__edge-labelbg,
+          .react-flow__edge.edge-highlighted .react-flow__edge-labelbg {
+            opacity: 0.8;
+          }
+
+          .react-flow__edge.edge-dimmed .react-flow__edge-label,
+          .react-flow__edge.edge-dimmed .react-flow__edge-labelbg {
+            opacity: 0 !important;
+            display: none;
+          }
+
+          /* Smooth Node Movement for Gravity Effect */
+          .react-flow__node {
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+          }
+          
+          /* Ensure dragging is still responsive (disable transition during drag if possible, 
+             but for now let's keep it simple) */
+        `}</style>
       </footer>
     </div>
   );

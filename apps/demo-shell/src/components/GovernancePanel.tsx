@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Shield, Send, CheckCircle, XCircle, Clock } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Claim {
   id: string;
@@ -6,89 +8,273 @@ interface Claim {
   status: "pending" | "approved" | "rejected";
 }
 
-export const GovernancePanel: React.FC<{ missionId: string }> = ({
-  missionId,
-}) => {
-  const [claims] = useState<Claim[]>([]);
+const MOCK_CLAIMS: Claim[] = [
+  {
+    id: "1",
+    content:
+      "Satellite telemetry indicates anomalous heat signatures in Sector 7G.",
+    status: "pending",
+  },
+  {
+    id: "2",
+    content:
+      "Atmospheric sensors confirm nitrogen spike consistent with rapid vegetation growth.",
+    status: "approved",
+  },
+];
+
+export const GovernancePanel: React.FC<{
+  missionId: string;
+  minimal?: boolean;
+}> = ({ missionId, minimal = false }) => {
+  const [claims, setClaims] = useState<Claim[]>([]);
   const [newClaim, setNewClaim] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchClaims();
+  }, [missionId]);
 
   const fetchClaims = async () => {
-    // Mock fetching claims for now, or use real API if connected
-    // const res = await fetch(`/api/governance/claims?missionId=${missionId}`);
-    // setClaims(await res.json());
+    setIsLoading(true);
+    try {
+      // Note: In this version, we simulate fetching from backend
+      // and fallback to MOCK_CLAIMS for the demo
+      const res = await fetch("http://localhost:3000/governance/claims");
+      if (res.ok) {
+        const data = await res.json();
+        setClaims(data.length > 0 ? data : MOCK_CLAIMS);
+      } else {
+        setClaims(MOCK_CLAIMS);
+      }
+    } catch (e) {
+      console.error(e);
+      setClaims(MOCK_CLAIMS);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const submitClaim = async () => {
     if (!newClaim) return;
-    await fetch("/api/governance/claims", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ missionId, content: newClaim }),
-    });
-    setNewClaim("");
-    fetchClaims();
+    setIsLoading(true);
+    try {
+      const res = await fetch("http://localhost:3000/governance/claims", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ missionId, content: newClaim }),
+      });
+      if (res.ok) {
+        const claim = await res.json();
+        setClaims([
+          { id: claim.id, content: newClaim, status: "pending" },
+          ...claims,
+        ]);
+        setNewClaim("");
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const vote = async (nodeId: string, decision: "approve" | "reject") => {
-    await fetch("/api/governance/votes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nodeId, actorId: "current-user", decision }),
-    });
-    fetchClaims();
+    try {
+      await fetch("http://localhost:3000/governance/votes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nodeId, actorId: "user-1", decision }),
+      });
+      setClaims(
+        claims.map((c) =>
+          c.id === nodeId
+            ? { ...c, status: decision === "approve" ? "approved" : "rejected" }
+            : c,
+        ),
+      );
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  return (
-    <div className="governance-panel p-4 bg-slate-900 text-white rounded-lg shadow-xl border border-slate-700">
-      <h2 className="text-xl font-bold mb-4 text-cyan-400">
-        Governance & Claims
-      </h2>
-
-      <div className="mb-6">
-        <textarea
-          className="w-full p-2 bg-slate-800 border border-slate-600 rounded text-sm mb-2 focus:ring-2 focus:ring-cyan-500 outline-none"
-          placeholder="Enter a new epistemic claim..."
-          value={newClaim}
-          onChange={(e) => setNewClaim(e.target.value)}
-        />
-        <button
-          onClick={submitClaim}
-          className="w-full py-2 bg-cyan-600 hover:bg-cyan-500 transition-colors rounded font-semibold text-sm"
+  const content = (
+    <div style={{ padding: minimal ? "0" : "1.25rem", width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.75rem",
+          marginBottom: "1.25rem",
+        }}
+      >
+        <Shield size={20} color="var(--primary)" />
+        <h2
+          style={{
+            fontSize: "1rem",
+            fontWeight: 600,
+            color: "var(--text-main)",
+            letterSpacing: "0.02em",
+          }}
         >
-          Submit Claim for Approval
-        </button>
+          Governance & Claims
+        </h2>
       </div>
 
-      <div className="space-y-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400">
-          Pending Approvals
-        </h3>
-        {claims.length === 0 && (
-          <p className="text-slate-500 italic text-sm">No pending claims.</p>
-        )}
-        {claims.map((claim) => (
-          <div
-            key={claim.id}
-            className="p-3 bg-slate-800 rounded border border-slate-700"
+      <div style={{ marginBottom: "1.5rem" }}>
+        <div style={{ position: "relative" }}>
+          <textarea
+            style={{
+              width: "100%",
+              minHeight: "80px",
+              fontSize: "0.85rem",
+              marginBottom: "0.75rem",
+              backgroundColor: "rgba(0,0,0,0.2)",
+              paddingRight: "40px",
+            }}
+            placeholder="Submit a new epistemic claim..."
+            value={newClaim}
+            onChange={(e) => setNewClaim(e.target.value)}
+          />
+          <button
+            onClick={submitClaim}
+            disabled={!newClaim || isLoading}
+            style={{
+              position: "absolute",
+              bottom: "20px",
+              right: "10px",
+              padding: "6px",
+              borderRadius: "6px",
+              backgroundColor: newClaim ? "var(--primary)" : "var(--border)",
+              color: "var(--bg-dark)",
+              border: "none",
+              cursor: "pointer",
+            }}
           >
-            <p className="text-sm mb-3">{claim.content}</p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => vote(claim.id, "approve")}
-                className="flex-1 py-1 bg-green-600/20 hover:bg-green-600/40 text-green-400 border border-green-600/50 rounded text-xs transition-colors"
+            <Send size={16} />
+          </button>
+        </div>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <h3
+          style={{
+            fontSize: "0.65rem",
+            fontWeight: 700,
+            color: "var(--text-dim)",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+            marginBottom: "0.25rem",
+          }}
+        >
+          Active Proposals
+        </h3>
+
+        <AnimatePresence>
+          {claims.length === 0 && (
+            <p
+              style={{
+                color: "var(--text-dim)",
+                fontStyle: "italic",
+                fontSize: "0.8rem",
+                textAlign: "center",
+                padding: "1rem",
+              }}
+            >
+              No active claims.
+            </p>
+          )}
+          {claims.map((claim) => (
+            <motion.div
+              layout
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              key={claim.id}
+              style={{
+                padding: "1rem",
+                backgroundColor: "rgba(255,255,255,0.02)",
+                borderRadius: "10px",
+                border: "1px solid var(--border)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.75rem",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
               >
-                Approve
-              </button>
-              <button
-                onClick={() => vote(claim.id, "reject")}
-                className="flex-1 py-1 bg-red-600/20 hover:bg-red-600/40 text-red-400 border border-red-600/50 rounded text-xs transition-colors"
-              >
-                Reject
-              </button>
-            </div>
-          </div>
-        ))}
+                <p
+                  style={{
+                    fontSize: "0.85rem",
+                    color: "var(--text-main)",
+                    lineHeight: 1.4,
+                    flex: 1,
+                  }}
+                >
+                  {claim.content}
+                </p>
+                <div style={{ marginLeft: "10px" }}>
+                  {claim.status === "pending" && (
+                    <Clock size={14} color="var(--warning)" />
+                  )}
+                  {claim.status === "approved" && (
+                    <CheckCircle size={14} color="var(--success)" />
+                  )}
+                  {claim.status === "rejected" && (
+                    <XCircle size={14} color="var(--error)" />
+                  )}
+                </div>
+              </div>
+
+              {claim.status === "pending" && (
+                <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <button
+                    onClick={() => vote(claim.id, "approve")}
+                    style={{
+                      flex: 1,
+                      padding: "6px",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      backgroundColor: "rgba(16, 185, 129, 0.1)",
+                      color: "var(--success)",
+                      borderRadius: "6px",
+                      border: "1px solid rgba(16, 185, 129, 0.2)",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    onClick={() => vote(claim.id, "reject")}
+                    style={{
+                      flex: 1,
+                      padding: "6px",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      backgroundColor: "rgba(239, 68, 68, 0.1)",
+                      color: "var(--error)",
+                      borderRadius: "6px",
+                      border: "1px solid rgba(239, 68, 68, 0.2)",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Reject
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );
+
+  if (minimal) return content;
+
+  return <div className="premium-card animate-slide-up">{content}</div>;
 };
