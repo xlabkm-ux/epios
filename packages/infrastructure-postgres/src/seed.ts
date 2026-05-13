@@ -25,6 +25,7 @@ async function seed() {
     { id: "m3", title: "Scenario C: AI Governance", goal: "Finalize Human-in-the-loop policy" },
     { id: "m4", title: "Scenario D: Knowledge Synthesis", goal: "Neural Architecture Search summary" },
     { id: "m5", title: "Scenario E: Neural Network Collapse", goal: "Stress-test large-scale transformer stability" },
+    { id: "m6", title: "Scenario F: ADR Review - Event Sourcing", goal: "Review and finalize ADR for event-driven architecture" },
   ];
 
   for (const ws of workspaces) {
@@ -38,8 +39,8 @@ async function seed() {
       goal: ws.goal,
       createdByType: "user",
       createdById: "admin",
-      brief: { goal: ws.goal, successCriteria: ["Map critical points"], constraints: [], unknowns: [] },
-    }).onConflictDoUpdate({ target: schema.workspaces.id, set: { title: ws.title } });
+      brief: { goal: ws.goal, successCriteria: ["Map critical points", "Narrow decision scope"], constraints: [], unknowns: [] },
+    }).onConflictDoUpdate({ target: schema.workspaces.id, set: { title: ws.title, goal: ws.goal } });
   }
 
   // 2. Scenario E: The Massive Graph (50 nodes)
@@ -104,6 +105,22 @@ async function seed() {
       set: { role: user.role }
     });
   }
+
+  // 5. Sources for Scenario F
+  console.log("Seeding sources for Scenario F...");
+  const wsF_UUID = "00000000-0000-0000-0000-000000000006";
+  await db.insert(schema.sources).values({
+    id: "00000000-0000-0000-0000-300000000001",
+    missionId: wsF_UUID,
+    type: "file",
+    content: "Proposed decision to adopt Event Sourcing for all mission history.",
+    metadata: { 
+      title: "Event Sourcing Draft ADR",
+      url: "fixtures/adr-review/event-sourcing-draft.md",
+      reliability: "unrated",
+      author: "architect" 
+    },
+  }).onConflictDoNothing();
 
   console.log("✅ MASTER SYNC COMPLETED!");
   process.exit(0);

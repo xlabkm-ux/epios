@@ -260,7 +260,7 @@ export function buildServer(deps: ServerDependencies = {}) {
           createdBy: { type: "user", id: "dev-team" },
         },
         {
-          id: workspaceEId,
+          id: "m5",
           title: "Scenario E: Neural Network Collapse",
           status: "running" as WorkspaceStatus,
           mode: "assisted" as WorkspaceMode,
@@ -275,6 +275,23 @@ export function buildServer(deps: ServerDependencies = {}) {
           createdAt: new Date(),
           updatedAt: new Date(),
           createdBy: { type: "user", id: "safety-agent" },
+        },
+        {
+          id: "m6",
+          title: "Scenario F: ADR Review - Event Sourcing",
+          status: "running" as WorkspaceStatus,
+          mode: "assisted" as WorkspaceMode,
+          sensitivity: "internal" as WorkspaceSensitivity,
+          version: 1,
+          brief: {
+            goal: "Review and finalize ADR for event-driven architecture",
+            successCriteria: ["Map critical points", "Narrow decision scope"],
+            constraints: [],
+            unknowns: [],
+          },
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          createdBy: { type: "user", id: "architect-1" },
         },
       ];
 
@@ -459,11 +476,27 @@ export function buildServer(deps: ServerDependencies = {}) {
         ...workspaceEEdges,
       ];
 
+      const demoSources: Source[] = [
+        {
+          id: "s1",
+          missionId: "m6",
+          type: "file",
+          content: "Proposed decision to adopt Event Sourcing for all mission history.",
+          metadata: { 
+            title: "Event Sourcing Draft ADR",
+            url: "fixtures/adr-review/event-sourcing-draft.md",
+            reliability: "unrated",
+            author: "architect" 
+          },
+          createdAt: new Date(),
+        }
+      ];
+
       workspaceRepo =
         workspaceRepo ?? new InMemoryWorkspaceRepository(demoWorkspaces);
       graphRepo =
         graphRepo ?? new InMemoryGraphRepository(demoNodes, demoEdges);
-      sourceRepo = sourceRepo ?? new InMemorySourceRepository();
+      sourceRepo = sourceRepo ?? new InMemorySourceRepository(demoSources);
       ratingRepo = ratingRepo ?? new InMemoryRatingRepository();
       identityRepo = identityRepo ?? new InMemoryIdentityRepository();
     } else if (databaseUrl) {

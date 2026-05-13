@@ -1,0 +1,22 @@
+{
+  "status": "needs_review",
+  "score": 0.65,
+  "indicators": [
+    {
+      "name": "Evidence Coverage",
+      "value": "partial",
+      "detail": "Claim #3 (simplicity) is not backed by evidence and is often contested."
+    },
+    {
+      "name": "Source Reliability",
+      "value": "high",
+      "detail": "Input document is a well-structured ADR draft."
+    },
+    {
+      "name": "Governance Alignment",
+      "value": "low",
+      "detail": "Overbroad decision may conflict with MVP speed requirements."
+    }
+  ],
+  "summary": "The proposal is architecturally sound but may be over-engineered for the current phase. Narrowing the scope to an append-only audit log is recommended."
+}

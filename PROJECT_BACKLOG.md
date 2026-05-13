@@ -46,8 +46,8 @@
 - [x] Security tests, retention, audit
 
 ### S7: RC + Pilot Pack
-- [ ] Alpha/RC package for design partners
-- [ ] Demo-ready build and runbook
+- [/] Alpha/RC package for design partners (Fixtures and initial setup done)
+- [/] Demo-ready build and runbook (Runbook and Scenario F seeded)
 - [ ] Release QA, usability metrics
 
 ---

@@ -151,6 +151,12 @@ export class InMemoryGraphRepository implements GraphRepositoryPort {
 export class InMemorySourceRepository implements SourceRepositoryPort {
   private sources: Map<string, Source> = new Map();
 
+  constructor(initialSources: Source[] = []) {
+    for (const s of initialSources) {
+      this.sources.set(s.id, s);
+    }
+  }
+
   async save(source: Source): Promise<void> {
     this.sources.set(source.id, source);
   }

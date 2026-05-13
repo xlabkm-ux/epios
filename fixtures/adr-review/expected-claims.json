@@ -1,0 +1,20 @@
+[
+  {
+    "id": "claim-1",
+    "content": "Event sourcing provides a perfect audit trail.",
+    "type": "claim",
+    "strength": "strong"
+  },
+  {
+    "id": "claim-2",
+    "content": "It allows us to reconstruct state at any point in time.",
+    "type": "claim",
+    "strength": "moderate"
+  },
+  {
+    "id": "claim-3",
+    "content": "It simplifies complex business logic by focusing on events.",
+    "type": "claim",
+    "strength": "weak"
+  }
+]
