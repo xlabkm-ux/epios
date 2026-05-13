@@ -71,7 +71,9 @@ import {
   EpistemicEdgeType,
 } from "@epios/domain";
 
-dotenv.config();
+const envConfig = dotenv.config();
+import { expand } from "dotenv-expand";
+expand(envConfig);
 
 import {
   WorkspaceRepositoryPort,
