@@ -251,12 +251,19 @@ const GraphCanvasInner: React.FC = () => {
   // Auto-fit view when workspace changes
   useEffect(() => {
     if (selectedWorkspaceId && nodes.length > 0) {
-      const timer = setTimeout(() => {
-        fitView({ duration: 1000, padding: 0.2 });
-      }, 100);
-      return () => clearTimeout(timer);
+      // ONLY fitView if we don't have a saved viewport, otherwise ReactFlow uses defaultViewport
+      if (!viewports[selectedWorkspaceId]) {
+        const timer = setTimeout(() => {
+          fitView({
+            duration: 1000,
+            padding: { top: 100, bottom: 100, left: 100, right: 400 },
+            includeHiddenNodes: false,
+          });
+        }, 200);
+        return () => clearTimeout(timer);
+      }
     }
-  }, [selectedWorkspaceId, nodes.length > 0, fitView]);
+  }, [selectedWorkspaceId, nodes.length > 0, fitView, viewports]);
 
   const onPaneClick = useCallback(() => {
     setSelectedNodeId(null);
@@ -331,11 +338,11 @@ const GraphCanvasInner: React.FC = () => {
         position: displayPos,
         style: {
           ...node.style,
-          opacity: isNeighbor ? 1 : 0.05,
+          opacity: isNeighbor ? 1 : 0.25,
           transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
           pointerEvents: (isNeighbor
             ? "all"
-            : "none") as React.CSSProperties["pointerEvents"],
+            : "all") as React.CSSProperties["pointerEvents"], // Allow interaction but faded
         },
       };
     });
@@ -357,7 +364,7 @@ const GraphCanvasInner: React.FC = () => {
             : "edge-normal",
         style: {
           ...edge.style,
-          opacity: isHighlighted ? 1 : isDimmed ? 0.05 : 0.6,
+          opacity: isHighlighted ? 1 : isDimmed ? 0.15 : 0.6,
           transition: "opacity 0.3s ease",
         },
         labelStyle: {
@@ -517,7 +524,11 @@ const GraphCanvasInner: React.FC = () => {
             : undefined
         }
         fitView
-        fitViewOptions={{ padding: 0.2, duration: 800 }}
+        fitViewOptions={{
+          padding: { top: 100, bottom: 100, left: 100, right: 400 },
+          duration: 800,
+          includeHiddenNodes: false,
+        }}
         snapToGrid
         snapGrid={[20, 20]}
         defaultEdgeOptions={{ animated: true, style: { strokeWidth: 2 } }}

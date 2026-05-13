@@ -67,24 +67,30 @@ const Sidebar: React.FC = () => {
         onClick={() => setIsCollapsed(!isCollapsed)}
         style={{
           position: "absolute",
-          right: "4px",
+          right: "12px",
           top: "1.25rem",
-          width: "20px",
-          height: "20px",
-          backgroundColor: "var(--bg-sidebar)",
-          border: "1px solid var(--border)",
+          width: "24px",
+          height: "24px",
+          backgroundColor: "var(--bg-card)",
+          border: "1px solid var(--border-bright)",
           borderRadius: "6px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "var(--text-dim)",
-          zIndex: 10,
+          color: "var(--primary)",
+          zIndex: 100,
           cursor: "pointer",
           transition: "all 0.2s ease",
-          opacity: 0.5,
+          boxShadow: "var(--panel-shadow)",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.5")}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = "var(--primary)";
+          e.currentTarget.style.backgroundColor = "var(--surface-hover)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = "var(--border-bright)";
+          e.currentTarget.style.backgroundColor = "var(--bg-card)";
+        }}
       >
         {isCollapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
       </button>
@@ -141,7 +147,10 @@ const Sidebar: React.FC = () => {
           display: "flex",
           flexDirection: "column",
           gap: "0.4rem",
+          overflowY: "auto",
+          paddingRight: isCollapsed ? "0" : "4px",
         }}
+        className="sidebar-nav"
       >
         <SidebarItem
           icon={<Layout size={18} />}

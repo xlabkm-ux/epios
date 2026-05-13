@@ -18,14 +18,14 @@ const WorkspaceRoom: React.FC = () => {
     setSelectedNodeId,
     graphStates,
   } = useWorkspace();
-  const [isFocusMode, setIsFocusMode] = useState(false);
   const [showWorkspaceCard, setShowWorkspaceCard] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState("");
   const { currentUser } = useSecurity();
 
   const isAdmin = currentUser?.role === "admin";
-  const canEdit = currentUser?.role === "admin" || currentUser?.role === "reviewer";
+  const canEdit =
+    currentUser?.role === "admin" || currentUser?.role === "reviewer";
 
   const selectedWorkspace = workspaces.find(
     (m) => m.id === selectedWorkspaceId,
@@ -440,30 +440,30 @@ const WorkspaceRoom: React.FC = () => {
                         <ShieldAlert size={18} />
                       </button>
                     )}
-                      <button
-                        disabled={!isAdmin}
-                        onClick={() =>
-                          alert(
-                            `Purging node ${selectedNode.id} from neural graph...`,
-                          )
-                        }
-                        style={{
-                          flex: 1,
-                          padding: "0.85rem",
-                          borderRadius: "10px",
-                          border: `1px solid ${isAdmin ? "var(--error)" : "var(--border)"}`,
-                          fontSize: "0.9rem",
-                          fontWeight: 600,
-                          color: isAdmin ? "var(--error)" : "var(--text-dim)",
-                          backgroundColor: isAdmin
-                            ? "rgba(239, 68, 68, 0.05)"
-                            : "transparent",
-                          opacity: isAdmin ? 1 : 0.5,
-                          cursor: isAdmin ? "pointer" : "not-allowed",
-                        }}
-                      >
-                        Purge
-                      </button>
+                    <button
+                      disabled={!isAdmin}
+                      onClick={() =>
+                        alert(
+                          `Purging node ${selectedNode.id} from neural graph...`,
+                        )
+                      }
+                      style={{
+                        flex: 1,
+                        padding: "0.85rem",
+                        borderRadius: "10px",
+                        border: `1px solid ${isAdmin ? "var(--error)" : "var(--border)"}`,
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                        color: isAdmin ? "var(--error)" : "var(--text-dim)",
+                        backgroundColor: isAdmin
+                          ? "rgba(239, 68, 68, 0.05)"
+                          : "transparent",
+                        opacity: isAdmin ? 1 : 0.5,
+                        cursor: isAdmin ? "pointer" : "not-allowed",
+                      }}
+                    >
+                      Purge
+                    </button>
                   </>
                 )}
               </div>
@@ -518,8 +518,7 @@ const WorkspaceRoom: React.FC = () => {
       >
         {/* Left Side: Mission Title Trigger */}
         <div
-          onMouseEnter={() => setShowWorkspaceCard(true)}
-          onClick={() => setShowWorkspaceCard(!showWorkspaceCard)}
+          onClick={() => setShowWorkspaceCard(true)}
           data-testid="workspace-command-trigger"
           style={{
             display: "flex",
@@ -541,8 +540,6 @@ const WorkspaceRoom: React.FC = () => {
               <MissionPanel
                 workspace={selectedWorkspace as Workspace}
                 onClose={() => setShowWorkspaceCard(false)}
-                isFocusMode={isFocusMode}
-                setIsFocusMode={setIsFocusMode}
               />
             )}
           </AnimatePresence>
@@ -694,4 +691,3 @@ const WorkspaceRoom: React.FC = () => {
 };
 
 export default WorkspaceRoom;
-

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Zap, XCircle, Share2, Maximize2, Minimize2 } from "lucide-react";
+import { Zap, XCircle, Share2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { GovernancePanel } from "./GovernancePanel";
 import { SourcePanel } from "./SourcePanel";
@@ -9,9 +9,7 @@ import { Workspace } from "@epios/domain";
 export const MissionPanel: React.FC<{
   workspace: Workspace;
   onClose: () => void;
-  isFocusMode: boolean;
-  setIsFocusMode: (v: boolean) => void;
-}> = ({ workspace, onClose, isFocusMode, setIsFocusMode }) => {
+}> = ({ workspace, onClose }) => {
   const [activeTab, setActiveTab] = useState<
     "strategy" | "governance" | "sources" | "mapping"
   >("strategy");
@@ -281,24 +279,6 @@ export const MissionPanel: React.FC<{
         >
           <Zap size={18} fill="currentColor" />
           Run Epistemic Mapping
-        </button>
-        <button
-          className="glass"
-          onClick={() => setIsFocusMode(!isFocusMode)}
-          style={{
-            flex: 1,
-            padding: "1rem",
-            borderRadius: "10px",
-            color: "var(--text-main)",
-            fontWeight: 600,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.5rem",
-          }}
-        >
-          {isFocusMode ? <Maximize2 size={18} /> : <Minimize2 size={18} />}
-          {isFocusMode ? "Exit Zen" : "Focus Mode"}
         </button>
         <button
           className="glass"

@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-13 23:26:55`
+> Автоматически сгенерировано: `2026-05-13 23:50:56`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `117` | Только JS/TS/TSX исходники |
-| **Total Lines** | `11079` | Суммарно по проекту |
-| **Project Weight** | `~90 719 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `70.9%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Lines** | `11090` | Суммарно по проекту |
+| **Project Weight** | `~90 422 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `70.6%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
 ---
@@ -1601,14 +1601,14 @@ Y-->E
 | `demo-shell/src/components/CommandPalette.tsx` | 341 | 9.1 KB | — |
 | `demo-shell/src/components/CustomNode.tsx` | 169 | 4.4 KB | — |
 | `demo-shell/src/components/GovernancePanel.tsx` | 498 | 14.7 KB | — |
-| `demo-shell/src/components/GraphCanvas.tsx` | 568 | 15.9 KB | — |
+| `demo-shell/src/components/GraphCanvas.tsx` | 579 | 16.3 KB | — |
 | `demo-shell/src/components/MappingPanel.tsx` | 270 | 7.8 KB | — |
-| `demo-shell/src/components/MissionPanel.tsx` | 321 | 9.3 KB | — |
+| `demo-shell/src/components/MissionPanel.tsx` | 301 | 8.6 KB | — |
 | `demo-shell/src/components/RatingPanel.tsx` | 234 | 6.2 KB | — |
 | `demo-shell/src/components/ReadinessPanel.tsx` | 403 | 11.7 KB | — |
-| `demo-shell/src/components/Sidebar.tsx` | 437 | 12.3 KB | — |
+| `demo-shell/src/components/Sidebar.tsx` | 446 | 12.7 KB | — |
 | `demo-shell/src/components/SourcePanel.tsx` | 232 | 6.9 KB | — |
-| `demo-shell/src/components/WorkspaceRoom.tsx` | 698 | 22.6 KB | — |
+| `demo-shell/src/components/WorkspaceRoom.tsx` | 694 | 22.4 KB | — |
 | `demo-shell/src/context/SecurityContext.tsx` | 55 | 1.6 KB | — |
 | `demo-shell/src/context/WorkspaceContext.tsx` | 130 | 3.4 KB | — |
 | `demo-shell/src/hooks/useApi.ts` | 41 | 1.0 KB | — |
@@ -1684,7 +1684,7 @@ Y-->E
 | `api/src/routes/mission.routes.ts` | 34 | 0.9 KB | — |
 | `api/src/routes/rating.routes.ts` | 30 | 0.9 KB | — |
 | `api/src/routes/workspace.routes.ts` | 37 | 1.0 KB | — |
-| `api/src/server.ts` | 831 | 28.9 KB | — |
+| `api/src/server.ts` | 831 | 28.1 KB | — |
 | `api/test/adr.test.ts` | 48 | 1.2 KB | — |
 | `api/test/api.test.ts` | 222 | 5.9 KB | — |
 | `api/vitest.config.ts` | 42 | 1.1 KB | — |
@@ -1745,7 +1745,7 @@ Y-->E
 | `infrastructure-postgres/src/index.ts` | 11 | 0.3 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
 | `infrastructure-postgres/src/schema.ts` | 107 | 3.3 KB | — |
-| `infrastructure-postgres/src/seed.ts` | 363 | 13.4 KB | — |
+| `infrastructure-postgres/src/seed.ts` | 378 | 13.2 KB | — |
 | `infrastructure-postgres/src/source.repository.ts` | 60 | 1.6 KB | — |
 | `infrastructure-postgres/src/workspace.repository.ts` | 96 | 3.0 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 99 | 2.9 KB | — |
