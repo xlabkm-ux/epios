@@ -1,5 +1,5 @@
 {
-  "name": "@epos/infrastructure-postgres",
+  "name": "@epios/infrastructure-postgres",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,7 +7,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@epos/ports": "workspace:*",
+    "@epios/ports": "workspace:*",
     "drizzle-orm": "^0.30.10",
     "postgres": "^3.4.4"
   },

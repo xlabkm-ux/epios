@@ -3,8 +3,8 @@ import {
   MissionStatus,
   MissionMode,
   MissionSensitivity,
-} from "@epos/domain";
-import { MissionRepositoryPort } from "@epos/ports";
+} from "@epios/domain";
+import { MissionRepositoryPort } from "@epios/ports";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { missions } from "./schema.js";
 import { eq } from "drizzle-orm";

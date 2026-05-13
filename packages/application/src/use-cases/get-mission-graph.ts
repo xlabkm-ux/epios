@@ -1,5 +1,5 @@
-import { EpistemicNode, EpistemicEdge } from "@epos/domain";
-import { GraphRepositoryPort } from "@epos/ports";
+import { EpistemicNode, EpistemicEdge } from "@epios/domain";
+import { GraphRepositoryPort } from "@epios/ports";
 
 export interface MissionGraph {
   nodes: EpistemicNode[];

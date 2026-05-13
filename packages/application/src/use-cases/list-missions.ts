@@ -1,5 +1,5 @@
-import { Mission } from "@epos/domain";
-import { MissionRepositoryPort } from "@epos/ports";
+import { Mission } from "@epios/domain";
+import { MissionRepositoryPort } from "@epios/ports";
 
 export class ListMissionsUseCase {
   constructor(private readonly missionRepo: MissionRepositoryPort) {}

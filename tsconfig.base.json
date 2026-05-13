@@ -13,16 +13,18 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@epos/domain": ["packages/domain/src"],
-      "@epos/ports": ["packages/ports/src"],
-      "@epos/application": ["packages/application/src"],
-      "@epos/api": ["packages/api/src"],
-      "@epos/infrastructure-postgres": ["packages/infrastructure-postgres/src"],
-      "@epos/infrastructure-models": ["packages/infrastructure-models/src"],
-      "@epos/infrastructure-mcp": ["packages/infrastructure-mcp/src"],
-      "@epos/infrastructure-runtime": ["packages/infrastructure-runtime/src"],
-      "@epos/observability": ["packages/observability/src"],
-      "@epos/testing": ["packages/testing/src"]
+      "@epios/domain": ["packages/domain/src"],
+      "@epios/ports": ["packages/ports/src"],
+      "@epios/application": ["packages/application/src"],
+      "@epios/api": ["packages/api/src"],
+      "@epios/infrastructure-postgres": [
+        "packages/infrastructure-postgres/src"
+      ],
+      "@epios/infrastructure-models": ["packages/infrastructure-models/src"],
+      "@epios/infrastructure-mcp": ["packages/infrastructure-mcp/src"],
+      "@epios/infrastructure-runtime": ["packages/infrastructure-runtime/src"],
+      "@epios/observability": ["packages/observability/src"],
+      "@epios/testing": ["packages/testing/src"]
     }
   }
 }

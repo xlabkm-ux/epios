@@ -1,4 +1,4 @@
-import { MCPApp, MCPAppRegistryPort } from "@epos/ports";
+import { MCPApp, MCPAppRegistryPort } from "@epios/ports";
 
 export class InMemoryMCPAppRegistry implements MCPAppRegistryPort {
   private apps: Map<string, MCPApp> = new Map();

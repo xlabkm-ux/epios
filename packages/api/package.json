@@ -1,5 +1,5 @@
 {
-  "name": "@epos/api",
+  "name": "@epios/api",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,12 +7,16 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@epos/application": "workspace:*",
-    "@epos/infrastructure-postgres": "workspace:*",
-    "fastify": "^4.27.0",
+    "@epios/application": "workspace:*",
+    "@epios/infrastructure-mcp": "workspace:*",
+    "@epios/infrastructure-postgres": "workspace:*",
+    "@epios/infrastructure-runtime": "workspace:*",
+    "@epios/ports": "workspace:*",
+    "@fastify/cors": "^8.5.0",
+    "dotenv": "^16.4.5",
     "drizzle-orm": "^0.30.10",
-    "postgres": "^3.4.4",
-    "dotenv": "^16.4.5"
+    "fastify": "^4.27.0",
+    "postgres": "^3.4.4"
   },
   "scripts": {
     "dev": "tsx watch src/bin.ts",

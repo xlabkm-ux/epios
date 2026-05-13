@@ -1,10 +1,10 @@
-# EPOS-08 — ChatAVG Reuse and v2.4 Stabilization
+# EPIOS-08 — ChatAVG Reuse and v2.4 Stabilization
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-08-CHATAVG-REUSE-V2_4-STABILIZATION`  
+**Document ID:** `EPIOS-08-CHATAVG-REUSE-V2_4-STABILIZATION`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPOS-00`, `EPOS-01`, `EPOS-02`, `EPOS-03`, `EPOS-04`, `EPOS-05`, `EPOS-06`, `EPOS-07`  
+**Depends on:** `EPIOS-00`, `EPIOS-01`, `EPIOS-02`, `EPIOS-03`, `EPIOS-04`, `EPIOS-05`, `EPIOS-06`, `EPIOS-07`  
 **Strategic decision:** ChatAVG v2.3 development is closed; ChatAVG v2.4 is a stabilized release; Epistemic OS v1.0 is a new repository and new platform project.  
 
 ---
@@ -163,9 +163,9 @@ If a feature belongs to Epistemic OS, it must be implemented in the new reposito
 | Legacy chat UI polish | Stop | not core to Epistemic OS |
 | Full RC1/RC2 admin console | Stop | too broad; belongs to future shell |
 | 13 workflow implementation | Stop | MVP uses Universal Mission Room only |
-| Graph DB exploration in v2.x | Stop | GraphRepositoryPort first in EPOS |
-| Kafka/Debezium in v2.x | Stop | outbox first in EPOS |
-| Write-capable MCP Apps in v2.x | Stop | security model defined in EPOS |
+| Graph DB exploration in v2.x | Stop | GraphRepositoryPort first in EPIOS |
+| Kafka/Debezium in v2.x | Stop | outbox first in EPIOS |
+| Write-capable MCP Apps in v2.x | Stop | security model defined in EPIOS |
 | User-facing coherence score | Stop | risk of false authority |
 
 ### 6.2. Continue for v2.4 Stabilization
@@ -222,7 +222,7 @@ Allowed only when:
 - license is compatible with open-source repo;
 - dependency footprint is acceptable;
 - tests exist or can be added quickly;
-- it does not violate EPOS architecture rules.
+- it does not violate EPIOS architecture rules.
 
 Likely candidates:
 
@@ -268,7 +268,7 @@ Likely candidates:
 
 ### 7.4. REWRITE
 
-Rewrite when the concept is useful but implementation shape conflicts with EPOS.
+Rewrite when the concept is useful but implementation shape conflicts with EPIOS.
 
 Likely candidates:
 
@@ -346,26 +346,26 @@ Every ChatAVG document should be tagged:
 
 ```text
 AUTHORITATIVE_FOR_V2_4
-REFERENCE_FOR_EPOS
-SUPERSEDED_BY_EPOS
+REFERENCE_FOR_EPIOS
+SUPERSEDED_BY_EPIOS
 ARCHIVED
 DISCARD
 ```
 
 ### 9.2. Likely Classification
 
-| Document Type | Status for EPOS | Notes |
+| Document Type | Status for EPIOS | Notes |
 |---|---|---|
-| Technical Concept v2 architecture | REFERENCE_FOR_EPOS | useful concepts, not binding |
-| ModelGateway Workflow Concept | REFERENCE_FOR_EPOS | strong boundary ideas |
-| UI Workflow Interface Spec | REFERENCE_FOR_EPOS | UI patterns, not implementation order |
-| Workflow Modification Plan | REFERENCE_FOR_EPOS | WorkflowContract ideas |
-| User Workflow Appendix | REFERENCE_FOR_EPOS | product language and workflows |
+| Technical Concept v2 architecture | REFERENCE_FOR_EPIOS | useful concepts, not binding |
+| ModelGateway Workflow Concept | REFERENCE_FOR_EPIOS | strong boundary ideas |
+| UI Workflow Interface Spec | REFERENCE_FOR_EPIOS | UI patterns, not implementation order |
+| Workflow Modification Plan | REFERENCE_FOR_EPIOS | WorkflowContract ideas |
+| User Workflow Appendix | REFERENCE_FOR_EPIOS | product language and workflows |
 | RC1 Stabilization Plan | AUTHORITATIVE_FOR_V2_4 | release stabilization source |
 | RC2 Roadmap | ARCHIVED | strategy changed |
 | Remediation Sprint Plan | AUTHORITATIVE_FOR_V2_4 | P0 fixes |
-| Auditor reports | REFERENCE_FOR_EPOS | governance and risk input |
-| Old duplicated plans | SUPERSEDED_BY_EPOS | do not keep active |
+| Auditor reports | REFERENCE_FOR_EPIOS | governance and risk input |
+| Old duplicated plans | SUPERSEDED_BY_EPIOS | do not keep active |
 
 ### 9.3. Required Register
 
@@ -380,7 +380,7 @@ Fields:
 ```text
 file name
 status
-used by EPOS doc
+used by EPIOS doc
 owner
 notes
 superseded by
@@ -424,7 +424,7 @@ V24-19 Release notes.
 ```text
 V24-20 Improve developer setup docs.
 V24-21 Add minimal health dashboard notes.
-V24-22 Add migration notes toward EPOS.
+V24-22 Add migration notes toward EPIOS.
 V24-23 Archive superseded docs.
 ```
 
@@ -471,7 +471,7 @@ v2.4 can be released when:
 [ ] Current architecture map.
 [ ] Document handover register.
 [ ] Extraction inventory.
-[ ] EPOS pointer added.
+[ ] EPIOS pointer added.
 ```
 
 ---
@@ -489,7 +489,7 @@ Template:
 ```md
 # ChatAVG Extraction Inventory
 
-| Asset | Type | Location | Category | Target EPOS Module | Risk | Action |
+| Asset | Type | Location | Category | Target EPIOS Module | Risk | Action |
 |---|---|---|---|---|---|---|
 | ModelGateway | code | path | REUSE_AFTER_REFACTOR | infrastructure-models | medium | extract contract ideas |
 ```
@@ -501,7 +501,7 @@ Asset
 Type: code/doc/test/schema/config
 Location
 Category
-Target EPOS module
+Target EPIOS module
 Owner
 Reuse risk
 License/secrets check
@@ -728,7 +728,7 @@ Before moving any asset:
 - prefer clean-room rewrite for risky assets.
 ```
 
-No ChatAVG `.env`, logs, test data or private docs should be copied into EPOS.
+No ChatAVG `.env`, logs, test data or private docs should be copied into EPIOS.
 
 ---
 
@@ -767,7 +767,7 @@ CHATAVG_EXTRACTION_INVENTORY.md
 
 Tag release and freeze.
 
-### Step 6 — Extract / Rewrite into EPOS
+### Step 6 — Extract / Rewrite into EPIOS
 
 Use extraction inventory. Do not copy uncontrolled legacy blocks.
 
@@ -777,7 +777,7 @@ Move old docs to archive or mark superseded.
 
 ---
 
-## 16. EPOS Import Policy
+## 16. EPIOS Import Policy
 
 Epistemic OS should not import ChatAVG as a dependency.
 
@@ -788,7 +788,7 @@ Allowed:
 - rewrite modules based on concepts;
 - port tests after sanitization;
 - reference docs with status;
-- create new EPOS contracts inspired by ChatAVG.
+- create new EPIOS contracts inspired by ChatAVG.
 ```
 
 Not allowed:
@@ -809,13 +809,13 @@ Not allowed:
 | Risk | Priority | Mitigation |
 |---|---:|---|
 | v2.4 expands into v3 work | P0 | strict scope lock |
-| unsafe code copied to EPOS | P0 | extraction checklist |
+| unsafe code copied to EPIOS | P0 | extraction checklist |
 | private data leaked to open-source repo | P0 | secret/data review |
-| duplicate docs confuse EPOS | P1 | document register |
-| ChatService monolith shape infects EPOS | P1 | rewrite use cases cleanly |
+| duplicate docs confuse EPIOS | P1 | document register |
+| ChatService monolith shape infects EPIOS | P1 | rewrite use cases cleanly |
 | mock components treated as production | P1 | mark reference-only/rewrite |
 | ModelGateway owns workflow again | P1 | enforce port boundary |
-| MCP write flow bypasses security | P0 | EPOS-06 gates |
+| MCP write flow bypasses security | P0 | EPIOS-06 gates |
 | v2.4 consumes team capacity | P1 | timebox stabilization |
 
 ---
@@ -877,8 +877,8 @@ SECURITY_STABILIZATION_NOTES.md
 Epistemic OS side:
 
 ```text
-EPOS repo initialized
-EPOS-00 to EPOS-08 docs accepted
+EPIOS repo initialized
+EPIOS-00 to EPIOS-08 docs accepted
 ADR-0001 to ADR-0010 created
 initial package structure
 PostgreSQL dev setup
@@ -948,15 +948,15 @@ This document is approved when the project owner confirms:
 
 After approval:
 
-1. Create `EPOS-09 — ADR Pack and Decision Index`, or
-2. Export/compile EPOS-00 through EPOS-08 into a release package, or
+1. Create `EPIOS-09 — ADR Pack and Decision Index`, or
+2. Export/compile EPIOS-00 through EPIOS-08 into a release package, or
 3. Start implementation planning for Week 1 repository bootstrap.
 
 Recommended next document:
 
 ```text
-EPOS-09 — ADR Pack and Decision Index
+EPIOS-09 — ADR Pack and Decision Index
 ```
 
-It should convert accepted decisions from EPOS-00 through EPOS-08 into initial ADRs.
+It should convert accepted decisions from EPIOS-00 through EPIOS-08 into initial ADRs.
 

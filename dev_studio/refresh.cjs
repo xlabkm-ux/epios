@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * Dev Studio — Project Architect: refresh.js (EPOS Edition)
+ * Dev Studio — Project Architect: refresh.js (EPIOS Edition)
  * 
- * Сканирует проект Epistemic OS (epos) и генерирует PROJECT_MAP.md —
+ * Сканирует проект Epistemic OS (epios) и генерирует PROJECT_MAP.md —
  * живую карту архитектуры для человека и ИИ-агента.
  * 
  * Запуск: node dev_studio/refresh.js
@@ -172,7 +172,7 @@ function getMermaidFromDepCruise(scope) {
 // ── Генерация PROJECT_MAP.md ────────────────────────────
 
 function generateMap() {
-  console.log('[DevStudio] Сканирование проекта EPOS (Интеграция с DepCruise)...');
+  console.log('[DevStudio] Сканирование проекта EPIOS (Интеграция с DepCruise)...');
   
   const componentMap = {};
   const allEnvVars = new Set();
@@ -212,7 +212,7 @@ function generateMap() {
   const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
   const sections = [];
 
-  sections.push(`# 🗺️ PROJECT MAP — epos`);
+  sections.push(`# 🗺️ PROJECT MAP — epios`);
   sections.push(`> Автоматически сгенерировано: \`${now}\``);
   sections.push(`> Скрипт: \`node dev_studio/refresh.js\``);
   sections.push('');
@@ -274,7 +274,7 @@ function generateMap() {
       if (a.imports.length > 0) {
         sections.push('- **Зависимости**:');
         for (const imp of a.imports) {
-          if (imp.from.startsWith('.') || imp.from.startsWith('@epos/')) {
+          if (imp.from.startsWith('.') || imp.from.startsWith('@epios/')) {
             sections.push(`  - \`${imp.from}\` → ${imp.symbols.join(', ')}`);
           }
         }

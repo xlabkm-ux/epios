@@ -1,7 +1,7 @@
-# EPOS-12 — Week 2: Domain & Persistence (Issues & PR Bodies)
+# EPIOS-12 — Week 2: Domain & Persistence (Issues & PR Bodies)
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-12-WEEK-2-DOMAIN-AND-PERSISTENCE`  
+**Document ID:** `EPIOS-12-WEEK-2-DOMAIN-AND-PERSISTENCE`  
 **Status:** Draft  
 **Sprint:** 4.1 (Phase 4)
 
@@ -14,7 +14,7 @@ Implement the core domain model for Missions and Epistemic Nodes, and establish 
 
 ### #25 Implement Mission Aggregate & Domain Invariants
 **Description**: 
-Implement the full `Mission` aggregate as defined in `EPOS-02`.
+Implement the full `Mission` aggregate as defined in `EPIOS-02`.
 - Entities: `Mission`, `MissionRun`.
 - Invariants: 
   - Mission status transitions.

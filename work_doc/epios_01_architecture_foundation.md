@@ -1,10 +1,10 @@
-# EPOS-01 — Architecture Foundation
+# EPIOS-01 — Architecture Foundation
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-01-ARCHITECTURE-FOUNDATION`  
+**Document ID:** `EPIOS-01-ARCHITECTURE-FOUNDATION`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPOS-00-PROJECT-BRIEF`  
+**Depends on:** `EPIOS-00-PROJECT-BRIEF`  
 **Repository model:** Open-source from day one  
 **Target MVP horizon:** 6 weeks or faster  
 **Deployment target for MVP:** Internal dev only  
@@ -65,17 +65,17 @@ The system must not become:
 flowchart TD
   User[Internal MVP User / Architect / Researcher] --> DemoShell[Neutral Epistemic OS Demo Shell]
 
-  DemoShell --> EPOS[Epistemic OS Core]
+  DemoShell --> EPIOS[Epistemic OS Core]
 
-  EPOS --> LLM[LLM Provider / Model Gateway Adapter]
-  EPOS --> PG[(PostgreSQL)]
-  EPOS --> MCP[MCP Tools / MCP Apps Runtime]
-  EPOS --> Forge[Sandbox / Forge Provider - optional MVP]
-  EPOS --> Obs[Observability Sink]
+  EPIOS --> LLM[LLM Provider / Model Gateway Adapter]
+  EPIOS --> PG[(PostgreSQL)]
+  EPIOS --> MCP[MCP Tools / MCP Apps Runtime]
+  EPIOS --> Forge[Sandbox / Forge Provider - optional MVP]
+  EPIOS --> Obs[Observability Sink]
 
   Dev[Developer / Contributor] --> Repo[Open-source Repository]
   Repo --> CI[CI / Test Gates]
-  CI --> EPOS
+  CI --> EPIOS
 ```
 
 ### 3.2. Actors
@@ -1059,7 +1059,7 @@ This document is approved when the project owner confirms:
 After this document is approved, create:
 
 ```text
-EPOS-02 — Domain Model
+EPIOS-02 — Domain Model
 ```
 
 That document should define:

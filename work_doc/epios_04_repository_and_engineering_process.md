@@ -1,10 +1,10 @@
-# EPOS-04 — Repository and Engineering Process
+# EPIOS-04 — Repository and Engineering Process
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-04-REPOSITORY-ENGINEERING-PROCESS`  
+**Document ID:** `EPIOS-04-REPOSITORY-ENGINEERING-PROCESS`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPOS-00`, `EPOS-01`, `EPOS-02`, `EPOS-03`  
+**Depends on:** `EPIOS-00`, `EPIOS-01`, `EPIOS-02`, `EPIOS-03`  
 **Repository model:** Open-source from day one  
 **Target MVP horizon:** 6 weeks or faster  
 **Deployment target:** Internal dev only  
@@ -104,7 +104,7 @@ License decision must be captured in:
 ADR-0026-license-choice.md
 ```
 
-Note: ADR numbering is authoritative in EPOS-09. Older ADR numbering references in EPOS-04 are superseded by EPOS-09.
+Note: ADR numbering is authoritative in EPIOS-09. Older ADR numbering references in EPIOS-04 are superseded by EPIOS-09.
 
 ---
 
@@ -209,7 +209,7 @@ Vite React for demo shell
 Docker Compose for local dev
 ```
 
-Tool decisions should be finalized in `EPOS-05` or ADRs if contested.
+Tool decisions should be finalized in `EPIOS-05` or ADRs if contested.
 
 ---
 
@@ -993,7 +993,7 @@ This document is approved when the project owner confirms:
 After this document is approved, create:
 
 ```text
-EPOS-05 — PostgreSQL Data Model and Persistence
+EPIOS-05 — PostgreSQL Data Model and Persistence
 ```
 
 That document should define:

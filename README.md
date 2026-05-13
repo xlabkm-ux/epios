@@ -1,47 +1,56 @@
-# Epistemic OS (epos)
+# Epistemic OS (epios)
 
-Epistemic Operating System v1.0 is an operating layer for structured reasoning, evidence-backed artifacts, explicit human decisions, and safe AI-assisted actions.
+Epistemic Operating System (EPIOS) is an open-source operating layer designed for structured reasoning, evidence-backed knowledge artifacts, and safe AI-assisted actions.
 
-## Overview
+## 🚀 MVP Release Candidate: v0.1.0-rc.1
 
-Epistemic OS is not a chat product or a generic agent framework. It is a platform kernel designed for:
-- **Epistemic Clarity**: Clear distinction between claims, evidence, and artifacts.
-- **Human Sovereignty**: Explicit human-in-the-loop decisions for all significant actions.
-- **Traceability**: Full provenance and audit trails for every change.
-- **Safe Actions**: Controlled side effects through policy-based boundaries.
+We are proud to announce the first release candidate of the EPIOS MVP. This release establishes the foundational "Universal Mission Room" where humans and AI agents collaborate on complex knowledge graphs.
 
-## Strategic Formula
+### Key Features
+- **Neural Graph Workspace**: Interactive 2D canvas for mapping hypotheses, evidence, and claims.
+- **Epistemic Governance**: Built-in approval workflows for integrating new knowledge into the mission state.
+- **MCP Integration**: Secure bridge for Model Context Protocol (MCP) applications.
+- **Hexagonal Architecture**: Clean separation between domain logic and infrastructure.
 
-`situation → distinction → evidence → artifact → decision → action`
+## 🛠 Quick Start
 
-## Project Status
+### Prerequisites
+- **Node.js**: v20 or higher
+- **pnpm**: `npm install -g pnpm`
+- **Docker**: For running the PostgreSQL database
 
-> [!CAUTION]
-> **Alpha Status**: This project is in active early development. It is currently for **internal development and architecture validation only**. APIs and domain models are subject to breaking changes.
-
-- **Status**: Alpha / MVP Development
-- **MVP Goal**: Universal Mission Room (6-week horizon)
-- **Primary License**: Apache-2.0
-
-## Architecture
-
-### System Context (C4 Level 1)
-
-```mermaid
-graph TD
-    User([Human User])
-    MCPApps([MCP Applications])
-    EPOS[Epistemic OS Kernel]
-    Models[AI Model Providers]
-    DB[(PostgreSQL)]
-
-    User <--> |Interacts| EPOS
-    MCPApps <--> |Safe Bridge| EPOS
-    EPOS --> |Prompts| Models
-    EPOS --> |Persists| DB
+### 1. Clone & Install
+```bash
+git clone https://github.com/xlabkm-ux/epios.git
+cd epios
+pnpm install
 ```
 
-### Container Structure (C4 Level 2)
+### 2. Infrastructure
+Start the PostgreSQL database and required services:
+```bash
+docker-compose up -d
+```
+
+### 3. Run Development Environment
+Launch the API and the Demo Shell simultaneously:
+```bash
+pnpm dev
+```
+The **Demo Shell** will be available at `http://localhost:5173`.
+The **API** will be available at `http://localhost:3000`.
+
+## 📖 Demo Scenarios
+
+Explore the power of EPIOS through our documented use-case scenarios:
+- [Scenario A: Collaborative Research](docs/03_specs/scenarios/SCENARIO_A_COLLABORATIVE_RESEARCH.md)
+- [Scenario B: Crisis Management](docs/03_specs/scenarios/SCENARIO_B_CRISIS_MANAGEMENT.md)
+- [Scenario C: Governance & Consensus](docs/03_specs/scenarios/SCENARIO_C_GOVERNANCE_CONSENSUS.md)
+- [Scenario D: Knowledge Synthesis](docs/03_specs/scenarios/SCENARIO_D_KNOWLEDGE_SYNTHESIS.md)
+
+## 🏗 Architecture
+
+EPIOS follows a layered hexagonal architecture to ensure modularity and testability.
 
 ```mermaid
 graph TD
@@ -64,31 +73,16 @@ graph TD
     InfraM -.-> |Implements| App
 ```
 
-### Prerequisites
+For a deeper dive, see our [Architecture Foundation](work_doc/epios_01_architecture_foundation.md).
 
-- Node.js (v20+)
-- pnpm
-- Docker (for PostgreSQL and optional services)
+## 🛡 Security & Governance
 
-### Installation
+EPIOS implements a strict "Human-in-the-loop" policy for all state-changing actions. Every claim submitted via an AI agent must pass through the `GovernancePanel` for human approval before becoming a permanent part of the mission graph.
 
-```bash
-pnpm install
-```
+## 🤝 Contributing
 
-### Development
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) and [Engineering Process](work_doc/epios_04_repository_and_engineering_process.md) for details.
 
-```bash
-pnpm dev
-```
+## 📜 License
 
-## Documentation
-
-Detailed documentation can be found in the [docs/](docs/README.md) directory:
-- [EPOS-00: Project Brief & Foundation](work_doc/epos_00_project_brief_and_foundation.md)
-- [EPOS-01: Architecture Foundation](work_doc/epos_01_architecture_foundation.md)
-- [EPOS-02: Domain Model](work_doc/epos_02_domain_model.md)
-
-## License
-
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full text.

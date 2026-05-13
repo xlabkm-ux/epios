@@ -5,7 +5,7 @@ import {
   NodeStrength,
   EvidenceRef,
   EpistemicEdgeType,
-} from "@epos/domain";
+} from "@epios/domain";
 
 export interface CreateMissionDto {
   title: string;

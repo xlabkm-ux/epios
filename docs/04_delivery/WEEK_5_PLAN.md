@@ -4,7 +4,7 @@ This plan covers the integration of the Model Context Protocol (MCP) and the imp
 
 ## Goals
 - [x] **MCP Registry**: Establish a registry for managing MCP-compatible applications.
-- [x] **Bridge Validation**: Implement secure communication between EPOS core and MCP apps.
+- [x] **Bridge Validation**: Implement secure communication between EPIOS core and MCP apps.
 - [x] **Claim Flow**: Develop the `ClaimApp` for submitting evidence-based nodes.
 - [x] **Approval Flow**: Develop the `ApprovalApp` for community-based node validation.
 - [x] **Audit Trail**: Implement logging and auditing for all MCP-driven actions.
@@ -19,7 +19,7 @@ This plan covers the integration of the Model Context Protocol (MCP) and the imp
 
 ### 1. MCP Core Infrastructure
 - [x] Implement `MCPAppRegistry` to track installed and active apps.
-- [x] Create `MCPBridge` to map EPOS domain events to MCP tool calls.
+- [x] Create `MCPBridge` to map EPIOS domain events to MCP tool calls.
 - [x] Implement capability discovery for MCP apps.
 - [x] Add health checks and validation for external MCP connections.
 

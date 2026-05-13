@@ -1,10 +1,10 @@
-# EPOS-02 — Domain Model
+# EPIOS-02 — Domain Model
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-02-DOMAIN-MODEL`  
+**Document ID:** `EPIOS-02-DOMAIN-MODEL`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPOS-00-PROJECT-BRIEF`, `EPOS-01-ARCHITECTURE-FOUNDATION`  
+**Depends on:** `EPIOS-00-PROJECT-BRIEF`, `EPIOS-01-ARCHITECTURE-FOUNDATION`  
 **Target MVP horizon:** 6 weeks or faster  
 **Storage baseline:** PostgreSQL-first  
 **Language policy:** TypeScript core  
@@ -1044,7 +1044,7 @@ This document is approved when the project owner confirms:
 After this document is approved, create:
 
 ```text
-EPOS-03 — MVP Scope and 6-Week Roadmap
+EPIOS-03 — MVP Scope and 6-Week Roadmap
 ```
 
 That document should define:

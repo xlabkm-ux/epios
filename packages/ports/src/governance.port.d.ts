@@ -1,4 +1,4 @@
-import { GovernanceProcess } from "@epos/domain";
+import { GovernanceProcess } from "@epios/domain";
 export interface GovernanceRepositoryPort {
   saveProcess(process: GovernanceProcess): Promise<void>;
   findProcessByNodeId(nodeId: string): Promise<GovernanceProcess | null>;

@@ -10,7 +10,7 @@ Continuing v2.3 expansion would compete with the new Epistemic OS direction and 
 Close v2.3 development. Release ChatAVG v2.4 as a stabilized version at the current functional level. v2.4 scope is limited to stabilization, security, reproducibility, handover, and extraction inventory.
 
 ## Consequences
-- **Positive**: prevents scope split; protects EPOS roadmap; provides stable legacy baseline.
+- **Positive**: prevents scope split; protects EPIOS roadmap; provides stable legacy baseline.
 - **Negative**: some v2.3 planned features are cancelled; users expecting RC2 expansion may need updated communication.
 
 ## Revisit Trigger

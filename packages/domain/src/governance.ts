@@ -20,7 +20,7 @@ export interface GovernanceProcess {
 }
 
 /**
- * A Claim in EPOS is a node that undergoes a formal governance process.
+ * A Claim in EPIOS is a node that undergoes a formal governance process.
  */
 export interface Claim extends EpistemicNode {
   governanceId?: string; // Reference to GovernanceProcess

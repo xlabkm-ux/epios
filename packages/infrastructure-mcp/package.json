@@ -1,5 +1,5 @@
 {
-  "name": "@epos/infrastructure-mcp",
+  "name": "@epios/infrastructure-mcp",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -8,15 +8,17 @@
     "build": "tsc",
     "dev": "tsc -w",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@epos/ports": "workspace:*",
-    "@epos/domain": "workspace:*",
-    "@epos/observability": "workspace:*"
+    "@epios/ports": "workspace:*",
+    "@epios/domain": "workspace:*",
+    "@epios/observability": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
+    "vitest": "^1.6.0",
+    "@vitest/coverage-v8": "^1.6.1"
   }
 }

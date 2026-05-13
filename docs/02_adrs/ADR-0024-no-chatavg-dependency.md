@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-Direct dependency would pull legacy coupling into EPOS.
+Direct dependency would pull legacy coupling into EPIOS.
 
 ## Decision
 Epistemic OS must not import ChatAVG as a dependency.

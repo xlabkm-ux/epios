@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { MCPAppRegistryPort, MCPBridgePort } from "@epos/ports";
+import { MCPAppRegistryPort, MCPBridgePort } from "@epios/ports";
 
 export async function mcpRoutes(
   fastify: FastifyInstance,

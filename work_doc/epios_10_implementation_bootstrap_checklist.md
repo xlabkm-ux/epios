@@ -1,10 +1,10 @@
-# EPOS-10 — Implementation Bootstrap Checklist
+# EPIOS-10 — Implementation Bootstrap Checklist
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-10-IMPLEMENTATION-BOOTSTRAP-CHECKLIST`  
+**Document ID:** `EPIOS-10-IMPLEMENTATION-BOOTSTRAP-CHECKLIST`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPOS-00` through `EPOS-09`  
+**Depends on:** `EPIOS-00` through `EPIOS-09`  
 **Target:** Week 1 implementation bootstrap  
 **Repository:** `epistemic-os`  
 **Repository model:** Open-source from day one  
@@ -14,7 +14,7 @@
 
 ## 1. Purpose of This Document
 
-This document converts the accepted EPOS concept package into the first executable implementation plan.
+This document converts the accepted EPIOS concept package into the first executable implementation plan.
 
 It defines:
 
@@ -206,14 +206,14 @@ Initial `package.json` scripts:
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "test:domain": "pnpm --filter @epos/domain test",
-    "test:postgres": "pnpm --filter @epos/infrastructure-postgres test",
+    "test:domain": "pnpm --filter @epios/domain test",
+    "test:postgres": "pnpm --filter @epios/infrastructure-postgres test",
     "lint": "pnpm -r lint",
     "format": "pnpm -r format",
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down",
-    "db:migrate": "pnpm --filter @epos/infrastructure-postgres migrate",
-    "db:seed": "pnpm --filter @epos/infrastructure-postgres seed",
+    "db:migrate": "pnpm --filter @epios/infrastructure-postgres migrate",
+    "db:seed": "pnpm --filter @epios/infrastructure-postgres seed",
     "db:reset": "pnpm db:down && docker compose up -d postgres && pnpm db:migrate && pnpm db:seed",
     "ci": "pnpm lint && pnpm typecheck && pnpm test",
     "ci:release": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
@@ -241,23 +241,23 @@ Minimum `docker-compose.yml`:
 services:
   postgres:
     image: postgres:16
-    container_name: epos-postgres
+    container_name: epios-postgres
     environment:
-      POSTGRES_USER: epos
-      POSTGRES_PASSWORD: epos_dev_password
-      POSTGRES_DB: epos_dev
+      POSTGRES_USER: epios
+      POSTGRES_PASSWORD: epios_dev_password
+      POSTGRES_DB: epios_dev
     ports:
       - "5432:5432"
     volumes:
-      - epos_postgres_data:/var/lib/postgresql/data
+      - epios_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U epos -d epos_dev"]
+      test: ["CMD-SHELL", "pg_isready -U epios -d epios_dev"]
       interval: 5s
       timeout: 5s
       retries: 10
 
 volumes:
-  epos_postgres_data:
+  epios_postgres_data:
 ```
 
 Security note:
@@ -274,12 +274,12 @@ The dev password is for local Docker only and must be documented as non-producti
 
 ```env
 NODE_ENV=development
-EPOS_API_PORT=4000
-EPOS_WEB_PORT=5173
-DATABASE_URL=postgresql://epos:epos_dev_password@localhost:5432/epos_dev
-EPOS_DEV_AUTH_ENABLED=true
-EPOS_TRACE_LOG_LEVEL=debug
-EPOS_MODEL_PROVIDER=fake
+EPIOS_API_PORT=4000
+EPIOS_WEB_PORT=5173
+DATABASE_URL=postgresql://epios:epios_dev_password@localhost:5432/epios_dev
+EPIOS_DEV_AUTH_ENABLED=true
+EPIOS_TRACE_LOG_LEVEL=debug
+EPIOS_MODEL_PROVIDER=fake
 ```
 
 Rules:
@@ -315,7 +315,7 @@ SECURITY.md
 package.json
 pnpm-workspace.yaml
 docs folder structure
-initial EPOS docs copied or linked
+initial EPIOS docs copied or linked
 ```
 
 ### Acceptance
@@ -505,7 +505,7 @@ secret scan if easy
 ### Documentation Issues
 
 ```text
-#11 Add EPOS-00 through EPOS-10 docs to repository
+#11 Add EPIOS-00 through EPIOS-10 docs to repository
 #12 Add ADR-0001 through ADR-0010
 #13 Add document register
 #14 Add initial README quick start
@@ -640,7 +640,7 @@ pnpm db:migrate
 pnpm dev
 
 ## Architecture
-Link to EPOS docs.
+Link to EPIOS docs.
 
 ## Contributing
 Link to CONTRIBUTING.md.
@@ -717,7 +717,7 @@ describe('Mission invariants', () => {
 });
 ```
 
-This code is intentionally minimal. EPOS-02 remains the authoritative domain model.
+This code is intentionally minimal. EPIOS-02 remains the authoritative domain model.
 
 ---
 
@@ -807,7 +807,7 @@ CREATE TABLE trace_events (
 );
 ```
 
-Full schema follows EPOS-05 and should be added in Week 2.
+Full schema follows EPIOS-05 and should be added in Week 2.
 
 ---
 
@@ -932,7 +932,7 @@ After approval, execute one of the following:
 Recommended next artifact:
 
 ```text
-EPOS-11 — Week 1 GitHub Issues and PR Bodies
+EPIOS-11 — Week 1 GitHub Issues and PR Bodies
 ```
 
 Purpose:

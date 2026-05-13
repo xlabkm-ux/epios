@@ -1,10 +1,10 @@
-# EPOS-05 — PostgreSQL Data Model and Persistence
+# EPIOS-05 — PostgreSQL Data Model and Persistence
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-05-POSTGRESQL-DATA-MODEL`  
+**Document ID:** `EPIOS-05-POSTGRESQL-DATA-MODEL`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap
-**Depends on:** `EPOS-00`, `EPOS-01`, `EPOS-02`, `EPOS-03`, `EPOS-04`  
+**Depends on:** `EPIOS-00`, `EPIOS-01`, `EPIOS-02`, `EPIOS-03`, `EPIOS-04`  
 **Storage decision:** PostgreSQL-first alpha  
 **Target MVP horizon:** 6 weeks or faster  
 **Deployment target:** Internal dev only  
@@ -120,7 +120,7 @@ public
 Future option:
 
 ```sql
-epos
+epios
 ```
 
 For MVP simplicity, use `public` unless the chosen migration tool makes schema names painless.
@@ -1254,7 +1254,7 @@ This document is approved when the project owner confirms:
 After this document is approved, create:
 
 ```text
-EPOS-06 — MCP Apps and Security
+EPIOS-06 — MCP Apps and Security
 ```
 
 That document should define:

@@ -1,10 +1,10 @@
-# EPOS-07 — Runtime, Observability and Release Gates
+# EPIOS-07 — Runtime, Observability and Release Gates
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-07-RUNTIME-OBSERVABILITY-RELEASE-GATES`  
+**Document ID:** `EPIOS-07-RUNTIME-OBSERVABILITY-RELEASE-GATES`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPOS-00`, `EPOS-01`, `EPOS-02`, `EPOS-03`, `EPOS-04`, `EPOS-05`, `EPOS-06`  
+**Depends on:** `EPIOS-00`, `EPIOS-01`, `EPIOS-02`, `EPIOS-03`, `EPIOS-04`, `EPIOS-05`, `EPIOS-06`  
 **Target MVP horizon:** 6 weeks or faster  
 **Deployment target:** Internal dev only  
 **Runtime strategy:** Lightweight MVP runner behind `DurableRuntimePort`; Temporal-ready adapter boundary  
@@ -742,7 +742,7 @@ Minimum cases:
 
 ### 14.3. MCP Security Eval
 
-Covered by EPOS-06 security tests.
+Covered by EPIOS-06 security tests.
 
 Must be part of release gate.
 
@@ -892,7 +892,7 @@ Pass criteria:
 [ ] known limitations
 [ ] runbook
 [ ] demo script
-[ ] EPOS-00 to EPOS-07 accepted or marked draft with owner
+[ ] EPIOS-00 to EPIOS-07 accepted or marked draft with owner
 ```
 
 ---
@@ -1039,7 +1039,7 @@ This document is approved when the project owner confirms:
 After this document is approved, create:
 
 ```text
-EPOS-08 — ChatAVG Reuse and v2.4 Stabilization
+EPIOS-08 — ChatAVG Reuse and v2.4 Stabilization
 ```
 
 That document should define:

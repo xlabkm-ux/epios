@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("EPOS Smoke Tests", () => {
+test.describe("EPIOS Smoke Tests", () => {
   test.beforeEach(async ({ page }) => {
     // Mock the API response for missions
     await page.route("**/missions", async (route) => {
@@ -19,7 +19,7 @@ test.describe("EPOS Smoke Tests", () => {
     await page.goto("/", { waitUntil: "networkidle" });
 
     // Check if the sidebar is visible
-    await expect(page.locator('span:has-text("EPOS")')).toBeVisible();
+    await expect(page.getByText("EPIOS", { exact: true })).toBeVisible();
 
     // Check if the missions are loaded in the sidebar (using specific test IDs)
     await expect(page.getByTestId("nav-test-mission-1")).toBeVisible();

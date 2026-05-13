@@ -4,7 +4,7 @@ import {
   AddEdgeUseCase,
   PatchNodeUseCase,
   GetMissionGraphUseCase,
-} from "@epos/application";
+} from "@epios/application";
 import { AddNodeDto, AddEdgeDto, PatchNodeDto } from "../dto/index.js";
 
 export async function mappingRoutes(

@@ -1,4 +1,5 @@
 import { defineConfig } from "vitest/config";
+import path from "path";
 
 export default defineConfig({
   test: {
@@ -14,7 +15,13 @@ export default defineConfig({
         statements: 80,
       },
       include: ["src/**/*.ts"],
-      exclude: ["**/*.spec.ts", "**/*.test.ts"],
+    },
+  },
+  resolve: {
+    alias: {
+      "@epios/domain": path.resolve(__dirname, "../domain/src"),
+      "@epios/ports": path.resolve(__dirname, "../ports/src"),
+      "@epios/observability": path.resolve(__dirname, "../observability/src"),
     },
   },
 });

@@ -1,5 +1,5 @@
-import { GovernanceProcess } from "@epos/domain";
-import { GovernanceRepositoryPort } from "@epos/ports";
+import { GovernanceProcess } from "@epios/domain";
+import { GovernanceRepositoryPort } from "@epios/ports";
 
 export class InMemoryGovernanceRepository implements GovernanceRepositoryPort {
   private processes: Map<string, GovernanceProcess> = new Map();

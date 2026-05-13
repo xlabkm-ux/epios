@@ -16,7 +16,7 @@ module.exports = {
       from: { orphan: true },
       to: {}
     },
-    /* EPOS Architecture Rules */
+    /* EPIOS Architecture Rules */
     {
       name: 'domain-independence',
       comment: 'The domain package should only depend on observability or external libraries (no other internal packages).',

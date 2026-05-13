@@ -1,10 +1,10 @@
-# EPOS-09 — ADR Pack and Decision Index
+# EPIOS-09 — ADR Pack and Decision Index
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-09-ADR-PACK-DECISION-INDEX`  
+**Document ID:** `EPIOS-09-ADR-PACK-DECISION-INDEX`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPOS-00` through `EPOS-08`  
+**Depends on:** `EPIOS-00` through `EPIOS-08`  
 **Purpose:** Convert accepted project, architecture, runtime, persistence, MCP and reuse decisions into an initial ADR index.  
 
 ---
@@ -13,7 +13,7 @@
 
 This document collects and formalizes the initial Architecture Decision Records for **Epistemic OS v1.0**.
 
-It turns approved decisions from `EPOS-00` through `EPOS-08` into a decision index that can be copied into individual ADR files.
+It turns approved decisions from `EPIOS-00` through `EPIOS-08` into a decision index that can be copied into individual ADR files.
 
 This document is not a replacement for full ADR files. It is the seed package and decision ledger.
 
@@ -37,7 +37,7 @@ For the initial project bootstrap, most decisions in this document are marked:
 Accepted
 ```
 
-because they were already approved through the EPOS-00…EPOS-08 sequence.
+because they were already approved through the EPIOS-00…EPIOS-08 sequence.
 
 ---
 
@@ -45,32 +45,32 @@ because they were already approved through the EPOS-00…EPOS-08 sequence.
 
 | ADR | Title | Status | Source Doc | Priority |
 |---|---|---|---|---|
-| ADR-0001 | Create Epistemic OS as a New Project | Accepted | EPOS-00 | P0 |
-| ADR-0002 | Close ChatAVG v2.3 Development and Release v2.4 Stabilization | Accepted | EPOS-00, EPOS-08 | P0 |
-| ADR-0003 | Open Source From Day One | Accepted | EPOS-00, EPOS-04 | P0 |
-| ADR-0004 | Use Neutral Demo Shell as First Product Shell | Accepted | EPOS-00, EPOS-03 | P0 |
-| ADR-0005 | Use Universal Mission Room as MVP Domain | Accepted | EPOS-00, EPOS-03 | P0 |
-| ADR-0006 | Use TypeScript Core with Go/Rust Deferred | Accepted | EPOS-00, EPOS-04 | P1 |
-| ADR-0007 | Use PostgreSQL as Alpha System of Record | Accepted | EPOS-00, EPOS-05 | P0 |
-| ADR-0008 | Include MCP Apps in MVP v1.0 | Accepted | EPOS-00, EPOS-06 | P0 |
-| ADR-0009 | Use Layered Hexagonal Architecture | Accepted | EPOS-01 | P0 |
-| ADR-0010 | Keep Domain Free of Infrastructure Dependencies | Accepted | EPOS-01, EPOS-02 | P0 |
-| ADR-0011 | Use EpistemicNode as Core Claim Primitive | Accepted | EPOS-02 | P0 |
-| ADR-0012 | Use Temporal Validity for Epistemic Nodes | Accepted | EPOS-02 | P1 |
-| ADR-0013 | Use LivingArtifact and ArtifactPatch as Artifact Model | Accepted | EPOS-02 | P0 |
-| ADR-0014 | Use ApprovalRequest and DecisionRecord for Human Decisions | Accepted | EPOS-02, EPOS-06 | P0 |
-| ADR-0015 | Use PostgreSQL Relational Graph Before Graph Database | Accepted | EPOS-01, EPOS-05 | P1 |
-| ADR-0016 | Use Outbox Events from MVP | Accepted | EPOS-05 | P0 |
-| ADR-0017 | Use Idempotency Keys for Side-Effecting Commands | Accepted | EPOS-05, EPOS-07 | P0 |
-| ADR-0018 | Treat MCP Apps as Untrusted UI Surfaces | Accepted | EPOS-06 | P0 |
-| ADR-0019 | Use Secure MCP Bridge with Origin, Schema, Nonce and Capability Checks | Accepted | EPOS-06 | P0 |
-| ADR-0020 | Use Lightweight MVP Runner Behind DurableRuntimePort | Accepted | EPOS-07 | P1 |
-| ADR-0021 | Keep Temporal as Future Runtime Adapter, Not MVP Blocker | Accepted | EPOS-07 | P1 |
-| ADR-0022 | Use Trace Events for Epistemic and Runtime Observability | Accepted | EPOS-07 | P0 |
-| ADR-0023 | Use Fake Deterministic Model Provider for MVP Reliability | Accepted | EPOS-03, EPOS-07 | P1 |
-| ADR-0024 | Do Not Import ChatAVG as a Dependency | Accepted | EPOS-08 | P0 |
-| ADR-0025 | Reuse ChatAVG Through Reviewed Extraction or Clean Rewrite | Accepted | EPOS-08 | P0 |
-| ADR-0026 | Use Apache-2.0 as Recommended Default License | Proposed | EPOS-00, EPOS-04 | P1 |
+| ADR-0001 | Create Epistemic OS as a New Project | Accepted | EPIOS-00 | P0 |
+| ADR-0002 | Close ChatAVG v2.3 Development and Release v2.4 Stabilization | Accepted | EPIOS-00, EPIOS-08 | P0 |
+| ADR-0003 | Open Source From Day One | Accepted | EPIOS-00, EPIOS-04 | P0 |
+| ADR-0004 | Use Neutral Demo Shell as First Product Shell | Accepted | EPIOS-00, EPIOS-03 | P0 |
+| ADR-0005 | Use Universal Mission Room as MVP Domain | Accepted | EPIOS-00, EPIOS-03 | P0 |
+| ADR-0006 | Use TypeScript Core with Go/Rust Deferred | Accepted | EPIOS-00, EPIOS-04 | P1 |
+| ADR-0007 | Use PostgreSQL as Alpha System of Record | Accepted | EPIOS-00, EPIOS-05 | P0 |
+| ADR-0008 | Include MCP Apps in MVP v1.0 | Accepted | EPIOS-00, EPIOS-06 | P0 |
+| ADR-0009 | Use Layered Hexagonal Architecture | Accepted | EPIOS-01 | P0 |
+| ADR-0010 | Keep Domain Free of Infrastructure Dependencies | Accepted | EPIOS-01, EPIOS-02 | P0 |
+| ADR-0011 | Use EpistemicNode as Core Claim Primitive | Accepted | EPIOS-02 | P0 |
+| ADR-0012 | Use Temporal Validity for Epistemic Nodes | Accepted | EPIOS-02 | P1 |
+| ADR-0013 | Use LivingArtifact and ArtifactPatch as Artifact Model | Accepted | EPIOS-02 | P0 |
+| ADR-0014 | Use ApprovalRequest and DecisionRecord for Human Decisions | Accepted | EPIOS-02, EPIOS-06 | P0 |
+| ADR-0015 | Use PostgreSQL Relational Graph Before Graph Database | Accepted | EPIOS-01, EPIOS-05 | P1 |
+| ADR-0016 | Use Outbox Events from MVP | Accepted | EPIOS-05 | P0 |
+| ADR-0017 | Use Idempotency Keys for Side-Effecting Commands | Accepted | EPIOS-05, EPIOS-07 | P0 |
+| ADR-0018 | Treat MCP Apps as Untrusted UI Surfaces | Accepted | EPIOS-06 | P0 |
+| ADR-0019 | Use Secure MCP Bridge with Origin, Schema, Nonce and Capability Checks | Accepted | EPIOS-06 | P0 |
+| ADR-0020 | Use Lightweight MVP Runner Behind DurableRuntimePort | Accepted | EPIOS-07 | P1 |
+| ADR-0021 | Keep Temporal as Future Runtime Adapter, Not MVP Blocker | Accepted | EPIOS-07 | P1 |
+| ADR-0022 | Use Trace Events for Epistemic and Runtime Observability | Accepted | EPIOS-07 | P0 |
+| ADR-0023 | Use Fake Deterministic Model Provider for MVP Reliability | Accepted | EPIOS-03, EPIOS-07 | P1 |
+| ADR-0024 | Do Not Import ChatAVG as a Dependency | Accepted | EPIOS-08 | P0 |
+| ADR-0025 | Reuse ChatAVG Through Reviewed Extraction or Clean Rewrite | Accepted | EPIOS-08 | P0 |
+| ADR-0026 | Use Apache-2.0 as Recommended Default License | Proposed | EPIOS-00, EPIOS-04 | P1 |
 
 ---
 
@@ -142,7 +142,7 @@ v2.4 scope is limited to:
 Positive:
 
 - prevents scope split;
-- protects EPOS roadmap;
+- protects EPIOS roadmap;
 - provides stable legacy baseline.
 
 Negative:
@@ -881,7 +881,7 @@ Accepted
 
 ## Context
 
-Direct dependency would pull legacy coupling into EPOS.
+Direct dependency would pull legacy coupling into EPIOS.
 
 ## Decision
 
@@ -1029,7 +1029,7 @@ This document is approved when the project owner confirms:
 - ADR index is acceptable;
 - ADR statuses are acceptable;
 - Apache-2.0 remains Proposed or is accepted;
-- no accepted decision contradicts EPOS-00…EPOS-08;
+- no accepted decision contradicts EPIOS-00…EPIOS-08;
 - ADR file creation plan is acceptable.
 
 ---
@@ -1039,18 +1039,18 @@ This document is approved when the project owner confirms:
 After approval, choose one:
 
 1. Generate the actual ADR markdown files.
-2. Create `EPOS-10 — Implementation Bootstrap Checklist`.
-3. Export the EPOS documentation package for repository inclusion.
+2. Create `EPIOS-10 — Implementation Bootstrap Checklist`.
+3. Export the EPIOS documentation package for repository inclusion.
 
 Recommended next document:
 
 ```text
-EPOS-10 — Implementation Bootstrap Checklist
+EPIOS-10 — Implementation Bootstrap Checklist
 ```
 
 Purpose:
 
-- convert EPOS docs into initial GitHub issues;
+- convert EPIOS docs into initial GitHub issues;
 - define Week 1 tasks;
 - define exact repository bootstrap commands/files;
 - define first PR sequence.

@@ -2,7 +2,7 @@
 
 Реестр ассетов (код, схемы, тесты), которые подлежат извлечению и рефакторингу для Epistemic OS.
 
-| Ассет | Тип | Локация в ChatAVG | Категория | Целевой модуль EPOS | Риск | Действие |
+| Ассет | Тип | Локация в ChatAVG | Категория | Целевой модуль EPIOS | Риск | Действие |
 |-------|-----|-------------------|-----------|---------------------|------|----------|
 | ModelGateway | код | `cons/chatavg/src/modules/providers/` | REUSE_AFTER_REFACTOR | infrastructure-models | Medium | Извлечь логику нормализации и выбора провайдера. |
 | MCP Gateway | код | `cons/mcp_gateway/` | REUSE_AFTER_REFACTOR | infrastructure-mcp | High | Извлечь опыт работы с MCP SDK, переписать мост. |

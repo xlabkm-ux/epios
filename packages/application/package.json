@@ -1,5 +1,5 @@
 {
-  "name": "@epos/application",
+  "name": "@epios/application",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,9 +7,9 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@epos/domain": "workspace:*",
-    "@epos/ports": "workspace:*",
-    "@epos/observability": "workspace:*"
+    "@epios/domain": "workspace:*",
+    "@epios/ports": "workspace:*",
+    "@epios/observability": "workspace:*"
   },
   "scripts": {
     "test": "vitest run",

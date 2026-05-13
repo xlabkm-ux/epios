@@ -1,7 +1,7 @@
-# EPOS-00 — Project Brief & Foundation
+# EPIOS-00 — Project Brief & Foundation
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-00-PROJECT-BRIEF`  
+**Document ID:** `EPIOS-00-PROJECT-BRIEF`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
 **Repository model:** Open-source from day one  
@@ -505,20 +505,20 @@ This document is the first document.
 
 Planned document sequence:
 
-1. `EPOS-00-PROJECT-BRIEF.md` — current document.
-2. `EPOS-01-ARCHITECTURE-FOUNDATION.md` — layers, C4, core components, ports.
-3. `EPOS-02-DOMAIN-MODEL.md` — Mission, EpistemicNode, Evidence, Artifact, Decision.
-4. `EPOS-03-MVP-SCOPE-AND-ROADMAP.md` — 6-week delivery plan.
-5. `EPOS-04-REPOSITORY-AND-ENGINEERING-PROCESS.md` — open-source, CI, ADR, RFC, DORA, contribution model.
-6. `EPOS-05-POSTGRESQL-DATA-MODEL.md` — schemas, migrations, outbox.
-7. `EPOS-06-MCP-APPS-AND-SECURITY.md` — registry, bridge, apps, policy.
-8. `EPOS-07-RUNTIME-AND-OBSERVABILITY.md` — durable runtime, traces, evals, release gates.
-9. `EPOS-08-CHATAVG-REUSE-AND-V2_4-STABILIZATION.md` — extraction matrix and v2.4 closure.
-10. `EPOS-09-ADR-PACK-AND-DECISION-INDEX.md` — central ADR and decision ledger.
-11. `EPOS-10-BOOTSTRAP-CHECKLIST.md` — technical implementation sequence for Week 1.
-12. `EPOS-11-WEEK-1-ISSUES.md` — GitHub issues and PR bodies for Week 1.
+1. `EPIOS-00-PROJECT-BRIEF.md` — current document.
+2. `EPIOS-01-ARCHITECTURE-FOUNDATION.md` — layers, C4, core components, ports.
+3. `EPIOS-02-DOMAIN-MODEL.md` — Mission, EpistemicNode, Evidence, Artifact, Decision.
+4. `EPIOS-03-MVP-SCOPE-AND-ROADMAP.md` — 6-week delivery plan.
+5. `EPIOS-04-REPOSITORY-AND-ENGINEERING-PROCESS.md` — open-source, CI, ADR, RFC, DORA, contribution model.
+6. `EPIOS-05-POSTGRESQL-DATA-MODEL.md` — schemas, migrations, outbox.
+7. `EPIOS-06-MCP-APPS-AND-SECURITY.md` — registry, bridge, apps, policy.
+8. `EPIOS-07-RUNTIME-AND-OBSERVABILITY.md` — durable runtime, traces, evals, release gates.
+9. `EPIOS-08-CHATAVG-REUSE-AND-V2_4-STABILIZATION.md` — extraction matrix and v2.4 closure.
+10. `EPIOS-09-ADR-PACK-AND-DECISION-INDEX.md` — central ADR and decision ledger.
+11. `EPIOS-10-BOOTSTRAP-CHECKLIST.md` — technical implementation sequence for Week 1.
+12. `EPIOS-11-WEEK-1-ISSUES.md` — GitHub issues and PR bodies for Week 1.
 
-EPOS-00 is the strategic foundation, not the current full document index. The current authoritative document index lives in `docs/00_project/DOCUMENT_REGISTER.md`.
+EPIOS-00 is the strategic foundation, not the current full document index. The current authoritative document index lives in `docs/00_project/DOCUMENT_REGISTER.md`.
 
 Each document should be reviewed and approved before creating the next one.
 
@@ -540,7 +540,7 @@ The following decisions remain open:
 | LLM provider | OpenAI / fake / both | fake + OpenAI | Accepted |
 
 The current authoritative list of open and closed technical decisions lives in `docs/00_project/OPEN_DECISIONS_REGISTER.md`.
-ADR numbering is authoritative in EPOS-09.
+ADR numbering is authoritative in EPIOS-09.
 
 ---
 
@@ -566,7 +566,7 @@ This document is approved when the project owner confirms:
 After this document is approved, create:
 
 ```text
-EPOS-01 — Architecture Foundation
+EPIOS-01 — Architecture Foundation
 ```
 
 That document should define:

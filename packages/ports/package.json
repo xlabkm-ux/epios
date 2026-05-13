@@ -1,5 +1,5 @@
 {
-  "name": "@epos/ports",
+  "name": "@epios/ports",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,6 +7,6 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@epos/domain": "workspace:*"
+    "@epios/domain": "workspace:*"
   }
 }

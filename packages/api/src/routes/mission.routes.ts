@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { CreateMissionUseCase, ListMissionsUseCase } from "@epos/application";
+import { CreateMissionUseCase, ListMissionsUseCase } from "@epios/application";
 import { CreateMissionDto } from "../dto/index.js";
 
 export async function missionRoutes(
@@ -10,7 +10,15 @@ export async function missionRoutes(
   },
 ) {
   fastify.get("/missions", async () => {
-    return options.listMissionsUseCase.execute();
+    console.log("[API] GET /missions called");
+    try {
+      const missions = await options.listMissionsUseCase.execute();
+      console.log(`[API] Returning ${missions.length} missions`);
+      return missions;
+    } catch (e) {
+      console.error("[API] Error in GET /missions:", e);
+      throw e;
+    }
   });
 
   fastify.post<{ Body: CreateMissionDto }>(

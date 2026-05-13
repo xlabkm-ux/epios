@@ -1,6 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Plus, Zap, MessageSquare, Shield } from "lucide-react";
+import {
+  Search,
+  Plus,
+  Zap,
+  MessageSquare,
+  Shield,
+  Terminal,
+  Command,
+} from "lucide-react";
+import { useMission } from "../context/MissionContext";
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -9,13 +18,10 @@ interface CommandPaletteProps {
 
 const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState("");
+  const { selectedNodeId, selectedMissionId } = useMission();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        onClose(); // Toggle
-      }
       if (e.key === "Escape") {
         onClose();
       }
@@ -23,6 +29,83 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
+
+  const allCommands = useMemo(
+    () => [
+      {
+        group: "Missions",
+        items: [
+          {
+            icon: <Plus size={16} />,
+            label: "Create New Mission",
+            shortcut: "N",
+          },
+          {
+            icon: <Zap size={16} />,
+            label: "Jump to Active Mission",
+            shortcut: "J",
+          },
+        ],
+      },
+      {
+        group: "Graph Operations",
+        items: [
+          {
+            icon: <MessageSquare size={16} />,
+            label: "Add Epistemic Node",
+            shortcut: "A",
+          },
+          {
+            icon: <Shield size={16} />,
+            label: "Add Evidence Node",
+            shortcut: "E",
+          },
+        ],
+      },
+      ...(selectedNodeId
+        ? [
+            {
+              group: "Node Context",
+              items: [
+                {
+                  icon: <Terminal size={16} />,
+                  label: "Analyze with AI",
+                  shortcut: "L",
+                },
+                {
+                  icon: <Plus size={16} />,
+                  label: "Connect to Node",
+                  shortcut: "C",
+                },
+              ],
+            },
+          ]
+        : []),
+      {
+        group: "System",
+        items: [
+          {
+            icon: <Command size={16} />,
+            label: "View Audit Log",
+            shortcut: "G",
+          },
+        ],
+      },
+    ],
+    [selectedNodeId],
+  );
+
+  const filteredCommands = useMemo(() => {
+    if (!query) return allCommands;
+    return allCommands
+      .map((group) => ({
+        ...group,
+        items: group.items.filter((item) =>
+          item.label.toLowerCase().includes(query.toLowerCase()),
+        ),
+      }))
+      .filter((group) => group.items.length > 0);
+  }, [query, allCommands]);
 
   if (!isOpen) return null;
 
@@ -36,65 +119,66 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          backdropFilter: "blur(4px)",
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          backdropFilter: "blur(8px)",
           zIndex: 100,
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "center",
-          padding: "2rem",
+          paddingTop: "15vh",
         }}
         onClick={onClose}
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: -20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: -20 }}
+          initial={{ opacity: 0, y: -40, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -40, scale: 0.98 }}
+          transition={{ type: "spring", damping: 25, stiffness: 300 }}
           onClick={(e) => e.stopPropagation()}
+          className="premium-card"
           style={{
             width: "100%",
-            maxWidth: "600px",
-            backgroundColor: "var(--bg-card)",
-            borderRadius: "12px",
-            border: "1px solid var(--border)",
-            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.5)",
+            maxWidth: "640px",
             overflow: "hidden",
+            border: "1px solid var(--border-bright)",
           }}
         >
           <div
             style={{
-              padding: "1.25rem",
+              padding: "1.5rem",
               borderBottom: "1px solid var(--border)",
               display: "flex",
               alignItems: "center",
-              gap: "1rem",
+              gap: "1.25rem",
             }}
           >
-            <Search size={20} color="var(--text-dim)" />
+            <Search size={22} color="var(--primary)" />
             <input
               autoFocus
               data-testid="command-palette-input"
-              placeholder="Type a command or search..."
+              placeholder="What do you want to do?"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               style={{
                 flex: 1,
                 background: "none",
                 border: "none",
-                fontSize: "1.1rem",
+                fontSize: "1.25rem",
                 color: "var(--text-main)",
                 outline: "none",
                 padding: 0,
                 boxShadow: "none",
+                fontFamily: "var(--font-display)",
               }}
             />
             <div
               style={{
-                padding: "2px 6px",
-                borderRadius: "4px",
+                padding: "4px 8px",
+                borderRadius: "6px",
                 backgroundColor: "var(--border)",
                 fontSize: "0.7rem",
                 color: "var(--text-dim)",
+                fontWeight: 600,
               }}
             >
               ESC
@@ -102,52 +186,84 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div
-            style={{ padding: "0.5rem", maxHeight: "400px", overflowY: "auto" }}
+            style={{
+              padding: "0.75rem",
+              maxHeight: "450px",
+              overflowY: "auto",
+            }}
           >
-            <CommandGroup label="Missions">
-              <CommandItem
-                icon={<Plus size={16} />}
-                label="Create New Mission"
-                shortcut="N"
-                onClick={onClose}
-              />
-              <CommandItem
-                icon={<Zap size={16} />}
-                label="Jump to Active Mission"
-                shortcut="J"
-                onClick={onClose}
-              />
-            </CommandGroup>
-
-            <CommandGroup label="Graph Operations">
-              <CommandItem
-                icon={<MessageSquare size={16} />}
-                label="Add Epistemic Node"
-                shortcut="A"
-                onClick={onClose}
-              />
-              <CommandItem
-                icon={<Shield size={16} />}
-                label="Add Evidence Node"
-                shortcut="E"
-                onClick={onClose}
-              />
-            </CommandGroup>
+            {filteredCommands.length > 0 ? (
+              filteredCommands.map((group, idx) => (
+                <CommandGroup key={idx} label={group.group}>
+                  {group.items.map((item, i) => (
+                    <CommandItem
+                      key={i}
+                      icon={item.icon}
+                      label={item.label}
+                      shortcut={item.shortcut}
+                      onClick={() => {
+                        alert(`Executing Command: ${item.label}`);
+                        onClose();
+                      }}
+                    />
+                  ))}
+                </CommandGroup>
+              ))
+            ) : (
+              <div
+                style={{
+                  padding: "2rem",
+                  textAlign: "center",
+                  color: "var(--text-dim)",
+                }}
+              >
+                No commands matching "{query}"
+              </div>
+            )}
           </div>
 
           <div
             style={{
-              padding: "0.75rem 1.25rem",
-              backgroundColor: "rgba(0,0,0,0.2)",
+              padding: "1rem 1.5rem",
+              backgroundColor: "rgba(0,0,0,0.3)",
               borderTop: "1px solid var(--border)",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
             }}
           >
+            <span
+              style={{
+                fontSize: "0.75rem",
+                color: "var(--text-dim)",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
+              <span style={{ color: "var(--primary)" }}>EPIOS</span>
+              <span>v0.1.0-rc.1</span>
+              {selectedMissionId && (
+                <>
+                  <span style={{ color: "var(--border)" }}>|</span>
+                  <span style={{ color: "var(--success)" }}>
+                    Mission Active
+                  </span>
+                </>
+              )}
+            </span>
             <span style={{ fontSize: "0.75rem", color: "var(--text-dim)" }}>
-              Tip: Use <code style={{ color: "var(--primary)" }}>Ctrl+K</code>{" "}
-              to open anywhere
+              <kbd
+                style={{
+                  backgroundColor: "var(--border)",
+                  padding: "2px 4px",
+                  borderRadius: "3px",
+                  marginRight: "4px",
+                }}
+              >
+                ↑↓
+              </kbd>
+              to navigate
             </span>
           </div>
         </motion.div>
@@ -160,14 +276,15 @@ const CommandGroup: React.FC<{ label: string; children: React.ReactNode }> = ({
   label,
   children,
 }) => (
-  <div style={{ marginBottom: "1rem" }}>
+  <div style={{ marginBottom: "0.75rem" }}>
     <div
       style={{
         padding: "0.5rem 0.75rem",
-        fontSize: "0.7rem",
-        color: "var(--text-dim)",
+        fontSize: "0.65rem",
+        color: "var(--primary)",
         textTransform: "uppercase",
-        letterSpacing: "0.05em",
+        letterSpacing: "0.15em",
+        fontWeight: 700,
       }}
     >
       {label}
@@ -182,37 +299,40 @@ const CommandItem: React.FC<{
   shortcut?: string;
   onClick?: () => void;
 }> = ({ icon, label, shortcut, onClick }) => (
-  <button
+  <motion.button
+    whileHover={{ x: 4, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+    whileTap={{ scale: 0.99 }}
     onClick={onClick}
     data-testid={`command-item-${label.toLowerCase().replace(/\s+/g, "-")}`}
     style={{
       width: "100%",
       display: "flex",
       alignItems: "center",
-      gap: "0.75rem",
-      padding: "0.75rem",
-      borderRadius: "8px",
+      gap: "1rem",
+      padding: "0.85rem 1rem",
+      borderRadius: "10px",
       textAlign: "left",
       color: "var(--text-main)",
-      fontSize: "0.9rem",
+      fontSize: "0.95rem",
     }}
-    onMouseEnter={(e) =>
-      (e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.05)")
-    }
-    onMouseLeave={(e) =>
-      (e.currentTarget.style.backgroundColor = "transparent")
-    }
   >
-    <div style={{ color: "var(--text-dim)" }}>{icon}</div>
-    <span style={{ flex: 1 }}>{label}</span>
+    <div style={{ color: "var(--primary)", display: "flex" }}>{icon}</div>
+    <span style={{ flex: 1, fontWeight: 500 }}>{label}</span>
     {shortcut && (
       <div
-        style={{ fontSize: "0.75rem", color: "var(--text-dim)", opacity: 0.5 }}
+        style={{
+          fontSize: "0.7rem",
+          color: "var(--text-dim)",
+          backgroundColor: "rgba(255,255,255,0.05)",
+          padding: "2px 6px",
+          borderRadius: "4px",
+          fontFamily: "var(--font-mono)",
+        }}
       >
         {shortcut}
       </div>
     )}
-  </button>
+  </motion.button>
 );
 
 export default CommandPalette;

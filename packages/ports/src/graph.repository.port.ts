@@ -1,4 +1,4 @@
-import { EpistemicNode, EpistemicEdge } from "@epos/domain";
+import { EpistemicNode, EpistemicEdge } from "@epios/domain";
 
 export interface GraphRepositoryPort {
   saveNode(node: EpistemicNode): Promise<void>;

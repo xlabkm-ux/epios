@@ -1,4 +1,4 @@
-## 🔍 Аудит проекта EPOS (xlabkm-ux/epos)
+## 🔍 Аудит проекта EPIOS (xlabkm-ux/epios)
 **Статус:** Alpha / MVP | **Стек:** TypeScript, Node.js 22+, pnpm, Turborepo, React/Vite, PostgreSQL 16
 
 ---
@@ -7,7 +7,7 @@
 | Аспект | Оценка |
 |--------|--------|
 | **Архитектура** | Чёткое DDD-разделение: `domain ← ports ← application ← infrastructure` [[0]] |
-| **Документация** | Полная спецификация: EPOS-00..EPOS-11, ADR-индекс, AGENT.md с правилами для AI-агентов |
+| **Документация** | Полная спецификация: EPIOS-00..EPIOS-11, ADR-индекс, AGENT.md с правилами для AI-агентов |
 | **Monorepo** | Корректная настройка pnpm workspaces + turbo.json с кэшированием [[1]][[3]] |
 | **Безопасность** | License Apache-2.0, SECURITY.md, запрет на импорт infrastructure → domain в AGENT.md |
 | **Процессы** | Скрипты `ci`/`ci:release`, обязательное тестирование перед коммитом |
@@ -18,7 +18,7 @@
 
 | Приоритет | Проблема | Последствия | Решение |
 |-----------|----------|-------------|---------|
-| 🔴 **High** | **Пароль БД в docker-compose.yml** (`epos_dev_password` в plain text) | Утечка учётных данных, компрометация среды | Вынести в `.env`, добавить `.env` в `.gitignore`, использовать secrets в CI |
+| 🔴 **High** | **Пароль БД в docker-compose.yml** (`epios_dev_password` в plain text) | Утечка учётных данных, компрометация среды | Вынести в `.env`, добавить `.env` в `.gitignore`, использовать secrets в CI |
 | 🔴 **High** | **Отсутствует CI/CD** (нет `.github/workflows/`) | Нет автоматической проверки PR, риск регрессий | Добавить workflow: `lint → typecheck → test → build` на каждый push/PR [[39]] |
 | 🟠 **Medium** | **Нет pre-commit хуков** (husky/lint-staged) | В репозиторий может попасть неформатированный/непротестированный код | Добавить `husky` + `lint-staged` с запуском `lint`, `typecheck`, `test` для изменённых файлов |
 | 🟠 **Medium** | **Turbo v1.13.3** (устаревшая мажорная версия) | Отсутствие оптимизаций и фиксов из v2+ | Обновить до `turbo@^2.0.0`, проверить совместимость pipeline [[4]] |

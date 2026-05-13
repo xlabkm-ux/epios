@@ -1,6 +1,6 @@
-import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epos/ports";
-import { Vote } from "@epos/domain";
-import { auditLogger } from "@epos/observability";
+import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
+import { Vote } from "@epios/domain";
+import { auditLogger } from "@epios/observability";
 
 export interface CastVoteRequest {
   nodeId: string;

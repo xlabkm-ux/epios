@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Layout,
   Database,
@@ -6,9 +6,13 @@ import {
   Settings,
   Plus,
   Terminal,
+  ChevronLeft,
+  ChevronRight,
+  Zap,
 } from "lucide-react";
 import { useApi } from "../hooks/useApi";
 import { useMission } from "../context/MissionContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Mission {
   id: string;
@@ -17,11 +21,8 @@ interface Mission {
 }
 
 const Sidebar: React.FC = () => {
-  const {
-    data: fetchedMissions,
-    loading,
-    error,
-  } = useApi<Mission[]>("/missions");
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { data: fetchedMissions, loading } = useApi<Mission[]>("/missions");
   const { missions, setMissions, selectedMissionId, setSelectedMissionId } =
     useMission();
 
@@ -35,50 +36,92 @@ const Sidebar: React.FC = () => {
   }, [fetchedMissions, setMissions, setSelectedMissionId, selectedMissionId]);
 
   return (
-    <div
+    <motion.div
+      initial={false}
+      animate={{ width: isCollapsed ? "80px" : "260px" }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{
-        width: "260px",
         height: "100vh",
         backgroundColor: "var(--bg-sidebar)",
         borderRight: "1px solid var(--border)",
         display: "flex",
         flexDirection: "column",
-        padding: "1.5rem 1rem",
+        padding: isCollapsed ? "2rem 0.75rem" : "2rem 1.25rem",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <button
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        style={{
+          position: "absolute",
+          right: "4px",
+          top: "1.25rem",
+          width: "20px",
+          height: "20px",
+          backgroundColor: "var(--bg-sidebar)",
+          border: "1px solid var(--border)",
+          borderRadius: "6px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "var(--text-dim)",
+          zIndex: 10,
+          cursor: "pointer",
+          transition: "all 0.2s ease",
+          opacity: 0.5,
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.5")}
+      >
+        {isCollapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
+      </button>
+
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "0.75rem",
-          marginBottom: "2.5rem",
-          padding: "0 0.5rem",
+          gap: "1rem",
+          marginBottom: "3rem",
+          padding: isCollapsed ? "0" : "0 0.5rem",
+          justifyContent: isCollapsed ? "center" : "flex-start",
         }}
       >
         <div
           style={{
-            width: "32px",
-            height: "32px",
+            width: "36px",
+            minWidth: "36px",
+            height: "36px",
             backgroundColor: "var(--primary)",
-            borderRadius: "6px",
+            borderRadius: "10px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             color: "var(--bg-dark)",
-            boxShadow: "0 0 15px var(--primary-glow)",
+            boxShadow: "0 0 20px var(--primary-glow)",
           }}
         >
-          <Terminal size={20} />
+          <Terminal size={22} strokeWidth={2.5} />
         </div>
-        <span
-          style={{
-            fontSize: "1.25rem",
-            fontWeight: 700,
-            letterSpacing: "-0.025em",
-          }}
-        >
-          EPOS
-        </span>
+        <AnimatePresence>
+          {!isCollapsed && (
+            <motion.span
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              style={{
+                fontSize: "1.5rem",
+                fontWeight: 800,
+                letterSpacing: "-0.03em",
+                fontFamily: "var(--font-display)",
+                color: "var(--text-main)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              EPIOS
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
 
       <nav
@@ -86,83 +129,130 @@ const Sidebar: React.FC = () => {
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          gap: "0.5rem",
+          gap: "0.4rem",
         }}
       >
-        <SidebarItem icon={<Layout size={18} />} label="Mission Room" active />
-        <SidebarItem icon={<Database size={18} />} label="Archive" />
-        <SidebarItem icon={<Activity size={18} />} label="Telemetry" />
+        <SidebarItem
+          icon={<Layout size={18} />}
+          label="Mission Room"
+          active
+          isCollapsed={isCollapsed}
+          onClick={() => alert("Already in Mission Room")}
+        />
+        <SidebarItem
+          icon={<Database size={18} />}
+          label="Archive"
+          isCollapsed={isCollapsed}
+          onClick={() => alert("Accessing historical neural data...")}
+        />
+        <SidebarItem
+          icon={<Activity size={18} />}
+          label="Telemetry"
+          isCollapsed={isCollapsed}
+          onClick={() => alert("Real-time mission metrics synchronization...")}
+        />
 
-        <div
-          style={{
-            margin: "1.5rem 0 0.5rem 0.5rem",
-            fontSize: "0.7rem",
-            color: "var(--text-dim)",
-            textTransform: "uppercase",
-            letterSpacing: "0.05em",
-          }}
-        >
-          Active Missions
-        </div>
+        <AnimatePresence>
+          {!isCollapsed && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              style={{
+                margin: "2rem 0 0.75rem 0.75rem",
+                fontSize: "0.65rem",
+                color: "var(--text-dim)",
+                textTransform: "uppercase",
+                letterSpacing: "0.15em",
+                fontWeight: 700,
+                whiteSpace: "nowrap",
+              }}
+            >
+              Active Missions
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {loading && (
+        {loading && !isCollapsed && (
           <div
             style={{
               padding: "0.5rem 1rem",
               fontSize: "0.8rem",
               color: "var(--text-dim)",
+              fontStyle: "italic",
             }}
           >
-            Loading...
-          </div>
-        )}
-        {error && (
-          <div
-            style={{
-              padding: "0.5rem 1rem",
-              fontSize: "0.8rem",
-              color: "var(--error)",
-            }}
-          >
-            Error loading missions
+            Synchronizing...
           </div>
         )}
 
-        {missions.map((mission) => (
-          <SidebarItem
-            key={mission.id}
-            active={selectedMissionId === mission.id}
-            onClick={() => setSelectedMissionId(mission.id)}
-            icon={
-              <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  backgroundColor:
-                    mission.status === "ACTIVE"
-                      ? "var(--success)"
-                      : "var(--text-dim)",
-                }}
-              />
-            }
-            label={mission.title}
-          />
-        ))}
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
+        >
+          {missions.map((mission) => (
+            <SidebarItem
+              key={mission.id}
+              active={selectedMissionId === mission.id}
+              isCollapsed={isCollapsed}
+              onClick={() => setSelectedMissionId(mission.id)}
+              icon={
+                selectedMissionId === mission.id ? (
+                  <Zap
+                    size={14}
+                    fill="var(--primary)"
+                    style={{
+                      filter: "drop-shadow(0 0 5px var(--primary-glow))",
+                      color: "var(--primary)",
+                    }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      backgroundColor:
+                        mission.status === "ACTIVE"
+                          ? "var(--success)"
+                          : "var(--text-dim)",
+                      boxShadow:
+                        mission.status === "ACTIVE"
+                          ? "0 0 10px var(--success)"
+                          : "none",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                    }}
+                  />
+                )
+              }
+              label={mission.title}
+            />
+          ))}
+        </div>
 
-        <SidebarItem icon={<Plus size={18} />} label="New Mission" isAction />
+        <SidebarItem
+          icon={<Plus size={18} />}
+          label="New Mission"
+          isAction
+          isCollapsed={isCollapsed}
+          onClick={() => alert("Initializing Neural Core for new mission...")}
+        />
       </nav>
 
       <div
         style={{
           marginTop: "auto",
-          padding: "1rem 0.5rem",
+          paddingTop: "1.5rem",
           borderTop: "1px solid var(--border)",
         }}
       >
-        <SidebarItem icon={<Settings size={18} />} label="Settings" />
+        <SidebarItem
+          icon={<Settings size={18} />}
+          label="Settings"
+          isCollapsed={isCollapsed}
+          onClick={() => alert("Opening System Configuration...")}
+        />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -171,6 +261,7 @@ interface SidebarItemProps {
   label: string;
   active?: boolean;
   isAction?: boolean;
+  isCollapsed?: boolean;
   onClick?: () => void;
 }
 
@@ -179,18 +270,29 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   label,
   active,
   isAction,
+  isCollapsed,
   onClick,
 }) => {
   return (
-    <button
+    <motion.button
+      whileHover={{
+        x: isCollapsed ? 0 : 4,
+        backgroundColor: active
+          ? "rgba(0, 242, 255, 0.08)"
+          : "rgba(255, 255, 255, 0.03)",
+        scale: isCollapsed ? 1.05 : 1,
+      }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
+      title={isCollapsed ? label : ""}
       data-testid={`nav-${label.toLowerCase().replace(/\s+/g, "-")}`}
       style={{
         display: "flex",
         alignItems: "center",
-        gap: "0.75rem",
-        padding: "0.75rem 1rem",
-        borderRadius: "8px",
+        justifyContent: isCollapsed ? "center" : "flex-start",
+        gap: isCollapsed ? "0" : "0.85rem",
+        padding: isCollapsed ? "0.75rem 0" : "0.75rem 1rem",
+        borderRadius: "10px",
         width: "100%",
         textAlign: "left",
         color: active
@@ -199,23 +301,41 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
             ? "var(--text-dim)"
             : "var(--text-main)",
         backgroundColor: active ? "rgba(0, 242, 255, 0.05)" : "transparent",
-        border: active
-          ? "1px solid rgba(0, 242, 255, 0.1)"
-          : "1px solid transparent",
+        border: "1px solid transparent",
         fontSize: "0.9rem",
-        fontWeight: active ? 600 : 400,
-      }}
-      onMouseEnter={(e) => {
-        if (!active)
-          e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.03)";
-      }}
-      onMouseLeave={(e) => {
-        if (!active) e.currentTarget.style.backgroundColor = "transparent";
+        fontWeight: active ? 600 : 500,
+        transition: "var(--transition-fast)",
       }}
     >
-      {icon}
-      <span>{label}</span>
-    </button>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: isCollapsed ? "100%" : "18px",
+          minWidth: isCollapsed ? "100%" : "18px",
+        }}
+      >
+        {icon}
+      </div>
+      <AnimatePresence>
+        {!isCollapsed && (
+          <motion.span
+            initial={{ opacity: 0, width: 0 }}
+            animate={{ opacity: 1, width: "auto" }}
+            exit={{ opacity: 0, width: 0 }}
+            style={{
+              flex: 1,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {label}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </motion.button>
   );
 };
 

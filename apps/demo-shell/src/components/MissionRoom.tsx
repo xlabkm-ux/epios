@@ -692,7 +692,7 @@ const MissionRoom: React.FC = () => {
             }}
           />
           <span style={{ color: "var(--primary)", fontWeight: 600 }}>
-            EPOS_SHELL_CONNECTED
+            EPIOS_SHELL_CONNECTED
           </span>
 
           {/* Hover Panel */}

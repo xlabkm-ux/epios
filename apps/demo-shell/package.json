@@ -1,5 +1,5 @@
 {
-  "name": "@epos/demo-shell",
+  "name": "@epios/demo-shell",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@epos/api": "workspace:*",
-    "@epos/domain": "workspace:*",
+    "@epios/api": "workspace:*",
+    "@epios/domain": "workspace:*",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.14.0",
     "react": "^18.2.0",

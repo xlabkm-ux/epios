@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { SubmitClaimUseCase, CastVoteUseCase } from "@epos/application";
+import { SubmitClaimUseCase, CastVoteUseCase } from "@epios/application";
 
 export async function governanceRoutes(
   fastify: FastifyInstance,

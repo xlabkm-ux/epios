@@ -1,4 +1,4 @@
-Аудит сделал по документационному пакету **EPOS-00…EPOS-11**. Код проекта я не проверял; это аудит **архитектурной и delivery-документации**.
+Аудит сделал по документационному пакету **EPIOS-00…EPIOS-11**. Код проекта я не проверял; это аудит **архитектурной и delivery-документации**.
 
 ## Итоговый вердикт
 
@@ -6,7 +6,7 @@
 
 Но пакет пока **не готов как управляемая документационная система**. Главный риск уже не в нехватке архитектурных идей, а в том, что документы остаются в состоянии `Draft / For Review`, содержат несколько противоречий, не имеют единого register/status/owner контроля и еще не разложены в исполняемые specs/templates/checklists.
 
-Критичный вывод: **перед стартом публичного репозитория нужно сделать documentation stabilization pass**, иначе проект быстро получит тот же drift, против которого EPOS-04 сам предупреждает.
+Критичный вывод: **перед стартом публичного репозитория нужно сделать documentation stabilization pass**, иначе проект быстро получит тот же drift, против которого EPIOS-04 сам предупреждает.
 
 ---
 
@@ -14,25 +14,25 @@
 
 ## 1.1. Архитектурная линия выдержана
 
-EPOS-00 ясно фиксирует, что Epistemic OS — не ChatAVG v3, не чат-продукт и не generic agent framework, а новая open-source платформа с отдельным репозиторием и Universal Mission Room как MVP-доменом. Там же перечислены success criteria для MVP: миссия, Mission Brief, EpistemicNodes, EvidenceRefs, LivingArtifact, ArtifactPatch, ApprovalApp, ClaimApp, EvidenceViewer, PostgreSQL persistence, trace и domain invariant tests.  
+EPIOS-00 ясно фиксирует, что Epistemic OS — не ChatAVG v3, не чат-продукт и не generic agent framework, а новая open-source платформа с отдельным репозиторием и Universal Mission Room как MVP-доменом. Там же перечислены success criteria для MVP: миссия, Mission Brief, EpistemicNodes, EvidenceRefs, LivingArtifact, ArtifactPatch, ApprovalApp, ClaimApp, EvidenceViewer, PostgreSQL persistence, trace и domain invariant tests.  
 
 ## 1.2. Delivery-план достаточно исполнимый
 
-EPOS-10 хорошо переводит концептуальный пакет в Week 1 bootstrap: repo skeleton, workspace, PostgreSQL, first migration, first domain invariant test, API `/health`, demo shell и CI baseline. Он также уже содержит issue groups: foundation, docs, security, process. 
+EPIOS-10 хорошо переводит концептуальный пакет в Week 1 bootstrap: repo skeleton, workspace, PostgreSQL, first migration, first domain invariant test, API `/health`, demo shell и CI baseline. Он также уже содержит issue groups: foundation, docs, security, process. 
 
-Созданный **EPOS-11** правильно продолжает EPOS-10: он превращает Week 1 в copy-ready GitHub issues и PR bodies. Это нужный формат — меньше интерпретации, больше исполнения.
+Созданный **EPIOS-11** правильно продолжает EPIOS-10: он превращает Week 1 в copy-ready GitHub issues и PR bodies. Это нужный формат — меньше интерпретации, больше исполнения.
 
 ## 1.3. Security boundary для MCP задан правильно
 
-EPOS-06 корректно рассматривает MCP Apps как untrusted UI surfaces. Все write-capable действия должны проходить через bridge validation, API/BFF command, application use case, policy check, domain validation, transaction и audit/trace event. 
+EPIOS-06 корректно рассматривает MCP Apps как untrusted UI surfaces. Все write-capable действия должны проходить через bridge validation, API/BFF command, application use case, policy check, domain validation, transaction и audit/trace event. 
 
 ## 1.4. Runtime и observability не отложены “на потом”
 
-EPOS-07 правильно фиксирует, что `MissionRun` state принадлежит Epistemic OS, а не HTTP request, UI state или LLM provider state. Это важный архитектурный инвариант для всей системы. 
+EPIOS-07 правильно фиксирует, что `MissionRun` state принадлежит Epistemic OS, а не HTTP request, UI state или LLM provider state. Это важный архитектурный инвариант для всей системы. 
 
 ## 1.5. ChatAVG reuse policy здоровая
 
-EPOS-08 запрещает uncontrolled legacy import, требует extraction inventory, document handover register и разделяет ChatAVG v2.4 stabilization от EPOS Week 1 bootstrap. Это критично для защиты новой архитектуры. 
+EPIOS-08 запрещает uncontrolled legacy import, требует extraction inventory, document handover register и разделяет ChatAVG v2.4 stabilization от EPIOS Week 1 bootstrap. Это критично для защиты новой архитектуры. 
 
 ---
 
@@ -40,19 +40,19 @@ EPOS-08 запрещает uncontrolled legacy import, требует extraction
 
 ## P0-1. Конфликт нумерации ADR
 
-В EPOS-04 license decision должен быть записан как:
+В EPIOS-04 license decision должен быть записан как:
 
 ```text
 ADR-0008-license-choice.md
 ```
 
-Но в EPOS-09 и EPOS-10 `ADR-0008` уже занят решением **Include MCP Apps in MVP v1.0**, а license вынесен в `ADR-0026-license-choice.md`.   
+Но в EPIOS-09 и EPIOS-10 `ADR-0008` уже занят решением **Include MCP Apps in MVP v1.0**, а license вынесен в `ADR-0026-license-choice.md`.   
 
 Это не косметика. ADR-нумерация — это адресная система решений. Если ее оставить конфликтной, ссылки из README, PR, issues и docs начнут расходиться.
 
 **Доработка:**
 
-В EPOS-04 заменить:
+В EPIOS-04 заменить:
 
 ```text
 ADR-0008-license-choice.md
@@ -67,15 +67,15 @@ ADR-0026-license-choice.md
 И добавить примечание:
 
 ```text
-ADR numbering is authoritative in EPOS-09.
-Older ADR numbering references in EPOS-04 are superseded by EPOS-09.
+ADR numbering is authoritative in EPIOS-09.
+Older ADR numbering references in EPIOS-04 are superseded by EPIOS-09.
 ```
 
 ---
 
 ## P0-2. License decision все еще не закрыт
 
-EPOS-00 держит license в open decisions, EPOS-09 помечает Apache-2.0 как `Proposed`, а EPOS-10 прямо говорит, что license должен быть accepted before public repository.   
+EPIOS-00 держит license в open decisions, EPIOS-09 помечает Apache-2.0 как `Proposed`, а EPIOS-10 прямо говорит, что license должен быть accepted before public repository.   
 
 **Риск:** нельзя безопасно открывать open-source repo без финального license decision.
 
@@ -99,16 +99,16 @@ Proposed → Accepted
 
 ## P0-3. Все документы остаются Draft / For Review, но уже используются как executable plan
 
-Большинство EPOS-документов имеют статус:
+Большинство EPIOS-документов имеют статус:
 
 ```text
 Draft 0.1
 For Review / Approval
 ```
 
-При этом EPOS-10 и EPOS-11 уже построены как исполняемый план. Это создает правовую и процессную двусмысленность: что является authoritative source, если документ еще не accepted?
+При этом EPIOS-10 и EPIOS-11 уже построены как исполняемый план. Это создает правовую и процессную двусмысленность: что является authoritative source, если документ еще не accepted?
 
-EPOS-04 сам требует document lifecycle, где каждый документ имеет ID, version, status и owner, а accepted docs являются authoritative until superseded. 
+EPIOS-04 сам требует document lifecycle, где каждый документ имеет ID, version, status и owner, а accepted docs являются authoritative until superseded. 
 
 **Доработка:**
 
@@ -118,7 +118,7 @@ EPOS-04 сам требует document lifecycle, где каждый докум
 docs/00_project/DOCUMENT_REGISTER.md
 ```
 
-И для каждого EPOS-документа явно указать:
+И для каждого EPIOS-документа явно указать:
 
 ```text
 Document ID
@@ -136,18 +136,18 @@ Decision authority
 Минимально нужно перевести в `Accepted` или `Accepted for MVP`:
 
 ```text
-EPOS-00
-EPOS-01
-EPOS-02
-EPOS-03
-EPOS-04
-EPOS-05
-EPOS-06
-EPOS-07
-EPOS-08
-EPOS-09
-EPOS-10
-EPOS-11
+EPIOS-00
+EPIOS-01
+EPIOS-02
+EPIOS-03
+EPIOS-04
+EPIOS-05
+EPIOS-06
+EPIOS-07
+EPIOS-08
+EPIOS-09
+EPIOS-10
+EPIOS-11
 ```
 
 Если не хотите принимать все полностью, используйте статус:
@@ -158,25 +158,25 @@ Accepted for MVP Bootstrap
 
 ---
 
-## P0-4. EPOS-00 устарел как индекс документации
+## P0-4. EPIOS-00 устарел как индекс документации
 
-EPOS-00 перечисляет initial documentation set только до EPOS-08, но проект уже имеет EPOS-09, EPOS-10 и EPOS-11. 
+EPIOS-00 перечисляет initial documentation set только до EPIOS-08, но проект уже имеет EPIOS-09, EPIOS-10 и EPIOS-11. 
 
-**Доработка EPOS-00:**
+**Доработка EPIOS-00:**
 
 Обновить раздел `Initial Documentation Set`:
 
 ```text
-EPOS-09 — ADR Pack and Decision Index
-EPOS-10 — Implementation Bootstrap Checklist
-EPOS-11 — Week 1 GitHub Issues and PR Bodies
-EPOS-12 — Week 2 Domain and Persistence Issues and PR Bodies
+EPIOS-09 — ADR Pack and Decision Index
+EPIOS-10 — Implementation Bootstrap Checklist
+EPIOS-11 — Week 1 GitHub Issues and PR Bodies
+EPIOS-12 — Week 2 Domain and Persistence Issues and PR Bodies
 ```
 
 И добавить правило:
 
 ```text
-EPOS-00 is the strategic foundation, not the current full document index.
+EPIOS-00 is the strategic foundation, not the current full document index.
 The current authoritative document index lives in docs/00_project/DOCUMENT_REGISTER.md.
 ```
 
@@ -184,9 +184,9 @@ The current authoritative document index lives in docs/00_project/DOCUMENT_REGIS
 
 ## P0-5. ADR Pack не заменяет ADR files, но сами ADR files еще не созданы
 
-EPOS-09 прямо говорит, что он не является заменой individual ADR files, а является seed package / decision ledger. 
+EPIOS-09 прямо говорит, что он не является заменой individual ADR files, а является seed package / decision ledger. 
 
-EPOS-10 требует создать ADR-0001…ADR-0010 в Week 1 и отдельно `ADR-0026-license-choice.md`. 
+EPIOS-10 требует создать ADR-0001…ADR-0010 в Week 1 и отдельно `ADR-0026-license-choice.md`. 
 
 **Доработка:**
 
@@ -212,9 +212,9 @@ docs/02_adrs/ADR-0026-license-choice.md
 
 ## P1-1. Нет единого Open Decisions Register
 
-EPOS-00 перечисляет открытые решения: license, package manager, web framework, API framework, ORM/query, workflow runtime, auth, LLM provider. 
+EPIOS-00 перечисляет открытые решения: license, package manager, web framework, API framework, ORM/query, workflow runtime, auth, LLM provider. 
 
-Часть из них уже фактически выбрана в EPOS-10 как defaults, но не зафиксирована через ADR/RFC.
+Часть из них уже фактически выбрана в EPIOS-10 как defaults, но не зафиксирована через ADR/RFC.
 
 **Доработка:**
 
@@ -259,7 +259,7 @@ Dependency boundary checker
 
 ## P1-2. Нет API contract spec
 
-EPOS-03 перечисляет use cases, EPOS-01 задает error contract, EPOS-06 задает MCP backend command mapping, но нет единого API/BFF контракта.  
+EPIOS-03 перечисляет use cases, EPIOS-01 задает error contract, EPIOS-06 задает MCP backend command mapping, но нет единого API/BFF контракта.  
 
 Это станет проблемой уже на Week 3, когда API должен уметь create mission, update brief, run mapping, propose patch, resolve approval и return mission read model.
 
@@ -346,7 +346,7 @@ Tests
 
 ## P1-4. Нет Error Catalog
 
-EPOS-01 и EPOS-02 уже дают error shape и набор error codes, но нет единого каталога, где domain/application/API errors согласованы.
+EPIOS-01 и EPIOS-02 уже дают error shape и набор error codes, но нет единого каталога, где domain/application/API errors согласованы.
 
 **Создать:**
 
@@ -390,7 +390,7 @@ INTERNAL_ERROR
 
 ## P1-5. Нет Trace Event Catalog
 
-EPOS-07 задает trace taxonomy, metrics и release gates, но для реализации нужен отдельный catalog: event name, schema, payload policy, redaction, producer, consumer. 
+EPIOS-07 задает trace taxonomy, metrics и release gates, но для реализации нужен отдельный catalog: event name, schema, payload policy, redaction, producer, consumer. 
 
 **Создать:**
 
@@ -430,7 +430,7 @@ policy.*
 
 ## P1-6. Нет Data Retention / Redaction Policy
 
-EPOS-07 требует trace payload redaction review и запрещает секреты в logs/traces, но одновременно пишет, что MVP не требует long-term retention policy. 
+EPIOS-07 требует trace payload redaction review и запрещает секреты в logs/traces, но одновременно пишет, что MVP не требует long-term retention policy. 
 
 Это нормально для production SLO, но не для security hygiene. Нужна **минимальная MVP-политика**, иначе неизвестно, что можно хранить в `trace_events`, activity snapshots и LLM snapshots.
 
@@ -458,7 +458,7 @@ Future production decision points
 
 ## P1-7. Нет MCP Security Test Plan как исполняемого документа
 
-EPOS-06 содержит security matrix, но это еще не test plan для CI. Bridge validation pipeline и nonce/capability checks описаны хорошо. 
+EPIOS-06 содержит security matrix, но это еще не test plan для CI. Bridge validation pipeline и nonce/capability checks описаны хорошо. 
 
 **Создать:**
 
@@ -490,7 +490,7 @@ rejected message emits audit event
 
 ## P1-8. Нет Eval Smoke Set как конкретных fixtures
 
-EPOS-07 определяет semantic/evidence eval smoke cases: unsupported strong claim, stale source, contradiction, high-risk patch approval и т.д. 
+EPIOS-07 определяет semantic/evidence eval smoke cases: unsupported strong claim, stale source, contradiction, high-risk patch approval и т.д. 
 
 Но нет конкретных test fixtures, expected outputs и pass/fail критериев.
 
@@ -516,7 +516,7 @@ failure examples
 
 ## P1-9. Нет consolidated Test Strategy
 
-Сейчас тесты разбросаны по EPOS-03, EPOS-04, EPOS-06, EPOS-07, EPOS-10.
+Сейчас тесты разбросаны по EPIOS-03, EPIOS-04, EPIOS-06, EPIOS-07, EPIOS-10.
 
 **Создать:**
 
@@ -549,10 +549,10 @@ Requirement → Test type → Test file/package → Gate W1/W2/W3/W4/W5/W6
 
 ## P1-10. Нет Week 2 execution package
 
-EPOS-11 уже указывает следующий документ:
+EPIOS-11 уже указывает следующий документ:
 
 ```text
-EPOS-12 — Week 2 Domain and Persistence Issues and PR Bodies
+EPIOS-12 — Week 2 Domain and Persistence Issues and PR Bodies
 ```
 
 Это правильный следующий operational artifact.
@@ -560,7 +560,7 @@ EPOS-12 — Week 2 Domain and Persistence Issues and PR Bodies
 **Создать:**
 
 ```text
-EPOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md
+EPIOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md
 ```
 
 Содержание:
@@ -589,9 +589,9 @@ idempotency tests
 
 # 4. ChatAVG handover documentation — обязательно, иначе legacy риск останется открытым
 
-EPOS-08 требует explicit handover deliverables: `CURRENT_STATE_V2_4.md`, `KNOWN_LIMITATIONS_V2_4.md`, `CHATAVG_DOCUMENT_HANDOVER_REGISTER.md`, `CHATAVG_EXTRACTION_INVENTORY.md`, `SECURITY_STABILIZATION_NOTES.md`, release notes. 
+EPIOS-08 требует explicit handover deliverables: `CURRENT_STATE_V2_4.md`, `KNOWN_LIMITATIONS_V2_4.md`, `CHATAVG_DOCUMENT_HANDOVER_REGISTER.md`, `CHATAVG_EXTRACTION_INVENTORY.md`, `SECURITY_STABILIZATION_NOTES.md`, release notes. 
 
-Также EPOS-08 прямо требует классифицировать ChatAVG-документы через statuses: `AUTHORITATIVE_FOR_V2_4`, `REFERENCE_FOR_EPOS`, `SUPERSEDED_BY_EPOS`, `ARCHIVED`, `DISCARD`. 
+Также EPIOS-08 прямо требует классифицировать ChatAVG-документы через statuses: `AUTHORITATIVE_FOR_V2_4`, `REFERENCE_FOR_EPIOS`, `SUPERSEDED_BY_EPIOS`, `ARCHIVED`, `DISCARD`. 
 
 ## Создать P0 для Track A
 
@@ -604,29 +604,29 @@ SECURITY_STABILIZATION_NOTES.md
 CHATAVG_V2_4_RELEASE_NOTES.md
 ```
 
-Если их не создать, будет высокий риск, что EPOS начнет тащить legacy-решения без контроля.
+Если их не создать, будет высокий риск, что EPIOS начнет тащить legacy-решения без контроля.
 
 ---
 
 # 5. Конкретные доработки существующих документов
 
-## EPOS-00
+## EPIOS-00
 
 **Проблема:** устарел список документации, open decisions не связаны с ADR backlog.
 
 **Доработать:**
 
 ```text
-- обновить Initial Documentation Set до EPOS-11/EPOS-12;
+- обновить Initial Documentation Set до EPIOS-11/EPIOS-12;
 - добавить ссылку на DOCUMENT_REGISTER.md;
 - добавить ссылку на OPEN_DECISIONS_REGISTER.md;
-- отметить, что ADR numbering authoritative в EPOS-09;
+- отметить, что ADR numbering authoritative в EPIOS-09;
 - убрать или уточнить решения, которые уже приняты позже.
 ```
 
 ---
 
-## EPOS-04
+## EPIOS-04
 
 **Проблема:** конфликт ADR numbering, license ADR указан неверно.
 
@@ -634,15 +634,15 @@ CHATAVG_V2_4_RELEASE_NOTES.md
 
 ```text
 - заменить ADR-0008-license-choice.md на ADR-0026-license-choice.md;
-- добавить “EPOS-09 is authoritative ADR index”;
+- добавить “EPIOS-09 is authoritative ADR index”;
 - добавить doc drift review cadence;
-- добавить rule: every EPOS doc has Owner;
+- добавить rule: every EPIOS doc has Owner;
 - добавить правило: generated execution docs must link to source docs.
 ```
 
 ---
 
-## EPOS-05
+## EPIOS-05
 
 **Проблема:** PostgreSQL model сильный, но tool choice остается открытым.
 
@@ -656,11 +656,11 @@ CHATAVG_V2_4_RELEASE_NOTES.md
 - добавить mcp_bridge_nonces в future migration plan, если не Week 2.
 ```
 
-EPOS-05 уже требует migrations from day one, optimistic concurrency, outbox, idempotency and traceability, но implementation choices надо закрыть до Week 2. 
+EPIOS-05 уже требует migrations from day one, optimistic concurrency, outbox, idempotency and traceability, но implementation choices надо закрыть до Week 2. 
 
 ---
 
-## EPOS-06
+## EPIOS-06
 
 **Проблема:** безопасность описана хорошо, но threat model и test plan нужно вынести в исполняемые документы.
 
@@ -676,7 +676,7 @@ EPOS-05 уже требует migrations from day one, optimistic concurrency, o
 
 ---
 
-## EPOS-07
+## EPIOS-07
 
 **Проблема:** runbooks и evals описаны внутри большого документа, но для исполнения нужны отдельные файлы.
 
@@ -687,14 +687,14 @@ EPOS-05 уже требует migrations from day one, optimistic concurrency, o
 - создать EVAL_SMOKE_SET.md;
 - создать TRACE_EVENT_CATALOG.md;
 - создать DATA_RETENTION_AND_REDACTION_POLICY_MVP.md;
-- обновить documentation checklist: EPOS-00…EPOS-11, not only EPOS-00…EPOS-07.
+- обновить documentation checklist: EPIOS-00…EPIOS-11, not only EPIOS-00…EPIOS-07.
 ```
 
-EPOS-07 уже требует README quick start, `.env.example`, known limitations, runbook, demo script и accepted/owned docs, поэтому это не optional. 
+EPIOS-07 уже требует README quick start, `.env.example`, known limitations, runbook, demo script и accepted/owned docs, поэтому это не optional. 
 
 ---
 
-## EPOS-08
+## EPIOS-08
 
 **Проблема:** правила reuse сильные, но не создан handover artifact set.
 
@@ -703,13 +703,13 @@ EPOS-07 уже требует README quick start, `.env.example`, known limitati
 ```text
 - создать все ChatAVG handover docs;
 - добавить owner и deadline для Track A;
-- добавить explicit “no EPOS import until extraction inventory row exists”;
+- добавить explicit “no EPIOS import until extraction inventory row exists”;
 - добавить public/private sanitization checklist.
 ```
 
 ---
 
-## EPOS-09
+## EPIOS-09
 
 **Проблема:** ADR index хороший, но пока не разложен в ADR files.
 
@@ -719,19 +719,19 @@ EPOS-07 уже требует README quick start, `.env.example`, known limitati
 - создать ADR-0001…ADR-0010;
 - создать ADR-0026;
 - после Week 1 создать ADR-0011…ADR-0025;
-- добавить “supersedes EPOS-04 initial ADR numbering where conflicting”.
+- добавить “supersedes EPIOS-04 initial ADR numbering where conflicting”.
 ```
 
 ---
 
-## EPOS-10
+## EPIOS-10
 
 **Проблема:** Week 1 план хорош, но часть docs/process задач лучше иметь как generated files/scripts.
 
 **Доработать:**
 
 ```text
-- добавить ссылку на EPOS-11;
+- добавить ссылку на EPIOS-11;
 - добавить GitHub CLI snippet для labels/milestones/issues;
 - добавить Definition of Ready для issues;
 - добавить dependency order между issues;
@@ -740,7 +740,7 @@ EPOS-07 уже требует README quick start, `.env.example`, known limitati
 
 ---
 
-## EPOS-11
+## EPIOS-11
 
 **Проблема:** хороший operational doc, но можно усилить execution control.
 
@@ -781,7 +781,7 @@ KNOWN_LIMITATIONS_MVP.md
 ## P1 — сделать до конца Week 1 / перед Week 2
 
 ```text
-EPOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md
+EPIOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md
 docs/03_specs/API_CONTRACTS_MVP.md
 docs/03_specs/APPLICATION_USE_CASE_CONTRACTS.md
 docs/03_specs/ERROR_CATALOG.md
@@ -834,15 +834,15 @@ docs/00_project/GLOSSARY.md
 
 | Риск                               | Severity | Почему опасно                                      | Исправление                                      |
 | ---------------------------------- | -------: | -------------------------------------------------- | ------------------------------------------------ |
-| ADR numbering conflict             |       P0 | ссылки на решения станут недостоверными            | EPOS-04 поправить, EPOS-09 сделать authoritative |
+| ADR numbering conflict             |       P0 | ссылки на решения станут недостоверными            | EPIOS-04 поправить, EPIOS-09 сделать authoritative |
 | License not accepted               |       P0 | нельзя безопасно открыть public repo               | принять ADR-0026                                 |
 | Все docs Draft                     |       P0 | непонятно, что является источником истины          | DOCUMENT_REGISTER + owner/status                 |
 | API/use case contracts отсутствуют |       P1 | Week 3 начнется с импровизации                     | API_CONTRACTS + USE_CASE_CONTRACTS               |
 | Redaction/retention не вынесены    |       P1 | trace/logging может утечь чувствительными payloads | DATA_RETENTION_AND_REDACTION_POLICY_MVP          |
 | Eval cases не исполнимы            |       P1 | semantic quality останется декларацией             | EVAL_SMOKE_SET                                   |
-| ChatAVG handover docs не созданы   |       P1 | legacy complexity попадет в EPOS                   | handover register + extraction inventory         |
-| EPOS-00 index устарел              |       P1 | новые документы не отражены в foundation           | обновить EPOS-00 и создать register              |
-| Runbooks внутри большого EPOS-07   |       P2 | оператору неудобно пользоваться                    | вынести в docs/05_runbooks                       |
+| ChatAVG handover docs не созданы   |       P1 | legacy complexity попадет в EPIOS                   | handover register + extraction inventory         |
+| EPIOS-00 index устарел              |       P1 | новые документы не отражены в foundation           | обновить EPIOS-00 и создать register              |
+| Runbooks внутри большого EPIOS-07   |       P2 | оператору неудобно пользоваться                    | вынести в docs/05_runbooks                       |
 | Нет traceability matrix            |       P2 | success criteria не связаны с tests/issues         | RELEASE_GATE_EVIDENCE_MATRIX                     |
 
 ---
@@ -856,10 +856,10 @@ docs/00_project/GLOSSARY.md
 ```text
 1. DOCUMENT_REGISTER.md
 2. OPEN_DECISIONS_REGISTER.md
-3. ADR numbering fix in EPOS-04
+3. ADR numbering fix in EPIOS-04
 4. ADR-0026 license accepted
 5. ADR-0001…ADR-0010 created
-6. EPOS-00 updated as foundation, not current index
+6. EPIOS-00 updated as foundation, not current index
 ```
 
 ## Шаг 2 — Execution contracts
@@ -867,7 +867,7 @@ docs/00_project/GLOSSARY.md
 Затем закрыть то, что напрямую нужно Week 2–3:
 
 ```text
-1. EPOS-12 Week 2 Domain and Persistence Issues and PR Bodies
+1. EPIOS-12 Week 2 Domain and Persistence Issues and PR Bodies
 2. API_CONTRACTS_MVP.md
 3. APPLICATION_USE_CASE_CONTRACTS.md
 4. ERROR_CATALOG.md
@@ -890,7 +890,7 @@ docs/00_project/GLOSSARY.md
 
 ## Шаг 4 — ChatAVG handover
 
-Параллельно, но не блокируя EPOS Week 1:
+Параллельно, но не блокируя EPIOS Week 1:
 
 ```text
 1. CHATAVG_DOCUMENT_HANDOVER_REGISTER.md
@@ -908,7 +908,7 @@ docs/00_project/GLOSSARY.md
 Не создавайте сейчас еще один большой концептуальный документ вроде:
 
 ```text
-EPOS-12 — Architecture v2
+EPIOS-12 — Architecture v2
 ```
 
 Это будет вредно. Архитектуры уже достаточно.
@@ -927,7 +927,7 @@ handover registers
 Самый правильный следующий документ:
 
 ```text
-EPOS-12 — Week 2 Domain and Persistence Issues and PR Bodies
+EPIOS-12 — Week 2 Domain and Persistence Issues and PR Bodies
 ```
 
 Но **перед ним** нужно закрыть P0-stabilization:

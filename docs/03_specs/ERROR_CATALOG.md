@@ -1,4 +1,4 @@
-# ERROR CATALOG: Epistemic OS (epos)
+# ERROR CATALOG: Epistemic OS (epios)
 
 This catalog defines the standardized errors used across the Epistemic OS kernel, application, and API layers.
 

@@ -21,6 +21,7 @@ function App() {
     <div
       style={{
         display: "flex",
+        flexWrap: "nowrap",
         width: "100vw",
         height: "100vh",
         backgroundColor: "var(--bg-dark)",
@@ -28,13 +29,16 @@ function App() {
         overflow: "hidden",
       }}
     >
-      <Sidebar />
+      <div className="desktop-only" style={{ height: "100%" }}>
+        <Sidebar />
+      </div>
       <main
         style={{
           flex: 1,
           display: "flex",
           flexDirection: "column",
           minWidth: 0,
+          position: "relative",
         }}
       >
         <MissionRoom />

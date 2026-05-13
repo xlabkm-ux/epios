@@ -3,9 +3,9 @@ import {
   NodeType,
   NodeStrength,
   EvidenceRef,
-} from "@epos/domain";
-import { GraphRepositoryPort, MissionRepositoryPort } from "@epos/ports";
-import { tracer } from "@epos/observability";
+} from "@epios/domain";
+import { GraphRepositoryPort, MissionRepositoryPort } from "@epios/ports";
+import { tracer } from "@epios/observability";
 import { randomUUID } from "crypto";
 
 export type AddNodeRequest = {

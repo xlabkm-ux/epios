@@ -1,6 +1,6 @@
-# EPOS Project Fix & Improvement Plan (Audit-Driven)
+# EPIOS Project Fix & Improvement Plan (Audit-Driven)
 
-This plan is based on the comprehensive audits conducted by **DeepSeek**, **OpenAI**, and the **Internal Documentation Audit (EPOS-00…EPOS-11)**. It addresses critical (P0) and high-priority (P1) issues across infrastructure, documentation, architecture, and security.
+This plan is based on the comprehensive audits conducted by **DeepSeek**, **OpenAI**, and the **Internal Documentation Audit (EPIOS-00…EPIOS-11)**. It addresses critical (P0) and high-priority (P1) issues across infrastructure, documentation, architecture, and security.
 
 ## Execution Strategy
 - **Short Independent Sprints**: 3-5 days each.
@@ -30,10 +30,10 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 ### Sprint 2.1: Documentation Stabilization Pass
 - [x] **Document Register**: Create `docs/00_project/DOCUMENT_REGISTER.md` with status/owner tracking.
 - [x] **ADR Resolution**: 
-    - [x] Fix numbering conflict between EPOS-04 and EPOS-09.
+    - [x] Fix numbering conflict between EPIOS-04 and EPIOS-09.
     - [x] Create individual ADR files for `ADR-0001` through `ADR-0010` and `ADR-0026` in `docs/02_adrs/`.
 - [x] **License Finalization**: Finalize `ADR-0026-license-choice.md` as **Apache-2.0** and transition to `Accepted`.
-- [x] **Status Update**: Transition core documents (EPOS-00 to EPOS-11) from `Draft` to `Accepted for MVP Bootstrap`.
+- [x] **Status Update**: Transition core documents (EPIOS-00 to EPIOS-11) from `Draft` to `Accepted for MVP Bootstrap`.
 - [x] **Open Decisions**: Create `docs/00_project/OPEN_DECISIONS_REGISTER.md`.
 - [x] **Documentation Structure**: Implement **Diátaxis framework** (Reference / Explanation / How-to / Tutorial) in `docs/`.
 - [x] **README Polish**: Add "Alpha - internal dev only" status, Quickstart, and **Mermaid/C4 architecture diagrams**.
@@ -47,8 +47,8 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 ### Sprint 3.1: Enforcement & Quality
 - [x] **Dependency Boundaries**: Implement **dependency-cruiser** to enforce `domain ← application ← infrastructure` constraints in CI.
 - [x] **Quality Gates**: Set **Vitest coverage thresholds** (min 80% for `packages/domain`).
-- [x] **GitHub Backlog**: Transfer issues from EPOS-10/11 to **GitHub Projects & Issues**.
-- [x] **Week 2 Planning**: Create `EPOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md`.
+- [x] **GitHub Backlog**: Transfer issues from EPIOS-10/11 to **GitHub Projects & Issues**.
+- [x] **Week 2 Planning**: Create `EPIOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md`.
 - [x] **Milestones**: Initialize GitHub Milestones for Release Gates (W1-W6).
 
 ---
@@ -91,7 +91,7 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 ### Sprint 7.1: Release Readiness
 - [ ] **Deployment Docs**: Create `DEPLOY.md` with environment setup and release instructions.
 - [ ] **ChatAVG Handover**: Create `CURRENT_STATE_V2_4.md`, `CHATAVG_EXTRACTION_INVENTORY.md`, and `SECURITY_STABILIZATION_NOTES.md`.
-- [ ] **Sanitization**: Ensure no credentials or legacy spaghetti leaks into EPOS.
+- [ ] **Sanitization**: Ensure no credentials or legacy spaghetti leaks into EPIOS.
 
 ---
 

@@ -1,10 +1,10 @@
-# EPOS-06 — MCP Apps and Security
+# EPIOS-06 — MCP Apps and Security
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-06-MCP-APPS-SECURITY`  
+**Document ID:** `EPIOS-06-MCP-APPS-SECURITY`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPOS-00`, `EPOS-01`, `EPOS-02`, `EPOS-03`, `EPOS-04`, `EPOS-05`  
+**Depends on:** `EPIOS-00`, `EPIOS-01`, `EPIOS-02`, `EPIOS-03`, `EPIOS-04`, `EPIOS-05`  
 **MVP Requirement:** MCP Apps are included in MVP v1.0  
 **Deployment target:** Internal dev only  
 
@@ -458,7 +458,7 @@ CREATE TABLE mcp_bridge_nonces (
 );
 ```
 
-If not added in EPOS-05, include it in the MCP migration.
+If not added in EPIOS-05, include it in the MCP migration.
 
 ---
 
@@ -794,7 +794,7 @@ Do not log full sensitive payloads unless redacted.
 
 ## 13. Data Model Additions
 
-EPOS-05 already defines core tables. MCP security requires one additional table unless implemented through existing idempotency/nonce storage.
+EPIOS-05 already defines core tables. MCP security requires one additional table unless implemented through existing idempotency/nonce storage.
 
 ### 13.1. `mcp_bridge_nonces`
 
@@ -1098,7 +1098,7 @@ This document is approved when the project owner confirms:
 After this document is approved, create:
 
 ```text
-EPOS-07 — Runtime, Observability and Release Gates
+EPIOS-07 — Runtime, Observability and Release Gates
 ```
 
 That document should define:

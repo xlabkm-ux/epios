@@ -1,6 +1,6 @@
-# PROJECT BACKLOG: Epistemic OS (epos)
+# PROJECT BACKLOG: Epistemic OS (epios)
 
-Этот файл является оперативным трекером задач и синхронизирован с основным роадмапом в `work_doc/epos_03_mvp_scope_and_6_week_roadmap.md`.
+Этот файл является оперативным трекером задач и синхронизирован с основным роадмапом в `work_doc/epios_03_mvp_scope_and_6_week_roadmap.md`.
 
 ## 🚀 MVP Роадмап (6 недель)
 
@@ -29,7 +29,7 @@
 - [x] ✅ Sprint 3.1: Enforcement & Quality — 2026-05-12
   - [x] Dependency Cruiser boundaries
   - [x] Vitest coverage thresholds (80%)
-  - [x] GitHub backlog preparation (EPOS-12)
+  - [x] GitHub backlog preparation (EPIOS-12)
 - [x] ✅ Реализация агрегата Mission — 2026-05-12
 - [x] ✅ EpistemicNode и EvidenceRef — 2026-05-12
 - [x] ✅ Репозитории PostgreSQL — 2026-05-12
@@ -53,7 +53,8 @@
 ### Неделя 6: Полировка и Релиз-кандидат ([План](docs/04_delivery/WEEK_6_PLAN.md))
 - [x] ✅ Четыре демо-сценария — 2026-05-12
 - [x] ✅ E2E smoke тесты — 2026-05-12
-- [ ] MVP RC Tag
+- [x] ✅ UI/UX Полировка — 2026-05-12
+- [x] ✅ MVP RC Tag (v0.1.0-rc.1) — 2026-05-12
 
 ---
 *Агент обязан обновлять этот файл после каждого спринта.*

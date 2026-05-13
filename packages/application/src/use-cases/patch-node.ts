@@ -1,5 +1,5 @@
-import { EpistemicNode, NodeStrength, EvidenceRef } from "@epos/domain";
-import { GraphRepositoryPort } from "@epos/ports";
+import { EpistemicNode, NodeStrength, EvidenceRef } from "@epios/domain";
+import { GraphRepositoryPort } from "@epios/ports";
 
 export type PatchNodeRequest = {
   id: string;

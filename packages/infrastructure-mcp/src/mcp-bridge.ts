@@ -1,4 +1,4 @@
-import { MCPBridgePort, MCPAppRegistryPort } from "@epos/ports";
+import { MCPBridgePort, MCPAppRegistryPort } from "@epios/ports";
 
 export class MockMCPBridge implements MCPBridgePort {
   constructor(private registry: MCPAppRegistryPort) {}

@@ -1,4 +1,4 @@
-# GitHub Setup Guide: Epistemic OS (epos)
+# GitHub Setup Guide: Epistemic OS (epios)
 
 This guide summarizes the labels, milestones, and issues defined in the project documentation for quick setup in GitHub.
 
@@ -49,7 +49,7 @@ This guide summarizes the labels, milestones, and issues defined in the project 
 - **W5: MCP Security & Bridge** (End of Week 5)
 - **W6: MVP Release Candidate** (End of Week 6)
 
-## 3. Initial Issues Backlog (from EPOS-10)
+## 3. Initial Issues Backlog (from EPIOS-10)
 
 1. Create public repository skeleton
 2. Add license and open-source governance files
@@ -61,7 +61,7 @@ This guide summarizes the labels, milestones, and issues defined in the project 
 8. Add API health endpoint
 9. Add demo shell skeleton
 10. Add CI baseline
-11. Add EPOS-00 through EPOS-10 docs to repository
+11. Add EPIOS-00 through EPIOS-10 docs to repository
 12. Add ADR-0001 through ADR-0010
 13. Add document register
 14. Add initial README quick start
@@ -76,7 +76,7 @@ This guide summarizes the labels, milestones, and issues defined in the project 
 23. Add contribution guide
 24. Add weekly milestone tags plan
 
-## 4. Week 2 Issues (from EPOS-12)
+## 4. Week 2 Issues (from EPIOS-12)
 
 25. Implement Mission Aggregate & Domain Invariants
 26. Implement EpistemicNode & EvidenceRef

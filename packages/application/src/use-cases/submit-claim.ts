@@ -1,6 +1,6 @@
-import { Claim, GovernanceProcess } from "@epos/domain";
-import { GraphRepositoryPort, GovernanceRepositoryPort } from "@epos/ports";
-import { v4 as uuidv4 } from "uuid";
+import { Claim, GovernanceProcess } from "@epios/domain";
+import { GraphRepositoryPort, GovernanceRepositoryPort } from "@epios/ports";
+import { randomUUID } from "crypto";
 
 export interface SubmitClaimRequest {
   missionId: string;
@@ -15,7 +15,7 @@ export class SubmitClaimUseCase {
   ) {}
 
   async execute(request: SubmitClaimRequest): Promise<Claim> {
-    const claimId = uuidv4();
+    const claimId = randomUUID();
     const now = new Date();
 
     const claim: Claim = {

@@ -19,7 +19,7 @@ export interface MCPAppRegistryPort {
 }
 /**
  * Port for MCP Bridge.
- * Orchestrates communication between EPOS and registered MCP apps.
+ * Orchestrates communication between EPIOS and registered MCP apps.
  */
 export interface MCPBridgePort {
   executeTool(

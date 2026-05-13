@@ -11,10 +11,10 @@
    Включить branch protection: запрет direct push, required PR, required CI, linear history/squash. Иначе архитектурные правила останутся декларацией. ([GitHub Docs][3])
 
 3. **Секреты и env-гигиена.**
-   `docker-compose.yml` и `.env.example` содержат `epos_dev_password`; это не выглядит как реальный секрет, но для open-source лучше заменить на `${POSTGRES_PASSWORD:-epos_dev_password}` и явно пометить как local-only. OWASP-рекомендация — повторяемо сканировать репозиторий на sensitive values в pipeline. ([GitHub][4])
+   `docker-compose.yml` и `.env.example` содержат `epios_dev_password`; это не выглядит как реальный секрет, но для open-source лучше заменить на `${POSTGRES_PASSWORD:-epios_dev_password}` и явно пометить как local-only. OWASP-рекомендация — повторяемо сканировать репозиторий на sensitive values в pipeline. ([GitHub][4])
 
 4. **Создать рабочий backlog в GitHub Issues.**
-   Сейчас issues = 0, хотя EPOS-10 уже описывает Week 1 issue set. Перенести P0/P1 задачи в GitHub, иначе нет управляемого delivery-контроля. ([GitHub][1])
+   Сейчас issues = 0, хотя EPIOS-10 уже описывает Week 1 issue set. Перенести P0/P1 задачи в GitHub, иначе нет управляемого delivery-контроля. ([GitHub][1])
 
 5. **Закрыть ADR/document drift.**
    Документы сами фиксируют необходимость `DOCUMENT_REGISTER.md`, ADR-файлов и lifecycle контроля; аудит документации указывает конфликт ADR-нумерации и статус Draft/For Review для документов, уже используемых как executable plan. 
@@ -34,15 +34,15 @@
    Минимум: `.git`, `node_modules`, `.env`, `coverage`, `dist`, `.turbo`. Это защита от утечек и ускорение сборок.
 
 5. **Добавить release gate checklist.**
-   EPOS-07 уже задает gates W1–W6: repo/local DB/tests/no secrets для W1, domain+persistence для W2, API/use cases для W3, shell для W4, MCP security для W5, RC для W6. Их надо превратить в GitHub milestones. 
+   EPIOS-07 уже задает gates W1–W6: repo/local DB/tests/no secrets для W1, domain+persistence для W2, API/use cases для W3, shell для W4, MCP security для W5, RC для W6. Их надо превратить в GitHub milestones. 
 
 ## Лучшие практики, применимые здесь
 
 * **Trunk-based + protected main + small PRs.** Один PR = один архитектурный/вертикальный срез.
 * **CI как контракт, не как украшение:** lint, typecheck, unit, integration-postgres, dependency-boundary, secret scan.
 * **Executable architecture:** ADR, API contracts, error catalog, trace event catalog должны быть рядом с кодом и проверяться тестами.
-* **Secure by default:** MCP iframe не доверенный, все write actions только через typed backend command, policy, idempotency, audit. Это уже правильно описано в EPOS-06; теперь это надо покрыть тестами. 
-* **PostgreSQL-first без SQL-бизнес-логики:** БД — system of record, но domain rules живут в domain/application. Это соответствует EPOS-05. 
+* **Secure by default:** MCP iframe не доверенный, все write actions только через typed backend command, policy, idempotency, audit. Это уже правильно описано в EPIOS-06; теперь это надо покрыть тестами. 
+* **PostgreSQL-first без SQL-бизнес-логики:** БД — system of record, но domain rules живут в domain/application. Это соответствует EPIOS-05. 
 
 ## Конкретный план на ближайшие 5 PR
 
@@ -63,10 +63,10 @@ Mission, MissionRun, EpistemicNode, EvidenceRef, ArtifactPatch, ApprovalRequest 
 
 ## Короткий итог
 
-Главная ошибка сейчас — **не архитектура, а отсутствие автоматизированных ворот качества**. Сначала CI, branch protection, issue backlog, doc register и dependency boundaries. Потом уже наращивать доменную модель. Иначе хороший EPOS-пакет быстро превратится в drift-документацию без инженерного контроля.
+Главная ошибка сейчас — **не архитектура, а отсутствие автоматизированных ворот качества**. Сначала CI, branch protection, issue backlog, doc register и dependency boundaries. Потом уже наращивать доменную модель. Иначе хороший EPIOS-пакет быстро превратится в drift-документацию без инженерного контроля.
 
-[1]: https://github.com/xlabkm-ux/epos "GitHub - xlabkm-ux/epos: Epistemic OS v1.0 · GitHub"
-[2]: https://github.com/xlabkm-ux/epos/blob/master/package.json "epos/package.json at master · xlabkm-ux/epos · GitHub"
+[1]: https://github.com/xlabkm-ux/epios "GitHub - xlabkm-ux/epios: Epistemic OS v1.0 · GitHub"
+[2]: https://github.com/xlabkm-ux/epios/blob/master/package.json "epios/package.json at master · xlabkm-ux/epios · GitHub"
 [3]: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule?utm_source=chatgpt.com "Managing a branch protection rule - GitHub Docs"
-[4]: https://github.com/xlabkm-ux/epos/blob/master/docker-compose.yml "epos/docker-compose.yml at master · xlabkm-ux/epos · GitHub"
-[5]: https://github.com/xlabkm-ux/epos/blob/master/AGENT.md "epos/AGENT.md at master · xlabkm-ux/epos · GitHub"
+[4]: https://github.com/xlabkm-ux/epios/blob/master/docker-compose.yml "epios/docker-compose.yml at master · xlabkm-ux/epios · GitHub"
+[5]: https://github.com/xlabkm-ux/epios/blob/master/AGENT.md "epios/AGENT.md at master · xlabkm-ux/epios · GitHub"

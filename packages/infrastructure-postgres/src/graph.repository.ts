@@ -4,8 +4,8 @@ import {
   NodeType,
   NodeStrength,
   EpistemicEdgeType,
-} from "@epos/domain";
-import { GraphRepositoryPort } from "@epos/ports";
+} from "@epios/domain";
+import { GraphRepositoryPort } from "@epios/ports";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { epistemicNodes, epistemicEdges } from "./schema.js";
 import { eq } from "drizzle-orm";
@@ -74,7 +74,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       content: record.content,
       strength: record.strength as NodeStrength,
       evidence:
-        record.evidence as unknown as import("@epos/domain").EvidenceRef[],
+        record.evidence as unknown as import("@epios/domain").EvidenceRef[],
       metadata: record.metadata as Record<string, unknown>,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
@@ -113,7 +113,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       content: record.content,
       strength: record.strength as NodeStrength,
       evidence:
-        record.evidence as unknown as import("@epos/domain").EvidenceRef[],
+        record.evidence as unknown as import("@epios/domain").EvidenceRef[],
       metadata: record.metadata as Record<string, unknown>,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,

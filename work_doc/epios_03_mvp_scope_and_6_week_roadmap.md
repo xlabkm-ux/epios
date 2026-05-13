@@ -1,10 +1,10 @@
-# EPOS-03 — MVP Scope and 6-Week Roadmap
+# EPIOS-03 — MVP Scope and 6-Week Roadmap
 
 **Project:** Epistemic OS v1.0  
-**Document ID:** `EPOS-03-MVP-SCOPE-ROADMAP`  
+**Document ID:** `EPIOS-03-MVP-SCOPE-ROADMAP`  
 **Version:** Draft 0.1  
 **Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPOS-00-PROJECT-BRIEF`, `EPOS-01-ARCHITECTURE-FOUNDATION`, `EPOS-02-DOMAIN-MODEL`  
+**Depends on:** `EPIOS-00-PROJECT-BRIEF`, `EPIOS-01-ARCHITECTURE-FOUNDATION`, `EPIOS-02-DOMAIN-MODEL`  
 **Target MVP horizon:** 6 weeks or faster  
 **Repository model:** Open-source from day one  
 **Deployment target:** Internal dev only  
@@ -882,7 +882,7 @@ MVP RC can be declared only if:
 - runbook;
 - known limitations;
 - demo script;
-- architecture docs EPOS-00 to EPOS-03 approved.
+- architecture docs EPIOS-00 to EPIOS-03 approved.
 ```
 
 ---
@@ -1020,7 +1020,7 @@ This document is approved when the project owner confirms:
 After this document is approved, create:
 
 ```text
-EPOS-04 — Repository and Engineering Process
+EPIOS-04 — Repository and Engineering Process
 ```
 
 That document should define:

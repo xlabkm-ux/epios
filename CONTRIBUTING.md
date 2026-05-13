@@ -10,7 +10,7 @@ We welcome contributions! As an open-source project from day one, we value trans
 
 ## How to Contribute
 
-1. Check the [Project Roadmap](work_doc/epos_03_mvp_scope_and_6_week_roadmap.md).
+1. Check the [Project Roadmap](work_doc/epios_03_mvp_scope_and_6_week_roadmap.md).
 2. Look for open issues or RFCs.
 3. Submit a Pull Request with clear descriptions and tests.
 

@@ -1,4 +1,4 @@
-import { Mission } from "@epos/domain";
+import { Mission } from "@epios/domain";
 
 export interface MissionRepositoryPort {
   save(mission: Mission): Promise<void>;
