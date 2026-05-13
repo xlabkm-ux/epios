@@ -1,3 +1,6 @@
 export * from "./workspace.js";
 export * from "./node.js";
 export * from "./governance.js";
+export * from "./adr.js";
+export * from "./source.js";
+export * from "./rating.js";

@@ -66,3 +66,29 @@ export const epistemicEdges = pgTable("epistemic_edges", {
     .notNull()
     .defaultNow(),
 });
+
+export const sources = pgTable("sources", {
+  id: uuid("id").primaryKey(),
+  missionId: uuid("mission_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
+  type: text("type").notNull(),
+  content: text("content").notNull(),
+  metadata: jsonb("metadata").notNull().default({}),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const ratings = pgTable("ratings", {
+  id: uuid("id").primaryKey(),
+  nodeId: uuid("node_id")
+    .notNull()
+    .references(() => epistemicNodes.id, { onDelete: "cascade" }),
+  actorId: text("actor_id").notNull(),
+  value: integer("value").notNull(),
+  comment: text("comment"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});

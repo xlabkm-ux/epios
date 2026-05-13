@@ -6,6 +6,8 @@ import * as dotenv from "dotenv";
 import {
   PostgresWorkspaceRepository,
   PostgresGraphRepository,
+  PostgresSourceRepository,
+  PostgresRatingRepository,
 } from "@epios/infrastructure-postgres";
 import {
   CreateWorkspaceUseCase,
@@ -16,15 +18,28 @@ import {
   GetWorkspaceGraphUseCase,
   SubmitClaimUseCase,
   CastVoteUseCase,
+  ListADRsUseCase,
+  GetADRUseCase,
+  AddSourceUseCase,
+  ListSourcesUseCase,
+  RateNodeUseCase,
+  GetNodeRatingsUseCase,
 } from "@epios/application";
 import { workspaceRoutes } from "./routes/workspace.routes.js";
 import { mappingRoutes } from "./routes/mapping.routes.js";
 import { governanceRoutes } from "./routes/governance.routes.js";
+import { adrRoutes } from "./routes/adr.routes.js";
 import { mcpRoutes } from "./routes/mcp.routes.js";
+import { missionRoutes } from "./routes/mission.routes.js";
+import { ratingRoutes } from "./routes/rating.routes.js";
 import {
   InMemoryGovernanceRepository,
   InMemoryWorkspaceRepository,
   InMemoryGraphRepository,
+  InMemoryADRRepository,
+  InMemorySourceRepository,
+  InMemoryRatingRepository,
+  MOCK_ADRS,
 } from "@epios/infrastructure-runtime";
 import {
   InMemoryMCPAppRegistry,
@@ -48,6 +63,8 @@ import {
   WorkspaceRepositoryPort,
   GraphRepositoryPort,
   GovernanceRepositoryPort,
+  SourceRepositoryPort,
+  RatingRepositoryPort,
   MCPAppRegistryPort,
   MCPBridgePort,
 } from "@epios/ports";
@@ -56,6 +73,8 @@ export type ServerDependencies = {
   workspaceRepo?: WorkspaceRepositoryPort;
   graphRepo?: GraphRepositoryPort;
   governanceRepo?: GovernanceRepositoryPort;
+  sourceRepo?: SourceRepositoryPort;
+  ratingRepo?: RatingRepositoryPort;
   mcpRegistry?: MCPAppRegistryPort;
   mcpBridge?: MCPBridgePort;
 };
@@ -69,6 +88,8 @@ export function buildServer(deps: ServerDependencies = {}) {
 
   let workspaceRepo = deps.workspaceRepo;
   let graphRepo = deps.graphRepo;
+  let sourceRepo = deps.sourceRepo;
+  let ratingRepo = deps.ratingRepo;
 
   if (!workspaceRepo || !graphRepo) {
     const databaseUrl = process.env.DATABASE_URL;
@@ -410,6 +431,8 @@ export function buildServer(deps: ServerDependencies = {}) {
         workspaceRepo ?? new InMemoryWorkspaceRepository(demoWorkspaces);
       graphRepo =
         graphRepo ?? new InMemoryGraphRepository(demoNodes, demoEdges);
+      sourceRepo = sourceRepo ?? new InMemorySourceRepository();
+      ratingRepo = ratingRepo ?? new InMemoryRatingRepository();
     } else if (databaseUrl) {
       try {
         const queryClient = postgres(databaseUrl);
@@ -417,6 +440,8 @@ export function buildServer(deps: ServerDependencies = {}) {
 
         workspaceRepo = workspaceRepo ?? new PostgresWorkspaceRepository(db);
         graphRepo = graphRepo ?? new PostgresGraphRepository(db);
+        sourceRepo = sourceRepo ?? new PostgresSourceRepository(db);
+        ratingRepo = ratingRepo ?? new PostgresRatingRepository(db);
       } catch (e) {
         console.error(
           "Failed to connect to Postgres, falling back to mock mode",
@@ -424,6 +449,8 @@ export function buildServer(deps: ServerDependencies = {}) {
         );
         workspaceRepo = new InMemoryWorkspaceRepository();
         graphRepo = new InMemoryGraphRepository();
+        sourceRepo = new InMemorySourceRepository();
+        ratingRepo = new InMemoryRatingRepository();
       }
     }
   }
@@ -434,6 +461,15 @@ export function buildServer(deps: ServerDependencies = {}) {
   const addEdgeUseCase = new AddEdgeUseCase(workspaceRepo!, graphRepo!);
   const patchNodeUseCase = new PatchNodeUseCase(graphRepo!);
   const getWorkspaceGraphUseCase = new GetWorkspaceGraphUseCase(graphRepo!);
+  const addSourceUseCase = new AddSourceUseCase(sourceRepo!);
+  const listSourcesUseCase = new ListSourcesUseCase(sourceRepo!);
+  const rateNodeUseCase = new RateNodeUseCase(ratingRepo!);
+  const getNodeRatingsUseCase = new GetNodeRatingsUseCase(ratingRepo!);
+
+  // Sprint 1: ADR Contracts
+  const adrRepo = new InMemoryADRRepository(MOCK_ADRS);
+  const listADRsUseCase = new ListADRsUseCase(adrRepo);
+  const getADRUseCase = new GetADRUseCase(adrRepo);
 
   // Week 5: Governance & MCP
   const governanceRepo =
@@ -463,7 +499,10 @@ export function buildServer(deps: ServerDependencies = {}) {
     getWorkspaceGraphUseCase,
   });
   app.register(governanceRoutes, { submitClaimUseCase, castVoteUseCase });
+  app.register(adrRoutes, { listADRsUseCase, getADRUseCase });
   app.register(mcpRoutes, { registry: mcpRegistry, bridge: mcpBridge });
+  app.register(missionRoutes, { addSourceUseCase, listSourcesUseCase });
+  app.register(ratingRoutes, { rateNodeUseCase, getNodeRatingsUseCase });
 
   return app;
 }

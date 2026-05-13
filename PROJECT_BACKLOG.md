@@ -16,14 +16,14 @@
 - [x] CI, boundaries, shell smoke tests
 
 ### S1: Contracts + Clickable Flow
-- [ ] Frozen MVP contracts and mock ADR flow
-- [ ] Clickable mock end-to-end flow
-- [ ] Contract tests, mock e2e
+- [x] Frozen MVP contracts and mock ADR flow
+- [x] Clickable mock end-to-end flow
+- [x] Contract tests, mock e2e
 
 ### S2: Core Domain + Persistence
-- [ ] Real mission/source/rating storage
-- [ ] Real mission + source + rating panels
-- [ ] Domain tests, Testcontainers, reload logic
+- [x] Real mission/source/rating storage
+- [x] Real mission + source + rating panels
+- [x] Domain tests, Testcontainers, reload logic
 
 ### S3: Async Mapping + Evidence
 - [ ] Async run, claims/evidence, outbox, events

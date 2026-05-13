@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import GraphCanvas from "./GraphCanvas";
-import {
-  Share2,
-  ShieldCheck,
-  Zap,
-  Maximize2,
-  Minimize2,
-  XCircle,
-} from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { useWorkspace } from "../context/WorkspaceContext";
-import { GovernancePanel } from "./GovernancePanel";
 import { motion, AnimatePresence } from "framer-motion";
+import { MissionPanel } from "./MissionPanel";
+import { RatingPanel } from "./RatingPanel";
+import { Workspace } from "@epios/domain";
 
 const WorkspaceRoom: React.FC = () => {
   const {
@@ -276,6 +271,11 @@ const WorkspaceRoom: React.FC = () => {
                       : "Hypothetical construct awaiting empirical validation. Linked dependencies: 3."}
                   </div>
                 </div>
+
+                {/* Epistemic Evaluation Section */}
+                <div style={{ marginTop: "1rem" }}>
+                  <RatingPanel nodeId={selectedNodeId!} />
+                </div>
               </div>
 
               <div
@@ -384,300 +384,14 @@ const WorkspaceRoom: React.FC = () => {
             {selectedWorkspace.title}
           </span>
 
-          {/* Expanded Workspace Details Card (Primary Command Center) */}
           <AnimatePresence>
             {showWorkspaceCard && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.98 }}
-                className="premium-card"
-                data-testid="workspace-card"
-                style={{
-                  position: "absolute",
-                  bottom: "45px",
-                  left: "1.5rem",
-                  width: "1000px",
-                  padding: "2.5rem",
-                  background: "var(--bg-card)",
-                  backdropFilter: "blur(40px)",
-                  zIndex: 110,
-                  boxShadow: "var(--modal-shadow)",
-                  border: "1px solid var(--border)",
-                }}
-              >
-                {/* Header of Card */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    marginBottom: "2.5rem",
-                  }}
-                >
-                  <div>
-                    <div
-                      style={{
-                        fontSize: "0.65rem",
-                        color: "var(--primary)",
-                        fontWeight: 700,
-                        letterSpacing: "0.2em",
-                        textTransform: "uppercase",
-                        marginBottom: "0.5rem",
-                      }}
-                    >
-                      Workspace Command Center
-                    </div>
-                    <h2
-                      style={{
-                        fontSize: "1.75rem",
-                        fontWeight: 700,
-                        color: "var(--text-main)",
-                        letterSpacing: "-0.02em",
-                        margin: 0,
-                      }}
-                    >
-                      {selectedWorkspace.title}
-                    </h2>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.5rem",
-                        marginTop: "0.5rem",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: "6px",
-                          height: "6px",
-                          borderRadius: "50%",
-                          backgroundColor: "var(--success)",
-                          boxShadow: "0 0 8px var(--success)",
-                        }}
-                      />
-                      <span
-                        style={{
-                          fontSize: "0.7rem",
-                          color: "var(--success)",
-                          fontWeight: 700,
-                        }}
-                      >
-                        OPERATIONAL
-                      </span>
-                      <span style={{ color: "var(--border)", opacity: 0.3 }}>
-                        |
-                      </span>
-                      <span
-                        style={{
-                          fontSize: "0.7rem",
-                          color: "var(--text-dim)",
-                          fontFamily: "var(--font-mono)",
-                        }}
-                      >
-                        UUID: {selectedWorkspace.id}
-                      </span>
-                    </div>
-                  </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowWorkspaceCard(false);
-                    }}
-                    style={{
-                      color: "var(--text-dim)",
-                      background: "rgba(255,255,255,0.05)",
-                      border: "none",
-                      cursor: "pointer",
-                      padding: "8px",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <XCircle size={24} />
-                  </button>
-                </div>
-
-                {/* Two-Column Grid (Swapped) */}
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1.2fr",
-                    gap: "3rem",
-                  }}
-                >
-                  {/* Left Column: Governance Hub */}
-                  <div
-                    style={{
-                      borderRight: "1px solid var(--border)",
-                      paddingRight: "3rem",
-                    }}
-                  >
-                    <GovernancePanel
-                      workspaceId={selectedWorkspace.id}
-                      minimal={true}
-                    />
-                  </div>
-
-                  {/* Right Column: Workspace Strategy */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "2rem",
-                    }}
-                  >
-                    <section>
-                      <label
-                        style={{
-                          display: "block",
-                          fontSize: "0.7rem",
-                          color: "var(--text-dim)",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.1em",
-                          fontWeight: 700,
-                          marginBottom: "0.75rem",
-                        }}
-                      >
-                        Strategic Goal
-                      </label>
-                      <div
-                        style={{
-                          padding: "1.25rem",
-                          borderRadius: "12px",
-                          background: "rgba(255,255,255,0.02)",
-                          border: "1px solid var(--border)",
-                          lineHeight: 1.6,
-                          color: "var(--text-main)",
-                        }}
-                      >
-                        {selectedWorkspace.brief.goal}
-                      </div>
-                    </section>
-
-                    {selectedWorkspace.brief.successCriteria?.length > 0 && (
-                      <section>
-                        <label
-                          style={{
-                            display: "block",
-                            fontSize: "0.7rem",
-                            color: "var(--text-dim)",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.1em",
-                            fontWeight: 700,
-                            marginBottom: "0.75rem",
-                          }}
-                        >
-                          Tactical Success Criteria
-                        </label>
-                        <div
-                          style={{
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
-                            gap: "0.75rem",
-                          }}
-                        >
-                          {selectedWorkspace.brief.successCriteria.map(
-                            (c: string, i: number) => (
-                              <div
-                                key={i}
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: "0.5rem",
-                                  fontSize: "0.8rem",
-                                  color: "var(--text-main)",
-                                  opacity: 0.8,
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    width: "4px",
-                                    height: "4px",
-                                    borderRadius: "50%",
-                                    backgroundColor: "var(--primary)",
-                                  }}
-                                />
-                                {c}
-                              </div>
-                            ),
-                          )}
-                        </div>
-                      </section>
-                    )}
-
-                    {/* Action Hub */}
-                    <div
-                      style={{
-                        borderTop: "1px solid var(--border)",
-                        paddingTop: "1.5rem",
-                        marginTop: "auto",
-                        display: "flex",
-                        gap: "1rem",
-                      }}
-                    >
-                      <button
-                        className="glow-box"
-                        onClick={() =>
-                          alert("Deep Neural Synthesis Initiated...")
-                        }
-                        style={{
-                          flex: 2,
-                          padding: "1rem",
-                          borderRadius: "10px",
-                          backgroundColor: "var(--primary)",
-                          color: "white",
-                          fontWeight: 700,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          gap: "0.75rem",
-                        }}
-                      >
-                        <Zap size={18} fill="currentColor" />
-                        Analyze Workspace
-                      </button>
-
-                      <button
-                        className="glass"
-                        onClick={() => setIsFocusMode(!isFocusMode)}
-                        style={{
-                          flex: 1,
-                          padding: "1rem",
-                          borderRadius: "10px",
-                          color: "var(--text-main)",
-                          fontWeight: 600,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        {isFocusMode ? (
-                          <Maximize2 size={18} />
-                        ) : (
-                          <Minimize2 size={18} />
-                        )}
-                        {isFocusMode ? "Exit Zen" : "Focus"}
-                      </button>
-
-                      <button
-                        className="glass"
-                        onClick={() => alert("Ref Link Copied")}
-                        style={{
-                          padding: "1rem",
-                          borderRadius: "10px",
-                          color: "var(--text-main)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Share2 size={18} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+              <MissionPanel
+                workspace={selectedWorkspace as Workspace}
+                onClose={() => setShowWorkspaceCard(false)}
+                isFocusMode={isFocusMode}
+                setIsFocusMode={setIsFocusMode}
+              />
             )}
           </AnimatePresence>
         </div>

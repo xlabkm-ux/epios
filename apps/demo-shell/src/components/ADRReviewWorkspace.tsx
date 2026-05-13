@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FileText,
   CheckCircle2,
@@ -10,8 +10,13 @@ import {
   ExternalLink,
   History,
   ShieldCheck,
+  Zap,
+  Check,
+  X,
+  Loader2,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useApi } from "../hooks/useApi";
 
 interface ADR {
   id: string;
@@ -20,66 +25,61 @@ interface ADR {
   priority: "P0" | "P1" | "P2";
   date: string;
   author: string;
+  context?: string;
+  decision?: string;
+  consequences?: {
+    positive: string[];
+    negative: string[];
+  };
 }
 
-const MOCK_ADRS: ADR[] = [
-  {
-    id: "ADR-0001",
-    title: "Create Epistemic OS as a New Project",
-    status: "Accepted",
-    priority: "P0",
-    date: "2026-05-10",
-    author: "Kernel Team",
-  },
-  {
-    id: "ADR-0003",
-    title: "Open Source From Day One",
-    status: "Accepted",
-    priority: "P0",
-    date: "2026-05-11",
-    author: "Governance",
-  },
-  {
-    id: "ADR-0007",
-    title: "Use PostgreSQL as Alpha System of Record",
-    status: "Accepted",
-    priority: "P0",
-    date: "2026-05-12",
-    author: "Infrastructure",
-  },
-  {
-    id: "ADR-0009",
-    title: "Use Layered Hexagonal Architecture",
-    status: "Accepted",
-    priority: "P0",
-    date: "2026-05-12",
-    author: "Architecture",
-  },
-  {
-    id: "ADR-0011",
-    title: "Use EpistemicNode as Core Claim Primitive",
-    status: "Accepted",
-    priority: "P0",
-    date: "2026-05-13",
-    author: "Domain",
-  },
-  {
-    id: "ADR-0026",
-    title: "Use Apache-2.0 as Recommended Default License",
-    status: "Proposed",
-    priority: "P1",
-    date: "2026-05-13",
-    author: "Legal",
-  },
-];
+type FlowStep = "idle" | "analyzing" | "reviewing" | "finalizing" | "completed";
 
 const ADRReviewWorkspace: React.FC = () => {
-  const [selectedAdrId, setSelectedAdrId] = useState<string | null>(
-    MOCK_ADRS[0].id,
-  );
+  const { data: adrs, loading, error } = useApi<ADR[]>("/adrs");
+  const [selectedAdrId, setSelectedAdrId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [flowStep, setFlowStep] = useState<FlowStep>("idle");
+  const [localStatus, setLocalStatus] = useState<ADR["status"] | null>(null);
 
-  const selectedAdr = MOCK_ADRS.find((a) => a.id === selectedAdrId);
+  useEffect(() => {
+    if (adrs && adrs.length > 0 && !selectedAdrId) {
+      setSelectedAdrId(adrs[0].id);
+    }
+  }, [adrs]);
+
+  const selectedAdr = adrs?.find((a) => a.id === selectedAdrId);
+
+  const startAnalysis = () => {
+    setFlowStep("analyzing");
+    setTimeout(() => {
+      setFlowStep("reviewing");
+    }, 2000);
+  };
+
+  const approveDecision = () => {
+    setFlowStep("finalizing");
+    setTimeout(() => {
+      setFlowStep("completed");
+      setLocalStatus("Accepted");
+    }, 1500);
+  };
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "var(--bg-dark)",
+        }}
+      >
+        <Loader2 className="animate-spin" size={48} color="var(--primary)" />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -171,75 +171,87 @@ const ADRReviewWorkspace: React.FC = () => {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
           >
-            {MOCK_ADRS.filter((a) =>
-              a.title.toLowerCase().includes(searchQuery.toLowerCase()),
-            ).map((adr) => (
-              <button
-                key={adr.id}
-                data-testid={`adr-item-${adr.id}`}
-                onClick={() => setSelectedAdrId(adr.id)}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.5rem",
-                  padding: "1rem",
-                  borderRadius: "12px",
-                  border: "1px solid",
-                  borderColor:
-                    selectedAdrId === adr.id
-                      ? "var(--primary-alpha)"
-                      : "transparent",
-                  backgroundColor:
-                    selectedAdrId === adr.id
-                      ? "var(--primary-alpha)"
-                      : "transparent",
-                  textAlign: "left",
-                  transition: "all 0.2s ease",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  if (selectedAdrId !== adr.id)
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(255,255,255,0.03)";
-                }}
-                onMouseLeave={(e) => {
-                  if (selectedAdrId !== adr.id)
-                    e.currentTarget.style.backgroundColor = "transparent";
-                }}
-              >
-                <div
+            {adrs
+              ?.filter((a) =>
+                a.title.toLowerCase().includes(searchQuery.toLowerCase()),
+              )
+              .map((adr) => (
+                <button
+                  key={adr.id}
+                  data-testid={`adr-item-${adr.id}`}
+                  onClick={() => {
+                    setSelectedAdrId(adr.id);
+                    setFlowStep("idle");
+                    setLocalStatus(null);
+                  }}
                   style={{
                     display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                    padding: "1rem",
+                    borderRadius: "12px",
+                    border: "1px solid",
+                    borderColor:
+                      selectedAdrId === adr.id
+                        ? "var(--primary-alpha)"
+                        : "transparent",
+                    backgroundColor:
+                      selectedAdrId === adr.id
+                        ? "var(--primary-alpha)"
+                        : "transparent",
+                    textAlign: "left",
+                    transition: "all 0.2s ease",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (selectedAdrId !== adr.id)
+                      e.currentTarget.style.backgroundColor =
+                        "rgba(255,255,255,0.03)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (selectedAdrId !== adr.id)
+                      e.currentTarget.style.backgroundColor = "transparent";
                   }}
                 >
-                  <span
+                  <div
                     style={{
-                      fontSize: "0.7rem",
-                      fontFamily: "var(--font-mono)",
-                      color: "var(--text-dim)",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
-                    {adr.id}
+                    <span
+                      style={{
+                        fontSize: "0.7rem",
+                        fontFamily: "var(--font-mono)",
+                        color: "var(--text-dim)",
+                      }}
+                    >
+                      {adr.id}
+                    </span>
+                    <StatusBadge
+                      status={
+                        selectedAdrId === adr.id && localStatus
+                          ? localStatus
+                          : adr.status
+                      }
+                    />
+                  </div>
+                  <span
+                    style={{
+                      fontSize: "0.9rem",
+                      fontWeight: 600,
+                      color:
+                        selectedAdrId === adr.id
+                          ? "var(--primary)"
+                          : "var(--text-main)",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {adr.title}
                   </span>
-                  <StatusBadge status={adr.status} />
-                </div>
-                <span
-                  style={{
-                    fontSize: "0.9rem",
-                    fontWeight: 600,
-                    color:
-                      selectedAdrId === adr.id
-                        ? "var(--primary)"
-                        : "var(--text-main)",
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {adr.title}
-                </span>
-              </button>
-            ))}
+                </button>
+              ))}
           </div>
         </div>
       </div>
@@ -303,6 +315,69 @@ const ADRReviewWorkspace: React.FC = () => {
                 </h2>
               </div>
               <div style={{ display: "flex", gap: "0.75rem" }}>
+                {flowStep === "idle" && selectedAdr.status === "Proposed" && (
+                  <button
+                    className="glow-box"
+                    onClick={startAnalysis}
+                    style={{
+                      padding: "0.75rem 1.5rem",
+                      borderRadius: "10px",
+                      backgroundColor: "var(--primary)",
+                      color: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      fontSize: "0.85rem",
+                      fontWeight: 700,
+                    }}
+                  >
+                    <Zap size={16} />
+                    Run Epistemic Analysis
+                  </button>
+                )}
+
+                {flowStep === "reviewing" && (
+                  <button
+                    className="glow-box"
+                    onClick={approveDecision}
+                    style={{
+                      padding: "0.75rem 1.5rem",
+                      borderRadius: "10px",
+                      backgroundColor: "var(--success)",
+                      color: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      fontSize: "0.85rem",
+                      fontWeight: 700,
+                    }}
+                  >
+                    <CheckCircle2 size={16} />
+                    Approve Decision
+                  </button>
+                )}
+
+                {(flowStep === "completed" ||
+                  selectedAdr.status === "Accepted") && (
+                  <div
+                    style={{
+                      padding: "0.75rem 1.5rem",
+                      borderRadius: "10px",
+                      backgroundColor: "rgba(16, 185, 129, 0.1)",
+                      border: "1px solid var(--success)",
+                      color: "var(--success)",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      fontSize: "0.85rem",
+                      fontWeight: 700,
+                    }}
+                  >
+                    <Check size={16} />
+                    Finalized
+                  </div>
+                )}
+
                 <button
                   className="glass"
                   style={{
@@ -318,104 +393,126 @@ const ADRReviewWorkspace: React.FC = () => {
                   <History size={16} />
                   History
                 </button>
-                <button
-                  className="glow-box"
-                  style={{
-                    padding: "0.75rem 1.5rem",
-                    borderRadius: "10px",
-                    backgroundColor: "var(--primary)",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    fontSize: "0.85rem",
-                    fontWeight: 700,
-                  }}
-                >
-                  <CheckCircle2 size={16} />
-                  Approve Decision
-                </button>
               </div>
             </div>
 
             <div style={{ flex: 1, overflowY: "auto", padding: "3rem" }}>
               <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-                <Section title="Status Context">
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr 1fr",
-                      gap: "2rem",
-                    }}
-                  >
-                    <InfoItem
-                      label="Current Status"
-                      value={<StatusBadge status={selectedAdr.status} large />}
-                    />
-                    <InfoItem
-                      label="Priority"
-                      value={<PriorityBadge priority={selectedAdr.priority} />}
-                    />
-                    <InfoItem label="Owner" value={selectedAdr.author} />
-                  </div>
-                </Section>
+                <AnimatePresence mode="wait">
+                  {flowStep === "analyzing" ? (
+                    <motion.div
+                      key="analyzing"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      style={{
+                        height: "400px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "2rem",
+                        textAlign: "center",
+                      }}
+                    >
+                      <Loader2
+                        className="animate-spin"
+                        size={64}
+                        color="var(--primary)"
+                      />
+                      <div>
+                        <h3 style={{ fontSize: "1.5rem", fontWeight: 700 }}>
+                          Analyzing Architectural Impact
+                        </h3>
+                        <p style={{ color: "var(--text-dim)" }}>
+                          Running epistemic simulations across domain
+                          boundaries...
+                        </p>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="content"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
+                      <Section title="Status Context">
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr 1fr",
+                            gap: "2rem",
+                          }}
+                        >
+                          <InfoItem
+                            label="Current Status"
+                            value={
+                              <StatusBadge
+                                status={localStatus || selectedAdr.status}
+                                large
+                              />
+                            }
+                          />
+                          <InfoItem
+                            label="Priority"
+                            value={
+                              <PriorityBadge priority={selectedAdr.priority} />
+                            }
+                          />
+                          <InfoItem label="Owner" value={selectedAdr.author} />
+                        </div>
+                      </Section>
 
-                <Section title="Context">
-                  <p
-                    style={{
-                      lineHeight: 1.7,
-                      color: "var(--text-dim)",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    This decision was triggered by the need to establish a clear
-                    architectural boundary for the Epistemic OS project.
-                    Previous implementations in ChatAVG showed that tight
-                    coupling between domain logic and infrastructure led to
-                    significant technical debt and testing challenges.
-                  </p>
-                </Section>
+                      <Section title="Context">
+                        <p
+                          style={{
+                            lineHeight: 1.7,
+                            color: "var(--text-dim)",
+                            fontSize: "1rem",
+                          }}
+                        >
+                          {selectedAdr.context ||
+                            "This decision was triggered by the need to establish a clear architectural boundary for the Epistemic OS project. Previous implementations in ChatAVG showed that tight coupling between domain logic and infrastructure led to significant technical debt and testing challenges."}
+                        </p>
+                      </Section>
 
-                <Section title="Decision">
-                  <div
-                    style={{
-                      padding: "1.5rem",
-                      borderRadius: "12px",
-                      backgroundColor: "rgba(255,255,255,0.02)",
-                      border: "1px solid var(--border)",
-                      lineHeight: 1.7,
-                      color: "var(--text-main)",
-                    }}
-                  >
-                    We will implement a layered hexagonal architecture where the
-                    core domain is completely isolated from external
-                    dependencies. All infrastructure concerns will be handled
-                    through well-defined ports and adapters.
-                  </div>
-                </Section>
+                      <Section title="Decision">
+                        <div
+                          style={{
+                            padding: "1.5rem",
+                            borderRadius: "12px",
+                            backgroundColor: "rgba(255,255,255,0.02)",
+                            border: "1px solid var(--border)",
+                            lineHeight: 1.7,
+                            color: "var(--text-main)",
+                          }}
+                        >
+                          {selectedAdr.decision ||
+                            "We will implement a layered hexagonal architecture where the core domain is completely isolated from external dependencies. All infrastructure concerns will be handled through well-defined ports and adapters."}
+                        </div>
+                      </Section>
 
-                <Section title="Consequences">
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "1rem",
-                    }}
-                  >
-                    <Consequence
-                      type="positive"
-                      text="Pure, testable domain logic with no side effects."
-                    />
-                    <Consequence
-                      type="positive"
-                      text="Easier replacement of infrastructure components (e.g., switching databases)."
-                    />
-                    <Consequence
-                      type="negative"
-                      text="Increased initial boilerplate for mapping between layers."
-                    />
-                  </div>
-                </Section>
+                      {selectedAdr.consequences && (
+                        <Section title="Consequences">
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "1rem",
+                            }}
+                          >
+                            {selectedAdr.consequences.positive.map((p, i) => (
+                              <Consequence key={i} type="positive" text={p} />
+                            ))}
+                            {selectedAdr.consequences.negative.map((n, i) => (
+                              <Consequence key={i} type="negative" text={n} />
+                            ))}
+                          </div>
+                        </Section>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </>

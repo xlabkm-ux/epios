@@ -5,6 +5,8 @@ import {
   NodeStrength,
   EvidenceRef,
   EpistemicEdgeType,
+  ADR,
+  ADRFlow,
 } from "@epios/domain";
 
 export interface CreateWorkspaceDto {
@@ -36,4 +38,19 @@ export interface PatchNodeDto {
   strength?: NodeStrength;
   evidence?: EvidenceRef[];
   metadata?: Record<string, unknown>;
+}
+
+export type ADRDto = ADR;
+export type ADRFlowDto = ADRFlow;
+
+export interface AddSourceDto {
+  type: "text" | "url" | "file";
+  content: string;
+  metadata?: Record<string, unknown>;
+}
+
+export interface RateNodeDto {
+  actorId: string;
+  value: number;
+  comment?: string;
 }
