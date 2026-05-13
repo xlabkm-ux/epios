@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+import { API_BASE_URL } from "../api-config";
 
 export function useApi<T>(path: string, interval?: number) {
   const [data, setData] = useState<T | null>(null);

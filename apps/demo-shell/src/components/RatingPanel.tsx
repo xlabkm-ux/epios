@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../api-config";
 import React, { useState, useEffect } from "react";
 import { Star, Shield } from "lucide-react";
 
@@ -22,7 +23,7 @@ export const RatingPanel: React.FC<{ nodeId: string }> = ({ nodeId }) => {
 
   const fetchRatings = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/nodes/${nodeId}/ratings`);
+      const res = await fetch(`${API_BASE_URL}/nodes/${nodeId}/ratings`);
       if (res.ok) {
         const data = await res.json();
         setRatings(data);
@@ -35,7 +36,7 @@ export const RatingPanel: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const submitRating = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/nodes/${nodeId}/ratings`, {
+      const res = await fetch(`${API_BASE_URL}/nodes/${nodeId}/ratings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ actorId: "user-1", value, comment }),
@@ -229,3 +230,4 @@ export const RatingPanel: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     </div>
   );
 };
+

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../api-config";
 import React, { useState } from "react";
 import GraphCanvas from "./GraphCanvas";
 import { ShieldCheck, Zap } from "lucide-react";
@@ -34,7 +35,7 @@ const WorkspaceRoom: React.FC = () => {
   const proposePatch = async () => {
     if (!selectedNode || !selectedWorkspaceId) return;
     try {
-      const res = await fetch("http://localhost:3000/governance/patches", {
+      const res = await fetch(`${API_BASE_URL}/governance/patches`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -628,3 +629,4 @@ const WorkspaceRoom: React.FC = () => {
 };
 
 export default WorkspaceRoom;
+

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../api-config";
 import React, { useState, useEffect } from "react";
 import { ShieldCheck, History, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
@@ -40,7 +41,7 @@ export const ReadinessPanel: React.FC<{ workspaceId: string }> = ({
   const fetchReadiness = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/governance/readiness?workspaceId=${workspaceId}`,
+        `${API_BASE_URL}/governance/readiness?workspaceId=${workspaceId}`,
       );
       if (res.ok) {
         const data = await res.json();
@@ -54,7 +55,7 @@ export const ReadinessPanel: React.FC<{ workspaceId: string }> = ({
   const fetchTrace = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/governance/trace?workspaceId=${workspaceId}`,
+        `${API_BASE_URL}/governance/trace?workspaceId=${workspaceId}`,
       );
       if (res.ok) {
         const data = await res.json();
@@ -68,7 +69,7 @@ export const ReadinessPanel: React.FC<{ workspaceId: string }> = ({
   const runAssessment = async () => {
     setIsAssessing(true);
     try {
-      const res = await fetch(`http://localhost:3000/governance/readiness`, {
+      const res = await fetch(`${API_BASE_URL}/governance/readiness`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, profileId: "eng-adr-v0.1" }),
@@ -398,3 +399,4 @@ export const ReadinessPanel: React.FC<{ workspaceId: string }> = ({
     </div>
   );
 };
+

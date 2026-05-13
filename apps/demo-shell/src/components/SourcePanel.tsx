@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../api-config";
 import React, { useState, useEffect } from "react";
 import { FileText, Globe, Link2, Send } from "lucide-react";
 import { motion } from "framer-motion";
@@ -23,7 +24,7 @@ export const SourcePanel: React.FC<{ missionId: string }> = ({ missionId }) => {
   const fetchSources = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/missions/${missionId}/sources`,
+        `${API_BASE_URL}/missions/${missionId}/sources`,
       );
       if (res.ok) {
         const data = await res.json();
@@ -39,7 +40,7 @@ export const SourcePanel: React.FC<{ missionId: string }> = ({ missionId }) => {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:3000/missions/${missionId}/sources`,
+        `${API_BASE_URL}/missions/${missionId}/sources`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -227,3 +228,4 @@ export const SourcePanel: React.FC<{ missionId: string }> = ({ missionId }) => {
     </div>
   );
 };
+

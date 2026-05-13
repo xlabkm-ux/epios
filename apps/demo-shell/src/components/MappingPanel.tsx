@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../api-config";
 import React, { useState, useEffect } from "react";
 import {
   Loader2,
@@ -10,7 +11,7 @@ import {
 import { motion } from "framer-motion";
 import { MappingRun } from "@epios/domain";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
 
 export const MappingPanel: React.FC<{ workspaceId: string }> = ({
   workspaceId,
@@ -265,3 +266,4 @@ export const MappingPanel: React.FC<{ workspaceId: string }> = ({
     </div>
   );
 };
+

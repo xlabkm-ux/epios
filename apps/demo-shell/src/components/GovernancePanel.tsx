@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../api-config";
 import React, { useState, useEffect } from "react";
 import { Shield, Send, CheckCircle, XCircle, Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -47,7 +48,7 @@ export const GovernancePanel: React.FC<{
   const fetchPatches = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/governance/patches?workspaceId=${workspaceId}`,
+        `${API_BASE_URL}/governance/patches?workspaceId=${workspaceId}`,
       );
       if (res.ok) {
         const data = await res.json();
@@ -63,7 +64,7 @@ export const GovernancePanel: React.FC<{
     try {
       // Note: In this version, we simulate fetching from backend
       // and fallback to MOCK_CLAIMS for the demo
-      const res = await fetch("http://localhost:3000/governance/claims");
+      const res = await fetch(`${API_BASE_URL}/governance/claims`);
       if (res.ok) {
         const data = await res.json();
         setClaims(data.length > 0 ? data : MOCK_CLAIMS);
@@ -82,7 +83,7 @@ export const GovernancePanel: React.FC<{
     if (!newClaim) return;
     setIsLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/governance/claims", {
+      const res = await fetch(`${API_BASE_URL}/governance/claims`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, content: newClaim }),
@@ -108,7 +109,7 @@ export const GovernancePanel: React.FC<{
     isPatch = false,
   ) => {
     try {
-      await fetch("http://localhost:3000/governance/votes", {
+      await fetch(`${API_BASE_URL}/governance/votes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nodeId, actorId: "user-1", decision }),
@@ -445,3 +446,4 @@ export const GovernancePanel: React.FC<{
 
   return <div className="premium-card animate-slide-in">{content}</div>;
 };
+
