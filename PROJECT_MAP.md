@@ -1,13 +1,13 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-13 22:55:11`
+> Автоматически сгенерировано: `2026-05-13 23:16:20`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `117` | Только JS/TS/TSX исходники |
-| **Total Lines** | `11016` | Суммарно по проекту |
-| **Project Weight** | `~89 715 tokens` | Оценка (4 символа/токен) |
+| **Total Lines** | `11014` | Суммарно по проекту |
+| **Project Weight** | `~89 709 tokens` | Оценка (4 символа/токен) |
 | **Context Pressure** | `70.1%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~86%` | Экономия контекста через карту |
 
@@ -1745,7 +1745,7 @@ Y-->E
 | `infrastructure-postgres/src/index.ts` | 11 | 0.3 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
 | `infrastructure-postgres/src/schema.ts` | 107 | 3.3 KB | — |
-| `infrastructure-postgres/src/seed.ts` | 328 | 11.3 KB | — |
+| `infrastructure-postgres/src/seed.ts` | 326 | 11.3 KB | — |
 | `infrastructure-postgres/src/source.repository.ts` | 60 | 1.6 KB | — |
 | `infrastructure-postgres/src/workspace.repository.ts` | 96 | 3.0 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 99 | 2.9 KB | — |

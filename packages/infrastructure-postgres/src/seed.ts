@@ -68,9 +68,7 @@ async function seed() {
   ];
 
   for (const ws of workspaces) {
-    const uuid = ws.id
-      .padEnd(36, "0")
-      .replace(/m(\d)/, "00000000-0000-0000-0000-00000000000$1");
+    const uuid = `00000000-0000-0000-0000-${ws.id.replace("m", "").padStart(12, "0")}`;
     await db
       .insert(schema.workspaces)
       .values({
