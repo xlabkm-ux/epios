@@ -9,7 +9,9 @@
   "dependencies": {
     "@epios/ports": "workspace:*",
     "drizzle-orm": "^0.30.10",
-    "postgres": "^3.4.4"
+    "postgres": "^3.4.4",
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6"
   },
   "scripts": {
     "generate": "drizzle-kit generate",
