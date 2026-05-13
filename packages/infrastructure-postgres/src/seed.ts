@@ -3,6 +3,7 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import * as dotenv from "dotenv";
 import { expand } from "dotenv-expand";
 import * as schema from "./schema.js";
+import { crypto } from "node:crypto";
 
 const envConfig = dotenv.config({ path: "../../.env" });
 expand(envConfig);
@@ -15,13 +16,22 @@ if (!databaseUrl) {
 const queryClient = postgres(databaseUrl);
 const db = drizzle(queryClient, { schema });
 
+// Генерируем стабильные UUID для сидинга
+const ws1Id = "00000000-0000-0000-0000-000000000001";
+const ws2Id = "00000000-0000-0000-0000-000000000002";
+const ws3Id = "00000000-0000-0000-0000-000000000003";
+
+const n1Id = "10000000-0000-0000-0000-000000000001";
+const n2Id = "10000000-0000-0000-0000-000000000002";
+const n3Id = "10000000-0000-0000-0000-000000000003";
+
 async function seed() {
-  console.log("🌱 Seeding database...");
+  console.log("🌱 Seeding database with UUIDs...");
 
   // 1. Workspaces
   const demoWorkspaces = [
     {
-      id: "m1",
+      id: ws1Id,
       title: "Scenario A: Climate Research",
       status: "running",
       mode: "assisted",
@@ -30,7 +40,7 @@ async function seed() {
       createdBy: "researcher-1",
     },
     {
-      id: "m2",
+      id: ws2Id,
       title: "Scenario B: Crisis Response",
       status: "running",
       mode: "assisted",
@@ -39,7 +49,7 @@ async function seed() {
       createdBy: "logistics-ai",
     },
     {
-      id: "m3",
+      id: ws3Id,
       title: "Scenario C: AI Governance",
       status: "running",
       mode: "assisted",
@@ -56,30 +66,32 @@ async function seed() {
       status: ws.status as any,
       mode: ws.mode as any,
       sensitivity: ws.sensitivity as any,
+      goal: ws.goal,
+      createdByType: "user",
+      createdById: ws.createdBy,
       brief: { goal: ws.goal, successCriteria: [], constraints: [], unknowns: [] },
-      createdBy: ws.createdBy,
     }).onConflictDoNothing();
   }
 
   // 2. Nodes
   const demoNodes = [
     {
-      id: "n1",
-      workspaceId: "m1",
+      id: n1Id,
+      workspaceId: ws1Id,
       type: "hypothesis",
       content: "Arctic ice melt accelerates global sea level rise by 20% by 2050",
       strength: "moderate",
     },
     {
-      id: "n2",
-      workspaceId: "m1",
+      id: n2Id,
+      workspaceId: ws1Id,
       type: "observation",
       content: "NOAA 2024 Report on Arctic Melt Rates",
       strength: "strong",
     },
     {
-      id: "n3",
-      workspaceId: "m1",
+      id: n3Id,
+      workspaceId: ws1Id,
       type: "observation",
       content: "Sentinel-6 Satellite Altimetry Data",
       strength: "strong",
@@ -87,7 +99,7 @@ async function seed() {
   ];
 
   for (const node of demoNodes) {
-    await db.insert(schema.nodes).values({
+    await db.insert(schema.epistemicNodes).values({
       id: node.id,
       workspaceId: node.workspaceId,
       type: node.type as any,
@@ -99,33 +111,23 @@ async function seed() {
   }
 
   // 3. Edges
-  const demoEdges = [
-    {
-      id: "e1",
-      workspaceId: "m1",
-      sourceNodeId: "n2",
-      targetNodeId: "n1",
-      type: "supports",
-    },
-    {
-      id: "e2",
-      workspaceId: "m1",
-      sourceNodeId: "n3",
-      targetNodeId: "n1",
-      type: "supports",
-    },
-  ];
+  await db.insert(schema.epistemicEdges).values({
+    id: "20000000-0000-0000-0000-000000000001",
+    workspaceId: ws1Id,
+    sourceNodeId: n2Id,
+    targetNodeId: n1Id,
+    type: "supports",
+    metadata: {},
+  }).onConflictDoNothing();
 
-  for (const edge of demoEdges) {
-    await db.insert(schema.edges).values({
-      id: edge.id,
-      workspaceId: edge.workspaceId,
-      sourceNodeId: edge.sourceNodeId,
-      targetNodeId: edge.targetNodeId,
-      type: edge.type as any,
-      metadata: {},
-    }).onConflictDoNothing();
-  }
+  await db.insert(schema.epistemicEdges).values({
+    id: "20000000-0000-0000-0000-000000000002",
+    workspaceId: ws1Id,
+    sourceNodeId: n3Id,
+    targetNodeId: n1Id,
+    type: "supports",
+    metadata: {},
+  }).onConflictDoNothing();
 
   console.log("✅ Seeding completed successfully!");
   process.exit(0);
