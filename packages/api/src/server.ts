@@ -597,6 +597,34 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         // Scenario E
         ...workspaceEEdges,
+        // Russian Demo Scenarios
+        ...Array.from({ length: 9 }, (_, i) => ({
+          id: `ws7-e${i}`,
+          workspaceId: "m7",
+          sourceNodeId: `ws7-n${i}`,
+          targetNodeId: `ws7-n${i + 1}`,
+          type: (i % 3 === 0 ? "contradicts" : "supports") as EpistemicEdgeType,
+          metadata: {},
+          createdAt: new Date(),
+        })),
+        ...Array.from({ length: 19 }, (_, i) => ({
+          id: `ws8-e${i}`,
+          workspaceId: "m8",
+          sourceNodeId: `ws8-n${i + 1}`,
+          targetNodeId: `ws8-n0`,
+          type: (i % 2 === 0 ? "supports" : "contradicts") as EpistemicEdgeType,
+          metadata: {},
+          createdAt: new Date(),
+        })),
+        ...Array.from({ length: 50 }, (_, i) => ({
+          id: `ws9-e${i}`,
+          workspaceId: "m9",
+          sourceNodeId: `ws9-n${i}`,
+          targetNodeId: `ws9-n${(i + 5) % 50}`,
+          type: (i % 3 === 0 ? "contradicts" : "supports") as EpistemicEdgeType,
+          metadata: {},
+          createdAt: new Date(),
+        })),
       ];
 
       const demoSources: Source[] = [

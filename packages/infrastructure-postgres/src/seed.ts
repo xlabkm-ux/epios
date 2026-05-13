@@ -315,6 +315,58 @@ async function seed() {
       });
   }
 
+  // Edges for Russian Scenarios
+  console.log("Generating edges for Russian Demo Scenarios...");
+
+  // Edges for WS7 (10 nodes) - simple chain and some branches
+  for (let i = 0; i < 9; i++) {
+    await db
+      .insert(schema.epistemicEdges)
+      .values({
+        id: `00000000-0000-0000-0000-700000001${i.toString().padStart(3, "0")}`,
+        workspaceId: ws7_UUID,
+        sourceNodeId: `00000000-0000-0000-0000-700000000${i.toString().padStart(3, "0")}`,
+        targetNodeId: `00000000-0000-0000-0000-700000000${(i + 1).toString().padStart(3, "0")}`,
+        type: (i % 3 === 0 ? "contradicts" : "supports") as
+          | "supports"
+          | "contradicts",
+      })
+      .onConflictDoNothing();
+  }
+
+  // Edges for WS8 (20 nodes) - star topology or mixed
+  for (let i = 1; i < 20; i++) {
+    await db
+      .insert(schema.epistemicEdges)
+      .values({
+        id: `00000000-0000-0000-0000-800000001${i.toString().padStart(3, "0")}`,
+        workspaceId: ws8_UUID,
+        sourceNodeId: `00000000-0000-0000-0000-800000000${i.toString().padStart(3, "0")}`,
+        targetNodeId: `00000000-0000-0000-0000-800000000000`, // All connect back to the first node
+        type: (i % 2 === 0 ? "supports" : "contradicts") as
+          | "supports"
+          | "contradicts",
+      })
+      .onConflictDoNothing();
+  }
+
+  // Edges for WS9 (50 nodes) - more complex web
+  for (let i = 0; i < 50; i++) {
+    const targetIdx = (i + 5) % 50;
+    await db
+      .insert(schema.epistemicEdges)
+      .values({
+        id: `00000000-0000-0000-0000-900000001${i.toString().padStart(3, "0")}`,
+        workspaceId: ws9_UUID,
+        sourceNodeId: `00000000-0000-0000-0000-900000000${i.toString().padStart(3, "0")}`,
+        targetNodeId: `00000000-0000-0000-0000-900000000${targetIdx.toString().padStart(3, "0")}`,
+        type: (i % 3 === 0 ? "contradicts" : "supports") as
+          | "supports"
+          | "contradicts",
+      })
+      .onConflictDoNothing();
+  }
+
   console.log("✅ MASTER SYNC COMPLETED!");
   process.exit(0);
 }
