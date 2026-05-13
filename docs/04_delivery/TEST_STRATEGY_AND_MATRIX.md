@@ -32,4 +32,4 @@ A feature is considered done when:
 3. API contract is verified.
 4. Security review is completed (for P0 areas).
 5. Documentation (Register/Catalog) is updated.
-6. Code is reviewed and merged to `main`.
+6. Code is reviewed and merged to `master`.

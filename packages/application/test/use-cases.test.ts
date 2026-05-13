@@ -1,50 +1,51 @@
 import { describe, it, expect, vi } from "vitest";
-import { CreateMissionUseCase } from "../src/use-cases/create-mission.js";
+import { CreateWorkspaceUseCase } from "../src/use-cases/create-workspace.js";
 import { AddNodeUseCase } from "../src/use-cases/add-node.js";
 import { AddEdgeUseCase } from "../src/use-cases/add-edge.js";
 import { PatchNodeUseCase } from "../src/use-cases/patch-node.js";
 import { SubmitClaimUseCase } from "../src/use-cases/submit-claim.js";
 import { CastVoteUseCase } from "../src/use-cases/cast-vote.js";
-import { ListMissionsUseCase } from "../src/use-cases/list-missions.js";
-import { GetMissionGraphUseCase } from "../src/use-cases/get-mission-graph.js";
+import { ListWorkspacesUseCase } from "../src/use-cases/list-workspaces.js";
+import { GetWorkspaceGraphUseCase } from "../src/use-cases/get-workspace-graph.js";
 import {
-  MissionRepositoryPort,
+  WorkspaceRepositoryPort,
   GraphRepositoryPort,
   GovernanceRepositoryPort,
 } from "@epios/ports";
 import {
-  Mission,
+  Workspace,
   EpistemicNode,
   EpistemicEdge,
   GovernanceProcess,
 } from "@epios/domain";
 
-const mockMissionRepo = {
+const mockWorkspaceRepo = {
   save: vi.fn(),
   findById: vi.fn(),
   findAll: vi.fn(),
-} as unknown as MissionRepositoryPort;
+} as unknown as WorkspaceRepositoryPort;
 
 const mockGraphRepo = {
   saveNode: vi.fn(),
   saveEdge: vi.fn(),
   findNodeById: vi.fn(),
   findEdgeById: vi.fn(),
-  findNodesByMissionId: vi.fn(),
-  findEdgesByMissionId: vi.fn(),
+  findNodesByWorkspaceId: vi.fn(),
+  findEdgesByWorkspaceId: vi.fn(),
 } as unknown as GraphRepositoryPort;
 
 const mockGovernanceRepo = {
   saveProcess: vi.fn(),
   findProcessByNodeId: vi.fn(),
+  findProcessesByWorkspaceId: vi.fn(),
 } as unknown as GovernanceRepositoryPort;
 
 describe("Use Cases", () => {
-  describe("CreateMissionUseCase", () => {
-    it("should create a mission", async () => {
-      const useCase = new CreateMissionUseCase(mockMissionRepo);
+  describe("CreateWorkspaceUseCase", () => {
+    it("should create a workspace", async () => {
+      const useCase = new CreateWorkspaceUseCase(mockWorkspaceRepo);
       const request = {
-        title: "Test Mission",
+        title: "Test Workspace",
         brief: {
           goal: "Test Goal",
           successCriteria: [],
@@ -58,19 +59,19 @@ describe("Use Cases", () => {
 
       expect(result.id).toBeDefined();
       expect(result.title).toBe(request.title);
-      expect(mockMissionRepo.save).toHaveBeenCalled();
+      expect(mockWorkspaceRepo.save).toHaveBeenCalled();
     });
   });
 
   describe("AddNodeUseCase", () => {
-    it("should add a node to a mission", async () => {
-      const useCase = new AddNodeUseCase(mockMissionRepo, mockGraphRepo);
-      vi.mocked(mockMissionRepo.findById).mockResolvedValue({
-        id: "mission-1",
-      } as Mission);
+    it("should add a node to a workspace", async () => {
+      const useCase = new AddNodeUseCase(mockWorkspaceRepo, mockGraphRepo);
+      vi.mocked(mockWorkspaceRepo.findById).mockResolvedValue({
+        id: "workspace-1",
+      } as Workspace);
 
       const request = {
-        missionId: "mission-1",
+        workspaceId: "workspace-1",
         type: "claim" as const,
         content: "Test Claim",
       };
@@ -82,31 +83,31 @@ describe("Use Cases", () => {
       expect(mockGraphRepo.saveNode).toHaveBeenCalled();
     });
 
-    it("should throw if mission not found", async () => {
-      const useCase = new AddNodeUseCase(mockMissionRepo, mockGraphRepo);
-      vi.mocked(mockMissionRepo.findById).mockResolvedValue(null);
+    it("should throw if workspace not found", async () => {
+      const useCase = new AddNodeUseCase(mockWorkspaceRepo, mockGraphRepo);
+      vi.mocked(mockWorkspaceRepo.findById).mockResolvedValue(null);
 
       const request = {
-        missionId: "invalid",
+        workspaceId: "invalid",
         type: "claim" as const,
         content: "Test",
       };
 
       await expect(useCase.execute(request)).rejects.toThrow(
-        "MISSION_NOT_FOUND",
+        "WORKSPACE_NOT_FOUND",
       );
     });
   });
 
   describe("AddEdgeUseCase", () => {
     it("should add an edge between nodes", async () => {
-      const useCase = new AddEdgeUseCase(mockMissionRepo, mockGraphRepo);
-      vi.mocked(mockMissionRepo.findById).mockResolvedValue({
-        id: "mission-1",
-      } as Mission);
+      const useCase = new AddEdgeUseCase(mockWorkspaceRepo, mockGraphRepo);
+      vi.mocked(mockWorkspaceRepo.findById).mockResolvedValue({
+        id: "workspace-1",
+      } as Workspace);
 
       const request = {
-        missionId: "mission-1",
+        workspaceId: "workspace-1",
         sourceNodeId: "node-1",
         targetNodeId: "node-2",
         type: "supports" as const,
@@ -118,19 +119,19 @@ describe("Use Cases", () => {
       expect(mockGraphRepo.saveEdge).toHaveBeenCalled();
     });
 
-    it("should throw if mission not found", async () => {
-      const useCase = new AddEdgeUseCase(mockMissionRepo, mockGraphRepo);
-      vi.mocked(mockMissionRepo.findById).mockResolvedValue(null);
+    it("should throw if workspace not found", async () => {
+      const useCase = new AddEdgeUseCase(mockWorkspaceRepo, mockGraphRepo);
+      vi.mocked(mockWorkspaceRepo.findById).mockResolvedValue(null);
 
       const request = {
-        missionId: "invalid",
+        workspaceId: "invalid",
         sourceNodeId: "n1",
         targetNodeId: "n2",
         type: "supports" as const,
       };
 
       await expect(useCase.execute(request)).rejects.toThrow(
-        "MISSION_NOT_FOUND",
+        "WORKSPACE_NOT_FOUND",
       );
     });
   });
@@ -177,7 +178,7 @@ describe("Use Cases", () => {
     it("should submit a claim and create a governance process", async () => {
       const useCase = new SubmitClaimUseCase(mockGraphRepo, mockGovernanceRepo);
       const request = {
-        missionId: "mission-1",
+        workspaceId: "workspace-1",
         content: "New Claim Content",
       };
 
@@ -195,7 +196,7 @@ describe("Use Cases", () => {
       const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
       const mockProcess = {
         nodeId: "node-1",
-        missionId: "mission-1",
+        workspaceId: "workspace-1",
         status: "pending",
         votes: [],
         requiredVotes: 2,
@@ -221,7 +222,7 @@ describe("Use Cases", () => {
       const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
       const mockProcess = {
         nodeId: "node-1",
-        missionId: "mission-1",
+        workspaceId: "workspace-1",
         status: "pending",
         votes: [{ actorId: "voter-1", decision: "approve" }],
         requiredVotes: 2,
@@ -253,7 +254,7 @@ describe("Use Cases", () => {
       const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
       const mockProcess = {
         nodeId: "node-1",
-        missionId: "mission-1",
+        workspaceId: "workspace-1",
         status: "pending",
         votes: [{ actorId: "voter-1", decision: "reject" }],
         requiredVotes: 2,
@@ -294,7 +295,7 @@ describe("Use Cases", () => {
       const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
       vi.mocked(mockGovernanceRepo.findProcessByNodeId).mockResolvedValue({
         status: "approved",
-      } as unknown as Mission);
+      } as unknown as GovernanceProcess);
 
       const request = {
         nodeId: "node-1",
@@ -308,26 +309,26 @@ describe("Use Cases", () => {
     });
   });
 
-  describe("ListMissionsUseCase", () => {
-    it("should list all missions", async () => {
-      const useCase = new ListMissionsUseCase(mockMissionRepo);
-      vi.mocked(mockMissionRepo.findAll).mockResolvedValue([
-        { id: "m1", title: "M1" },
-      ] as unknown as Mission[]);
+  describe("ListWorkspacesUseCase", () => {
+    it("should list all workspaces", async () => {
+      const useCase = new ListWorkspacesUseCase(mockWorkspaceRepo);
+      vi.mocked(mockWorkspaceRepo.findAll).mockResolvedValue([
+        { id: "w1", title: "W1" },
+      ] as unknown as Workspace[]);
 
       const result = await useCase.execute();
       expect(result).toHaveLength(1);
-      expect(result[0].title).toBe("M1");
+      expect(result[0].title).toBe("W1");
     });
   });
 
-  describe("GetMissionGraphUseCase", () => {
-    it("should return the graph for a mission", async () => {
-      const useCase = new GetMissionGraphUseCase(mockGraphRepo);
-      vi.mocked(mockGraphRepo.findNodesByMissionId).mockResolvedValue([]);
-      vi.mocked(mockGraphRepo.findEdgesByMissionId).mockResolvedValue([]);
+  describe("GetWorkspaceGraphUseCase", () => {
+    it("should return the graph for a workspace", async () => {
+      const useCase = new GetWorkspaceGraphUseCase(mockGraphRepo);
+      vi.mocked(mockGraphRepo.findNodesByWorkspaceId).mockResolvedValue([]);
+      vi.mocked(mockGraphRepo.findEdgesByWorkspaceId).mockResolvedValue([]);
 
-      const result = await useCase.execute("mission-1");
+      const result = await useCase.execute("workspace-1");
       expect(result.nodes).toBeDefined();
       expect(result.edges).toBeDefined();
     });

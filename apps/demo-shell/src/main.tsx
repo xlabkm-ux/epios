@@ -4,12 +4,12 @@ import App from "./App";
 import "./index.css";
 import "reactflow/dist/style.css";
 
-import { MissionProvider } from "./context/MissionContext";
+import { WorkspaceProvider } from "./context/WorkspaceContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MissionProvider>
+    <WorkspaceProvider>
       <App />
-    </MissionProvider>
+    </WorkspaceProvider>
   </React.StrictMode>,
 );

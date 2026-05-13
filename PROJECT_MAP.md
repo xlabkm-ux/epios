@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-13 04:42:57`
+> Автоматически сгенерировано: `2026-05-13 11:12:19`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `73` | Только JS/TS/TSX исходники |
-| **Total Lines** | `6048` | Суммарно по проекту |
-| **Project Weight** | `~52 453 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `41.0%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Lines** | `6069` | Суммарно по проекту |
+| **Project Weight** | `~52 653 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `41.1%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
 ---
@@ -30,17 +30,17 @@ subgraph 7["src"]
 8["App.tsx"]
 subgraph F["components"]
 G["CommandPalette.tsx"]
-11["MissionRoom.tsx"]
-12["GovernancePanel.tsx"]
-13["GraphCanvas.tsx"]
-17["CustomNode.tsx"]
-18["Sidebar.tsx"]
+11["Sidebar.tsx"]
+14["WorkspaceRoom.tsx"]
+15["GovernancePanel.tsx"]
+16["GraphCanvas.tsx"]
+18["CustomNode.tsx"]
 end
 subgraph T["context"]
-U["MissionContext.tsx"]
+U["WorkspaceContext.tsx"]
 end
-subgraph 15["hooks"]
-16["useApi.ts"]
+subgraph 12["hooks"]
+13["useApi.ts"]
 end
 19["main.tsx"]
 1A["index.css"]
@@ -88,7 +88,7 @@ subgraph Y["dist"]
 subgraph Z["esm"]
 10["index.mjs"]
 end
-14["style.css"]
+17["style.css"]
 end
 end
 end
@@ -173,7 +173,7 @@ subgraph 2C["routes"]
 2D["governance.routes.ts"]
 39["mapping.routes.ts"]
 3C["mcp.routes.ts"]
-3D["mission.routes.ts"]
+3D["workspace.routes.ts"]
 end
 subgraph 3A["dto"]
 3B["index.ts"]
@@ -192,15 +192,15 @@ subgraph 2H["use-cases"]
 2I["add-edge.ts"]
 32["add-node.ts"]
 33["cast-vote.ts"]
-34["create-mission.ts"]
-35["get-mission-graph.ts"]
-36["list-missions.ts"]
+34["create-workspace.ts"]
+35["get-workspace-graph.ts"]
+36["list-workspaces.ts"]
 37["patch-node.ts"]
 38["submit-claim.ts"]
 end
 end
 subgraph 48["test"]
-49["create-mission.test.ts"]
+49["create-workspace.test.ts"]
 4A["use-cases.test.ts"]
 end
 4B["vitest.config.ts"]
@@ -210,7 +210,7 @@ subgraph 2L["src"]
 2M["index.ts"]
 2N["governance.ts"]
 2O["node.ts"]
-2P["mission.ts"]
+2P["workspace.ts"]
 end
 subgraph 4C["coverage"]
 4D["block-navigation.js"]
@@ -219,8 +219,8 @@ subgraph 4C["coverage"]
 end
 subgraph 4G["test"]
 4H["domain-smoke.test.ts"]
-4I["mission.test.ts"]
-4J["node-invariants.test.ts"]
+4I["node-invariants.test.ts"]
+4J["workspace.test.ts"]
 end
 4K["vitest.config.ts"]
 end
@@ -238,16 +238,16 @@ subgraph 2W["src"]
 2Z["governance.port.js"]
 30["graph.repository.port.js"]
 31["mcp.port.js"]
-5U["domain.repository.port.d.ts"]
-5V["domain.repository.port.ts"]
-5W["governance.port.d.ts"]
-5X["governance.port.ts"]
-5Y["graph.repository.port.d.ts"]
-5Z["graph.repository.port.ts"]
-60["index.d.ts"]
-61["index.ts"]
-62["mcp.port.d.ts"]
-63["mcp.port.ts"]
+5V["domain.repository.port.d.ts"]
+5W["domain.repository.port.ts"]
+5X["governance.port.d.ts"]
+5Y["governance.port.ts"]
+5Z["graph.repository.port.d.ts"]
+60["graph.repository.port.ts"]
+61["index.d.ts"]
+62["index.ts"]
+63["mcp.port.d.ts"]
+64["mcp.port.ts"]
 end
 end
 subgraph 3E["infrastructure-mcp"]
@@ -263,45 +263,47 @@ subgraph 4N["src"]
 4P["node.js"]
 4Q["governance.js"]
 4R["index.d.ts"]
-4S["mission.js"]
+4S["workspace.js"]
 4T["index.js"]
 4U["mission.d.ts"]
-4V["node.d.ts"]
+4V["mission.js"]
+4W["node.d.ts"]
+4X["workspace.d.ts"]
 end
 end
-4W["index.d.ts"]
-4X["mcp-app.registry.js"]
-4Y["mcp-bridge.js"]
-4Z["index.js"]
-subgraph 50["infrastructure-mcp"]
-subgraph 51["src"]
-52["index.d.ts"]
-53["mcp-app.registry.js"]
-54["mcp-bridge.js"]
-55["index.js"]
-56["mcp-app.registry.d.ts"]
+4Y["index.d.ts"]
+4Z["mcp-app.registry.js"]
+50["mcp-bridge.js"]
+51["index.js"]
+subgraph 52["infrastructure-mcp"]
+subgraph 53["src"]
+54["index.d.ts"]
+55["mcp-app.registry.js"]
+56["mcp-bridge.js"]
+57["index.js"]
+58["mcp-app.registry.d.ts"]
 59["mcp-bridge.d.ts"]
 end
 end
 5A["mcp-app.registry.d.ts"]
-5B["mcp-bridge.d.ts"]
-subgraph 5C["ports"]
-subgraph 5D["src"]
-5E["domain.repository.port.d.ts"]
-5G["domain.repository.port.js"]
-5H["governance.port.d.ts"]
-5I["governance.port.js"]
-5J["graph.repository.port.d.ts"]
-5K["graph.repository.port.js"]
-5L["index.d.ts"]
-5M["mcp.port.js"]
-5N["index.js"]
-5O["mcp.port.d.ts"]
+5D["mcp-bridge.d.ts"]
+subgraph 5E["ports"]
+subgraph 5F["src"]
+5G["domain.repository.port.d.ts"]
+5H["domain.repository.port.js"]
+5I["governance.port.d.ts"]
+5J["governance.port.js"]
+5K["graph.repository.port.d.ts"]
+5L["graph.repository.port.js"]
+5M["index.d.ts"]
+5N["mcp.port.js"]
+5O["index.js"]
+5P["mcp.port.d.ts"]
 end
 end
 end
-subgraph 5P["test"]
-5Q["smoke.test.ts"]
+subgraph 5Q["test"]
+5R["smoke.test.ts"]
 end
 end
 subgraph 3J["infrastructure-postgres"]
@@ -309,7 +311,7 @@ subgraph 3K["src"]
 3L["index.ts"]
 3M["graph.repository.ts"]
 3O["schema.ts"]
-3R["mission.repository.ts"]
+3R["workspace.repository.ts"]
 end
 end
 subgraph 3S["infrastructure-runtime"]
@@ -319,28 +321,27 @@ subgraph 3T["src"]
 3W["in-memory-repositories.ts"]
 end
 end
-subgraph 5R["infrastructure-models"]
-subgraph 5S["src"]
-5T["index.ts"]
+subgraph 5S["infrastructure-models"]
+subgraph 5T["src"]
+5U["index.ts"]
 end
 end
-subgraph 64["testing"]
-subgraph 65["src"]
-66["fixtures.ts"]
-67["index.ts"]
+subgraph 65["testing"]
+subgraph 66["src"]
+67["fixtures.ts"]
+68["index.ts"]
 end
 end
 end
 2J["crypto"]
 46["path"]
-subgraph 57["@epos"]
-58["ports"]
-5F["domain"]
+subgraph 5B["@epos"]
+5C["ports"]
 end
 4-->6
 8-->G
 8-->11
-8-->18
+8-->14
 8-->E
 G-->U
 G-->M
@@ -349,36 +350,36 @@ G-->E
 U-->E
 U-->10
 11-->U
-11-->12
 11-->13
 11-->M
 11-->S
 11-->E
-12-->M
-12-->S
-12-->E
-13-->U
-13-->16
-13-->17
-13-->S
 13-->E
-13-->10
-13-->14
+14-->U
+14-->15
+14-->16
+14-->M
+14-->S
+14-->E
+15-->M
+15-->S
+15-->E
+16-->U
+16-->13
+16-->18
+16-->S
 16-->E
-17-->S
-17-->E
-17-->10
-18-->U
-18-->16
-18-->M
+16-->10
+16-->17
 18-->S
 18-->E
+18-->10
 19-->8
 19-->U
 19-->1A
 19-->E
 19-->1E
-19-->14
+19-->17
 1M-->1N
 1N-->2D
 1N-->39
@@ -410,8 +411,8 @@ U-->10
 2I-->2X
 2I-->2J
 2M-->2N
-2M-->2P
 2M-->2O
+2M-->2P
 2N-->2O
 2S-->2T
 2S-->2U
@@ -453,8 +454,8 @@ U-->10
 3H-->2X
 3I-->2X
 3L-->3M
-3L-->3R
 3L-->3O
+3L-->3R
 3M-->3O
 3M-->2M
 3M-->2X
@@ -497,58 +498,58 @@ U-->10
 4B-->47
 4H-->2M
 4H-->44
-4I-->2P
+4I-->2M
 4I-->44
-4J-->2M
+4J-->2P
 4J-->44
 4K-->47
 4O-->4P
 4R-->4Q
-4R-->4S
 4R-->4P
+4R-->4S
 4T-->4Q
-4T-->4S
 4T-->4P
-4W-->4X
-4W-->4Y
-4Z-->4X
-4Z-->4Y
-52-->53
-52-->54
-55-->53
-55-->54
-56-->58
-59-->58
-5A-->58
-5B-->58
-5E-->5F
-5H-->5F
-5J-->5F
-5L-->5G
-5L-->5I
-5L-->5K
-5L-->5M
-5N-->5G
-5N-->5I
-5N-->5K
-5N-->5M
-5Q-->44
-5U-->2M
+4T-->4S
+4Y-->4Z
+4Y-->50
+51-->4Z
+51-->50
+54-->55
+54-->56
+57-->55
+57-->56
+58-->2X
+59-->2X
+5A-->5C
+5D-->5C
+5G-->2M
+5I-->2M
+5K-->2M
+5M-->5H
+5M-->5J
+5M-->5L
+5M-->5N
+5O-->5H
+5O-->5J
+5O-->5L
+5O-->5N
+5R-->44
 5V-->2M
 5W-->2M
 5X-->2M
 5Y-->2M
 5Z-->2M
-60-->2Y
-60-->2Z
-60-->30
-60-->31
+60-->2M
 61-->2Y
 61-->2Z
 61-->30
 61-->31
-66-->2M
-67-->66
+62-->2Y
+62-->2Z
+62-->30
+62-->31
+67-->2M
+68-->67
 ```
 
 ## Детальная карта компонентов
@@ -568,17 +569,17 @@ subgraph 7["src"]
 8["App.tsx"]
 subgraph F["components"]
 G["CommandPalette.tsx"]
-11["MissionRoom.tsx"]
-12["GovernancePanel.tsx"]
-13["GraphCanvas.tsx"]
-17["CustomNode.tsx"]
-18["Sidebar.tsx"]
+11["Sidebar.tsx"]
+14["WorkspaceRoom.tsx"]
+15["GovernancePanel.tsx"]
+16["GraphCanvas.tsx"]
+18["CustomNode.tsx"]
 end
 subgraph T["context"]
-U["MissionContext.tsx"]
+U["WorkspaceContext.tsx"]
 end
-subgraph 15["hooks"]
-16["useApi.ts"]
+subgraph 12["hooks"]
+13["useApi.ts"]
 end
 19["main.tsx"]
 1A["index.css"]
@@ -626,7 +627,7 @@ subgraph Y["dist"]
 subgraph Z["esm"]
 10["index.mjs"]
 end
-14["style.css"]
+17["style.css"]
 end
 end
 end
@@ -711,7 +712,7 @@ subgraph 2C["routes"]
 2D["governance.routes.ts"]
 39["mapping.routes.ts"]
 3C["mcp.routes.ts"]
-3D["mission.routes.ts"]
+3D["workspace.routes.ts"]
 end
 subgraph 3A["dto"]
 3B["index.ts"]
@@ -730,15 +731,15 @@ subgraph 2H["use-cases"]
 2I["add-edge.ts"]
 32["add-node.ts"]
 33["cast-vote.ts"]
-34["create-mission.ts"]
-35["get-mission-graph.ts"]
-36["list-missions.ts"]
+34["create-workspace.ts"]
+35["get-workspace-graph.ts"]
+36["list-workspaces.ts"]
 37["patch-node.ts"]
 38["submit-claim.ts"]
 end
 end
 subgraph 48["test"]
-49["create-mission.test.ts"]
+49["create-workspace.test.ts"]
 4A["use-cases.test.ts"]
 end
 4B["vitest.config.ts"]
@@ -748,7 +749,7 @@ subgraph 2L["src"]
 2M["index.ts"]
 2N["governance.ts"]
 2O["node.ts"]
-2P["mission.ts"]
+2P["workspace.ts"]
 end
 subgraph 4C["coverage"]
 4D["block-navigation.js"]
@@ -757,8 +758,8 @@ subgraph 4C["coverage"]
 end
 subgraph 4G["test"]
 4H["domain-smoke.test.ts"]
-4I["mission.test.ts"]
-4J["node-invariants.test.ts"]
+4I["node-invariants.test.ts"]
+4J["workspace.test.ts"]
 end
 4K["vitest.config.ts"]
 end
@@ -776,16 +777,16 @@ subgraph 2W["src"]
 2Z["governance.port.js"]
 30["graph.repository.port.js"]
 31["mcp.port.js"]
-5U["domain.repository.port.d.ts"]
-5V["domain.repository.port.ts"]
-5W["governance.port.d.ts"]
-5X["governance.port.ts"]
-5Y["graph.repository.port.d.ts"]
-5Z["graph.repository.port.ts"]
-60["index.d.ts"]
-61["index.ts"]
-62["mcp.port.d.ts"]
-63["mcp.port.ts"]
+5V["domain.repository.port.d.ts"]
+5W["domain.repository.port.ts"]
+5X["governance.port.d.ts"]
+5Y["governance.port.ts"]
+5Z["graph.repository.port.d.ts"]
+60["graph.repository.port.ts"]
+61["index.d.ts"]
+62["index.ts"]
+63["mcp.port.d.ts"]
+64["mcp.port.ts"]
 end
 end
 subgraph 3E["infrastructure-mcp"]
@@ -801,45 +802,47 @@ subgraph 4N["src"]
 4P["node.js"]
 4Q["governance.js"]
 4R["index.d.ts"]
-4S["mission.js"]
+4S["workspace.js"]
 4T["index.js"]
 4U["mission.d.ts"]
-4V["node.d.ts"]
+4V["mission.js"]
+4W["node.d.ts"]
+4X["workspace.d.ts"]
 end
 end
-4W["index.d.ts"]
-4X["mcp-app.registry.js"]
-4Y["mcp-bridge.js"]
-4Z["index.js"]
-subgraph 50["infrastructure-mcp"]
-subgraph 51["src"]
-52["index.d.ts"]
-53["mcp-app.registry.js"]
-54["mcp-bridge.js"]
-55["index.js"]
-56["mcp-app.registry.d.ts"]
+4Y["index.d.ts"]
+4Z["mcp-app.registry.js"]
+50["mcp-bridge.js"]
+51["index.js"]
+subgraph 52["infrastructure-mcp"]
+subgraph 53["src"]
+54["index.d.ts"]
+55["mcp-app.registry.js"]
+56["mcp-bridge.js"]
+57["index.js"]
+58["mcp-app.registry.d.ts"]
 59["mcp-bridge.d.ts"]
 end
 end
 5A["mcp-app.registry.d.ts"]
-5B["mcp-bridge.d.ts"]
-subgraph 5C["ports"]
-subgraph 5D["src"]
-5E["domain.repository.port.d.ts"]
-5G["domain.repository.port.js"]
-5H["governance.port.d.ts"]
-5I["governance.port.js"]
-5J["graph.repository.port.d.ts"]
-5K["graph.repository.port.js"]
-5L["index.d.ts"]
-5M["mcp.port.js"]
-5N["index.js"]
-5O["mcp.port.d.ts"]
+5D["mcp-bridge.d.ts"]
+subgraph 5E["ports"]
+subgraph 5F["src"]
+5G["domain.repository.port.d.ts"]
+5H["domain.repository.port.js"]
+5I["governance.port.d.ts"]
+5J["governance.port.js"]
+5K["graph.repository.port.d.ts"]
+5L["graph.repository.port.js"]
+5M["index.d.ts"]
+5N["mcp.port.js"]
+5O["index.js"]
+5P["mcp.port.d.ts"]
 end
 end
 end
-subgraph 5P["test"]
-5Q["smoke.test.ts"]
+subgraph 5Q["test"]
+5R["smoke.test.ts"]
 end
 end
 subgraph 3J["infrastructure-postgres"]
@@ -847,7 +850,7 @@ subgraph 3K["src"]
 3L["index.ts"]
 3M["graph.repository.ts"]
 3O["schema.ts"]
-3R["mission.repository.ts"]
+3R["workspace.repository.ts"]
 end
 end
 subgraph 3S["infrastructure-runtime"]
@@ -857,28 +860,27 @@ subgraph 3T["src"]
 3W["in-memory-repositories.ts"]
 end
 end
-subgraph 5R["infrastructure-models"]
-subgraph 5S["src"]
-5T["index.ts"]
+subgraph 5S["infrastructure-models"]
+subgraph 5T["src"]
+5U["index.ts"]
 end
 end
-subgraph 64["testing"]
-subgraph 65["src"]
-66["fixtures.ts"]
-67["index.ts"]
+subgraph 65["testing"]
+subgraph 66["src"]
+67["fixtures.ts"]
+68["index.ts"]
 end
 end
 end
 2J["crypto"]
 46["path"]
-subgraph 57["@epos"]
-58["ports"]
-5F["domain"]
+subgraph 5B["@epos"]
+5C["ports"]
 end
 4-->6
 8-->G
 8-->11
-8-->18
+8-->14
 8-->E
 G-->U
 G-->M
@@ -887,36 +889,36 @@ G-->E
 U-->E
 U-->10
 11-->U
-11-->12
 11-->13
 11-->M
 11-->S
 11-->E
-12-->M
-12-->S
-12-->E
-13-->U
-13-->16
-13-->17
-13-->S
 13-->E
-13-->10
-13-->14
+14-->U
+14-->15
+14-->16
+14-->M
+14-->S
+14-->E
+15-->M
+15-->S
+15-->E
+16-->U
+16-->13
+16-->18
+16-->S
 16-->E
-17-->S
-17-->E
-17-->10
-18-->U
-18-->16
-18-->M
+16-->10
+16-->17
 18-->S
 18-->E
+18-->10
 19-->8
 19-->U
 19-->1A
 19-->E
 19-->1E
-19-->14
+19-->17
 1M-->1N
 1N-->2D
 1N-->39
@@ -948,8 +950,8 @@ U-->10
 2I-->2X
 2I-->2J
 2M-->2N
-2M-->2P
 2M-->2O
+2M-->2P
 2N-->2O
 2S-->2T
 2S-->2U
@@ -991,8 +993,8 @@ U-->10
 3H-->2X
 3I-->2X
 3L-->3M
-3L-->3R
 3L-->3O
+3L-->3R
 3M-->3O
 3M-->2M
 3M-->2X
@@ -1035,58 +1037,58 @@ U-->10
 4B-->47
 4H-->2M
 4H-->44
-4I-->2P
+4I-->2M
 4I-->44
-4J-->2M
+4J-->2P
 4J-->44
 4K-->47
 4O-->4P
 4R-->4Q
-4R-->4S
 4R-->4P
+4R-->4S
 4T-->4Q
-4T-->4S
 4T-->4P
-4W-->4X
-4W-->4Y
-4Z-->4X
-4Z-->4Y
-52-->53
-52-->54
-55-->53
-55-->54
-56-->58
-59-->58
-5A-->58
-5B-->58
-5E-->5F
-5H-->5F
-5J-->5F
-5L-->5G
-5L-->5I
-5L-->5K
-5L-->5M
-5N-->5G
-5N-->5I
-5N-->5K
-5N-->5M
-5Q-->44
-5U-->2M
+4T-->4S
+4Y-->4Z
+4Y-->50
+51-->4Z
+51-->50
+54-->55
+54-->56
+57-->55
+57-->56
+58-->2X
+59-->2X
+5A-->5C
+5D-->5C
+5G-->2M
+5I-->2M
+5K-->2M
+5M-->5H
+5M-->5J
+5M-->5L
+5M-->5N
+5O-->5H
+5O-->5J
+5O-->5L
+5O-->5N
+5R-->44
 5V-->2M
 5W-->2M
 5X-->2M
 5Y-->2M
 5Z-->2M
-60-->2Y
-60-->2Z
-60-->30
-60-->31
+60-->2M
 61-->2Y
 61-->2Z
 61-->30
 61-->31
-66-->2M
-67-->66
+62-->2Y
+62-->2Z
+62-->30
+62-->31
+67-->2M
+68-->67
 ```
 
 ## Компонент: `apps`
@@ -1094,13 +1096,13 @@ U-->10
 | Файл | Строк | Размер | Описание |
 |---|---|---|---|
 | `demo-shell/src/App.tsx` | 56 | 1.3 KB | — |
-| `demo-shell/src/components/CommandPalette.tsx` | 339 | 9.0 KB | — |
-| `demo-shell/src/components/CustomNode.tsx` | 162 | 3.9 KB | — |
-| `demo-shell/src/components/GovernancePanel.tsx` | 281 | 8.1 KB | — |
-| `demo-shell/src/components/GraphCanvas.tsx` | 558 | 15.8 KB | — |
-| `demo-shell/src/components/MissionRoom.tsx` | 820 | 27.5 KB | — |
-| `demo-shell/src/components/Sidebar.tsx` | 343 | 9.5 KB | — |
-| `demo-shell/src/context/MissionContext.tsx` | 122 | 3.1 KB | — |
+| `demo-shell/src/components/CommandPalette.tsx` | 341 | 9.1 KB | — |
+| `demo-shell/src/components/CustomNode.tsx` | 159 | 3.9 KB | — |
+| `demo-shell/src/components/GovernancePanel.tsx` | 279 | 8.1 KB | — |
+| `demo-shell/src/components/GraphCanvas.tsx` | 550 | 15.5 KB | — |
+| `demo-shell/src/components/Sidebar.tsx` | 348 | 9.3 KB | — |
+| `demo-shell/src/components/WorkspaceRoom.tsx` | 821 | 27.4 KB | — |
+| `demo-shell/src/context/WorkspaceContext.tsx` | 129 | 3.2 KB | — |
 | `demo-shell/src/hooks/useApi.ts` | 32 | 0.9 KB | — |
 | `demo-shell/src/main.tsx` | 16 | 0.4 KB | — |
 
@@ -1108,8 +1110,8 @@ U-->10
 - **Экспорт**: `GovernancePanel`
 - **Зависимости**:
 
-### `demo-shell/src/context/MissionContext.tsx`
-- **Экспорт**: `MissionProvider`, `useMission`
+### `demo-shell/src/context/WorkspaceContext.tsx`
+- **Экспорт**: `WorkspaceProvider`, `useWorkspace`
 - **Зависимости**:
 
 ### `demo-shell/src/hooks/useApi.ts`
@@ -1127,34 +1129,34 @@ U-->10
 | `api/src/dto/index.ts` | 40 | 0.8 KB | — |
 | `api/src/index.ts` | 3 | 0.0 KB | — |
 | `api/src/routes/governance.routes.ts` | 34 | 0.9 KB | — |
-| `api/src/routes/mapping.routes.ts` | 59 | 1.6 KB | — |
+| `api/src/routes/mapping.routes.ts` | 61 | 1.7 KB | — |
 | `api/src/routes/mcp.routes.ts` | 38 | 1.0 KB | — |
-| `api/src/routes/mission.routes.ts` | 32 | 0.9 KB | — |
-| `api/src/server.ts` | 466 | 13.5 KB | — |
-| `api/test/api.test.ts` | 210 | 5.5 KB | — |
+| `api/src/routes/workspace.routes.ts` | 37 | 1.0 KB | — |
+| `api/src/server.ts` | 470 | 13.7 KB | — |
+| `api/test/api.test.ts` | 210 | 5.6 KB | — |
 | `api/vitest.config.ts` | 42 | 1.1 KB | — |
-| `application/src/index.ts` | 9 | 0.3 KB | — |
-| `application/src/use-cases/add-edge.ts` | 47 | 1.2 KB | — |
-| `application/src/use-cases/add-node.ts` | 55 | 1.3 KB | — |
+| `application/src/index.ts` | 9 | 0.4 KB | — |
+| `application/src/use-cases/add-edge.ts` | 47 | 1.3 KB | — |
+| `application/src/use-cases/add-node.ts` | 55 | 1.4 KB | — |
 | `application/src/use-cases/cast-vote.ts` | 76 | 2.0 KB | — |
-| `application/src/use-cases/create-mission.ts` | 49 | 1.1 KB | — |
-| `application/src/use-cases/get-mission-graph.ts` | 21 | 0.6 KB | — |
-| `application/src/use-cases/list-missions.ts` | 11 | 0.3 KB | — |
+| `application/src/use-cases/create-workspace.ts` | 49 | 1.2 KB | — |
+| `application/src/use-cases/get-workspace-graph.ts` | 21 | 0.6 KB | — |
+| `application/src/use-cases/list-workspaces.ts` | 11 | 0.3 KB | — |
 | `application/src/use-cases/patch-node.ts` | 37 | 1.0 KB | — |
 | `application/src/use-cases/submit-claim.ts` | 49 | 1.2 KB | — |
-| `application/test/create-mission.test.ts` | 65 | 1.6 KB | — |
-| `application/test/use-cases.test.ts` | 336 | 10.1 KB | — |
+| `application/test/create-workspace.test.ts` | 63 | 1.6 KB | — |
+| `application/test/use-cases.test.ts` | 337 | 10.3 KB | — |
 | `application/vitest.config.ts` | 28 | 0.6 KB | — |
 | `domain/coverage/block-navigation.js` | 88 | 2.6 KB | — |
 | `domain/coverage/prettify.js` | 3 | 17.2 KB | — |
 | `domain/coverage/sorter.js` | 211 | 6.6 KB | — |
 | `domain/src/governance.ts` | 28 | 0.6 KB | A Claim in EPIOS is a node that undergoes a formal governance process. |
 | `domain/src/index.ts` | 4 | 0.1 KB | — |
-| `domain/src/mission.ts` | 50 | 0.9 KB | — |
 | `domain/src/node.ts` | 52 | 0.9 KB | — |
-| `domain/test/domain-smoke.test.ts` | 49 | 1.2 KB | — |
-| `domain/test/mission.test.ts` | 49 | 1.2 KB | — |
+| `domain/src/workspace.ts` | 50 | 1.0 KB | — |
+| `domain/test/domain-smoke.test.ts` | 51 | 1.3 KB | — |
 | `domain/test/node-invariants.test.ts` | 51 | 1.2 KB | — |
+| `domain/test/workspace.test.ts` | 51 | 1.3 KB | — |
 | `domain/vitest.config.ts` | 21 | 0.4 KB | — |
 | `infrastructure-mcp/src/index.ts` | 4 | 0.1 KB | — |
 | `infrastructure-mcp/src/mcp-app.registry.ts` | 35 | 0.8 KB | — |
@@ -1163,10 +1165,10 @@ U-->10
 | `infrastructure-models/src/index.ts` | 3 | 0.1 KB | — |
 | `infrastructure-postgres/src/graph.repository.ts` | 142 | 4.0 KB | — |
 | `infrastructure-postgres/src/index.ts` | 8 | 0.2 KB | — |
-| `infrastructure-postgres/src/mission.repository.ts` | 96 | 2.9 KB | — |
-| `infrastructure-postgres/src/schema.ts` | 69 | 2.3 KB | — |
+| `infrastructure-postgres/src/schema.ts` | 69 | 2.2 KB | — |
+| `infrastructure-postgres/src/workspace.repository.ts` | 96 | 3.0 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 29 | 0.9 KB | — |
-| `infrastructure-runtime/src/in-memory-repositories.ts` | 66 | 1.8 KB | — |
+| `infrastructure-runtime/src/in-memory-repositories.ts` | 66 | 1.9 KB | — |
 | `infrastructure-runtime/src/index.ts` | 6 | 0.2 KB | — |
 | `observability/src/audit.ts` | 25 | 0.6 KB | — |
 | `observability/src/index.ts` | 3 | 0.1 KB | — |
@@ -1176,23 +1178,23 @@ U-->10
 | `ports/src/governance.port.js` | 3 | 0.1 KB | — |
 | `ports/src/governance.port.ts` | 9 | 0.4 KB | — |
 | `ports/src/graph.repository.port.js` | 3 | 0.1 KB | — |
-| `ports/src/graph.repository.port.ts` | 11 | 0.4 KB | — |
+| `ports/src/graph.repository.port.ts` | 11 | 0.5 KB | — |
 | `ports/src/index.js` | 7 | 0.2 KB | — |
 | `ports/src/index.ts` | 6 | 0.2 KB | — |
 | `ports/src/mcp.port.js` | 3 | 0.0 KB | — |
 | `ports/src/mcp.port.ts` | 35 | 1.0 KB | Port for MCP Application Registry. |
-| `testing/src/fixtures.ts` | 18 | 0.3 KB | — |
+| `testing/src/fixtures.ts` | 23 | 0.5 KB | — |
 | `testing/src/index.ts` | 3 | 0.1 KB | — |
 
 ### `api/src/dto/index.ts`
-- **Экспорт**: `CreateMissionDto`, `AddNodeDto`, `AddEdgeDto`, `PatchNodeDto`
+- **Экспорт**: `CreateWorkspaceDto`, `AddNodeDto`, `AddEdgeDto`, `PatchNodeDto`
 
 ### `api/src/server.ts`
 - **Экспорт**: `ServerDependencies`, `buildServer`
 - **Роуты**:
   - `GET /health`
 - **Зависимости**:
-  - `./routes/mission.routes.js` → missionRoutes
+  - `./routes/workspace.routes.js` → workspaceRoutes
   - `./routes/mapping.routes.js` → mappingRoutes
   - `./routes/governance.routes.js` → governanceRoutes
   - `./routes/mcp.routes.js` → mcpRoutes
@@ -1201,13 +1203,13 @@ U-->10
 - **Экспорт**: `AddEdgeRequest`, `AddEdgeUseCase`
 - **Зависимости**:
   - `@epios/domain` → EpistemicEdge, EpistemicEdgeType
-  - `@epios/ports` → GraphRepositoryPort, MissionRepositoryPort
+  - `@epios/ports` → GraphRepositoryPort, WorkspaceRepositoryPort
   - `@epios/observability` → tracer
 
 ### `application/src/use-cases/add-node.ts`
 - **Экспорт**: `AddNodeRequest`, `AddNodeUseCase`
 - **Зависимости**:
-  - `@epios/ports` → GraphRepositoryPort, MissionRepositoryPort
+  - `@epios/ports` → GraphRepositoryPort, WorkspaceRepositoryPort
   - `@epios/observability` → tracer
 
 ### `application/src/use-cases/cast-vote.ts`
@@ -1217,23 +1219,23 @@ U-->10
   - `@epios/domain` → Vote
   - `@epios/observability` → auditLogger
 
-### `application/src/use-cases/create-mission.ts`
-- **Экспорт**: `CreateMissionRequest`, `CreateMissionUseCase`
+### `application/src/use-cases/create-workspace.ts`
+- **Экспорт**: `CreateWorkspaceRequest`, `CreateWorkspaceUseCase`
 - **Зависимости**:
-  - `@epios/ports` → MissionRepositoryPort
+  - `@epios/ports` → WorkspaceRepositoryPort
   - `@epios/observability` → tracer
 
-### `application/src/use-cases/get-mission-graph.ts`
-- **Экспорт**: `MissionGraph`, `GetMissionGraphUseCase`
+### `application/src/use-cases/get-workspace-graph.ts`
+- **Экспорт**: `WorkspaceGraph`, `GetWorkspaceGraphUseCase`
 - **Зависимости**:
   - `@epios/domain` → EpistemicNode, EpistemicEdge
   - `@epios/ports` → GraphRepositoryPort
 
-### `application/src/use-cases/list-missions.ts`
-- **Экспорт**: `ListMissionsUseCase`
+### `application/src/use-cases/list-workspaces.ts`
+- **Экспорт**: `ListWorkspacesUseCase`
 - **Зависимости**:
-  - `@epios/domain` → Mission
-  - `@epios/ports` → MissionRepositoryPort
+  - `@epios/domain` → Workspace
+  - `@epios/ports` → WorkspaceRepositoryPort
 
 ### `application/src/use-cases/patch-node.ts`
 - **Экспорт**: `PatchNodeRequest`, `PatchNodeUseCase`
@@ -1252,11 +1254,11 @@ U-->10
 - **Зависимости**:
   - `./node.js` → EpistemicNode
 
-### `domain/src/mission.ts`
-- **Экспорт**: `MissionStatus`, `MissionMode`, `MissionSensitivity`, `MissionBrief`, `MissionActor`, `Mission`, `assertMissionCanRun`
-
 ### `domain/src/node.ts`
 - **Экспорт**: `NodeType`, `NodeStrength`, `EvidenceRef`, `EpistemicNode`, `EpistemicEdgeType`, `EpistemicEdge`
+
+### `domain/src/workspace.ts`
+- **Экспорт**: `WorkspaceStatus`, `WorkspaceMode`, `WorkspaceSensitivity`, `WorkspaceBrief`, `WorkspaceActor`, `Workspace`, `assertWorkspaceCanRun`
 
 ### `infrastructure-mcp/src/index.ts`
 - **Экспорт**: `MCP_VERSION`
@@ -1283,14 +1285,14 @@ U-->10
 ### `infrastructure-postgres/src/index.ts`
 - **Экспорт**: `DB_ENGINE`, `DB_VERSION`
 
-### `infrastructure-postgres/src/mission.repository.ts`
-- **Экспорт**: `PostgresMissionRepository`
-- **Зависимости**:
-  - `@epios/ports` → MissionRepositoryPort
-  - `./schema.js` → missions
-
 ### `infrastructure-postgres/src/schema.ts`
-- **Экспорт**: `missions`, `epistemicNodes`, `epistemicEdges`
+- **Экспорт**: `workspaces`, `epistemicNodes`, `epistemicEdges`
+
+### `infrastructure-postgres/src/workspace.repository.ts`
+- **Экспорт**: `PostgresWorkspaceRepository`
+- **Зависимости**:
+  - `@epios/ports` → WorkspaceRepositoryPort
+  - `./schema.js` → workspaces
 
 ### `infrastructure-runtime/src/in-memory-governance.repository.ts`
 - **Экспорт**: `InMemoryGovernanceRepository`
@@ -1299,10 +1301,10 @@ U-->10
   - `@epios/ports` → GovernanceRepositoryPort
 
 ### `infrastructure-runtime/src/in-memory-repositories.ts`
-- **Экспорт**: `InMemoryMissionRepository`, `InMemoryGraphRepository`
+- **Экспорт**: `InMemoryWorkspaceRepository`, `InMemoryGraphRepository`
 - **Зависимости**:
-  - `@epios/domain` → Mission, EpistemicNode, EpistemicEdge
-  - `@epios/ports` → MissionRepositoryPort, GraphRepositoryPort
+  - `@epios/domain` → Workspace, EpistemicNode, EpistemicEdge
+  - `@epios/ports` → WorkspaceRepositoryPort, GraphRepositoryPort
 
 ### `infrastructure-runtime/src/index.ts`
 - **Экспорт**: `RUNTIME_MODE`, `DURABILITY_ENABLED`
@@ -1314,9 +1316,9 @@ U-->10
 - **Экспорт**: `TraceEvent`, `Tracer`, `ConsoleTracer`, `tracer`
 
 ### `ports/src/domain.repository.port.ts`
-- **Экспорт**: `MissionRepositoryPort`
+- **Экспорт**: `WorkspaceRepositoryPort`
 - **Зависимости**:
-  - `@epios/domain` → Mission
+  - `@epios/domain` → Workspace
 
 ### `ports/src/governance.port.ts`
 - **Экспорт**: `GovernanceRepositoryPort`
@@ -1332,9 +1334,9 @@ U-->10
 - **Экспорт**: `MCPApp`, `MCPAppRegistryPort`, `MCPBridgePort`
 
 ### `testing/src/fixtures.ts`
-- **Экспорт**: `createTestMission`
+- **Экспорт**: `createTestWorkspace`
 - **Зависимости**:
-  - `@epios/domain` → Mission
+  - `@epios/domain` → Workspace
 
 ## Переменные окружения
 

@@ -1,6 +1,6 @@
 export type TraceEvent = {
   type: string;
-  missionId?: string;
+  workspaceId?: string;
   payload: Record<string, unknown>;
   timestamp: Date;
 };

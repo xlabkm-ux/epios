@@ -5,7 +5,7 @@ describe("EpistemicNode invariants", () => {
   it("creates a valid epistemic node", () => {
     const node: EpistemicNode = {
       id: "n1",
-      missionId: "m1",
+      workspaceId: "w1",
       type: "claim",
       content: "The system is stable",
       strength: "strong",

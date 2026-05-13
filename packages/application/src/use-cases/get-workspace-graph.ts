@@ -1,18 +1,18 @@
 import { EpistemicNode, EpistemicEdge } from "@epios/domain";
 import { GraphRepositoryPort } from "@epios/ports";
 
-export interface MissionGraph {
+export interface WorkspaceGraph {
   nodes: EpistemicNode[];
   edges: EpistemicEdge[];
 }
 
-export class GetMissionGraphUseCase {
+export class GetWorkspaceGraphUseCase {
   constructor(private readonly graphRepo: GraphRepositoryPort) {}
 
-  async execute(missionId: string): Promise<MissionGraph> {
+  async execute(workspaceId: string): Promise<WorkspaceGraph> {
     const [nodes, edges] = await Promise.all([
-      this.graphRepo.findNodesByMissionId(missionId),
-      this.graphRepo.findEdgesByMissionId(missionId),
+      this.graphRepo.findNodesByWorkspaceId(workspaceId),
+      this.graphRepo.findEdgesByWorkspaceId(workspaceId),
     ]);
 
     return { nodes, edges };

@@ -1,60 +1,65 @@
 # PROJECT BACKLOG: Epistemic OS (epios)
 
-Этот файл является оперативным трекером задач и синхронизирован с основным роадмапом в `work_doc/epios_03_mvp_scope_and_6_week_roadmap.md`.
+Этот файл является оперативным трекером задач и синхронизирован с основным роадмапом в `docs/04_delivery/v1_1_qa_plan/EPIOS_v1_1_Master_Sprint_QA_Plan.md`.
 
-## 🚀 MVP Роадмап (6 недель)
+## 🎯 Текущая цель: EPIOS v1.1 — ADR Review Readiness MVP
+**Horizon:** 16 sprints + pilot
+**Focus:** Архитектурно-честный продукт для ревью и аппрува ADR.
 
-### Неделя 1: Репозиторий и Инфраструктура (ЗАВЕРШЕНО)
-- [x] ✅ Репозиторий инициализирован — 2026-05-11
-- [x] ✅ Базовая структура папок (apps, packages) — 2026-05-11
-- [x] ✅ AGENT.md адаптирован под проект — 2026-05-11
-- [x] ✅ Настройка pnpm workspace — 2026-05-11
-- [x] ✅ Docker Compose с PostgreSQL — 2026-05-11
-- [x] ✅ Начальные миграции — 2026-05-11
-- [x] ✅ Скелет пакетов (domain, application, api) — 2026-05-11
-- [x] ✅ Скелет demo-shell — 2026-05-11
-- [x] ✅ CI/CD (GitHub Actions) — 2026-05-11
-- [x] ✅ Security scanning (Gitleaks) — 2026-05-11
-- [x] ✅ Conventional Commits & Husky — 2026-05-11
+---
 
-### Неделя 1: Стабилизация Документации (ЗАВЕРШЕНО)
-- [x] ✅ Document Register и Open Decisions — 2026-05-12
-- [x] ✅ Резолюция ADR-0001 — ADR-0026 — 2026-05-12
-- [x] ✅ Лицензия Apache-2.0 — 2026-05-12
-- [x] ✅ Статус документов Accepted — 2026-05-12
-- [x] ✅ Diátaxis структура в /docs — 2026-05-12
-- [x] ✅ Mermaid диаграммы в README и PROJECT_MAP — 2026-05-12
+## 🚀 План разработки v1.1
 
-### Неделя 2: Ядро Домена и Персистентность (ЗАВЕРШЕНО)
-- [x] ✅ Sprint 3.1: Enforcement & Quality — 2026-05-12
-  - [x] Dependency Cruiser boundaries
-  - [x] Vitest coverage thresholds (80%)
-  - [x] GitHub backlog preparation (EPIOS-12)
-- [x] ✅ Реализация агрегата Mission — 2026-05-12
-- [x] ✅ EpistemicNode и EvidenceRef — 2026-05-12
-- [x] ✅ Репозитории PostgreSQL — 2026-05-12
-- [x] ✅ Тесты инвариантов домена — 2026-05-12
+### S0: Governance + Shell Skeleton
+- [ ] Managed repo and visible product frame
+- [ ] ADR Review Workspace skeleton
+- [ ] CI, boundaries, shell smoke tests
 
-### Неделя 3: Use Cases и API (ЗАВЕРШЕНО)
-- [x] ✅ Реализация основных Use Cases (CreateMission, Mapping, Patch) — 2026-05-12
-- [x] ✅ API роуты и DTO — 2026-05-12
-- [x] ✅ Эмиссия событий трассировки — 2026-05-12
+### S1: Contracts + Clickable Flow
+- [ ] Frozen MVP contracts and mock ADR flow
+- [ ] Clickable mock end-to-end flow
+- [ ] Contract tests, mock e2e
 
-### Неделя 4: Demo Shell и Mission Room (ЗАВЕРШЕНО)
-- [x] ✅ Layout демо-оболочки — 2026-05-12
-- [x] ✅ Universal Mission Room UI — 2026-05-12
-- [x] ✅ Визуализация узлов и патчей — 2026-05-12
+### S2: Core Domain + Persistence
+- [ ] Real mission/source/rating storage
+- [ ] Real mission + source + rating panels
+- [ ] Domain tests, Testcontainers, reload logic
 
-### Неделя 5: MCP Apps и Approval Flow (ЗАВЕРШЕНО)
-- [x] ✅ MCPAppRegistry и валидация моста — 2026-05-12
-- [x] ✅ ClaimApp и ApprovalApp — 2026-05-12
-- [x] ✅ Аудит MCP команд — 2026-05-12
+### S3: Async Mapping + Evidence
+- [ ] Async run, claims/evidence, outbox, events
+- [ ] Mapping progress + claims/evidence panels
+- [ ] Async tests, outbox, SSE/polling
 
-### Неделя 6: Полировка и Релиз-кандидат ([План](docs/04_delivery/WEEK_6_PLAN.md))
-- [x] ✅ Четыре демо-сценария — 2026-05-12
-- [x] ✅ E2E smoke тесты — 2026-05-12
-- [x] ✅ UI/UX Полировка — 2026-05-12
-- [x] ✅ MVP RC Tag (v0.1.0-rc.1) — 2026-05-12
+### S4: Patch + Approval
+- [ ] Real patch and approval lifecycle
+- [ ] Patch review + approval panels
+- [ ] Policy, idempotency, approval QA
+
+### S5: Readiness + Artifact Version
+- [ ] Readiness v0.1, apply patch, final ADR
+- [ ] Readiness panel + final artifact + trace
+- [ ] Readiness tests, trace, full e2e
+
+### S6: Security + Retention
+- [ ] Pilot-safe roles, retention, redaction
+- [ ] Role-aware UI and deletion states
+- [ ] Security tests, retention, audit
+
+### S7: RC + Pilot Pack
+- [ ] Alpha/RC package for design partners
+- [ ] Demo-ready build and runbook
+- [ ] Release QA, usability metrics
+
+---
+
+## ✅ Архив: MVP v0.1 — ЗАВЕРШЕНО
+- [x] S0: Репозиторий и Инфраструктура
+- [x] S0: Стабилизация Документации
+- [x] S1: Ядро Домена и Персистентность
+- [x] S2: Use Cases и API
+- [x] S3: Demo Shell и Workspace Room
+- [x] S4: MCP Apps и Approval Flow
+- [x] S5: Полировка и Релиз-кандидат (v0.1.0-rc.1)
 
 ---
 *Агент обязан обновлять этот файл после каждого спринта.*

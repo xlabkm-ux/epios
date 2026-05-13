@@ -8,28 +8,30 @@ import {
   Minimize2,
   XCircle,
 } from "lucide-react";
-import { useMission } from "../context/MissionContext";
+import { useWorkspace } from "../context/WorkspaceContext";
 import { GovernancePanel } from "./GovernancePanel";
 import { motion, AnimatePresence } from "framer-motion";
 
-const MissionRoom: React.FC = () => {
-  const { missions, selectedMissionId, selectedNodeId, graphStates } =
-    useMission();
+const WorkspaceRoom: React.FC = () => {
+  const { workspaces, selectedWorkspaceId, selectedNodeId, graphStates } =
+    useWorkspace();
   const [isFocusMode, setIsFocusMode] = useState(false);
-  const [showMissionCard, setShowMissionCard] = useState(false);
-  const selectedMission = missions.find((m) => m.id === selectedMissionId);
+  const [showWorkspaceCard, setShowWorkspaceCard] = useState(false);
+  const selectedWorkspace = workspaces.find(
+    (m) => m.id === selectedWorkspaceId,
+  );
 
   const selectedNode =
-    selectedMissionId && selectedNodeId
-      ? graphStates[selectedMissionId]?.nodes.find(
+    selectedWorkspaceId && selectedNodeId
+      ? graphStates[selectedWorkspaceId]?.nodes.find(
           (n: { id: string }) => n.id === selectedNodeId,
         )
       : null;
 
-  if (!selectedMission) {
+  if (!selectedWorkspace) {
     return (
       <div
-        data-testid="mission-room-empty"
+        data-testid="workspace-room-empty"
         className="animate-fade-in"
         style={{
           flex: 1,
@@ -38,7 +40,7 @@ const MissionRoom: React.FC = () => {
           justifyContent: "center",
           color: "var(--text-dim)",
           background:
-            "radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.05) 0%, transparent 80%)",
+            "radial-gradient(circle at 50% 50%, var(--primary-alpha) 0%, transparent 80%)",
         }}
       >
         <div style={{ textAlign: "center" }}>
@@ -67,7 +69,7 @@ const MissionRoom: React.FC = () => {
               letterSpacing: "-0.02em",
             }}
           >
-            Awaiting Mission Assignment
+            Awaiting Workspace Assignment
           </h2>
           <p
             style={{
@@ -78,7 +80,7 @@ const MissionRoom: React.FC = () => {
               lineHeight: 1.5,
             }}
           >
-            Select a neural mission from the synchronized repository to begin.
+            Select a neural workspace from the synchronized repository to begin.
           </p>
         </div>
       </div>
@@ -87,7 +89,7 @@ const MissionRoom: React.FC = () => {
 
   return (
     <div
-      data-testid="mission-room-active"
+      data-testid="workspace-room-active"
       className="animate-fade-in"
       style={{
         flex: 1,
@@ -104,6 +106,7 @@ const MissionRoom: React.FC = () => {
           position: "relative",
           display: "flex",
           overflow: "hidden",
+          background: "var(--bg-dark)",
         }}
       >
         <GraphCanvas />
@@ -123,8 +126,8 @@ const MissionRoom: React.FC = () => {
             flexDirection: "column",
             gap: "1.75rem",
             transform: selectedNode ? "translateX(0)" : "translateX(420px)",
-            transition: "transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)",
-            backgroundColor: "rgba(20, 20, 30, 0.95)",
+            transition: "transform 0.4s cubic-bezier(0.19, 1, 0.22, 1)",
+            backgroundColor: "var(--bg-card)",
             backdropFilter: "blur(20px)",
           }}
         >
@@ -358,7 +361,7 @@ const MissionRoom: React.FC = () => {
       >
         {/* Left Side: Mission Title Trigger */}
         <div
-          onMouseEnter={() => setShowMissionCard(true)}
+          onMouseEnter={() => setShowWorkspaceCard(true)}
           style={{
             display: "flex",
             alignItems: "center",
@@ -370,11 +373,11 @@ const MissionRoom: React.FC = () => {
           }}
         >
           <Zap size={12} fill="currentColor" />
-          <span>{selectedMission.title}</span>
+          <span>{selectedWorkspace.title}</span>
 
-          {/* Expanded Mission Details Card (Primary Command Center) */}
+          {/* Expanded Workspace Details Card (Primary Command Center) */}
           <AnimatePresence>
-            {showMissionCard && (
+            {showWorkspaceCard && (
               <motion.div
                 initial={{ opacity: 0, y: 10, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -386,11 +389,10 @@ const MissionRoom: React.FC = () => {
                   left: "1.5rem",
                   width: "1000px",
                   padding: "2.5rem",
-                  background: "rgba(10, 10, 15, 0.98)",
+                  background: "var(--bg-card)",
                   backdropFilter: "blur(40px)",
                   zIndex: 110,
-                  boxShadow:
-                    "0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(0, 242, 255, 0.15)",
+                  boxShadow: "var(--modal-shadow)",
                   border: "1px solid var(--border)",
                 }}
               >
@@ -414,7 +416,7 @@ const MissionRoom: React.FC = () => {
                         marginBottom: "0.5rem",
                       }}
                     >
-                      Mission Command Center
+                      Workspace Command Center
                     </div>
                     <h2
                       style={{
@@ -425,7 +427,7 @@ const MissionRoom: React.FC = () => {
                         margin: 0,
                       }}
                     >
-                      {selectedMission.title}
+                      {selectedWorkspace.title}
                     </h2>
                     <div
                       style={{
@@ -463,14 +465,14 @@ const MissionRoom: React.FC = () => {
                           fontFamily: "var(--font-mono)",
                         }}
                       >
-                        UUID: {selectedMission.id}
+                        UUID: {selectedWorkspace.id}
                       </span>
                     </div>
                   </div>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setShowMissionCard(false);
+                      setShowWorkspaceCard(false);
                     }}
                     style={{
                       color: "var(--text-dim)",
@@ -501,12 +503,12 @@ const MissionRoom: React.FC = () => {
                     }}
                   >
                     <GovernancePanel
-                      missionId={selectedMission.id}
+                      workspaceId={selectedWorkspace.id}
                       minimal={true}
                     />
                   </div>
 
-                  {/* Right Column: Mission Strategy */}
+                  {/* Right Column: Workspace Strategy */}
                   <div
                     style={{
                       display: "flex",
@@ -538,11 +540,11 @@ const MissionRoom: React.FC = () => {
                           color: "var(--text-main)",
                         }}
                       >
-                        {selectedMission.brief.goal}
+                        {selectedWorkspace.brief.goal}
                       </div>
                     </section>
 
-                    {selectedMission.brief.successCriteria?.length > 0 && (
+                    {selectedWorkspace.brief.successCriteria?.length > 0 && (
                       <section>
                         <label
                           style={{
@@ -564,7 +566,7 @@ const MissionRoom: React.FC = () => {
                             gap: "0.75rem",
                           }}
                         >
-                          {selectedMission.brief.successCriteria.map(
+                          {selectedWorkspace.brief.successCriteria.map(
                             (c: string, i: number) => (
                               <div
                                 key={i}
@@ -613,13 +615,12 @@ const MissionRoom: React.FC = () => {
                           padding: "1rem",
                           borderRadius: "10px",
                           backgroundColor: "var(--primary)",
-                          color: "var(--bg-dark)",
+                          color: "white",
                           fontWeight: 700,
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           gap: "0.75rem",
-                          boxShadow: "0 0 30px var(--primary-glow)",
                         }}
                       >
                         <Zap size={18} fill="currentColor" />
@@ -757,11 +758,11 @@ const MissionRoom: React.FC = () => {
             right: 0;
             width: 240px;
             padding: 1.25rem;
-            background: rgba(15, 15, 25, 0.95) !important;
+            background: var(--bg-card) !important;
             backdrop-filter: blur(20px) !important;
-            border: 1px solid var(--primary-glow) !important;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 20px var(--primary-glow) !important;
-            border-radius: 12px;
+            border: 1px solid var(--border) !important;
+            box-shadow: var(--modal-shadow) !important;
+            border-radius: var(--radius-lg);
             opacity: 0;
             transform: translateY(10px);
             pointer-events: none;
@@ -816,4 +817,4 @@ const MissionRoom: React.FC = () => {
   );
 };
 
-export default MissionRoom;
+export default WorkspaceRoom;

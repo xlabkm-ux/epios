@@ -1,10 +1,10 @@
 import { EpistemicEdge, EpistemicEdgeType } from "@epios/domain";
-import { GraphRepositoryPort, MissionRepositoryPort } from "@epios/ports";
+import { GraphRepositoryPort, WorkspaceRepositoryPort } from "@epios/ports";
 import { tracer } from "@epios/observability";
 import { randomUUID } from "crypto";
 
 export type AddEdgeRequest = {
-  missionId: string;
+  workspaceId: string;
   sourceNodeId: string;
   targetNodeId: string;
   type: EpistemicEdgeType;
@@ -13,19 +13,19 @@ export type AddEdgeRequest = {
 
 export class AddEdgeUseCase {
   constructor(
-    private readonly missionRepo: MissionRepositoryPort,
+    private readonly workspaceRepo: WorkspaceRepositoryPort,
     private readonly graphRepo: GraphRepositoryPort,
   ) {}
 
   async execute(request: AddEdgeRequest): Promise<EpistemicEdge> {
-    const mission = await this.missionRepo.findById(request.missionId);
-    if (!mission) {
-      throw new Error("MISSION_NOT_FOUND");
+    const workspace = await this.workspaceRepo.findById(request.workspaceId);
+    if (!workspace) {
+      throw new Error("WORKSPACE_NOT_FOUND");
     }
 
     const edge: EpistemicEdge = {
       id: randomUUID(),
-      missionId: request.missionId,
+      workspaceId: request.workspaceId,
       sourceNodeId: request.sourceNodeId,
       targetNodeId: request.targetNodeId,
       type: request.type,
@@ -37,7 +37,7 @@ export class AddEdgeUseCase {
 
     tracer.emit({
       type: "EDGE_ADDED",
-      missionId: edge.missionId,
+      workspaceId: edge.workspaceId,
       payload: { edgeId: edge.id, edgeType: edge.type },
     });
 

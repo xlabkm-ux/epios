@@ -11,7 +11,7 @@ export interface Vote {
 
 export interface GovernanceProcess {
   nodeId: string;
-  missionId: string;
+  workspaceId: string;
   status: ApprovalStatus;
   votes: Vote[];
   requiredVotes: number;

@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { assertMissionCanRun, Mission } from "../src/mission";
+import { assertWorkspaceCanRun, Workspace } from "../src/workspace";
 
-describe("Mission Domain Logic", () => {
-  it("assertMissionCanRun throws if goal is empty", () => {
-    const mission: Mission = {
-      id: "m1",
-      title: "Empty Mission",
+describe("Workspace Domain Logic", () => {
+  it("assertWorkspaceCanRun throws if goal is empty", () => {
+    const workspace: Workspace = {
+      id: "w1",
+      title: "Empty Workspace",
       brief: {
         goal: "  ",
         successCriteria: [],
@@ -21,13 +21,15 @@ describe("Mission Domain Logic", () => {
       version: 1,
     };
 
-    expect(() => assertMissionCanRun(mission)).toThrow("MISSION_GOAL_REQUIRED");
+    expect(() => assertWorkspaceCanRun(workspace)).toThrow(
+      "WORKSPACE_GOAL_REQUIRED",
+    );
   });
 
-  it("assertMissionCanRun passes if goal is present", () => {
-    const mission: Mission = {
-      id: "m1",
-      title: "Valid Mission",
+  it("assertWorkspaceCanRun passes if goal is present", () => {
+    const workspace: Workspace = {
+      id: "w1",
+      title: "Valid Workspace",
       brief: {
         goal: "Solve the problem",
         successCriteria: [],
@@ -43,6 +45,6 @@ describe("Mission Domain Logic", () => {
       version: 1,
     };
 
-    expect(() => assertMissionCanRun(mission)).not.toThrow();
+    expect(() => assertWorkspaceCanRun(workspace)).not.toThrow();
   });
 });

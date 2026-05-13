@@ -14,7 +14,7 @@
    `docker-compose.yml` и `.env.example` содержат `epios_dev_password`; это не выглядит как реальный секрет, но для open-source лучше заменить на `${POSTGRES_PASSWORD:-epios_dev_password}` и явно пометить как local-only. OWASP-рекомендация — повторяемо сканировать репозиторий на sensitive values в pipeline. ([GitHub][4])
 
 4. **Создать рабочий backlog в GitHub Issues.**
-   Сейчас issues = 0, хотя EPIOS-10 уже описывает Week 1 issue set. Перенести P0/P1 задачи в GitHub, иначе нет управляемого delivery-контроля. ([GitHub][1])
+   Сейчас issues = 0, хотя EPIOS-10 уже описывает Sprint 1 issue set. Перенести P0/P1 задачи в GitHub, иначе нет управляемого delivery-контроля. ([GitHub][1])
 
 5. **Закрыть ADR/document drift.**
    Документы сами фиксируют необходимость `DOCUMENT_REGISTER.md`, ADR-файлов и lifecycle контроля; аудит документации указывает конфликт ADR-нумерации и статус Draft/For Review для документов, уже используемых как executable plan. 
@@ -34,7 +34,7 @@
    Минимум: `.git`, `node_modules`, `.env`, `coverage`, `dist`, `.turbo`. Это защита от утечек и ускорение сборок.
 
 5. **Добавить release gate checklist.**
-   EPIOS-07 уже задает gates W1–W6: repo/local DB/tests/no secrets для W1, domain+persistence для W2, API/use cases для W3, shell для W4, MCP security для W5, RC для W6. Их надо превратить в GitHub milestones. 
+   EPIOS-07 уже задает Milestones M1–M6: repo/local DB/tests/no secrets для M1, domain+persistence для M2, API/use cases для M3, shell для M4, MCP security для M5, RC для M6. Их надо превратить в GitHub milestones. 
 
 ## Лучшие практики, применимые здесь
 
@@ -58,7 +58,7 @@
 **PR-4: architecture enforcement**
 dependency boundary checker + test that `domain` imports no infra/framework/provider SDK.
 
-**PR-5: Week 2 executable package**
+**PR-5: Sprint 2 executable package**
 Mission, MissionRun, EpistemicNode, EvidenceRef, ArtifactPatch, ApprovalRequest contracts + persistence migrations + invariant tests.
 
 ## Короткий итог

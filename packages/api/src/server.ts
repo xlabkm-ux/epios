@@ -4,26 +4,26 @@ import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import * as dotenv from "dotenv";
 import {
-  PostgresMissionRepository,
+  PostgresWorkspaceRepository,
   PostgresGraphRepository,
 } from "@epios/infrastructure-postgres";
 import {
-  CreateMissionUseCase,
-  ListMissionsUseCase,
+  CreateWorkspaceUseCase,
+  ListWorkspacesUseCase,
   AddNodeUseCase,
   AddEdgeUseCase,
   PatchNodeUseCase,
-  GetMissionGraphUseCase,
+  GetWorkspaceGraphUseCase,
   SubmitClaimUseCase,
   CastVoteUseCase,
 } from "@epios/application";
-import { missionRoutes } from "./routes/mission.routes.js";
+import { workspaceRoutes } from "./routes/workspace.routes.js";
 import { mappingRoutes } from "./routes/mapping.routes.js";
 import { governanceRoutes } from "./routes/governance.routes.js";
 import { mcpRoutes } from "./routes/mcp.routes.js";
 import {
   InMemoryGovernanceRepository,
-  InMemoryMissionRepository,
+  InMemoryWorkspaceRepository,
   InMemoryGraphRepository,
 } from "@epios/infrastructure-runtime";
 import {
@@ -31,12 +31,12 @@ import {
   MockMCPBridge,
 } from "@epios/infrastructure-mcp";
 import {
-  Mission,
+  Workspace,
   EpistemicNode,
   EpistemicEdge,
-  MissionStatus,
-  MissionMode,
-  MissionSensitivity,
+  WorkspaceStatus,
+  WorkspaceMode,
+  WorkspaceSensitivity,
   NodeType,
   NodeStrength,
   EpistemicEdgeType,
@@ -45,7 +45,7 @@ import {
 dotenv.config();
 
 import {
-  MissionRepositoryPort,
+  WorkspaceRepositoryPort,
   GraphRepositoryPort,
   GovernanceRepositoryPort,
   MCPAppRegistryPort,
@@ -53,7 +53,7 @@ import {
 } from "@epios/ports";
 
 export type ServerDependencies = {
-  missionRepo?: MissionRepositoryPort;
+  workspaceRepo?: WorkspaceRepositoryPort;
   graphRepo?: GraphRepositoryPort;
   governanceRepo?: GovernanceRepositoryPort;
   mcpRegistry?: MCPAppRegistryPort;
@@ -67,10 +67,10 @@ export function buildServer(deps: ServerDependencies = {}) {
     origin: "*", // For development
   });
 
-  let missionRepo = deps.missionRepo;
+  let workspaceRepo = deps.workspaceRepo;
   let graphRepo = deps.graphRepo;
 
-  if (!missionRepo || !graphRepo) {
+  if (!workspaceRepo || !graphRepo) {
     const databaseUrl = process.env.DATABASE_URL;
     const isMockMode =
       process.env.EPIOS_DATABASE_MODE === "mock" || !databaseUrl;
@@ -79,12 +79,12 @@ export function buildServer(deps: ServerDependencies = {}) {
     );
 
     if (isMockMode) {
-      const missionEId = "m5";
-      const missionENodes: EpistemicNode[] = Array.from(
+      const workspaceEId = "m5";
+      const workspaceENodes: EpistemicNode[] = Array.from(
         { length: 50 },
         (_, i) => ({
           id: `ne${i + 1}`,
-          missionId: missionEId,
+          workspaceId: workspaceEId,
           type: (i % 3 === 0
             ? "hypothesis"
             : i % 2 === 0
@@ -111,7 +111,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         }),
       );
 
-      const missionEEdges: EpistemicEdge[] = [];
+      const workspaceEEdges: EpistemicEdge[] = [];
       for (let i = 0; i < 50; i++) {
         // Create a complex web: each node supports/contradicts/derives from others
         const targets = [
@@ -122,11 +122,11 @@ export function buildServer(deps: ServerDependencies = {}) {
 
         targets.forEach((targetIdx, j) => {
           if (targetIdx !== i) {
-            missionEEdges.push({
+            workspaceEEdges.push({
               id: `ee${i}-${j}`,
-              missionId: missionEId,
-              sourceNodeId: missionENodes[i].id,
-              targetNodeId: missionENodes[targetIdx].id,
+              workspaceId: workspaceEId,
+              sourceNodeId: workspaceENodes[i].id,
+              targetNodeId: workspaceENodes[targetIdx].id,
               type: ["supports", "contradicts", "refines", "addresses"][
                 (i + j) % 4
               ] as EpistemicEdgeType,
@@ -137,13 +137,13 @@ export function buildServer(deps: ServerDependencies = {}) {
         });
       }
 
-      const demoMissions: Mission[] = [
+      const demoWorkspaces: Workspace[] = [
         {
           id: "m1",
           title: "Scenario A: Climate Research",
-          status: "running" as MissionStatus,
-          mode: "assisted" as MissionMode,
-          sensitivity: "internal" as MissionSensitivity,
+          status: "running" as WorkspaceStatus,
+          mode: "assisted" as WorkspaceMode,
+          sensitivity: "internal" as WorkspaceSensitivity,
           version: 1,
           brief: {
             goal: "Synthesize Arctic melt impact",
@@ -158,9 +158,9 @@ export function buildServer(deps: ServerDependencies = {}) {
         {
           id: "m2",
           title: "Scenario B: Crisis Response",
-          status: "running" as MissionStatus,
-          mode: "assisted" as MissionMode,
-          sensitivity: "internal" as MissionSensitivity,
+          status: "running" as WorkspaceStatus,
+          mode: "assisted" as WorkspaceMode,
+          sensitivity: "internal" as WorkspaceSensitivity,
           version: 1,
           brief: {
             goal: "Suez Canal blockage mitigation",
@@ -175,9 +175,9 @@ export function buildServer(deps: ServerDependencies = {}) {
         {
           id: "m3",
           title: "Scenario C: AI Governance",
-          status: "running" as MissionStatus,
-          mode: "assisted" as MissionMode,
-          sensitivity: "internal" as MissionSensitivity,
+          status: "running" as WorkspaceStatus,
+          mode: "assisted" as WorkspaceMode,
+          sensitivity: "internal" as WorkspaceSensitivity,
           version: 1,
           brief: {
             goal: "Finalize Human-in-the-loop policy",
@@ -192,9 +192,9 @@ export function buildServer(deps: ServerDependencies = {}) {
         {
           id: "m4",
           title: "Scenario D: Knowledge Synthesis",
-          status: "running" as MissionStatus,
-          mode: "assisted" as MissionMode,
-          sensitivity: "internal" as MissionSensitivity,
+          status: "running" as WorkspaceStatus,
+          mode: "assisted" as WorkspaceMode,
+          sensitivity: "internal" as WorkspaceSensitivity,
           version: 1,
           brief: {
             goal: "Neural Architecture Search summary",
@@ -207,11 +207,11 @@ export function buildServer(deps: ServerDependencies = {}) {
           createdBy: { type: "user", id: "dev-team" },
         },
         {
-          id: missionEId,
+          id: workspaceEId,
           title: "Scenario E: Neural Network Collapse",
-          status: "running" as MissionStatus,
-          mode: "assisted" as MissionMode,
-          sensitivity: "internal" as MissionSensitivity,
+          status: "running" as WorkspaceStatus,
+          mode: "assisted" as WorkspaceMode,
+          sensitivity: "internal" as WorkspaceSensitivity,
           version: 1,
           brief: {
             goal: "Stress-test large-scale transformer stability",
@@ -229,7 +229,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         // Scenario A
         {
           id: "n1",
-          missionId: "m1",
+          workspaceId: "m1",
           type: "hypothesis",
           content:
             "Arctic ice melt accelerates global sea level rise by 20% by 2050",
@@ -241,7 +241,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "n2",
-          missionId: "m1",
+          workspaceId: "m1",
           type: "observation",
           content: "NOAA 2024 Report on Arctic Melt Rates",
           strength: "strong",
@@ -252,7 +252,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "n3",
-          missionId: "m1",
+          workspaceId: "m1",
           type: "observation",
           content: "Sentinel-6 Satellite Altimetry Data",
           strength: "strong",
@@ -263,7 +263,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "n4",
-          missionId: "m1",
+          workspaceId: "m1",
           type: "claim",
           content: "Melting rate exceeds previous IPPC models",
           strength: "moderate",
@@ -275,7 +275,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         // Scenario B
         {
           id: "n5",
-          missionId: "m2",
+          workspaceId: "m2",
           type: "hypothesis",
           content: "Suez blockage causes 2-week semiconductor delay",
           strength: "moderate",
@@ -286,7 +286,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "n6",
-          missionId: "m2",
+          workspaceId: "m2",
           type: "observation",
           content: "Port authority live congestion report",
           strength: "strong",
@@ -297,7 +297,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "n7",
-          missionId: "m2",
+          workspaceId: "m2",
           type: "claim",
           content: "Reroute via Cape of Good Hope reduces delay risk",
           strength: "moderate",
@@ -309,7 +309,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         // Scenario C
         {
           id: "n8",
-          missionId: "m3",
+          workspaceId: "m3",
           type: "hypothesis",
           content: "Mandatory human approval prevents runaway loops",
           strength: "strong",
@@ -320,7 +320,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "n9",
-          missionId: "m3",
+          workspaceId: "m3",
           type: "claim",
           content: "Adaptive thresholds minimize latency impact",
           strength: "moderate",
@@ -332,7 +332,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         // Scenario D
         {
           id: "n10",
-          missionId: "m4",
+          workspaceId: "m4",
           type: "observation",
           content: "Transformer vs SSM Comparative Study 2025",
           strength: "strong",
@@ -343,7 +343,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "n11",
-          missionId: "m4",
+          workspaceId: "m4",
           type: "claim",
           content: "Hybrid SSM-Transformer block is optimal for edge devices",
           strength: "moderate",
@@ -353,13 +353,13 @@ export function buildServer(deps: ServerDependencies = {}) {
           updatedAt: new Date(),
         },
         // Scenario E
-        ...missionENodes,
+        ...workspaceENodes,
       ];
 
       const demoEdges: EpistemicEdge[] = [
         {
           id: "e1",
-          missionId: "m1",
+          workspaceId: "m1",
           sourceNodeId: "n2",
           targetNodeId: "n1",
           type: "supports",
@@ -368,7 +368,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "e2",
-          missionId: "m1",
+          workspaceId: "m1",
           sourceNodeId: "n3",
           targetNodeId: "n1",
           type: "supports",
@@ -377,7 +377,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "e3",
-          missionId: "m1",
+          workspaceId: "m1",
           sourceNodeId: "n4",
           targetNodeId: "n2",
           type: "refines",
@@ -386,7 +386,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "e4",
-          missionId: "m2",
+          workspaceId: "m2",
           sourceNodeId: "n6",
           targetNodeId: "n5",
           type: "supports",
@@ -395,7 +395,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         {
           id: "e5",
-          missionId: "m2",
+          workspaceId: "m2",
           sourceNodeId: "n7",
           targetNodeId: "n5",
           type: "addresses",
@@ -403,10 +403,11 @@ export function buildServer(deps: ServerDependencies = {}) {
           createdAt: new Date(),
         },
         // Scenario E
-        ...missionEEdges,
+        ...workspaceEEdges,
       ];
 
-      missionRepo = missionRepo ?? new InMemoryMissionRepository(demoMissions);
+      workspaceRepo =
+        workspaceRepo ?? new InMemoryWorkspaceRepository(demoWorkspaces);
       graphRepo =
         graphRepo ?? new InMemoryGraphRepository(demoNodes, demoEdges);
     } else if (databaseUrl) {
@@ -414,25 +415,25 @@ export function buildServer(deps: ServerDependencies = {}) {
         const queryClient = postgres(databaseUrl);
         const db = drizzle(queryClient);
 
-        missionRepo = missionRepo ?? new PostgresMissionRepository(db);
+        workspaceRepo = workspaceRepo ?? new PostgresWorkspaceRepository(db);
         graphRepo = graphRepo ?? new PostgresGraphRepository(db);
       } catch (e) {
         console.error(
           "Failed to connect to Postgres, falling back to mock mode",
           e,
         );
-        missionRepo = new InMemoryMissionRepository();
+        workspaceRepo = new InMemoryWorkspaceRepository();
         graphRepo = new InMemoryGraphRepository();
       }
     }
   }
 
-  const createMissionUseCase = new CreateMissionUseCase(missionRepo!);
-  const listMissionsUseCase = new ListMissionsUseCase(missionRepo!);
-  const addNodeUseCase = new AddNodeUseCase(missionRepo!, graphRepo!);
-  const addEdgeUseCase = new AddEdgeUseCase(missionRepo!, graphRepo!);
+  const createWorkspaceUseCase = new CreateWorkspaceUseCase(workspaceRepo!);
+  const listWorkspacesUseCase = new ListWorkspacesUseCase(workspaceRepo!);
+  const addNodeUseCase = new AddNodeUseCase(workspaceRepo!, graphRepo!);
+  const addEdgeUseCase = new AddEdgeUseCase(workspaceRepo!, graphRepo!);
   const patchNodeUseCase = new PatchNodeUseCase(graphRepo!);
-  const getMissionGraphUseCase = new GetMissionGraphUseCase(graphRepo!);
+  const getWorkspaceGraphUseCase = new GetWorkspaceGraphUseCase(graphRepo!);
 
   // Week 5: Governance & MCP
   const governanceRepo =
@@ -451,12 +452,15 @@ export function buildServer(deps: ServerDependencies = {}) {
     };
   });
 
-  app.register(missionRoutes, { createMissionUseCase, listMissionsUseCase });
+  app.register(workspaceRoutes, {
+    createWorkspaceUseCase,
+    listWorkspacesUseCase,
+  });
   app.register(mappingRoutes, {
     addNodeUseCase,
     addEdgeUseCase,
     patchNodeUseCase,
-    getMissionGraphUseCase,
+    getWorkspaceGraphUseCase,
   });
   app.register(governanceRoutes, { submitClaimUseCase, castVoteUseCase });
   app.register(mcpRoutes, { registry: mcpRegistry, bridge: mcpBridge });

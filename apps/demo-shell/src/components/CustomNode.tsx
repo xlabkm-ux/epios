@@ -39,31 +39,24 @@ const CustomNode = ({ data, selected }: NodeProps) => {
 
   return (
     <div
-      className="glass"
       style={{
-        padding: "1px",
-        borderRadius: "14px",
-        width: "220px",
-        background: selected
-          ? `linear-gradient(135deg, ${themeColor} 30%, transparent 100%)`
-          : "rgba(255, 255, 255, 0.03)",
-        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+        borderRadius: "var(--radius-lg)",
+        width: "240px",
+        background: "var(--bg-card)",
+        transition: "all 0.2s ease",
+        border: `1px solid ${selected ? "var(--primary)" : "var(--border)"}`,
         boxShadow: selected
-          ? `0 0 30px ${themeColor}66, var(--panel-shadow)`
+          ? "0 0 0 1px var(--primary), var(--panel-shadow)"
           : "var(--panel-shadow)",
-        border: `1px solid ${selected ? themeColor : "rgba(255, 255, 255, 0.15)"}`,
         cursor: "pointer",
+        overflow: "hidden",
       }}
     >
       <div
         style={{
-          backgroundColor: "var(--bg-card)",
-          borderRadius: "13px",
-          padding: "12px",
-          height: "100%",
           display: "flex",
           flexDirection: "column",
-          gap: "8px",
+          gap: "0",
         }}
       >
         <Handle
@@ -71,70 +64,42 @@ const CustomNode = ({ data, selected }: NodeProps) => {
           position={Position.Top}
           style={{
             background: themeColor,
-            border: "none",
-            width: "8px",
-            height: "4px",
-            borderRadius: "2px",
+            border: "2px solid var(--bg-card)",
+            width: "10px",
+            height: "10px",
+            top: "-5px",
           }}
         />
 
+        {/* Node Header */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            padding: "8px 12px",
+            background: "rgba(255, 255, 255, 0.03)",
+            borderBottom: "1px solid var(--border)",
           }}
         >
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "6px",
-              fontSize: "0.6rem",
+              gap: "8px",
+              fontSize: "11px",
               color: themeColor,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              fontWeight: 700,
+              fontWeight: 600,
+              letterSpacing: "0.02em",
             }}
           >
             {getTypeIcon(data.type)}
-            {data.type}
+            <span style={{ opacity: 0.8 }}>{data.type}</span>
           </div>
-          {selected && (
-            <Sparkles
-              size={12}
-              color="var(--primary)"
-              className="animate-pulse"
-            />
-          )}
-        </div>
-
-        <div
-          style={{
-            fontSize: "0.85rem",
-            fontWeight: 500,
-            color: "var(--text-main)",
-            lineHeight: 1.5,
-            wordBreak: "break-word",
-            minHeight: "40px",
-          }}
-        >
-          {data.label}
-        </div>
-
-        <div
-          style={{
-            marginTop: "4px",
-            paddingTop: "8px",
-            borderTop: "1px solid var(--border)",
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
           <div
             style={{
-              fontSize: "0.6rem",
-              color: "var(--text-dim)",
+              fontSize: "10px",
+              color: "var(--text-muted)",
               fontFamily: "var(--font-mono)",
             }}
           >
@@ -142,15 +107,47 @@ const CustomNode = ({ data, selected }: NodeProps) => {
           </div>
         </div>
 
+        {/* Node Body */}
+        <div
+          style={{
+            padding: "12px",
+            fontSize: "13px",
+            fontWeight: 400,
+            color: "var(--text-main)",
+            lineHeight: 1.5,
+            wordBreak: "break-word",
+            minHeight: "48px",
+          }}
+        >
+          {data.label}
+        </div>
+
+        {/* Node Footer / Metadata */}
+        {data.metadata && (
+          <div
+            style={{
+              padding: "8px 12px",
+              borderTop: "1px solid var(--border)",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <div style={{ display: "flex", gap: "4px" }}>
+              {/* Optional status dots or mini-tags could go here */}
+            </div>
+          </div>
+        )}
+
         <Handle
           type="source"
           position={Position.Bottom}
           style={{
             background: themeColor,
-            border: "none",
-            width: "8px",
-            height: "4px",
-            borderRadius: "2px",
+            border: "2px solid var(--bg-card)",
+            width: "10px",
+            height: "10px",
+            bottom: "-5px",
           }}
         />
       </div>

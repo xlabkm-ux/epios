@@ -1,16 +1,16 @@
 import {
-  MissionBrief,
-  MissionActor,
+  WorkspaceBrief,
+  WorkspaceActor,
   NodeType,
   NodeStrength,
   EvidenceRef,
   EpistemicEdgeType,
 } from "@epios/domain";
 
-export interface CreateMissionDto {
+export interface CreateWorkspaceDto {
   title: string;
-  brief: MissionBrief;
-  createdBy: MissionActor;
+  brief: WorkspaceBrief;
+  createdBy: WorkspaceActor;
   mode?: "autonomous" | "assisted" | "manual";
   sensitivity?: "public" | "internal" | "confidential" | "restricted";
 }

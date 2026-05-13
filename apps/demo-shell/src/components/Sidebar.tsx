@@ -11,10 +11,10 @@ import {
   Zap,
 } from "lucide-react";
 import { useApi } from "../hooks/useApi";
-import { useMission } from "../context/MissionContext";
+import { useWorkspace } from "../context/WorkspaceContext";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface Mission {
+interface Workspace {
   id: string;
   title: string;
   status: string;
@@ -22,18 +22,28 @@ interface Mission {
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const { data: fetchedMissions, loading } = useApi<Mission[]>("/missions");
-  const { missions, setMissions, selectedMissionId, setSelectedMissionId } =
-    useMission();
+  const { data: fetchedWorkspaces, loading } =
+    useApi<Workspace[]>("/workspaces");
+  const {
+    workspaces,
+    setWorkspaces,
+    selectedWorkspaceId,
+    setSelectedWorkspaceId,
+  } = useWorkspace();
 
   useEffect(() => {
-    if (fetchedMissions) {
-      setMissions(fetchedMissions);
-      if (fetchedMissions.length > 0 && !selectedMissionId) {
-        setSelectedMissionId(fetchedMissions[0].id);
+    if (fetchedWorkspaces) {
+      setWorkspaces(fetchedWorkspaces);
+      if (fetchedWorkspaces.length > 0 && !selectedWorkspaceId) {
+        setSelectedWorkspaceId(fetchedWorkspaces[0].id);
       }
     }
-  }, [fetchedMissions, setMissions, setSelectedMissionId, selectedMissionId]);
+  }, [
+    fetchedWorkspaces,
+    setWorkspaces,
+    setSelectedWorkspaceId,
+    selectedWorkspaceId,
+  ]);
 
   return (
     <motion.div
@@ -93,12 +103,12 @@ const Sidebar: React.FC = () => {
             minWidth: "36px",
             height: "36px",
             backgroundColor: "var(--primary)",
-            borderRadius: "10px",
+            borderRadius: "8px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "var(--bg-dark)",
-            boxShadow: "0 0 20px var(--primary-glow)",
+            color: "white",
+            boxShadow: "var(--panel-shadow)",
           }}
         >
           <Terminal size={22} strokeWidth={2.5} />
@@ -111,9 +121,8 @@ const Sidebar: React.FC = () => {
               exit={{ opacity: 0, x: -10 }}
               style={{
                 fontSize: "1.5rem",
-                fontWeight: 800,
-                letterSpacing: "-0.03em",
-                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                letterSpacing: "-0.04em",
                 color: "var(--text-main)",
                 whiteSpace: "nowrap",
               }}
@@ -134,10 +143,10 @@ const Sidebar: React.FC = () => {
       >
         <SidebarItem
           icon={<Layout size={18} />}
-          label="Mission Room"
+          label="Workspace Room"
           active
           isCollapsed={isCollapsed}
-          onClick={() => alert("Already in Mission Room")}
+          onClick={() => alert("Already in Workspace Room")}
         />
         <SidebarItem
           icon={<Database size={18} />}
@@ -149,7 +158,9 @@ const Sidebar: React.FC = () => {
           icon={<Activity size={18} />}
           label="Telemetry"
           isCollapsed={isCollapsed}
-          onClick={() => alert("Real-time mission metrics synchronization...")}
+          onClick={() =>
+            alert("Real-time workspace metrics synchronization...")
+          }
         />
 
         <AnimatePresence>
@@ -168,7 +179,7 @@ const Sidebar: React.FC = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              Active Missions
+              Active Workspaces
             </motion.div>
           )}
         </AnimatePresence>
@@ -189,14 +200,14 @@ const Sidebar: React.FC = () => {
         <div
           style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
         >
-          {missions.map((mission) => (
+          {workspaces.map((workspace) => (
             <SidebarItem
-              key={mission.id}
-              active={selectedMissionId === mission.id}
+              key={workspace.id}
+              active={selectedWorkspaceId === workspace.id}
               isCollapsed={isCollapsed}
-              onClick={() => setSelectedMissionId(mission.id)}
+              onClick={() => setSelectedWorkspaceId(workspace.id)}
               icon={
-                selectedMissionId === mission.id ? (
+                selectedWorkspaceId === workspace.id ? (
                   <Zap
                     size={14}
                     fill="var(--primary)"
@@ -212,29 +223,25 @@ const Sidebar: React.FC = () => {
                       height: 8,
                       borderRadius: "50%",
                       backgroundColor:
-                        mission.status === "ACTIVE"
+                        workspace.status === "ACTIVE"
                           ? "var(--success)"
                           : "var(--text-dim)",
-                      boxShadow:
-                        mission.status === "ACTIVE"
-                          ? "0 0 10px var(--success)"
-                          : "none",
-                      border: "1px solid rgba(255,255,255,0.1)",
+                      border: "1px solid rgba(255,255,255,0.05)",
                     }}
                   />
                 )
               }
-              label={mission.title}
+              label={workspace.title}
             />
           ))}
         </div>
 
         <SidebarItem
           icon={<Plus size={18} />}
-          label="New Mission"
+          label="New Workspace"
           isAction
           isCollapsed={isCollapsed}
-          onClick={() => alert("Initializing Neural Core for new mission...")}
+          onClick={() => alert("Initializing Neural Core for new workspace...")}
         />
       </nav>
 
@@ -277,9 +284,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     <motion.button
       whileHover={{
         x: isCollapsed ? 0 : 4,
-        backgroundColor: active
-          ? "rgba(0, 242, 255, 0.08)"
-          : "rgba(255, 255, 255, 0.03)",
+        backgroundColor: "var(--surface-hover)",
         scale: isCollapsed ? 1.05 : 1,
       }}
       whileTap={{ scale: 0.98 }}
@@ -300,7 +305,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
           : isAction
             ? "var(--text-dim)"
             : "var(--text-main)",
-        backgroundColor: active ? "rgba(0, 242, 255, 0.05)" : "transparent",
+        backgroundColor: active ? "var(--primary-alpha)" : "transparent",
         border: "1px solid transparent",
         fontSize: "0.9rem",
         fontWeight: active ? 600 : 500,

@@ -1,20 +1,19 @@
 import { describe, expect, it, vi } from "vitest";
-import { CreateMissionUseCase } from "../src/use-cases/create-mission";
-import { MissionRepositoryPort } from "@epios/ports";
+import { CreateWorkspaceUseCase } from "../src/use-cases/create-workspace";
+import { WorkspaceRepositoryPort } from "@epios/ports";
 
-describe("CreateMissionUseCase", () => {
-  it("should create and save a new mission", async () => {
-    const mockRepo: MissionRepositoryPort = {
+describe("CreateWorkspaceUseCase", () => {
+  it("should create and save a new workspace", async () => {
+    const mockRepo: WorkspaceRepositoryPort = {
       save: vi.fn(),
       findById: vi.fn(),
       findAll: vi.fn(),
-      delete: vi.fn(),
     };
 
-    const useCase = new CreateMissionUseCase(mockRepo);
+    const useCase = new CreateWorkspaceUseCase(mockRepo);
 
     const request = {
-      title: "Test Mission",
+      title: "Test Workspace",
       brief: {
         goal: "Test Goal",
         successCriteria: ["Goal met"],
@@ -30,24 +29,23 @@ describe("CreateMissionUseCase", () => {
     expect(result.title).toBe(request.title);
     expect(mockRepo.save).toHaveBeenCalledWith(
       expect.objectContaining({
-        title: "Test Mission",
+        title: "Test Workspace",
         status: "draft",
       }),
     );
   });
 
-  it("should throw if mission goal is empty", async () => {
-    const mockRepo: MissionRepositoryPort = {
+  it("should throw if workspace goal is empty", async () => {
+    const mockRepo: WorkspaceRepositoryPort = {
       save: vi.fn(),
       findById: vi.fn(),
       findAll: vi.fn(),
-      delete: vi.fn(),
     };
 
-    const useCase = new CreateMissionUseCase(mockRepo);
+    const useCase = new CreateWorkspaceUseCase(mockRepo);
 
     const request = {
-      title: "Invalid Mission",
+      title: "Invalid Workspace",
       brief: {
         goal: "",
         successCriteria: [],
@@ -58,7 +56,7 @@ describe("CreateMissionUseCase", () => {
     };
 
     await expect(useCase.execute(request)).rejects.toThrow(
-      "MISSION_GOAL_REQUIRED",
+      "WORKSPACE_GOAL_REQUIRED",
     );
   });
 });

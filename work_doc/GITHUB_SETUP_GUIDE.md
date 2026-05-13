@@ -40,14 +40,14 @@ This guide summarizes the labels, milestones, and issues defined in the project 
 - `status:review`
 - `status:done`
 
-## 2. Milestones (6 Week MVP)
+## 2. Milestones (EPIOS v1.1)
 
-- **W1: Foundation & Skeleton** (End of Week 1)
-- **W2: Domain & Persistence** (End of Week 2)
-- **W3: Use Cases & API** (End of Week 3)
-- **W4: UI & Universal Mission Room** (End of Week 4)
-- **W5: MCP Security & Bridge** (End of Week 5)
-- **W6: MVP Release Candidate** (End of Week 6)
+- **M1: Foundation & Skeleton**
+- **M2: Domain & Persistence**
+- **M3: Use Cases & API**
+- **M4: UI & Workspace Room**
+- **M5: MCP Security & Bridge**
+- **M6: MVP Release Candidate**
 
 ## 3. Initial Issues Backlog (from EPIOS-10)
 
@@ -69,14 +69,14 @@ This guide summarizes the labels, milestones, and issues defined in the project 
 16. Add SECURITY.md
 17. Add .env.example without secrets
 18. Add basic secret scanning or documented manual check
-19. Add MCP security placeholder issue for Week 5
+19. Add MCP security placeholder issue
 20. Add PR template
 21. Add issue labels
 22. Add CODEOWNERS
 23. Add contribution guide
-24. Add weekly milestone tags plan
+24. Add milestone tags plan
 
-## 4. Week 2 Issues (from EPIOS-12)
+## 4. Milestone 2 Issues (from EPIOS-12)
 
 25. Implement Mission Aggregate & Domain Invariants
 26. Implement EpistemicNode & EvidenceRef

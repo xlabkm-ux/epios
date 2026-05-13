@@ -13,7 +13,7 @@ import ReactFlow, {
   ReactFlowProvider,
 } from "reactflow";
 import "reactflow/dist/style.css";
-import { useMission } from "../context/MissionContext";
+import { useWorkspace } from "../context/WorkspaceContext";
 import { useApi } from "../hooks/useApi";
 import { Plus, Layout, Activity } from "lucide-react";
 import CustomNode from "./CustomNode";
@@ -40,27 +40,24 @@ const ToolbarButton: React.FC<{
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      width: "40px",
-      height: "40px",
-      borderRadius: "12px",
-      background: "var(--glass)",
-      backdropFilter: "blur(12px)",
-      border: "1px solid var(--glass-border)",
+      width: "36px",
+      height: "36px",
+      borderRadius: "8px",
+      background: "var(--bg-card)",
+      border: "1px solid var(--border)",
       color: "var(--text-dim)",
-      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      transition: "all 0.2s ease",
       boxShadow: "var(--panel-shadow)",
     }}
     onMouseEnter={(e) => {
-      e.currentTarget.style.borderColor = "var(--primary)";
-      e.currentTarget.style.color = "var(--primary)";
-      e.currentTarget.style.transform = "translateY(-2px)";
-      e.currentTarget.style.boxShadow = "0 0 20px var(--primary-glow)";
+      e.currentTarget.style.borderColor = "var(--border-bright)";
+      e.currentTarget.style.color = "var(--text-main)";
+      e.currentTarget.style.background = "var(--surface-hover)";
     }}
     onMouseLeave={(e) => {
-      e.currentTarget.style.borderColor = "var(--glass-border)";
+      e.currentTarget.style.borderColor = "var(--border)";
       e.currentTarget.style.color = "var(--text-dim)";
-      e.currentTarget.style.transform = "translateY(0)";
-      e.currentTarget.style.boxShadow = "var(--panel-shadow)";
+      e.currentTarget.style.background = "var(--bg-card)";
     }}
   >
     {icon}
@@ -69,14 +66,14 @@ const ToolbarButton: React.FC<{
 
 const GraphCanvasInner: React.FC = () => {
   const {
-    selectedMissionId,
+    selectedWorkspaceId,
     selectedNodeId,
     setSelectedNodeId,
     graphStates,
     setGraphState,
     viewports,
     setViewport,
-  } = useMission();
+  } = useWorkspace();
 
   const { setCenter, fitView } = useReactFlow();
 
@@ -85,22 +82,22 @@ const GraphCanvasInner: React.FC = () => {
     loading,
     error,
   } = useApi<GraphData>(
-    selectedMissionId ? `/missions/${selectedMissionId}/graph` : "",
+    selectedWorkspaceId ? `/workspaces/${selectedWorkspaceId}/graph` : "",
   );
 
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  // Restore state when mission changes
+  // Restore state when workspace changes
   useEffect(() => {
-    if (selectedMissionId) {
-      const saved = graphStates[selectedMissionId];
+    if (selectedWorkspaceId) {
+      const saved = graphStates[selectedWorkspaceId];
       if (saved && Array.isArray(saved.nodes) && Array.isArray(saved.edges)) {
         const patchedNodes = saved.nodes.map((node, index) => ({
           ...node,
           data: {
             ...node.data,
-            hierarchicalId: `${selectedMissionId.replace("m", "")}.${index + 1}`,
+            hierarchicalId: `${selectedWorkspaceId.replace("m", "")}.${index + 1}`,
           },
         }));
         setNodes(patchedNodes);
@@ -110,22 +107,22 @@ const GraphCanvasInner: React.FC = () => {
         setEdges([]);
       }
     }
-  }, [selectedMissionId]);
+  }, [selectedWorkspaceId]);
 
   // Save state on every change
   useEffect(() => {
-    if (selectedMissionId && (nodes.length > 0 || edges.length > 0)) {
-      setGraphState(selectedMissionId, nodes, edges);
+    if (selectedWorkspaceId && (nodes.length > 0 || edges.length > 0)) {
+      setGraphState(selectedWorkspaceId, nodes, edges);
     }
-  }, [nodes, edges, selectedMissionId]);
+  }, [nodes, edges, selectedWorkspaceId]);
 
   const onMoveEnd = useCallback(
     (_event: unknown, viewport: { x: number; y: number; zoom: number }) => {
-      if (selectedMissionId) {
-        setViewport(selectedMissionId, viewport.x, viewport.y, viewport.zoom);
+      if (selectedWorkspaceId) {
+        setViewport(selectedWorkspaceId, viewport.x, viewport.y, viewport.zoom);
       }
     },
-    [selectedMissionId, setViewport],
+    [selectedWorkspaceId, setViewport],
   );
 
   const nodeTypes = useMemo(() => ({ epistemic: CustomNode }), []);
@@ -160,15 +157,15 @@ const GraphCanvasInner: React.FC = () => {
     }
   }, [selectedNodeId, setCenter, nodes]);
 
-  // Auto-fit view when mission changes
+  // Auto-fit view when workspace changes
   useEffect(() => {
-    if (selectedMissionId && nodes.length > 0) {
+    if (selectedWorkspaceId && nodes.length > 0) {
       const timer = setTimeout(() => {
         fitView({ duration: 1000, padding: 0.2 });
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [selectedMissionId, nodes.length > 0, fitView]);
+  }, [selectedWorkspaceId, nodes.length > 0, fitView]);
 
   const onPaneClick = useCallback(() => {
     setSelectedNodeId(null);
@@ -292,12 +289,12 @@ const GraphCanvasInner: React.FC = () => {
   useEffect(() => {
     if (
       graphData &&
-      selectedMissionId &&
-      (!graphStates || !graphStates[selectedMissionId])
+      selectedWorkspaceId &&
+      (!graphStates || !graphStates[selectedWorkspaceId])
     ) {
       console.log(
-        "GraphCanvas: Initializing nodes from API for mission",
-        selectedMissionId,
+        "GraphCanvas: Initializing nodes from API for workspace",
+        selectedWorkspaceId,
       );
       const rfNodes: Node[] = (graphData.nodes || []).map((node, index) => ({
         id: node.id,
@@ -309,7 +306,7 @@ const GraphCanvasInner: React.FC = () => {
         data: {
           label: node.content,
           type: node.type,
-          hierarchicalId: `${selectedMissionId?.replace("m", "") || "0"}.${index + 1}`,
+          hierarchicalId: `${selectedWorkspaceId?.replace("m", "") || "0"}.${index + 1}`,
         },
       }));
 
@@ -340,7 +337,7 @@ const GraphCanvasInner: React.FC = () => {
       setNodes(rfNodes);
       setEdges(rfEdges);
     }
-  }, [graphData, selectedMissionId, setNodes, setEdges]);
+  }, [graphData, selectedWorkspaceId, setNodes, setEdges]);
 
   const onConnect = useCallback(
     (params: Connection) =>
@@ -391,7 +388,7 @@ const GraphCanvasInner: React.FC = () => {
   const hasNodes = nodes.length > 0;
   const isInitializing = loading && !hasNodes;
 
-  if (isInitializing && selectedMissionId)
+  if (isInitializing && selectedWorkspaceId)
     return (
       <div
         className="animate-fade-in"
@@ -407,14 +404,13 @@ const GraphCanvasInner: React.FC = () => {
         }}
       >
         <div
-          className="glow-box"
           style={{
-            width: "48px",
-            height: "48px",
+            width: "40px",
+            height: "40px",
             borderRadius: "50%",
-            border: "2px solid var(--primary)",
-            borderTopColor: "transparent",
-            animation: "pulse-glow 2s infinite linear",
+            border: "2px solid var(--border-bright)",
+            borderTopColor: "var(--primary)",
+            animation: "spin 1s infinite linear",
           }}
         />
         <div style={{ textAlign: "center" }}>
@@ -439,7 +435,7 @@ const GraphCanvasInner: React.FC = () => {
     );
 
   // Fallback for empty graph to avoid "disappeared" look
-  if (!loading && !hasNodes && selectedMissionId) {
+  if (!loading && !hasNodes && selectedWorkspaceId) {
     return (
       <div
         style={{
@@ -458,14 +454,10 @@ const GraphCanvasInner: React.FC = () => {
           Neural Graph is empty. Add a node to begin synthesis.
         </p>
         <button
-          className="glow-box"
+          className="primary"
           onClick={() => alert("Initializing Neural Node...")}
           style={{
             padding: "0.75rem 1.5rem",
-            borderRadius: "10px",
-            backgroundColor: "var(--primary)",
-            color: "var(--bg-dark)",
-            fontWeight: 700,
             marginTop: "1rem",
           }}
         >
@@ -484,9 +476,9 @@ const GraphCanvasInner: React.FC = () => {
         minHeight: "500px", // Ensure minimum height
         backgroundColor: "var(--bg-dark)",
         backgroundImage: `
-          radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.03) 0%, transparent 70%),
-          linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px)
+          radial-gradient(circle at 50% 50%, var(--primary-alpha) 0%, transparent 70%),
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px)
         `,
         backgroundSize: "100% 100%, 40px 40px, 40px 40px",
       }}
@@ -502,8 +494,8 @@ const GraphCanvasInner: React.FC = () => {
         onPaneClick={onPaneClick}
         onMoveEnd={onMoveEnd}
         defaultViewport={
-          selectedMissionId && viewports[selectedMissionId]
-            ? viewports[selectedMissionId]
+          selectedWorkspaceId && viewports[selectedWorkspaceId]
+            ? viewports[selectedWorkspaceId]
             : undefined
         }
         fitView

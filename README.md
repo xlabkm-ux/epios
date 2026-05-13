@@ -12,6 +12,11 @@ We are proud to announce the first release candidate of the EPIOS MVP. This rele
 - **MCP Integration**: Secure bridge for Model Context Protocol (MCP) applications.
 - **Hexagonal Architecture**: Clean separation between domain logic and infrastructure.
 
+## 🗺️ Roadmap v1.1: ADR Review Readiness
+We have shifted our focus for v1.1 to delivering a high-integrity **ADR Review Workspace**. 
+Details can be found in the [Master QA Plan](docs/04_delivery/v1_1_qa_plan/EPIOS_v1_1_Master_Sprint_QA_Plan.md).
+Current status and task tracking is available in [PROJECT_BACKLOG.md](PROJECT_BACKLOG.md).
+
 ## 🛠 Quick Start
 
 ### Prerequisites

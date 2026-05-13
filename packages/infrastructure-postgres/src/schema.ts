@@ -7,7 +7,7 @@ import {
   integer,
 } from "drizzle-orm/pg-core";
 
-export const missions = pgTable("missions", {
+export const workspaces = pgTable("workspaces", {
   id: uuid("id").primaryKey(),
   title: text("title").notNull(),
   status: text("status").notNull(),
@@ -19,7 +19,7 @@ export const missions = pgTable("missions", {
   constraints: jsonb("constraints").notNull().default([]),
   unknowns: jsonb("unknowns").notNull().default([]),
   desiredArtifactType: text("desired_artifact_type"),
-  createdByEmail: text("created_by_email"), // Note: the migration had created_by_type/id, I should match it
+  createdByEmail: text("created_by_email"),
   createdByType: text("created_by_type").notNull(),
   createdById: text("created_by_id").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
@@ -33,9 +33,9 @@ export const missions = pgTable("missions", {
 
 export const epistemicNodes = pgTable("epistemic_nodes", {
   id: uuid("id").primaryKey(),
-  missionId: uuid("mission_id")
+  workspaceId: uuid("workspace_id")
     .notNull()
-    .references(() => missions.id, { onDelete: "cascade" }),
+    .references(() => workspaces.id, { onDelete: "cascade" }),
   type: text("type").notNull(),
   content: text("content").notNull(),
   strength: text("strength").notNull(),
@@ -51,9 +51,9 @@ export const epistemicNodes = pgTable("epistemic_nodes", {
 
 export const epistemicEdges = pgTable("epistemic_edges", {
   id: uuid("id").primaryKey(),
-  missionId: uuid("mission_id")
+  workspaceId: uuid("workspace_id")
     .notNull()
-    .references(() => missions.id, { onDelete: "cascade" }),
+    .references(() => workspaces.id, { onDelete: "cascade" }),
   sourceNodeId: uuid("source_node_id")
     .notNull()
     .references(() => epistemicNodes.id, { onDelete: "cascade" }),

@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { buildServer } from "../src/server.js";
 import {
-  MissionRepositoryPort,
+  WorkspaceRepositoryPort,
   GraphRepositoryPort,
   GovernanceRepositoryPort,
   MCPAppRegistryPort,
@@ -12,7 +12,7 @@ import {
 describe("API E2E", () => {
   let app: FastifyInstance;
 
-  const mockMissionRepo = {
+  const mockWorkspaceRepo = {
     save: vi.fn(),
     findById: vi.fn(),
     findAll: vi.fn(),
@@ -23,8 +23,8 @@ describe("API E2E", () => {
     saveEdge: vi.fn(),
     findNodeById: vi.fn(),
     findEdgeById: vi.fn(),
-    findNodesByMissionId: vi.fn(),
-    findEdgesByMissionId: vi.fn(),
+    findNodesByWorkspaceId: vi.fn(),
+    findEdgesByWorkspaceId: vi.fn(),
   };
 
   const mockGovernanceRepo = {
@@ -43,7 +43,7 @@ describe("API E2E", () => {
 
   beforeEach(async () => {
     app = buildServer({
-      missionRepo: mockMissionRepo as unknown as MissionRepositoryPort,
+      workspaceRepo: mockWorkspaceRepo as unknown as WorkspaceRepositoryPort,
       graphRepo: mockGraphRepo as unknown as GraphRepositoryPort,
       governanceRepo: mockGovernanceRepo as unknown as GovernanceRepositoryPort,
       mcpRegistry: mockMCPRegistry as unknown as MCPAppRegistryPort,
@@ -62,12 +62,12 @@ describe("API E2E", () => {
     expect(response.json()).toMatchObject({ ok: true });
   });
 
-  it("should create a mission", async () => {
+  it("should create a workspace", async () => {
     const response = await app.inject({
       method: "POST",
-      url: "/missions",
+      url: "/workspaces",
       payload: {
-        title: "Test Mission",
+        title: "Test Workspace",
         brief: {
           goal: "Test Goal",
           successCriteria: ["ok"],
@@ -82,12 +82,12 @@ describe("API E2E", () => {
     expect(response.json()).toHaveProperty("id");
   });
 
-  it("should add a node to a mission", async () => {
-    mockMissionRepo.findById.mockResolvedValue({ id: "mission-1" });
+  it("should add a node to a workspace", async () => {
+    mockWorkspaceRepo.findById.mockResolvedValue({ id: "workspace-1" });
 
     const response = await app.inject({
       method: "POST",
-      url: "/missions/mission-1/nodes",
+      url: "/workspaces/workspace-1/nodes",
       payload: {
         type: "claim",
         content: "Test Claim",
@@ -102,7 +102,7 @@ describe("API E2E", () => {
       method: "POST",
       url: "/governance/claims",
       payload: {
-        missionId: "m1",
+        workspaceId: "w1",
         content: "Governance Claim",
       },
     });
@@ -168,7 +168,7 @@ describe("API E2E", () => {
 
     const response = await app.inject({
       method: "PATCH",
-      url: "/missions/mission-1/nodes/node-1",
+      url: "/workspaces/workspace-1/nodes/node-1",
       payload: {
         content: "New Content",
       },
@@ -179,29 +179,29 @@ describe("API E2E", () => {
     expect(mockGraphRepo.saveNode).toHaveBeenCalled();
   });
 
-  it("should list missions", async () => {
-    mockMissionRepo.findAll.mockResolvedValue([{ id: "m1", title: "M1" }]);
-    const response = await app.inject({ method: "GET", url: "/missions" });
+  it("should list workspaces", async () => {
+    mockWorkspaceRepo.findAll.mockResolvedValue([{ id: "w1", title: "W1" }]);
+    const response = await app.inject({ method: "GET", url: "/workspaces" });
     expect(response.statusCode).toBe(200);
     expect(response.json()).toHaveLength(1);
   });
 
   it("should add an edge between nodes", async () => {
-    mockMissionRepo.findById.mockResolvedValue({ id: "mission-1" });
+    mockWorkspaceRepo.findById.mockResolvedValue({ id: "workspace-1" });
     const response = await app.inject({
       method: "POST",
-      url: "/missions/mission-1/edges",
+      url: "/workspaces/workspace-1/edges",
       payload: { sourceNodeId: "n1", targetNodeId: "n2", type: "supports" },
     });
     expect(response.statusCode).toBe(201);
   });
 
-  it("should get mission graph", async () => {
-    mockGraphRepo.findNodesByMissionId.mockResolvedValue([]);
-    mockGraphRepo.findEdgesByMissionId.mockResolvedValue([]);
+  it("should get workspace graph", async () => {
+    mockGraphRepo.findNodesByWorkspaceId.mockResolvedValue([]);
+    mockGraphRepo.findEdgesByWorkspaceId.mockResolvedValue([]);
     const response = await app.inject({
       method: "GET",
-      url: "/missions/mission-1/graph",
+      url: "/workspaces/workspace-1/graph",
     });
     expect(response.statusCode).toBe(200);
     expect(response.json()).toHaveProperty("nodes");

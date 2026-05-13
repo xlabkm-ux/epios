@@ -24,16 +24,16 @@ const MOCK_CLAIMS: Claim[] = [
 ];
 
 export const GovernancePanel: React.FC<{
-  missionId: string;
+  workspaceId: string;
   minimal?: boolean;
-}> = ({ missionId, minimal = false }) => {
+}> = ({ workspaceId, minimal = false }) => {
   const [claims, setClaims] = useState<Claim[]>([]);
   const [newClaim, setNewClaim] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchClaims();
-  }, [missionId]);
+  }, [workspaceId]);
 
   const fetchClaims = async () => {
     setIsLoading(true);
@@ -62,7 +62,7 @@ export const GovernancePanel: React.FC<{
       const res = await fetch("http://localhost:3000/governance/claims", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ missionId, content: newClaim }),
+        body: JSON.stringify({ workspaceId, content: newClaim }),
       });
       if (res.ok) {
         const claim = await res.json();
@@ -141,17 +141,17 @@ export const GovernancePanel: React.FC<{
             disabled={!newClaim || isLoading}
             style={{
               position: "absolute",
-              bottom: "20px",
-              right: "10px",
+              bottom: "16px",
+              right: "8px",
               padding: "6px",
-              borderRadius: "6px",
+              borderRadius: "var(--radius-sm)",
               backgroundColor: newClaim ? "var(--primary)" : "var(--border)",
-              color: "var(--bg-dark)",
+              color: "white",
               border: "none",
               cursor: "pointer",
             }}
           >
-            <Send size={16} />
+            <Send size={14} />
           </button>
         </div>
       </div>
@@ -192,9 +192,9 @@ export const GovernancePanel: React.FC<{
               exit={{ opacity: 0, scale: 0.95 }}
               key={claim.id}
               style={{
-                padding: "1rem",
-                backgroundColor: "rgba(255,255,255,0.02)",
-                borderRadius: "10px",
+                padding: "0.85rem",
+                backgroundColor: "var(--bg-dark)",
+                borderRadius: "var(--radius-lg)",
                 border: "1px solid var(--border)",
                 display: "flex",
                 flexDirection: "column",
@@ -218,7 +218,7 @@ export const GovernancePanel: React.FC<{
                 >
                   {claim.content}
                 </p>
-                <div style={{ marginLeft: "10px" }}>
+                <div style={{ marginLeft: "10px", flexShrink: 0 }}>
                   {claim.status === "pending" && (
                     <Clock size={14} color="var(--warning)" />
                   )}
@@ -238,13 +238,12 @@ export const GovernancePanel: React.FC<{
                     style={{
                       flex: 1,
                       padding: "6px",
-                      fontSize: "0.75rem",
+                      fontSize: "12px",
                       fontWeight: 600,
                       backgroundColor: "rgba(16, 185, 129, 0.1)",
                       color: "var(--success)",
-                      borderRadius: "6px",
+                      borderRadius: "var(--radius-sm)",
                       border: "1px solid rgba(16, 185, 129, 0.2)",
-                      cursor: "pointer",
                     }}
                   >
                     Approve
@@ -254,13 +253,12 @@ export const GovernancePanel: React.FC<{
                     style={{
                       flex: 1,
                       padding: "6px",
-                      fontSize: "0.75rem",
+                      fontSize: "12px",
                       fontWeight: 600,
                       backgroundColor: "rgba(239, 68, 68, 0.1)",
                       color: "var(--error)",
-                      borderRadius: "6px",
+                      borderRadius: "var(--radius-sm)",
                       border: "1px solid rgba(239, 68, 68, 0.2)",
-                      cursor: "pointer",
                     }}
                   >
                     Reject
@@ -276,5 +274,5 @@ export const GovernancePanel: React.FC<{
 
   if (minimal) return content;
 
-  return <div className="premium-card animate-slide-up">{content}</div>;
+  return <div className="premium-card animate-slide-in">{content}</div>;
 };

@@ -11,7 +11,7 @@ export async function governanceRoutes(
   fastify.post("/governance/claims", async (request, reply) => {
     const claim = await options.submitClaimUseCase.execute(
       request.body as {
-        missionId: string;
+        workspaceId: string;
         content: string;
         requiredVotes?: number;
       },

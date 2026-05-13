@@ -4,12 +4,12 @@ import {
   NodeStrength,
   EvidenceRef,
 } from "@epios/domain";
-import { GraphRepositoryPort, MissionRepositoryPort } from "@epios/ports";
+import { GraphRepositoryPort, WorkspaceRepositoryPort } from "@epios/ports";
 import { tracer } from "@epios/observability";
 import { randomUUID } from "crypto";
 
 export type AddNodeRequest = {
-  missionId: string;
+  workspaceId: string;
   type: NodeType;
   content: string;
   strength?: NodeStrength;
@@ -19,19 +19,19 @@ export type AddNodeRequest = {
 
 export class AddNodeUseCase {
   constructor(
-    private readonly missionRepo: MissionRepositoryPort,
+    private readonly workspaceRepo: WorkspaceRepositoryPort,
     private readonly graphRepo: GraphRepositoryPort,
   ) {}
 
   async execute(request: AddNodeRequest): Promise<EpistemicNode> {
-    const mission = await this.missionRepo.findById(request.missionId);
-    if (!mission) {
-      throw new Error("MISSION_NOT_FOUND");
+    const workspace = await this.workspaceRepo.findById(request.workspaceId);
+    if (!workspace) {
+      throw new Error("WORKSPACE_NOT_FOUND");
     }
 
     const node: EpistemicNode = {
       id: randomUUID(),
-      missionId: request.missionId,
+      workspaceId: request.workspaceId,
       type: request.type,
       content: request.content,
       strength: request.strength ?? "none",
@@ -45,7 +45,7 @@ export class AddNodeUseCase {
 
     tracer.emit({
       type: "NODE_ADDED",
-      missionId: node.missionId,
+      workspaceId: node.workspaceId,
       payload: { nodeId: node.id, nodeType: node.type },
     });
 

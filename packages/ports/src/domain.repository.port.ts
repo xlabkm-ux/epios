@@ -1,7 +1,7 @@
-import { Mission } from "@epios/domain";
+import { Workspace } from "@epios/domain";
 
-export interface MissionRepositoryPort {
-  save(mission: Mission): Promise<void>;
-  findById(id: string): Promise<Mission | null>;
-  findAll(): Promise<Mission[]>;
+export interface WorkspaceRepositoryPort {
+  save(workspace: Workspace): Promise<void>;
+  findById(id: string): Promise<Workspace | null>;
+  findAll(): Promise<Workspace[]>;
 }

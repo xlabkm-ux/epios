@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { assertMissionCanRun, Mission } from "../src";
+import { assertWorkspaceCanRun, Workspace } from "../src";
 
-describe("Mission invariants", () => {
-  it("rejects running a mission without a goal", () => {
-    const mission: Mission = {
-      id: "m1",
+describe("Workspace invariants", () => {
+  it("rejects running a workspace without a goal", () => {
+    const workspace: Workspace = {
+      id: "w1",
       title: "Untitled",
       status: "draft",
       mode: "assisted",
@@ -21,13 +21,15 @@ describe("Mission invariants", () => {
       },
     };
 
-    expect(() => assertMissionCanRun(mission)).toThrow("MISSION_GOAL_REQUIRED");
+    expect(() => assertWorkspaceCanRun(workspace)).toThrow(
+      "WORKSPACE_GOAL_REQUIRED",
+    );
   });
 
-  it("allows running a mission with a goal", () => {
-    const mission: Mission = {
-      id: "m1",
-      title: "Test Mission",
+  it("allows running a workspace with a goal", () => {
+    const workspace: Workspace = {
+      id: "w1",
+      title: "Test Workspace",
       status: "draft",
       mode: "assisted",
       sensitivity: "internal",
@@ -43,6 +45,6 @@ describe("Mission invariants", () => {
       },
     };
 
-    expect(() => assertMissionCanRun(mission)).not.toThrow();
+    expect(() => assertWorkspaceCanRun(workspace)).not.toThrow();
   });
 });

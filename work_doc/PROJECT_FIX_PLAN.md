@@ -9,7 +9,7 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 
 ---
 
-## Phase 1: Repository Hygiene & CI (Week 1, Sprint 1)
+## Phase 1: Repository Hygiene & CI (Sprint 1)
 **Goal**: Establish automated quality gates and clean up environment configuration.
 
 ### Sprint 1.1: CI/CD & Security Baseline
@@ -24,7 +24,7 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 
 ---
 
-## Phase 2: Documentation Governance (Week 1, Sprint 2)
+## Phase 2: Documentation Governance (Sprint 2)
 **Goal**: Resolve document drift, fix ADR conflicts, and implement a structured "Docs as Code" system.
 
 ### Sprint 2.1: Documentation Stabilization Pass
@@ -41,19 +41,19 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 
 ---
 
-## Phase 3: Architecture Enforcement & Planning (Week 2, Sprint 3)
+## Phase 3: Architecture Enforcement & Planning (Sprint 3)
 **Goal**: Automate architectural boundaries and prepare the detailed backlog for domain development.
 
 ### Sprint 3.1: Enforcement & Quality
 - [x] **Dependency Boundaries**: Implement **dependency-cruiser** to enforce `domain ← application ← infrastructure` constraints in CI.
 - [x] **Quality Gates**: Set **Vitest coverage thresholds** (min 80% for `packages/domain`).
 - [x] **GitHub Backlog**: Transfer issues from EPIOS-10/11 to **GitHub Projects & Issues**.
-- [x] **Week 2 Planning**: Create `EPIOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md`.
-- [x] **Milestones**: Initialize GitHub Milestones for Release Gates (W1-W6).
+- [x] **Planning**: Create `EPIOS-12-domain-and-persistence-issues-and-pr-bodies.md`.
+- [x] **Milestones**: Initialize GitHub Milestones for Release Gates.
 
 ---
 
-## Phase 4: Core Domain & Persistence (Week 2, Sprint 4)
+## Phase 4: Core Domain & Persistence (Sprint 4)
 **Goal**: Implement the "System of Record" entities and database persistence.
 
 ### Sprint 4.1: Mission Core & DB
@@ -65,7 +65,7 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 
 ---
 
-## Phase 5: Application Specs & Logic (Week 3, Sprint 5)
+## Phase 5: Application Specs & Logic (Sprint 5)
 **Goal**: Define and implement the application-layer contracts and use cases.
 
 ### Sprint 5.1: Specs & Use Cases
@@ -75,7 +75,7 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 
 ---
 
-## Phase 6: Security & Shell (Week 4-5, Sprint 6)
+## Phase 6: Security & Shell (Sprint 6)
 **Goal**: Secure the MCP bridge and initialize the UI.
 
 ### Sprint 6.1: MCP Security & Demo

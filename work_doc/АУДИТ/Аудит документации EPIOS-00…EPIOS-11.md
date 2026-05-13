@@ -653,10 +653,10 @@ CHATAVG_V2_4_RELEASE_NOTES.md
 - добавить migration ownership;
 - добавить rollback/down policy examples;
 - добавить mapping: domain aggregate → table group → repository contract → test;
-- добавить mcp_bridge_nonces в future migration plan, если не Week 2.
+- добавить mcp_bridge_nonces в future migration plan, если не Milestone 4
 ```
 
-EPIOS-05 уже требует migrations from day one, optimistic concurrency, outbox, idempotency and traceability, но implementation choices надо закрыть до Week 2. 
+EPIOS-05 уже требует migrations from day one, optimistic concurrency, outbox, idempotency and traceability, но implementation choices надо закрыть до Sprint 2. 
 
 ---
 
@@ -718,7 +718,7 @@ EPIOS-07 уже требует README quick start, `.env.example`, known limitat
 ```text
 - создать ADR-0001…ADR-0010;
 - создать ADR-0026;
-- после Week 1 создать ADR-0011…ADR-0025;
+- после Milestone 1 создать ADR-0011…ADR-0025;
 - добавить “supersedes EPIOS-04 initial ADR numbering where conflicting”.
 ```
 
@@ -726,7 +726,7 @@ EPIOS-07 уже требует README quick start, `.env.example`, known limitat
 
 ## EPIOS-10
 
-**Проблема:** Week 1 план хорош, но часть docs/process задач лучше иметь как generated files/scripts.
+**Проблема:** Sprint 1 план хорош, но часть docs/process задач лучше иметь как generated files/scripts.
 
 **Доработать:**
 
@@ -778,10 +778,10 @@ CODEOWNERS
 KNOWN_LIMITATIONS_MVP.md
 ```
 
-## P1 — сделать до конца Week 1 / перед Week 2
+## P1 — сделать до конца Sprint 1 / перед Milestone 2
 
 ```text
-EPIOS-12-week-2-domain-and-persistence-issues-and-pr-bodies.md
+EPIOS-12-sprint-2-domain-and-persistence-issues-and-pr-bodies.md
 docs/03_specs/API_CONTRACTS_MVP.md
 docs/03_specs/APPLICATION_USE_CASE_CONTRACTS.md
 docs/03_specs/ERROR_CATALOG.md
@@ -837,7 +837,7 @@ docs/00_project/GLOSSARY.md
 | ADR numbering conflict             |       P0 | ссылки на решения станут недостоверными            | EPIOS-04 поправить, EPIOS-09 сделать authoritative |
 | License not accepted               |       P0 | нельзя безопасно открыть public repo               | принять ADR-0026                                 |
 | Все docs Draft                     |       P0 | непонятно, что является источником истины          | DOCUMENT_REGISTER + owner/status                 |
-| API/use case contracts отсутствуют |       P1 | Week 3 начнется с импровизации                     | API_CONTRACTS + USE_CASE_CONTRACTS               |
+| API/use case contracts отсутствуют |       P1 | Sprint 3 начнется с импровизации                     | API_CONTRACTS + USE_CASE_CONTRACTS               |
 | Redaction/retention не вынесены    |       P1 | trace/logging может утечь чувствительными payloads | DATA_RETENTION_AND_REDACTION_POLICY_MVP          |
 | Eval cases не исполнимы            |       P1 | semantic quality останется декларацией             | EVAL_SMOKE_SET                                   |
 | ChatAVG handover docs не созданы   |       P1 | legacy complexity попадет в EPIOS                   | handover register + extraction inventory         |
@@ -864,10 +864,10 @@ docs/00_project/GLOSSARY.md
 
 ## Шаг 2 — Execution contracts
 
-Затем закрыть то, что напрямую нужно Week 2–3:
+Затем закрыть то, что напрямую нужно Sprint 2–3:
 
 ```text
-1. EPIOS-12 Week 2 Domain and Persistence Issues and PR Bodies
+1. EPIOS-12 Sprint 2 Domain and Persistence Issues and PR Bodies
 2. API_CONTRACTS_MVP.md
 3. APPLICATION_USE_CASE_CONTRACTS.md
 4. ERROR_CATALOG.md
@@ -890,7 +890,7 @@ docs/00_project/GLOSSARY.md
 
 ## Шаг 4 — ChatAVG handover
 
-Параллельно, но не блокируя EPIOS Week 1:
+Параллельно, но не блокируя EPIOS Milestone 1
 
 ```text
 1. CHATAVG_DOCUMENT_HANDOVER_REGISTER.md

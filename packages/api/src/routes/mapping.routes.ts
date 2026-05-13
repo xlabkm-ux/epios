@@ -3,7 +3,7 @@ import {
   AddNodeUseCase,
   AddEdgeUseCase,
   PatchNodeUseCase,
-  GetMissionGraphUseCase,
+  GetWorkspaceGraphUseCase,
 } from "@epios/application";
 import { AddNodeDto, AddEdgeDto, PatchNodeDto } from "../dto/index.js";
 
@@ -13,32 +13,34 @@ export async function mappingRoutes(
     addNodeUseCase: AddNodeUseCase;
     addEdgeUseCase: AddEdgeUseCase;
     patchNodeUseCase: PatchNodeUseCase;
-    getMissionGraphUseCase: GetMissionGraphUseCase;
+    getWorkspaceGraphUseCase: GetWorkspaceGraphUseCase;
   },
 ) {
-  fastify.get<{ Params: { missionId: string } }>(
-    "/missions/:missionId/graph",
+  fastify.get<{ Params: { workspaceId: string } }>(
+    "/workspaces/:workspaceId/graph",
     async (request) => {
-      return options.getMissionGraphUseCase.execute(request.params.missionId);
+      return options.getWorkspaceGraphUseCase.execute(
+        request.params.workspaceId,
+      );
     },
   );
 
-  fastify.post<{ Params: { missionId: string }; Body: AddNodeDto }>(
-    "/missions/:missionId/nodes",
+  fastify.post<{ Params: { workspaceId: string }; Body: AddNodeDto }>(
+    "/workspaces/:workspaceId/nodes",
     async (request, reply) => {
       const node = await options.addNodeUseCase.execute({
-        missionId: request.params.missionId,
+        workspaceId: request.params.workspaceId,
         ...request.body,
       });
       return reply.status(201).send(node);
     },
   );
 
-  fastify.post<{ Params: { missionId: string }; Body: AddEdgeDto }>(
-    "/missions/:missionId/edges",
+  fastify.post<{ Params: { workspaceId: string }; Body: AddEdgeDto }>(
+    "/workspaces/:workspaceId/edges",
     async (request, reply) => {
       const edge = await options.addEdgeUseCase.execute({
-        missionId: request.params.missionId,
+        workspaceId: request.params.workspaceId,
         ...request.body,
       });
       return reply.status(201).send(edge);
@@ -46,9 +48,9 @@ export async function mappingRoutes(
   );
 
   fastify.patch<{
-    Params: { missionId: string; nodeId: string };
+    Params: { workspaceId: string; nodeId: string };
     Body: PatchNodeDto;
-  }>("/missions/:missionId/nodes/:nodeId", async (request, reply) => {
+  }>("/workspaces/:workspaceId/nodes/:nodeId", async (request, reply) => {
     const node = await options.patchNodeUseCase.execute({
       id: request.params.nodeId,
       ...request.body,

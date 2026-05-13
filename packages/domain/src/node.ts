@@ -23,7 +23,7 @@ export type EvidenceRef = {
 
 export type EpistemicNode = {
   id: string;
-  missionId: string;
+  workspaceId: string;
   type: NodeType;
   content: string;
   strength: NodeStrength;
@@ -42,7 +42,7 @@ export type EpistemicEdgeType =
 
 export type EpistemicEdge = {
   id: string;
-  missionId: string;
+  workspaceId: string;
   sourceNodeId: string;
   targetNodeId: string;
   type: EpistemicEdgeType;

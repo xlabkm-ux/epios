@@ -1,16 +1,16 @@
-# EPIOS-03 — MVP Scope and 6-Week Roadmap
+# EPIOS-03 — MVP Scope and Milestone Roadmap
 
-**Project:** Epistemic OS v1.0  
-**Document ID:** `EPIOS-03-MVP-SCOPE-ROADMAP`  
-**Version:** Draft 0.1  
-**Status:** Accepted for MVP Bootstrap  
-**Depends on:** `EPIOS-00-PROJECT-BRIEF`, `EPIOS-01-ARCHITECTURE-FOUNDATION`, `EPIOS-02-DOMAIN-MODEL`  
-**Target MVP horizon:** 6 weeks or faster  
-**Repository model:** Open-source from day one  
-**Deployment target:** Internal dev only  
-**Storage:** PostgreSQL-first  
-**MVP shell:** Neutral Epistemic OS Demo Shell  
-**MVP domain:** Universal Mission Room  
+**Project:** Epistemic OS v1.1
+**Document ID:** `EPIOS-03-MVP-SCOPE-ROADMAP`
+**Version:** Draft 0.2
+**Status:** Accepted for MVP Bootstrap
+**Depends on:** `EPIOS-00-PROJECT-BRIEF`, `EPIOS-01-ARCHITECTURE-FOUNDATION`, `EPIOS-02-DOMAIN-MODEL`
+**Target MVP horizon:** 16 sprints
+**Repository model:** Open-source from day one
+**Deployment target:** Internal dev only
+**Storage:** PostgreSQL-first
+**MVP shell:** Neutral Epistemic OS Demo Shell
+**MVP domain:** Workspace Room
 
 ---
 
@@ -350,9 +350,9 @@ User input
 
 ---
 
-## 7. Weekly Roadmap
+## 7. Milestone Roadmap
 
-## Week 1 — Repository, Foundation, PostgreSQL Baseline
+## Milestone 1 — Repository, Foundation, PostgreSQL Baseline
 
 ### Goal
 
@@ -408,7 +408,7 @@ initial migrations
 
 ---
 
-## Week 2 — Domain Kernel and Persistence
+## Milestone 2 — Domain Kernel and Persistence
 
 ### Goal
 
@@ -461,7 +461,7 @@ repository integration tests
 
 ---
 
-## Week 3 — Application Use Cases and API/BFF
+## Milestone 3 — Application Use Cases and API/BFF
 
 ### Goal
 
@@ -514,7 +514,7 @@ API smoke tests
 
 ---
 
-## Week 4 — Demo Shell and Mission Room MVP
+## Milestone 4 — Demo Shell and Mission Room MVP
 
 ### Goal
 
@@ -564,7 +564,7 @@ TraceDrawer MVP
 
 ---
 
-## Week 5 — MCP Apps MVP and Approval Flow
+## Milestone 5 — MCP Apps MVP and Approval Flow
 
 ### Goal
 
@@ -611,7 +611,7 @@ MCP bridge tests
 
 ---
 
-## Week 6 — Hardening, Demo Scenarios, Release Candidate
+## Milestone 6 — Hardening, Demo Scenarios, Release Candidate
 
 ### Goal
 

@@ -12,11 +12,11 @@ export class InMemoryGovernanceRepository implements GovernanceRepositoryPort {
     return this.processes.get(nodeId) || null;
   }
 
-  async findProcessesByMissionId(
-    missionId: string,
+  async findProcessesByWorkspaceId(
+    workspaceId: string,
   ): Promise<GovernanceProcess[]> {
     return Array.from(this.processes.values()).filter(
-      (p) => p.missionId === missionId,
+      (p) => p.workspaceId === workspaceId,
     );
   }
 

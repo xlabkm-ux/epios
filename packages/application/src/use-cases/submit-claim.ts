@@ -3,7 +3,7 @@ import { GraphRepositoryPort, GovernanceRepositoryPort } from "@epios/ports";
 import { randomUUID } from "crypto";
 
 export interface SubmitClaimRequest {
-  missionId: string;
+  workspaceId: string;
   content: string;
   requiredVotes?: number;
 }
@@ -20,7 +20,7 @@ export class SubmitClaimUseCase {
 
     const claim: Claim = {
       id: claimId,
-      missionId: request.missionId,
+      workspaceId: request.workspaceId,
       type: "claim",
       content: request.content,
       strength: "none",
@@ -32,7 +32,7 @@ export class SubmitClaimUseCase {
 
     const governance: GovernanceProcess = {
       nodeId: claimId,
-      missionId: request.missionId,
+      workspaceId: request.workspaceId,
       status: "pending",
       votes: [],
       requiredVotes: request.requiredVotes || 3,

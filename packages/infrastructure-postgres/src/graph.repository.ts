@@ -18,7 +18,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       .insert(epistemicNodes)
       .values({
         id: node.id,
-        missionId: node.missionId,
+        workspaceId: node.workspaceId,
         type: node.type,
         content: node.content,
         strength: node.strength,
@@ -45,7 +45,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       .insert(epistemicEdges)
       .values({
         id: edge.id,
-        missionId: edge.missionId,
+        workspaceId: edge.workspaceId,
         sourceNodeId: edge.sourceNodeId,
         targetNodeId: edge.targetNodeId,
         type: edge.type,
@@ -61,15 +61,15 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       });
   }
 
-  async findNodesByMissionId(missionId: string): Promise<EpistemicNode[]> {
+  async findNodesByWorkspaceId(workspaceId: string): Promise<EpistemicNode[]> {
     const records = await this.db
       .select()
       .from(epistemicNodes)
-      .where(eq(epistemicNodes.missionId, missionId));
+      .where(eq(epistemicNodes.workspaceId, workspaceId));
 
     return records.map((record) => ({
       id: record.id,
-      missionId: record.missionId,
+      workspaceId: record.workspaceId,
       type: record.type as NodeType,
       content: record.content,
       strength: record.strength as NodeStrength,
@@ -81,15 +81,15 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
     }));
   }
 
-  async findEdgesByMissionId(missionId: string): Promise<EpistemicEdge[]> {
+  async findEdgesByWorkspaceId(workspaceId: string): Promise<EpistemicEdge[]> {
     const records = await this.db
       .select()
       .from(epistemicEdges)
-      .where(eq(epistemicEdges.missionId, missionId));
+      .where(eq(epistemicEdges.workspaceId, workspaceId));
 
     return records.map((record) => ({
       id: record.id,
-      missionId: record.missionId,
+      workspaceId: record.workspaceId,
       sourceNodeId: record.sourceNodeId,
       targetNodeId: record.targetNodeId,
       type: record.type as EpistemicEdgeType,
@@ -108,7 +108,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
 
     return {
       id: record.id,
-      missionId: record.missionId,
+      workspaceId: record.workspaceId,
       type: record.type as NodeType,
       content: record.content,
       strength: record.strength as NodeStrength,
@@ -130,7 +130,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
 
     return {
       id: record.id,
-      missionId: record.missionId,
+      workspaceId: record.workspaceId,
       sourceNodeId: record.sourceNodeId,
       targetNodeId: record.targetNodeId,
       type: record.type as EpistemicEdgeType,

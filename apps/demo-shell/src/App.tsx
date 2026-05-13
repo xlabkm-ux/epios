@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
-import MissionRoom from "./components/MissionRoom";
+import WorkspaceRoom from "./components/WorkspaceRoom";
 import CommandPalette from "./components/CommandPalette";
 
 function App() {
@@ -41,7 +41,7 @@ function App() {
           position: "relative",
         }}
       >
-        <MissionRoom />
+        <WorkspaceRoom />
       </main>
 
       <CommandPalette

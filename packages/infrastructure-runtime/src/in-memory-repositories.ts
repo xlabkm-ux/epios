@@ -1,25 +1,25 @@
-import { Mission, EpistemicNode, EpistemicEdge } from "@epios/domain";
-import { MissionRepositoryPort, GraphRepositoryPort } from "@epios/ports";
+import { Workspace, EpistemicNode, EpistemicEdge } from "@epios/domain";
+import { WorkspaceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
 
-export class InMemoryMissionRepository implements MissionRepositoryPort {
-  private missions: Map<string, Mission> = new Map();
+export class InMemoryWorkspaceRepository implements WorkspaceRepositoryPort {
+  private workspaces: Map<string, Workspace> = new Map();
 
-  constructor(initialMissions: Mission[] = []) {
-    for (const m of initialMissions) {
-      this.missions.set(m.id, m);
+  constructor(initialWorkspaces: Workspace[] = []) {
+    for (const m of initialWorkspaces) {
+      this.workspaces.set(m.id, m);
     }
   }
 
-  async save(mission: Mission): Promise<void> {
-    this.missions.set(mission.id, mission);
+  async save(workspace: Workspace): Promise<void> {
+    this.workspaces.set(workspace.id, workspace);
   }
 
-  async findById(id: string): Promise<Mission | null> {
-    return this.missions.get(id) || null;
+  async findById(id: string): Promise<Workspace | null> {
+    return this.workspaces.get(id) || null;
   }
 
-  async findAll(): Promise<Mission[]> {
-    return Array.from(this.missions.values());
+  async findAll(): Promise<Workspace[]> {
+    return Array.from(this.workspaces.values());
   }
 }
 
@@ -43,15 +43,15 @@ export class InMemoryGraphRepository implements GraphRepositoryPort {
     this.edges.set(edge.id, edge);
   }
 
-  async findNodesByMissionId(missionId: string): Promise<EpistemicNode[]> {
+  async findNodesByWorkspaceId(workspaceId: string): Promise<EpistemicNode[]> {
     return Array.from(this.nodes.values()).filter(
-      (n) => n.missionId === missionId,
+      (n) => n.workspaceId === workspaceId,
     );
   }
 
-  async findEdgesByMissionId(missionId: string): Promise<EpistemicEdge[]> {
+  async findEdgesByWorkspaceId(workspaceId: string): Promise<EpistemicEdge[]> {
     return Array.from(this.edges.values()).filter(
-      (e) => e.missionId === missionId,
+      (e) => e.workspaceId === workspaceId,
     );
   }
 

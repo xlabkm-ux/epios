@@ -51,7 +51,7 @@ export class MockMCPBridge implements MCPBridgePort {
       tools: [
         {
           name: "submit_claim",
-          description: "Submit a new claim to the mission",
+          description: "Submit a new claim to the workspace",
         },
         {
           name: "add_evidence",

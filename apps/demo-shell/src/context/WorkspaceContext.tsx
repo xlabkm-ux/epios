@@ -7,37 +7,44 @@ import React, {
 } from "react";
 import { Node, Edge } from "reactflow";
 
-interface Mission {
+interface Workspace {
   id: string;
   title: string;
   status: string;
 }
 
-interface MissionContextType {
-  selectedMissionId: string | null;
-  setSelectedMissionId: (id: string | null) => void;
+interface WorkspaceContextType {
+  selectedWorkspaceId: string | null;
+  setSelectedWorkspaceId: (id: string | null) => void;
   selectedNodeId: string | null;
   setSelectedNodeId: (id: string | null) => void;
-  missions: Mission[];
-  setMissions: (missions: Mission[]) => void;
+  workspaces: Workspace[];
+  setWorkspaces: (workspaces: Workspace[]) => void;
   graphStates: Record<string, { nodes: Node[]; edges: Edge[] }>;
-  setGraphState: (missionId: string, nodes: Node[], edges: Edge[]) => void;
+  setGraphState: (workspaceId: string, nodes: Node[], edges: Edge[]) => void;
   viewports: Record<string, { x: number; y: number; zoom: number }>;
-  setViewport: (missionId: string, x: number, y: number, zoom: number) => void;
+  setViewport: (
+    workspaceId: string,
+    x: number,
+    y: number,
+    zoom: number,
+  ) => void;
 }
 
-const MissionContext = createContext<MissionContextType | undefined>(undefined);
+const WorkspaceContext = createContext<WorkspaceContextType | undefined>(
+  undefined,
+);
 
-export const MissionProvider: React.FC<{ children: ReactNode }> = ({
+export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [selectedMissionId, setSelectedMissionId] = useState<string | null>(
+  const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<string | null>(
     () => {
-      return localStorage.getItem("selectedMissionId");
+      return localStorage.getItem("selectedWorkspaceId");
     },
   );
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
-  const [missions, setMissions] = useState<Mission[]>([]);
+  const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
   const [graphStates, setGraphStates] = useState<
     Record<string, { nodes: Node[]; edges: Edge[] }>
   >(() => {
@@ -51,17 +58,17 @@ export const MissionProvider: React.FC<{ children: ReactNode }> = ({
     return saved ? JSON.parse(saved) : {};
   });
 
-  // Persist selected mission
+  // Persist selected workspace
   useEffect(() => {
-    if (selectedMissionId) {
-      localStorage.setItem("selectedMissionId", selectedMissionId);
+    if (selectedWorkspaceId) {
+      localStorage.setItem("selectedWorkspaceId", selectedWorkspaceId);
     }
-  }, [selectedMissionId]);
+  }, [selectedWorkspaceId]);
 
-  // Reset selected node when mission changes
+  // Reset selected node when workspace changes
   useEffect(() => {
     setSelectedNodeId(null);
-  }, [selectedMissionId]);
+  }, [selectedWorkspaceId]);
 
   // Persist graph states
   useEffect(() => {
@@ -73,34 +80,34 @@ export const MissionProvider: React.FC<{ children: ReactNode }> = ({
     localStorage.setItem("viewports", JSON.stringify(viewports));
   }, [viewports]);
 
-  const setGraphState = (missionId: string, nodes: Node[], edges: Edge[]) => {
+  const setGraphState = (workspaceId: string, nodes: Node[], edges: Edge[]) => {
     setGraphStates((prev) => ({
       ...prev,
-      [missionId]: { nodes, edges },
+      [workspaceId]: { nodes, edges },
     }));
   };
 
   const setViewport = (
-    missionId: string,
+    workspaceId: string,
     x: number,
     y: number,
     zoom: number,
   ) => {
     setViewports((prev) => ({
       ...prev,
-      [missionId]: { x, y, zoom },
+      [workspaceId]: { x, y, zoom },
     }));
   };
 
   return (
-    <MissionContext.Provider
+    <WorkspaceContext.Provider
       value={{
-        selectedMissionId,
-        setSelectedMissionId,
+        selectedWorkspaceId,
+        setSelectedWorkspaceId,
         selectedNodeId,
         setSelectedNodeId,
-        missions,
-        setMissions,
+        workspaces,
+        setWorkspaces,
         graphStates,
         setGraphState,
         viewports,
@@ -108,14 +115,14 @@ export const MissionProvider: React.FC<{ children: ReactNode }> = ({
       }}
     >
       {children}
-    </MissionContext.Provider>
+    </WorkspaceContext.Provider>
   );
 };
 
-export const useMission = () => {
-  const context = useContext(MissionContext);
+export const useWorkspace = () => {
+  const context = useContext(WorkspaceContext);
   if (context === undefined) {
-    throw new Error("useMission must be used within a MissionProvider");
+    throw new Error("useWorkspace must be used within a WorkspaceProvider");
   }
   return context;
 };

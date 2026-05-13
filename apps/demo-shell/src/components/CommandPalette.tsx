@@ -9,7 +9,7 @@ import {
   Terminal,
   Command,
 } from "lucide-react";
-import { useMission } from "../context/MissionContext";
+import { useWorkspace } from "../context/WorkspaceContext";
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -18,7 +18,7 @@ interface CommandPaletteProps {
 
 const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState("");
-  const { selectedNodeId, selectedMissionId } = useMission();
+  const { selectedNodeId, selectedWorkspaceId } = useWorkspace();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -33,16 +33,16 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
   const allCommands = useMemo(
     () => [
       {
-        group: "Missions",
+        group: "Workspaces",
         items: [
           {
             icon: <Plus size={16} />,
-            label: "Create New Mission",
+            label: "Create New Workspace",
             shortcut: "N",
           },
           {
             icon: <Zap size={16} />,
-            label: "Jump to Active Mission",
+            label: "Jump to Active Workspace",
             shortcut: "J",
           },
         ],
@@ -190,6 +190,8 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
               padding: "0.75rem",
               maxHeight: "450px",
               overflowY: "auto",
+              scrollbarWidth: "thin",
+              scrollbarColor: "var(--primary) transparent",
             }}
           >
             {filteredCommands.length > 0 ? (
@@ -243,11 +245,11 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
             >
               <span style={{ color: "var(--primary)" }}>EPIOS</span>
               <span>v0.1.0-rc.1</span>
-              {selectedMissionId && (
+              {selectedWorkspaceId && (
                 <>
                   <span style={{ color: "var(--border)" }}>|</span>
                   <span style={{ color: "var(--success)" }}>
-                    Mission Active
+                    Workspace Active
                   </span>
                 </>
               )}
