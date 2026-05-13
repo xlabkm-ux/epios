@@ -40,3 +40,41 @@ export interface NodePatch {
 export interface PatchGovernance extends GovernanceProcess {
   patchId: string;
 }
+
+export type ReadinessStatus = "ready" | "needs_review" | "blocked";
+
+export interface ReadinessAssessment {
+  id: string;
+  workspaceId: string;
+  profileId: string;
+  methodVersion: string;
+  status: ReadinessStatus;
+  indicators: {
+    evidenceCoverage: "high" | "medium" | "low";
+    traceability: "complete" | "partial" | "missing";
+    riskHandling: "explicit" | "weak" | "missing";
+  };
+  numericScore?: number;
+  explanation: string;
+  createdAt: Date;
+}
+
+export interface ArtifactVersion {
+  id: string;
+  artifactId: string;
+  workspaceId: string;
+  version: number;
+  content: string;
+  authorId: string;
+  createdAt: Date;
+}
+
+export interface TraceEvent {
+  id: string;
+  workspaceId: string;
+  type: string;
+  actorId: string;
+  targetId: string;
+  metadata: Record<string, unknown>;
+  timestamp: Date;
+}

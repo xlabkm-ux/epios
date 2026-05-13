@@ -1,5 +1,5 @@
 import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
-import { Vote } from "@epios/domain";
+import { Vote, ArtifactVersion } from "@epios/domain";
 import { auditLogger } from "@epios/observability";
 
 export interface CastVoteRequest {
@@ -44,6 +44,17 @@ export class CastVoteUseCase {
       metadata: { decision: request.decision, rationale: request.rationale },
     });
 
+    // Log trace event for the vote
+    await this.governanceRepo.saveTraceEvent({
+      id: crypto.randomUUID(),
+      workspaceId: process.workspaceId,
+      type: "vote_cast",
+      actorId: request.actorId,
+      targetId: request.nodeId,
+      metadata: { decision: request.decision, rationale: request.rationale },
+      timestamp: new Date(),
+    });
+
     // Check if process should be finalized
     const approvals = process.votes.filter(
       (v) => v.decision === "approve",
@@ -69,6 +80,37 @@ export class CastVoteUseCase {
           patch.status = "applied";
           patch.updatedAt = new Date();
           await this.governanceRepo.savePatch(patch);
+
+          // Create Artifact Version
+          const latestVersion = await this.governanceRepo.getLatestVersion(
+            patch.targetNodeId,
+          );
+          const newVersionNumber = latestVersion
+            ? latestVersion.version + 1
+            : 1;
+
+          const version: ArtifactVersion = {
+            id: crypto.randomUUID(),
+            artifactId: patch.targetNodeId,
+            workspaceId: patch.workspaceId,
+            version: newVersionNumber,
+            content: targetNode.content,
+            authorId: request.actorId,
+            createdAt: new Date(),
+          };
+
+          await this.governanceRepo.saveArtifactVersion(version);
+
+          // Log trace event for artifact version
+          await this.governanceRepo.saveTraceEvent({
+            id: crypto.randomUUID(),
+            workspaceId: patch.workspaceId,
+            type: "artifact_version_created",
+            actorId: request.actorId,
+            targetId: version.id,
+            metadata: { version: newVersionNumber, patchId: patch.id },
+            timestamp: new Date(),
+          });
         }
       } else {
         // 2. Otherwise assume it's a regular node (Claim)
@@ -79,6 +121,17 @@ export class CastVoteUseCase {
           await this.graphRepo.saveNode(node);
         }
       }
+
+      // Log process approved event
+      await this.governanceRepo.saveTraceEvent({
+        id: crypto.randomUUID(),
+        workspaceId: process.workspaceId,
+        type: "governance_approved",
+        actorId: "system",
+        targetId: request.nodeId,
+        metadata: { approvals },
+        timestamp: new Date(),
+      });
     } else if (
       rejections > 0 &&
       (process.votes.length >= process.requiredVotes ||
@@ -92,6 +145,17 @@ export class CastVoteUseCase {
         patch.updatedAt = new Date();
         await this.governanceRepo.savePatch(patch);
       }
+
+      // Log process rejected event
+      await this.governanceRepo.saveTraceEvent({
+        id: crypto.randomUUID(),
+        workspaceId: process.workspaceId,
+        type: "governance_rejected",
+        actorId: "system",
+        targetId: request.nodeId,
+        metadata: { rejections },
+        timestamp: new Date(),
+      });
     }
 
     await this.governanceRepo.saveProcess(process);

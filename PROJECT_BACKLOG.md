@@ -36,9 +36,9 @@
 - [x] Policy, idempotency, approval QA
 
 ### S5: Readiness + Artifact Version
-- [ ] Readiness v0.1, apply patch, final ADR
-- [ ] Readiness panel + final artifact + trace
-- [ ] Readiness tests, trace, full e2e
+- [x] Readiness v0.1, apply patch, final ADR
+- [x] Readiness panel + final artifact + trace
+- [x] Readiness tests, trace, full e2e
 
 ### S6: Security + Retention
 - [ ] Pilot-safe roles, retention, redaction

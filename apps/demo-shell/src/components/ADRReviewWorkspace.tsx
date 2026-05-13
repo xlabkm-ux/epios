@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApi } from "../hooks/useApi";
+import { ReadinessPanel } from "./ReadinessPanel";
+import { GovernancePanel } from "./GovernancePanel";
 
 interface ADR {
   id: string;
@@ -41,6 +43,7 @@ const ADRReviewWorkspace: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [flowStep, setFlowStep] = useState<FlowStep>("idle");
   const [localStatus, setLocalStatus] = useState<ADR["status"] | null>(null);
+  const [showGovernance, setShowGovernance] = useState(false);
 
   useEffect(() => {
     if (adrs && adrs.length > 0 && !selectedAdrId) {
@@ -393,13 +396,61 @@ const ADRReviewWorkspace: React.FC = () => {
                   <History size={16} />
                   History
                 </button>
+
+                <button
+                  className="glass"
+                  onClick={() => setShowGovernance(!showGovernance)}
+                  style={{
+                    padding: "0.75rem 1.25rem",
+                    borderRadius: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    backgroundColor: showGovernance
+                      ? "var(--primary-alpha)"
+                      : "transparent",
+                    color: showGovernance
+                      ? "var(--primary)"
+                      : "var(--text-main)",
+                    border: showGovernance
+                      ? "1px solid var(--primary)"
+                      : "1px solid var(--border)",
+                  }}
+                >
+                  <ShieldCheck size={16} />
+                  {showGovernance ? "View ADR" : "Governance"}
+                </button>
               </div>
             </div>
 
-            <div style={{ flex: 1, overflowY: "auto", padding: "3rem" }}>
-              <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+            <div style={{ flex: 1, overflowY: "auto", padding: "2rem" }}>
+              <div
+                style={{
+                  maxWidth: showGovernance ? "1400px" : "800px",
+                  margin: "0 auto",
+                  height: "100%",
+                }}
+              >
                 <AnimatePresence mode="wait">
-                  {flowStep === "analyzing" ? (
+                  {showGovernance ? (
+                    <motion.div
+                      key="governance"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 400px",
+                        gap: "2rem",
+                        height: "calc(100vh - 250px)",
+                      }}
+                    >
+                      <ReadinessPanel workspaceId={selectedAdr.id} />
+                      <GovernancePanel workspaceId={selectedAdr.id} minimal />
+                    </motion.div>
+                  ) : flowStep === "analyzing" ? (
                     <motion.div
                       key="analyzing"
                       initial={{ opacity: 0, y: 20 }}

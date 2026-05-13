@@ -68,6 +68,21 @@ export const MOCK_ADRS: ADR[] = [
       negative: ["Requires attribution"],
     },
   },
+  {
+    id: "ADR-ES-001",
+    title: "Adopt Event Sourcing for Mission History",
+    status: "Proposed",
+    priority: "P1",
+    date: "2026-05-13",
+    author: "Architect",
+    context:
+      "A draft ADR proposes event sourcing for all mission history. It claims better auditability and replay, but ignores complexity, migration cost, query model overhead and team familiarity.",
+    decision: "Use append-only trace for MVP, defer full event sourcing.",
+    consequences: {
+      positive: ["Reduced complexity", "Sufficient auditability for MVP"],
+      negative: ["Delayed full event sourcing benefits"],
+    },
+  },
 ];
 
 export class InMemoryWorkspaceRepository implements WorkspaceRepositoryPort {

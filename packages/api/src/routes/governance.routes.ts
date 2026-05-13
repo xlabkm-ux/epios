@@ -4,6 +4,10 @@ import {
   CastVoteUseCase,
   ProposePatchUseCase,
   ListPatchesUseCase,
+  AssessReadinessUseCase,
+  GetReadinessUseCase,
+  ApplyPatchUseCase,
+  GetTraceUseCase,
 } from "@epios/application";
 
 export async function governanceRoutes(
@@ -13,6 +17,10 @@ export async function governanceRoutes(
     castVoteUseCase: CastVoteUseCase;
     proposePatchUseCase: ProposePatchUseCase;
     listPatchesUseCase: ListPatchesUseCase;
+    assessReadinessUseCase: AssessReadinessUseCase;
+    getReadinessUseCase: GetReadinessUseCase;
+    applyPatchUseCase: ApplyPatchUseCase;
+    getTraceUseCase: GetTraceUseCase;
   },
 ) {
   fastify.get("/governance/patches", async (request, reply) => {
@@ -55,5 +63,31 @@ export async function governanceRoutes(
       },
     );
     return reply.status(204).send();
+  });
+
+  fastify.post("/governance/readiness", async (request, reply) => {
+    const assessment = await options.assessReadinessUseCase.execute(
+      request.body as { workspaceId: string; profileId: string },
+    );
+    return reply.status(200).send(assessment);
+  });
+
+  fastify.get("/governance/readiness", async (request, reply) => {
+    const { workspaceId } = request.query as { workspaceId: string };
+    const assessment = await options.getReadinessUseCase.execute(workspaceId);
+    return reply.status(200).send(assessment);
+  });
+
+  fastify.post("/governance/apply-patch", async (request, reply) => {
+    const version = await options.applyPatchUseCase.execute(
+      request.body as { patchId: string; actorId: string },
+    );
+    return reply.status(201).send(version);
+  });
+
+  fastify.get("/governance/trace", async (request, reply) => {
+    const { workspaceId } = request.query as { workspaceId: string };
+    const trace = await options.getTraceUseCase.execute(workspaceId);
+    return reply.status(200).send(trace);
   });
 }

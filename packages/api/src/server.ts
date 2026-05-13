@@ -26,6 +26,10 @@ import {
   GetNodeRatingsUseCase,
   ProposePatchUseCase,
   ListPatchesUseCase,
+  AssessReadinessUseCase,
+  GetReadinessUseCase,
+  ApplyPatchUseCase,
+  GetTraceUseCase,
 } from "@epios/application";
 import { workspaceRoutes } from "./routes/workspace.routes.js";
 import { mappingRoutes } from "./routes/mapping.routes.js";
@@ -501,6 +505,14 @@ export function buildServer(deps: ServerDependencies = {}) {
   const listPatchesUseCase = new ListPatchesUseCase(governanceRepo);
   const castVoteUseCase = new CastVoteUseCase(governanceRepo, graphRepo!);
 
+  const assessReadinessUseCase = new AssessReadinessUseCase(
+    governanceRepo,
+    graphRepo!,
+  );
+  const getReadinessUseCase = new GetReadinessUseCase(governanceRepo);
+  const applyPatchUseCase = new ApplyPatchUseCase(governanceRepo, graphRepo!);
+  const getTraceUseCase = new GetTraceUseCase(governanceRepo);
+
   const mcpRegistry = deps.mcpRegistry ?? new InMemoryMCPAppRegistry();
   const mcpBridge = deps.mcpBridge ?? new MockMCPBridge(mcpRegistry);
 
@@ -544,6 +556,10 @@ export function buildServer(deps: ServerDependencies = {}) {
     castVoteUseCase,
     proposePatchUseCase,
     listPatchesUseCase,
+    assessReadinessUseCase,
+    getReadinessUseCase,
+    applyPatchUseCase,
+    getTraceUseCase,
   });
 
   app.register(adrRoutes, { listADRsUseCase, getADRUseCase });
