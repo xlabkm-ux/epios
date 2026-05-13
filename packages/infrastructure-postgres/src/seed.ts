@@ -15,101 +15,80 @@ if (!databaseUrl) {
 const queryClient = postgres(databaseUrl);
 const db = drizzle(queryClient, { schema });
 
-// Генерируем стабильные UUID для сидинга
-const ws1Id = "00000000-0000-0000-0000-000000000001";
-const ws2Id = "00000000-0000-0000-0000-000000000002";
-const ws3Id = "00000000-0000-0000-0000-000000000003";
-
 async function seed() {
-  console.log("🌱 Seeding database with diverse scenarios...");
+  console.log("🚀 Starting Master Synchronization of all data...");
 
-  // 1. Workspaces
-  const demoWorkspaces = [
-    {
-      id: ws1Id,
-      title: "Scenario A: Climate Research",
-      status: "running",
-      mode: "assisted",
-      sensitivity: "internal",
-      goal: "Synthesize Arctic melt impact",
-      createdBy: "researcher-1",
-    },
-    {
-      id: ws2Id,
-      title: "Scenario B: Crisis Response",
-      status: "running",
-      mode: "assisted",
-      sensitivity: "internal",
-      goal: "Suez Canal blockage mitigation",
-      createdBy: "logistics-ai",
-    },
-    {
-      id: ws3Id,
-      title: "Scenario C: AI Governance",
-      status: "running",
-      mode: "assisted",
-      sensitivity: "internal",
-      goal: "Finalize Human-in-the-loop policy",
-      createdBy: "ethics-board",
-    },
+  // 1. Workspaces (A, B, C, D, E)
+  const workspaces = [
+    { id: "m1", title: "Scenario A: Climate Research", goal: "Synthesize Arctic melt impact" },
+    { id: "m2", title: "Scenario B: Crisis Response", goal: "Suez Canal blockage mitigation" },
+    { id: "m3", title: "Scenario C: AI Governance", goal: "Finalize Human-in-the-loop policy" },
+    { id: "m4", title: "Scenario D: Knowledge Synthesis", goal: "Neural Architecture Search summary" },
+    { id: "m5", title: "Scenario E: Neural Network Collapse", goal: "Stress-test large-scale transformer stability" },
   ];
 
-  for (const ws of demoWorkspaces) {
+  for (const ws of workspaces) {
+    const uuid = ws.id.padEnd(36, "0").replace(/m(\d)/, "00000000-0000-0000-0000-00000000000$1");
     await db.insert(schema.workspaces).values({
-      id: ws.id,
+      id: uuid,
       title: ws.title,
-      status: ws.status as any,
-      mode: ws.mode as any,
-      sensitivity: ws.sensitivity as any,
+      status: "running",
+      mode: "assisted",
+      sensitivity: "internal",
       goal: ws.goal,
       createdByType: "user",
-      createdById: ws.createdBy,
-      brief: { goal: ws.goal, successCriteria: [], constraints: [], unknowns: [] },
-    }).onConflictDoUpdate({
-      target: schema.workspaces.id,
-      set: { title: ws.title, goal: ws.goal }
-    });
+      createdById: "admin",
+      brief: { goal: ws.goal, successCriteria: ["Map critical points"], constraints: [], unknowns: [] },
+    }).onConflictDoUpdate({ target: schema.workspaces.id, set: { title: ws.title } });
   }
 
-  // 2. Nodes for Scenario A (Climate)
-  const nodesA = [
-    { id: "10000000-0000-0000-0000-000000000001", workspaceId: ws1Id, type: "hypothesis", content: "Arctic ice melt accelerates global sea level rise by 20% by 2050", strength: "moderate" },
-    { id: "10000000-0000-0000-0000-000000000002", workspaceId: ws1Id, type: "observation", content: "NOAA 2024 Report on Arctic Melt Rates", strength: "strong" },
-  ];
+  // 2. Scenario E: The Massive Graph (50 nodes)
+  const wsE_UUID = "00000000-0000-0000-0000-000000000005";
+  console.log("Generating Scenario E (50 nodes)...");
+  
+  for (let i = 1; i <= 50; i++) {
+    const nodeId = `00000000-0000-0000-0000-100000000${i.toString().padStart(3, "0")}`;
+    const type = (i % 3 === 0 ? "hypothesis" : i % 2 === 0 ? "observation" : "claim");
+    const content = [
+      "Recursive depth instability detected in layer " + i,
+      "Gradient vanishing in cross-attention sub-block " + i,
+      "Entropy collapse observed at temperature T=" + (0.1 + i / 50).toFixed(2),
+      "Latent space fragmentation hypothesis #" + i,
+      "Empirical trace of neuron group " + i + " firing rate saturation",
+    ][i % 5];
 
-  // 3. Nodes for Scenario B (Crisis)
-  const nodesB = [
-    { id: "20000000-0000-0000-0000-000000000001", workspaceId: ws2Id, type: "hypothesis", content: "Suez blockage causes 2-week semiconductor delay", strength: "moderate" },
-    { id: "20000000-0000-0000-0000-000000000002", workspaceId: ws2Id, type: "observation", content: "Ever Given blockage duration: 6 days", strength: "strong" },
-  ];
-
-  // 4. Nodes for Scenario C (AI)
-  const nodesC = [
-    { id: "30000000-0000-0000-0000-000000000001", workspaceId: ws3Id, type: "claim", content: "Mandatory human approval prevents runaway loops", strength: "strong" },
-  ];
-
-  const allNodes = [...nodesA, ...nodesB, ...nodesC];
-
-  for (const node of allNodes) {
     await db.insert(schema.epistemicNodes).values({
-      id: node.id,
-      workspaceId: node.workspaceId,
-      type: node.type as any,
-      content: node.content,
-      strength: node.strength as any,
+      id: nodeId,
+      workspaceId: wsE_UUID,
+      type: type as any,
+      content,
+      strength: "moderate",
       evidence: [],
-      metadata: {},
-    }).onConflictDoUpdate({
-      target: schema.epistemicNodes.id,
-      set: { content: node.content }
-    });
+      metadata: { layer: i },
+    }).onConflictDoUpdate({ target: schema.epistemicNodes.id, set: { content } });
   }
 
-  console.log("✅ Seeding completed with 3 unique scenarios!");
+  // 3. Scenario E: Edges (Complex web)
+  for (let i = 1; i <= 50; i++) {
+    const sourceId = `00000000-0000-0000-0000-100000000${i.toString().padStart(3, "0")}`;
+    const targetIdx = (i + 1) % 50 || 1;
+    const targetId = `00000000-0000-0000-0000-100000000${targetIdx.toString().padStart(3, "0")}`;
+    
+    await db.insert(schema.epistemicEdges).values({
+      id: `00000000-0000-0000-0000-200000000${i.toString().padStart(3, "0")}`,
+      workspaceId: wsE_UUID,
+      sourceNodeId: sourceId,
+      targetNodeId: targetId,
+      type: (i % 2 === 0 ? "supports" : "contradicts") as any,
+      metadata: {},
+    }).onConflictDoNothing();
+  }
+
+  console.log("✅ MASTER SYNC COMPLETED!");
   process.exit(0);
 }
 
 seed().catch((err) => {
-  console.error("❌ Seeding failed:", err);
+  console.error("❌ Sync failed:", err);
   process.exit(1);
 });
