@@ -17,6 +17,9 @@ const WorkspaceRoom: React.FC = () => {
   } = useWorkspace();
   const [isFocusMode, setIsFocusMode] = useState(false);
   const [showWorkspaceCard, setShowWorkspaceCard] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState("");
+
   const selectedWorkspace = workspaces.find(
     (m) => m.id === selectedWorkspaceId,
   );
@@ -27,6 +30,28 @@ const WorkspaceRoom: React.FC = () => {
           (n: { id: string }) => n.id === selectedNodeId,
         )
       : null;
+
+  const proposePatch = async () => {
+    if (!selectedNode || !selectedWorkspaceId) return;
+    try {
+      const res = await fetch("http://localhost:3000/governance/patches", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          targetNodeId: selectedNode.id,
+          workspaceId: selectedWorkspaceId,
+          authorId: "user-1",
+          content: editContent,
+        }),
+      });
+      if (res.ok) {
+        setIsEditing(false);
+        alert("Patch proposed successfully!");
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   if (!selectedWorkspace) {
     return (
@@ -223,22 +248,43 @@ const WorkspaceRoom: React.FC = () => {
                   >
                     Core Content
                   </label>
-                  <div
-                    style={{
-                      width: "100%",
-                      minHeight: "120px",
-                      backgroundColor: "rgba(0,0,0,0.3)",
-                      border: "1px solid var(--border)",
-                      borderRadius: "12px",
-                      padding: "1.25rem",
-                      fontSize: "0.95rem",
-                      lineHeight: 1.6,
-                      color: "var(--text-main)",
-                      fontFamily: "var(--font-sans)",
-                    }}
-                  >
-                    {selectedNode.data.label}
-                  </div>
+                  {isEditing ? (
+                    <textarea
+                      style={{
+                        width: "100%",
+                        minHeight: "120px",
+                        backgroundColor: "rgba(0,0,0,0.3)",
+                        border: "1px solid var(--primary)",
+                        borderRadius: "12px",
+                        padding: "1.25rem",
+                        fontSize: "0.95rem",
+                        lineHeight: 1.6,
+                        color: "var(--text-main)",
+                        fontFamily: "var(--font-sans)",
+                        outline: "none",
+                        resize: "vertical",
+                      }}
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: "100%",
+                        minHeight: "120px",
+                        backgroundColor: "rgba(0,0,0,0.3)",
+                        border: "1px solid var(--border)",
+                        borderRadius: "12px",
+                        padding: "1.25rem",
+                        fontSize: "0.95rem",
+                        lineHeight: 1.6,
+                        color: "var(--text-main)",
+                        fontFamily: "var(--font-sans)",
+                      }}
+                    >
+                      {selectedNode.data.label}
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -281,39 +327,79 @@ const WorkspaceRoom: React.FC = () => {
               <div
                 style={{ display: "flex", gap: "0.75rem", marginTop: "auto" }}
               >
-                <button
-                  className="glass"
-                  onClick={() => alert(`Editing node ${selectedNode.id}`)}
-                  style={{
-                    flex: 1,
-                    padding: "0.85rem",
-                    borderRadius: "10px",
-                    fontSize: "0.9rem",
-                    fontWeight: 600,
-                    color: "var(--text-main)",
-                  }}
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() =>
-                    alert(
-                      `Purging node ${selectedNode.id} from neural graph...`,
-                    )
-                  }
-                  style={{
-                    flex: 1,
-                    padding: "0.85rem",
-                    borderRadius: "10px",
-                    border: "1px solid var(--error)",
-                    fontSize: "0.9rem",
-                    fontWeight: 600,
-                    color: "var(--error)",
-                    backgroundColor: "rgba(239, 68, 68, 0.05)",
-                  }}
-                >
-                  Purge
-                </button>
+                {isEditing ? (
+                  <>
+                    <button
+                      className="glass"
+                      onClick={() => setIsEditing(false)}
+                      style={{
+                        flex: 1,
+                        padding: "0.85rem",
+                        borderRadius: "10px",
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                        color: "var(--text-dim)",
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={proposePatch}
+                      style={{
+                        flex: 2,
+                        padding: "0.85rem",
+                        borderRadius: "10px",
+                        backgroundColor: "var(--primary)",
+                        border: "none",
+                        fontSize: "0.9rem",
+                        fontWeight: 700,
+                        color: "white",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Propose Patch
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="glass"
+                      onClick={() => {
+                        setEditContent(selectedNode.data.label);
+                        setIsEditing(true);
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: "0.85rem",
+                        borderRadius: "10px",
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                        color: "var(--text-main)",
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() =>
+                        alert(
+                          `Purging node ${selectedNode.id} from neural graph...`,
+                        )
+                      }
+                      style={{
+                        flex: 1,
+                        padding: "0.85rem",
+                        borderRadius: "10px",
+                        border: "1px solid var(--error)",
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                        color: "var(--error)",
+                        backgroundColor: "rgba(239, 68, 68, 0.05)",
+                      }}
+                    >
+                      Purge
+                    </button>
+                  </>
+                )}
               </div>
             </>
           ) : (

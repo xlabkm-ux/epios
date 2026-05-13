@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-13 19:41:57`
+> Автоматически сгенерировано: `2026-05-13 20:34:44`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
-| **Total Files** | `101` | Только JS/TS/TSX исходники |
-| **Total Lines** | `8533` | Суммарно по проекту |
-| **Project Weight** | `~69 888 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `54.6%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Files** | `103` | Только JS/TS/TSX исходники |
+| **Total Lines** | `8972` | Суммарно по проекту |
+| **Project Weight** | `~73 324 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `57.3%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~86%` | Экономия контекста через карту |
 
 ---
@@ -162,19 +162,19 @@ end
 end
 end
 end
-subgraph 6X["dotenv-expand@11.0.7"]
-subgraph 6Y["node_modules"]
-subgraph 6Z["dotenv-expand"]
-subgraph 70["lib"]
-71["main.js"]
+subgraph 6Z["dotenv-expand@11.0.7"]
+subgraph 70["node_modules"]
+subgraph 71["dotenv-expand"]
+subgraph 72["lib"]
+73["main.js"]
 end
 end
 end
 end
-subgraph 72["drizzle-kit@0.31.10"]
-subgraph 73["node_modules"]
-subgraph 74["drizzle-kit"]
-75["index.mjs"]
+subgraph 74["drizzle-kit@0.31.10"]
+subgraph 75["node_modules"]
+subgraph 76["drizzle-kit"]
+77["index.mjs"]
 end
 end
 end
@@ -192,18 +192,18 @@ subgraph 16["src"]
 1D["source.ts"]
 1E["workspace.ts"]
 end
-subgraph 50["coverage"]
-51["block-navigation.js"]
-52["prettify.js"]
-53["sorter.js"]
+subgraph 52["coverage"]
+53["block-navigation.js"]
+54["prettify.js"]
+55["sorter.js"]
 end
-subgraph 54["test"]
-55["domain-smoke.test.ts"]
-56["node-invariants.test.ts"]
-57["source-rating.test.ts"]
-58["workspace.test.ts"]
+subgraph 56["test"]
+57["domain-smoke.test.ts"]
+58["node-invariants.test.ts"]
+59["source-rating.test.ts"]
+5A["workspace.test.ts"]
 end
-59["vitest.config.ts"]
+5B["vitest.config.ts"]
 end
 subgraph 1V["api"]
 subgraph 1W["coverage"]
@@ -255,13 +255,15 @@ subgraph 34["use-cases"]
 3O["rate-node.ts"]
 3P["start-mapping-run.ts"]
 3Q["submit-claim.ts"]
+4W["list-patches.ts"]
+4X["propose-patch.ts"]
 end
 end
-subgraph 4W["test"]
-4X["create-workspace.test.ts"]
-4Y["use-cases.test.ts"]
+subgraph 4Y["test"]
+4Z["create-workspace.test.ts"]
+50["use-cases.test.ts"]
 end
-4Z["vitest.config.ts"]
+51["vitest.config.ts"]
 end
 subgraph 2X["ports"]
 subgraph 2Y["src"]
@@ -270,18 +272,18 @@ subgraph 2Y["src"]
 31["governance.port.js"]
 32["graph.repository.port.js"]
 33["mcp.port.js"]
-76["domain.repository.port.d.ts"]
-77["domain.repository.port.ts"]
-78["governance.port.d.ts"]
-79["governance.port.ts"]
-7A["graph.repository.port.d.ts"]
-7B["graph.repository.port.ts"]
-7C["index.d.ts"]
-7D["index.ts"]
-7E["mapping.repository.port.ts"]
-7F["outbox.repository.port.ts"]
-7G["mcp.port.d.ts"]
-7H["mcp.port.ts"]
+78["domain.repository.port.d.ts"]
+79["domain.repository.port.ts"]
+7A["governance.port.d.ts"]
+7B["governance.port.ts"]
+7C["graph.repository.port.d.ts"]
+7D["graph.repository.port.ts"]
+7E["index.d.ts"]
+7F["index.ts"]
+7G["mapping.repository.port.ts"]
+7H["outbox.repository.port.ts"]
+7I["mcp.port.d.ts"]
+7J["mcp.port.ts"]
 end
 end
 subgraph 37["observability"]
@@ -297,66 +299,66 @@ subgraph 40["src"]
 42["mcp-app.registry.ts"]
 43["mcp-bridge.ts"]
 end
-subgraph 5A["dist"]
-subgraph 5B["domain"]
-subgraph 5C["src"]
-5D["adr.d.ts"]
-5E["adr.js"]
-5F["governance.d.ts"]
-5G["node.js"]
-5H["governance.js"]
-5I["index.d.ts"]
-5J["rating.js"]
-5K["source.js"]
-5L["workspace.js"]
-5M["index.js"]
-5N["mapping.d.ts"]
-5O["mapping.js"]
-5P["mission.d.ts"]
-5Q["mission.js"]
-5R["node.d.ts"]
-5S["rating.d.ts"]
-5T["source.d.ts"]
-5U["workspace.d.ts"]
+subgraph 5C["dist"]
+subgraph 5D["domain"]
+subgraph 5E["src"]
+5F["adr.d.ts"]
+5G["adr.js"]
+5H["governance.d.ts"]
+5I["node.js"]
+5J["governance.js"]
+5K["index.d.ts"]
+5L["rating.js"]
+5M["source.js"]
+5N["workspace.js"]
+5O["index.js"]
+5P["mapping.d.ts"]
+5Q["mapping.js"]
+5R["mission.d.ts"]
+5S["mission.js"]
+5T["node.d.ts"]
+5U["rating.d.ts"]
+5V["source.d.ts"]
+5W["workspace.d.ts"]
 end
 end
-5V["index.d.ts"]
-5W["mcp-app.registry.js"]
-5X["mcp-bridge.js"]
-5Y["index.js"]
-subgraph 5Z["infrastructure-mcp"]
-subgraph 60["src"]
-61["index.d.ts"]
-62["mcp-app.registry.js"]
-63["mcp-bridge.js"]
-64["index.js"]
-65["mcp-app.registry.d.ts"]
-66["mcp-bridge.d.ts"]
-end
-end
+5X["index.d.ts"]
+5Y["mcp-app.registry.js"]
+5Z["mcp-bridge.js"]
+60["index.js"]
+subgraph 61["infrastructure-mcp"]
+subgraph 62["src"]
+63["index.d.ts"]
+64["mcp-app.registry.js"]
+65["mcp-bridge.js"]
+66["index.js"]
 67["mcp-app.registry.d.ts"]
-6A["mcp-bridge.d.ts"]
-subgraph 6B["ports"]
-subgraph 6C["src"]
-6D["domain.repository.port.d.ts"]
-6E["domain.repository.port.js"]
-6F["governance.port.d.ts"]
-6G["governance.port.js"]
-6H["graph.repository.port.d.ts"]
-6I["graph.repository.port.js"]
-6J["index.d.ts"]
-6K["mcp.port.js"]
-6L["index.js"]
-6M["mapping.repository.port.d.ts"]
-6N["mapping.repository.port.js"]
-6O["mcp.port.d.ts"]
-6P["outbox.repository.port.d.ts"]
-6Q["outbox.repository.port.js"]
+68["mcp-bridge.d.ts"]
+end
+end
+69["mcp-app.registry.d.ts"]
+6C["mcp-bridge.d.ts"]
+subgraph 6D["ports"]
+subgraph 6E["src"]
+6F["domain.repository.port.d.ts"]
+6G["domain.repository.port.js"]
+6H["governance.port.d.ts"]
+6I["governance.port.js"]
+6J["graph.repository.port.d.ts"]
+6K["graph.repository.port.js"]
+6L["index.d.ts"]
+6M["mcp.port.js"]
+6N["index.js"]
+6O["mapping.repository.port.d.ts"]
+6P["mapping.repository.port.js"]
+6Q["mcp.port.d.ts"]
+6R["outbox.repository.port.d.ts"]
+6S["outbox.repository.port.js"]
 end
 end
 end
-subgraph 6R["test"]
-6S["smoke.test.ts"]
+subgraph 6T["test"]
+6U["smoke.test.ts"]
 end
 end
 subgraph 44["infrastructure-postgres"]
@@ -368,7 +370,7 @@ subgraph 45["src"]
 4D["source.repository.ts"]
 4E["workspace.repository.ts"]
 end
-6W["drizzle.config.ts"]
+6Y["drizzle.config.ts"]
 end
 subgraph 4F["infrastructure-runtime"]
 subgraph 4G["src"]
@@ -377,22 +379,22 @@ subgraph 4G["src"]
 4J["in-memory-repositories.ts"]
 end
 end
-subgraph 6T["infrastructure-models"]
-subgraph 6U["src"]
-6V["index.ts"]
+subgraph 6V["infrastructure-models"]
+subgraph 6W["src"]
+6X["index.ts"]
 end
 end
-subgraph 7I["testing"]
-subgraph 7J["src"]
-7K["fixtures.ts"]
-7L["index.ts"]
+subgraph 7K["testing"]
+subgraph 7L["src"]
+7M["fixtures.ts"]
+7N["index.ts"]
 end
 end
 end
 36["crypto"]
 4U["path"]
-subgraph 68["@epos"]
-69["ports"]
+subgraph 6A["@epos"]
+6B["ports"]
 end
 4-->6
 8-->G
@@ -620,92 +622,97 @@ X-->13
 4S-->4R
 4T-->4U
 4T-->4V
-4X-->3G
+4W-->17
+4W-->2Z
+4X-->17
 4X-->2Z
-4X-->4R
-4Y-->35
-4Y-->3C
-4Y-->3F
-4Y-->3G
-4Y-->3J
-4Y-->3M
-4Y-->3N
-4Y-->3Q
-4Y-->17
-4Y-->2Z
-4Y-->4R
-4Z-->4U
-4Z-->4V
-55-->17
-55-->4R
-56-->17
-56-->4R
+4X-->36
+4Z-->3G
+4Z-->2Z
+4Z-->4R
+50-->35
+50-->3C
+50-->3F
+50-->3G
+50-->3J
+50-->3M
+50-->3N
+50-->3Q
+50-->17
+50-->2Z
+50-->4R
+51-->4U
+51-->4V
 57-->17
 57-->4R
-58-->1E
+58-->17
 58-->4R
-59-->4V
-5F-->5G
-5I-->5E
-5I-->5H
-5I-->5G
-5I-->5J
-5I-->5K
-5I-->5L
-5M-->5E
-5M-->5H
-5M-->5G
-5M-->5J
-5M-->5K
-5M-->5L
-5V-->5W
-5V-->5X
-5Y-->5W
-5Y-->5X
-61-->62
-61-->63
-64-->62
-64-->63
-65-->2Z
-66-->2Z
-67-->69
-6A-->69
-6D-->17
+59-->17
+59-->4R
+5A-->1E
+5A-->4R
+5B-->4V
+5H-->5I
+5K-->5G
+5K-->5J
+5K-->5I
+5K-->5L
+5K-->5M
+5K-->5N
+5O-->5G
+5O-->5J
+5O-->5I
+5O-->5L
+5O-->5M
+5O-->5N
+5X-->5Y
+5X-->5Z
+60-->5Y
+60-->5Z
+63-->64
+63-->65
+66-->64
+66-->65
+67-->2Z
+68-->2Z
+69-->6B
+6C-->6B
 6F-->17
 6H-->17
-6J-->6E
-6J-->6G
-6J-->6I
-6J-->6K
-6L-->6E
+6J-->17
 6L-->6G
 6L-->6I
 6L-->6K
-6M-->17
-6P-->17
-6S-->4R
-6W-->2C
-6W-->71
-6W-->75
-76-->17
-77-->17
+6L-->6M
+6N-->6G
+6N-->6I
+6N-->6K
+6N-->6M
+6O-->17
+6R-->17
+6U-->4R
+6Y-->2C
+6Y-->73
+6Y-->77
 78-->17
 79-->17
 7A-->17
 7B-->17
-7C-->30
-7C-->31
-7C-->32
-7C-->33
-7D-->30
-7D-->31
-7D-->32
-7D-->7E
-7D-->33
-7D-->7F
-7E-->17
-7K-->17
-7L-->7K
+7C-->17
+7D-->17
+7E-->30
+7E-->31
+7E-->32
+7E-->33
+7F-->30
+7F-->31
+7F-->32
+7F-->7G
+7F-->33
+7F-->7H
+7G-->17
+7M-->17
+7N-->7M
 ```
 
 ## Детальная карта компонентов
@@ -857,19 +864,19 @@ end
 end
 end
 end
-subgraph 6X["dotenv-expand@11.0.7"]
-subgraph 6Y["node_modules"]
-subgraph 6Z["dotenv-expand"]
-subgraph 70["lib"]
-71["main.js"]
+subgraph 6Z["dotenv-expand@11.0.7"]
+subgraph 70["node_modules"]
+subgraph 71["dotenv-expand"]
+subgraph 72["lib"]
+73["main.js"]
 end
 end
 end
 end
-subgraph 72["drizzle-kit@0.31.10"]
-subgraph 73["node_modules"]
-subgraph 74["drizzle-kit"]
-75["index.mjs"]
+subgraph 74["drizzle-kit@0.31.10"]
+subgraph 75["node_modules"]
+subgraph 76["drizzle-kit"]
+77["index.mjs"]
 end
 end
 end
@@ -887,18 +894,18 @@ subgraph 16["src"]
 1D["source.ts"]
 1E["workspace.ts"]
 end
-subgraph 50["coverage"]
-51["block-navigation.js"]
-52["prettify.js"]
-53["sorter.js"]
+subgraph 52["coverage"]
+53["block-navigation.js"]
+54["prettify.js"]
+55["sorter.js"]
 end
-subgraph 54["test"]
-55["domain-smoke.test.ts"]
-56["node-invariants.test.ts"]
-57["source-rating.test.ts"]
-58["workspace.test.ts"]
+subgraph 56["test"]
+57["domain-smoke.test.ts"]
+58["node-invariants.test.ts"]
+59["source-rating.test.ts"]
+5A["workspace.test.ts"]
 end
-59["vitest.config.ts"]
+5B["vitest.config.ts"]
 end
 subgraph 1V["api"]
 subgraph 1W["coverage"]
@@ -950,13 +957,15 @@ subgraph 34["use-cases"]
 3O["rate-node.ts"]
 3P["start-mapping-run.ts"]
 3Q["submit-claim.ts"]
+4W["list-patches.ts"]
+4X["propose-patch.ts"]
 end
 end
-subgraph 4W["test"]
-4X["create-workspace.test.ts"]
-4Y["use-cases.test.ts"]
+subgraph 4Y["test"]
+4Z["create-workspace.test.ts"]
+50["use-cases.test.ts"]
 end
-4Z["vitest.config.ts"]
+51["vitest.config.ts"]
 end
 subgraph 2X["ports"]
 subgraph 2Y["src"]
@@ -965,18 +974,18 @@ subgraph 2Y["src"]
 31["governance.port.js"]
 32["graph.repository.port.js"]
 33["mcp.port.js"]
-76["domain.repository.port.d.ts"]
-77["domain.repository.port.ts"]
-78["governance.port.d.ts"]
-79["governance.port.ts"]
-7A["graph.repository.port.d.ts"]
-7B["graph.repository.port.ts"]
-7C["index.d.ts"]
-7D["index.ts"]
-7E["mapping.repository.port.ts"]
-7F["outbox.repository.port.ts"]
-7G["mcp.port.d.ts"]
-7H["mcp.port.ts"]
+78["domain.repository.port.d.ts"]
+79["domain.repository.port.ts"]
+7A["governance.port.d.ts"]
+7B["governance.port.ts"]
+7C["graph.repository.port.d.ts"]
+7D["graph.repository.port.ts"]
+7E["index.d.ts"]
+7F["index.ts"]
+7G["mapping.repository.port.ts"]
+7H["outbox.repository.port.ts"]
+7I["mcp.port.d.ts"]
+7J["mcp.port.ts"]
 end
 end
 subgraph 37["observability"]
@@ -992,66 +1001,66 @@ subgraph 40["src"]
 42["mcp-app.registry.ts"]
 43["mcp-bridge.ts"]
 end
-subgraph 5A["dist"]
-subgraph 5B["domain"]
-subgraph 5C["src"]
-5D["adr.d.ts"]
-5E["adr.js"]
-5F["governance.d.ts"]
-5G["node.js"]
-5H["governance.js"]
-5I["index.d.ts"]
-5J["rating.js"]
-5K["source.js"]
-5L["workspace.js"]
-5M["index.js"]
-5N["mapping.d.ts"]
-5O["mapping.js"]
-5P["mission.d.ts"]
-5Q["mission.js"]
-5R["node.d.ts"]
-5S["rating.d.ts"]
-5T["source.d.ts"]
-5U["workspace.d.ts"]
+subgraph 5C["dist"]
+subgraph 5D["domain"]
+subgraph 5E["src"]
+5F["adr.d.ts"]
+5G["adr.js"]
+5H["governance.d.ts"]
+5I["node.js"]
+5J["governance.js"]
+5K["index.d.ts"]
+5L["rating.js"]
+5M["source.js"]
+5N["workspace.js"]
+5O["index.js"]
+5P["mapping.d.ts"]
+5Q["mapping.js"]
+5R["mission.d.ts"]
+5S["mission.js"]
+5T["node.d.ts"]
+5U["rating.d.ts"]
+5V["source.d.ts"]
+5W["workspace.d.ts"]
 end
 end
-5V["index.d.ts"]
-5W["mcp-app.registry.js"]
-5X["mcp-bridge.js"]
-5Y["index.js"]
-subgraph 5Z["infrastructure-mcp"]
-subgraph 60["src"]
-61["index.d.ts"]
-62["mcp-app.registry.js"]
-63["mcp-bridge.js"]
-64["index.js"]
-65["mcp-app.registry.d.ts"]
-66["mcp-bridge.d.ts"]
-end
-end
+5X["index.d.ts"]
+5Y["mcp-app.registry.js"]
+5Z["mcp-bridge.js"]
+60["index.js"]
+subgraph 61["infrastructure-mcp"]
+subgraph 62["src"]
+63["index.d.ts"]
+64["mcp-app.registry.js"]
+65["mcp-bridge.js"]
+66["index.js"]
 67["mcp-app.registry.d.ts"]
-6A["mcp-bridge.d.ts"]
-subgraph 6B["ports"]
-subgraph 6C["src"]
-6D["domain.repository.port.d.ts"]
-6E["domain.repository.port.js"]
-6F["governance.port.d.ts"]
-6G["governance.port.js"]
-6H["graph.repository.port.d.ts"]
-6I["graph.repository.port.js"]
-6J["index.d.ts"]
-6K["mcp.port.js"]
-6L["index.js"]
-6M["mapping.repository.port.d.ts"]
-6N["mapping.repository.port.js"]
-6O["mcp.port.d.ts"]
-6P["outbox.repository.port.d.ts"]
-6Q["outbox.repository.port.js"]
+68["mcp-bridge.d.ts"]
+end
+end
+69["mcp-app.registry.d.ts"]
+6C["mcp-bridge.d.ts"]
+subgraph 6D["ports"]
+subgraph 6E["src"]
+6F["domain.repository.port.d.ts"]
+6G["domain.repository.port.js"]
+6H["governance.port.d.ts"]
+6I["governance.port.js"]
+6J["graph.repository.port.d.ts"]
+6K["graph.repository.port.js"]
+6L["index.d.ts"]
+6M["mcp.port.js"]
+6N["index.js"]
+6O["mapping.repository.port.d.ts"]
+6P["mapping.repository.port.js"]
+6Q["mcp.port.d.ts"]
+6R["outbox.repository.port.d.ts"]
+6S["outbox.repository.port.js"]
 end
 end
 end
-subgraph 6R["test"]
-6S["smoke.test.ts"]
+subgraph 6T["test"]
+6U["smoke.test.ts"]
 end
 end
 subgraph 44["infrastructure-postgres"]
@@ -1063,7 +1072,7 @@ subgraph 45["src"]
 4D["source.repository.ts"]
 4E["workspace.repository.ts"]
 end
-6W["drizzle.config.ts"]
+6Y["drizzle.config.ts"]
 end
 subgraph 4F["infrastructure-runtime"]
 subgraph 4G["src"]
@@ -1072,22 +1081,22 @@ subgraph 4G["src"]
 4J["in-memory-repositories.ts"]
 end
 end
-subgraph 6T["infrastructure-models"]
-subgraph 6U["src"]
-6V["index.ts"]
+subgraph 6V["infrastructure-models"]
+subgraph 6W["src"]
+6X["index.ts"]
 end
 end
-subgraph 7I["testing"]
-subgraph 7J["src"]
-7K["fixtures.ts"]
-7L["index.ts"]
+subgraph 7K["testing"]
+subgraph 7L["src"]
+7M["fixtures.ts"]
+7N["index.ts"]
 end
 end
 end
 36["crypto"]
 4U["path"]
-subgraph 68["@epos"]
-69["ports"]
+subgraph 6A["@epos"]
+6B["ports"]
 end
 4-->6
 8-->G
@@ -1315,92 +1324,97 @@ X-->13
 4S-->4R
 4T-->4U
 4T-->4V
-4X-->3G
+4W-->17
+4W-->2Z
+4X-->17
 4X-->2Z
-4X-->4R
-4Y-->35
-4Y-->3C
-4Y-->3F
-4Y-->3G
-4Y-->3J
-4Y-->3M
-4Y-->3N
-4Y-->3Q
-4Y-->17
-4Y-->2Z
-4Y-->4R
-4Z-->4U
-4Z-->4V
-55-->17
-55-->4R
-56-->17
-56-->4R
+4X-->36
+4Z-->3G
+4Z-->2Z
+4Z-->4R
+50-->35
+50-->3C
+50-->3F
+50-->3G
+50-->3J
+50-->3M
+50-->3N
+50-->3Q
+50-->17
+50-->2Z
+50-->4R
+51-->4U
+51-->4V
 57-->17
 57-->4R
-58-->1E
+58-->17
 58-->4R
-59-->4V
-5F-->5G
-5I-->5E
-5I-->5H
-5I-->5G
-5I-->5J
-5I-->5K
-5I-->5L
-5M-->5E
-5M-->5H
-5M-->5G
-5M-->5J
-5M-->5K
-5M-->5L
-5V-->5W
-5V-->5X
-5Y-->5W
-5Y-->5X
-61-->62
-61-->63
-64-->62
-64-->63
-65-->2Z
-66-->2Z
-67-->69
-6A-->69
-6D-->17
+59-->17
+59-->4R
+5A-->1E
+5A-->4R
+5B-->4V
+5H-->5I
+5K-->5G
+5K-->5J
+5K-->5I
+5K-->5L
+5K-->5M
+5K-->5N
+5O-->5G
+5O-->5J
+5O-->5I
+5O-->5L
+5O-->5M
+5O-->5N
+5X-->5Y
+5X-->5Z
+60-->5Y
+60-->5Z
+63-->64
+63-->65
+66-->64
+66-->65
+67-->2Z
+68-->2Z
+69-->6B
+6C-->6B
 6F-->17
 6H-->17
-6J-->6E
-6J-->6G
-6J-->6I
-6J-->6K
-6L-->6E
+6J-->17
 6L-->6G
 6L-->6I
 6L-->6K
-6M-->17
-6P-->17
-6S-->4R
-6W-->2C
-6W-->71
-6W-->75
-76-->17
-77-->17
+6L-->6M
+6N-->6G
+6N-->6I
+6N-->6K
+6N-->6M
+6O-->17
+6R-->17
+6U-->4R
+6Y-->2C
+6Y-->73
+6Y-->77
 78-->17
 79-->17
 7A-->17
 7B-->17
-7C-->30
-7C-->31
-7C-->32
-7C-->33
-7D-->30
-7D-->31
-7D-->32
-7D-->7E
-7D-->33
-7D-->7F
-7E-->17
-7K-->17
-7L-->7K
+7C-->17
+7D-->17
+7E-->30
+7E-->31
+7E-->32
+7E-->33
+7F-->30
+7F-->31
+7F-->32
+7F-->7G
+7F-->33
+7F-->7H
+7G-->17
+7M-->17
+7N-->7M
 ```
 
 ## Компонент: `apps`
@@ -1411,14 +1425,14 @@ X-->13
 | `demo-shell/src/components/ADRReviewWorkspace.tsx` | 693 | 21.0 KB | — |
 | `demo-shell/src/components/CommandPalette.tsx` | 341 | 9.1 KB | — |
 | `demo-shell/src/components/CustomNode.tsx` | 153 | 3.9 KB | — |
-| `demo-shell/src/components/GovernancePanel.tsx` | 280 | 8.1 KB | — |
+| `demo-shell/src/components/GovernancePanel.tsx` | 448 | 13.1 KB | — |
 | `demo-shell/src/components/GraphCanvas.tsx` | 568 | 15.9 KB | — |
 | `demo-shell/src/components/MappingPanel.tsx` | 268 | 7.8 KB | — |
 | `demo-shell/src/components/MissionPanel.tsx` | 321 | 9.3 KB | — |
 | `demo-shell/src/components/RatingPanel.tsx` | 232 | 6.2 KB | — |
 | `demo-shell/src/components/Sidebar.tsx` | 354 | 9.6 KB | — |
 | `demo-shell/src/components/SourcePanel.tsx` | 230 | 6.9 KB | — |
-| `demo-shell/src/components/WorkspaceRoom.tsx` | 545 | 17.1 KB | — |
+| `demo-shell/src/components/WorkspaceRoom.tsx` | 631 | 20.2 KB | — |
 | `demo-shell/src/context/WorkspaceContext.tsx` | 130 | 3.4 KB | — |
 | `demo-shell/src/hooks/useApi.ts` | 42 | 1.1 KB | — |
 | `demo-shell/src/main.tsx` | 16 | 0.4 KB | — |
@@ -1468,13 +1482,13 @@ X-->13
 | `api/src/dto/index.ts` | 57 | 1.1 KB | — |
 | `api/src/index.ts` | 3 | 0.0 KB | — |
 | `api/src/routes/adr.routes.ts` | 26 | 0.6 KB | — |
-| `api/src/routes/governance.routes.ts` | 34 | 0.9 KB | — |
+| `api/src/routes/governance.routes.ts` | 60 | 1.6 KB | — |
 | `api/src/routes/mapping.routes.ts` | 95 | 2.8 KB | — |
 | `api/src/routes/mcp.routes.ts` | 38 | 1.0 KB | — |
 | `api/src/routes/mission.routes.ts` | 34 | 0.9 KB | — |
 | `api/src/routes/rating.routes.ts` | 30 | 0.9 KB | — |
 | `api/src/routes/workspace.routes.ts` | 37 | 1.0 KB | — |
-| `api/src/server.ts` | 543 | 16.3 KB | — |
+| `api/src/server.ts` | 556 | 16.5 KB | — |
 | `api/test/adr.test.ts` | 48 | 1.2 KB | — |
 | `api/test/api.test.ts` | 210 | 5.6 KB | — |
 | `api/vitest.config.ts` | 42 | 1.1 KB | — |
@@ -1484,15 +1498,17 @@ X-->13
 | `application/src/use-cases/add-node.ts` | 55 | 1.4 KB | — |
 | `application/src/use-cases/add-source.ts` | 29 | 0.7 KB | — |
 | `application/src/use-cases/adr-use-cases.ts` | 20 | 0.4 KB | — |
-| `application/src/use-cases/cast-vote.ts` | 76 | 2.0 KB | — |
+| `application/src/use-cases/cast-vote.ts` | 100 | 2.8 KB | — |
 | `application/src/use-cases/create-workspace.ts` | 49 | 1.2 KB | — |
 | `application/src/use-cases/get-mapping-run.ts` | 11 | 0.3 KB | — |
 | `application/src/use-cases/get-node-ratings.ts` | 11 | 0.3 KB | — |
 | `application/src/use-cases/get-workspace-graph.ts` | 21 | 0.6 KB | — |
 | `application/src/use-cases/list-mapping-runs.ts` | 11 | 0.3 KB | — |
+| `application/src/use-cases/list-patches.ts` | 26 | 1.0 KB | — |
 | `application/src/use-cases/list-sources.ts` | 11 | 0.3 KB | — |
 | `application/src/use-cases/list-workspaces.ts` | 11 | 0.3 KB | — |
 | `application/src/use-cases/patch-node.ts` | 37 | 1.0 KB | — |
+| `application/src/use-cases/propose-patch.ts` | 55 | 1.5 KB | — |
 | `application/src/use-cases/rate-node.ts` | 29 | 0.7 KB | — |
 | `application/src/use-cases/start-mapping-run.ts` | 43 | 1.0 KB | — |
 | `application/src/use-cases/submit-claim.ts` | 49 | 1.2 KB | — |
@@ -1503,7 +1519,7 @@ X-->13
 | `domain/coverage/prettify.js` | 3 | 17.2 KB | — |
 | `domain/coverage/sorter.js` | 211 | 6.6 KB | — |
 | `domain/src/adr.ts` | 42 | 0.7 KB | — |
-| `domain/src/governance.ts` | 28 | 0.6 KB | A Claim in EPIOS is a node that undergoes a formal governance process. |
+| `domain/src/governance.ts` | 43 | 0.9 KB | A Claim in EPIOS is a node that undergoes a formal governance process. |
 | `domain/src/index.ts` | 8 | 0.2 KB | — |
 | `domain/src/mapping.ts` | 15 | 0.3 KB | — |
 | `domain/src/node.ts` | 52 | 0.9 KB | — |
@@ -1527,7 +1543,7 @@ X-->13
 | `infrastructure-postgres/src/schema.ts` | 95 | 3.0 KB | — |
 | `infrastructure-postgres/src/source.repository.ts` | 60 | 1.6 KB | — |
 | `infrastructure-postgres/src/workspace.repository.ts` | 96 | 3.0 KB | — |
-| `infrastructure-runtime/src/in-memory-governance.repository.ts` | 29 | 0.9 KB | — |
+| `infrastructure-runtime/src/in-memory-governance.repository.ts` | 50 | 1.5 KB | — |
 | `infrastructure-runtime/src/in-memory-repositories.ts` | 204 | 5.2 KB | — |
 | `infrastructure-runtime/src/index.ts` | 6 | 0.2 KB | — |
 | `observability/src/audit.ts` | 25 | 0.6 KB | — |
@@ -1536,7 +1552,7 @@ X-->13
 | `ports/src/domain.repository.port.js` | 3 | 0.1 KB | — |
 | `ports/src/domain.repository.port.ts` | 19 | 0.5 KB | — |
 | `ports/src/governance.port.js` | 3 | 0.1 KB | — |
-| `ports/src/governance.port.ts` | 9 | 0.4 KB | — |
+| `ports/src/governance.port.ts` | 14 | 0.6 KB | — |
 | `ports/src/graph.repository.port.js` | 3 | 0.1 KB | — |
 | `ports/src/graph.repository.port.ts` | 11 | 0.5 KB | — |
 | `ports/src/index.js` | 7 | 0.2 KB | — |
@@ -1628,6 +1644,12 @@ X-->13
   - `@epios/domain` → MappingRun
   - `@epios/ports` → MappingRepositoryPort
 
+### `application/src/use-cases/list-patches.ts`
+- **Экспорт**: `ListPatchesRequest`, `ListPatchesUseCase`
+- **Зависимости**:
+  - `@epios/domain` → NodePatch
+  - `@epios/ports` → GovernanceRepositoryPort
+
 ### `application/src/use-cases/list-sources.ts`
 - **Экспорт**: `ListSourcesUseCase`
 - **Зависимости**:
@@ -1645,6 +1667,12 @@ X-->13
 - **Зависимости**:
   - `@epios/domain` → EpistemicNode, NodeStrength, EvidenceRef
   - `@epios/ports` → GraphRepositoryPort
+
+### `application/src/use-cases/propose-patch.ts`
+- **Экспорт**: `ProposePatchRequest`, `ProposePatchUseCase`
+- **Зависимости**:
+  - `@epios/domain` → NodePatch, GovernanceProcess
+  - `@epios/ports` → GovernanceRepositoryPort, GraphRepositoryPort
 
 ### `application/src/use-cases/rate-node.ts`
 - **Экспорт**: `RateNodeRequest`, `RateNodeUseCase`
@@ -1668,7 +1696,7 @@ X-->13
 - **Экспорт**: `ADRStatus`, `ADRPriority`, `ADR`, `ADRFlow`
 
 ### `domain/src/governance.ts`
-- **Экспорт**: `ApprovalStatus`, `Vote`, `GovernanceProcess`, `Claim`
+- **Экспорт**: `ApprovalStatus`, `Vote`, `GovernanceProcess`, `Claim`, `NodePatch`, `PatchGovernance`
 - **Зависимости**:
   - `./node.js` → EpistemicNode
 
@@ -1738,7 +1766,7 @@ X-->13
 ### `infrastructure-runtime/src/in-memory-governance.repository.ts`
 - **Экспорт**: `InMemoryGovernanceRepository`
 - **Зависимости**:
-  - `@epios/domain` → GovernanceProcess
+  - `@epios/domain` → GovernanceProcess, NodePatch
   - `@epios/ports` → GovernanceRepositoryPort
 
 ### `infrastructure-runtime/src/in-memory-repositories.ts`
@@ -1761,7 +1789,7 @@ X-->13
 ### `ports/src/governance.port.ts`
 - **Экспорт**: `GovernanceRepositoryPort`
 - **Зависимости**:
-  - `@epios/domain` → GovernanceProcess
+  - `@epios/domain` → GovernanceProcess, NodePatch
 
 ### `ports/src/graph.repository.port.ts`
 - **Экспорт**: `GraphRepositoryPort`

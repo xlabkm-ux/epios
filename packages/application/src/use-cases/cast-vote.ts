@@ -54,20 +54,44 @@ export class CastVoteUseCase {
 
     if (approvals >= process.requiredVotes) {
       process.status = "approved";
-      // Update node strength if approved
-      const node = await this.graphRepo.findNodeById(request.nodeId);
-      if (node) {
-        node.strength = "strong";
-        node.updatedAt = new Date();
-        await this.graphRepo.saveNode(node);
+
+      // 1. Try to find if this is a Patch
+      const patch = await this.governanceRepo.findPatchById(request.nodeId);
+      if (patch) {
+        const targetNode = await this.graphRepo.findNodeById(
+          patch.targetNodeId,
+        );
+        if (targetNode) {
+          targetNode.content = patch.content;
+          targetNode.updatedAt = new Date();
+          await this.graphRepo.saveNode(targetNode);
+
+          patch.status = "applied";
+          patch.updatedAt = new Date();
+          await this.governanceRepo.savePatch(patch);
+        }
+      } else {
+        // 2. Otherwise assume it's a regular node (Claim)
+        const node = await this.graphRepo.findNodeById(request.nodeId);
+        if (node) {
+          node.strength = "strong";
+          node.updatedAt = new Date();
+          await this.graphRepo.saveNode(node);
+        }
       }
     } else if (
       rejections > 0 &&
       (process.votes.length >= process.requiredVotes ||
         rejections >= process.requiredVotes)
     ) {
-      // Simplified logic for rejection
       process.status = "rejected";
+
+      const patch = await this.governanceRepo.findPatchById(request.nodeId);
+      if (patch) {
+        patch.status = "rejected";
+        patch.updatedAt = new Date();
+        await this.governanceRepo.savePatch(patch);
+      }
     }
 
     await this.governanceRepo.saveProcess(process);

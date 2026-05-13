@@ -8,6 +8,13 @@ interface Claim {
   status: "pending" | "approved" | "rejected";
 }
 
+interface Patch {
+  id: string;
+  targetNodeId: string;
+  content: string;
+  status: "pending" | "applied" | "rejected";
+}
+
 const MOCK_CLAIMS: Claim[] = [
   {
     id: "1",
@@ -28,12 +35,28 @@ export const GovernancePanel: React.FC<{
   minimal?: boolean;
 }> = ({ workspaceId, minimal = false }) => {
   const [claims, setClaims] = useState<Claim[]>([]);
+  const [patches, setPatches] = useState<Patch[]>([]);
   const [newClaim, setNewClaim] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchClaims();
+    fetchPatches();
   }, [workspaceId]);
+
+  const fetchPatches = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/governance/patches?workspaceId=${workspaceId}`,
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setPatches(data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const fetchClaims = async () => {
     setIsLoading(true);
@@ -79,20 +102,41 @@ export const GovernancePanel: React.FC<{
     }
   };
 
-  const vote = async (nodeId: string, decision: "approve" | "reject") => {
+  const vote = async (
+    nodeId: string,
+    decision: "approve" | "reject",
+    isPatch = false,
+  ) => {
     try {
       await fetch("http://localhost:3000/governance/votes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nodeId, actorId: "user-1", decision }),
       });
-      setClaims(
-        claims.map((c) =>
-          c.id === nodeId
-            ? { ...c, status: decision === "approve" ? "approved" : "rejected" }
-            : c,
-        ),
-      );
+
+      if (isPatch) {
+        setPatches(
+          patches.map((p) =>
+            p.id === nodeId
+              ? {
+                  ...p,
+                  status: decision === "approve" ? "applied" : "rejected",
+                }
+              : p,
+          ),
+        );
+      } else {
+        setClaims(
+          claims.map((c) =>
+            c.id === nodeId
+              ? {
+                  ...c,
+                  status: decision === "approve" ? "approved" : "rejected",
+                }
+              : c,
+          ),
+        );
+      }
     } catch (e) {
       console.error(e);
     }
@@ -251,6 +295,130 @@ export const GovernancePanel: React.FC<{
                   </button>
                   <button
                     onClick={() => vote(claim.id, "reject")}
+                    style={{
+                      flex: 1,
+                      padding: "6px",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      backgroundColor: "rgba(239, 68, 68, 0.1)",
+                      color: "var(--error)",
+                      borderRadius: "var(--radius-sm)",
+                      border: "1px solid rgba(239, 68, 68, 0.2)",
+                    }}
+                  >
+                    Reject
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </AnimatePresence>
+
+        <h3
+          style={{
+            fontSize: "0.65rem",
+            fontWeight: 700,
+            color: "var(--text-dim)",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+            marginTop: "1.5rem",
+            marginBottom: "0.25rem",
+          }}
+        >
+          Node Patches
+        </h3>
+
+        <AnimatePresence>
+          {patches.length === 0 && (
+            <p
+              style={{
+                color: "var(--text-dim)",
+                fontStyle: "italic",
+                fontSize: "0.8rem",
+                textAlign: "center",
+                padding: "1rem",
+              }}
+            >
+              No active patches.
+            </p>
+          )}
+          {patches.map((patch) => (
+            <motion.div
+              layout
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              key={patch.id}
+              style={{
+                padding: "0.85rem",
+                backgroundColor: "var(--bg-dark)",
+                borderRadius: "var(--radius-lg)",
+                border: "1px solid var(--border)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.75rem",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <p
+                    style={{
+                      fontSize: "0.6rem",
+                      color: "var(--primary)",
+                      fontWeight: 700,
+                      marginBottom: "4px",
+                    }}
+                  >
+                    PATCH FOR NODE #{patch.targetNodeId.slice(0, 8)}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "0.85rem",
+                      color: "var(--text-main)",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {patch.content}
+                  </p>
+                </div>
+                <div style={{ marginLeft: "10px", flexShrink: 0 }}>
+                  {patch.status === "pending" && (
+                    <Clock size={14} color="var(--warning)" />
+                  )}
+                  {patch.status === "applied" && (
+                    <CheckCircle size={14} color="var(--success)" />
+                  )}
+                  {patch.status === "rejected" && (
+                    <XCircle size={14} color="var(--error)" />
+                  )}
+                </div>
+              </div>
+
+              {patch.status === "pending" && (
+                <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <button
+                    onClick={() => vote(patch.id, "approve", true)}
+                    style={{
+                      flex: 1,
+                      padding: "6px",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      backgroundColor: "rgba(16, 185, 129, 0.1)",
+                      color: "var(--success)",
+                      borderRadius: "var(--radius-sm)",
+                      border: "1px solid rgba(16, 185, 129, 0.2)",
+                    }}
+                  >
+                    Apply
+                  </button>
+                  <button
+                    onClick={() => vote(patch.id, "reject", true)}
                     style={{
                       flex: 1,
                       padding: "6px",

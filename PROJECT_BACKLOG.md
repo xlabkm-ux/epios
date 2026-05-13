@@ -31,9 +31,9 @@
 - [x] Async tests, outbox, SSE/polling
 
 ### S4: Patch + Approval
-- [ ] Real patch and approval lifecycle
-- [ ] Patch review + approval panels
-- [ ] Policy, idempotency, approval QA
+- [x] Real patch and approval lifecycle
+- [x] Patch review + approval panels
+- [x] Policy, idempotency, approval QA
 
 ### S5: Readiness + Artifact Version
 - [ ] Readiness v0.1, apply patch, final ADR
