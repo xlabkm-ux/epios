@@ -3,7 +3,6 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import * as dotenv from "dotenv";
 import { expand } from "dotenv-expand";
 import * as schema from "./schema.js";
-import { crypto } from "node:crypto";
 
 const envConfig = dotenv.config({ path: "../../.env" });
 expand(envConfig);
@@ -21,12 +20,8 @@ const ws1Id = "00000000-0000-0000-0000-000000000001";
 const ws2Id = "00000000-0000-0000-0000-000000000002";
 const ws3Id = "00000000-0000-0000-0000-000000000003";
 
-const n1Id = "10000000-0000-0000-0000-000000000001";
-const n2Id = "10000000-0000-0000-0000-000000000002";
-const n3Id = "10000000-0000-0000-0000-000000000003";
-
 async function seed() {
-  console.log("🌱 Seeding database with UUIDs...");
+  console.log("🌱 Seeding database with diverse scenarios...");
 
   // 1. Workspaces
   const demoWorkspaces = [
@@ -70,35 +65,32 @@ async function seed() {
       createdByType: "user",
       createdById: ws.createdBy,
       brief: { goal: ws.goal, successCriteria: [], constraints: [], unknowns: [] },
-    }).onConflictDoNothing();
+    }).onConflictDoUpdate({
+      target: schema.workspaces.id,
+      set: { title: ws.title, goal: ws.goal }
+    });
   }
 
-  // 2. Nodes
-  const demoNodes = [
-    {
-      id: n1Id,
-      workspaceId: ws1Id,
-      type: "hypothesis",
-      content: "Arctic ice melt accelerates global sea level rise by 20% by 2050",
-      strength: "moderate",
-    },
-    {
-      id: n2Id,
-      workspaceId: ws1Id,
-      type: "observation",
-      content: "NOAA 2024 Report on Arctic Melt Rates",
-      strength: "strong",
-    },
-    {
-      id: n3Id,
-      workspaceId: ws1Id,
-      type: "observation",
-      content: "Sentinel-6 Satellite Altimetry Data",
-      strength: "strong",
-    },
+  // 2. Nodes for Scenario A (Climate)
+  const nodesA = [
+    { id: "10000000-0000-0000-0000-000000000001", workspaceId: ws1Id, type: "hypothesis", content: "Arctic ice melt accelerates global sea level rise by 20% by 2050", strength: "moderate" },
+    { id: "10000000-0000-0000-0000-000000000002", workspaceId: ws1Id, type: "observation", content: "NOAA 2024 Report on Arctic Melt Rates", strength: "strong" },
   ];
 
-  for (const node of demoNodes) {
+  // 3. Nodes for Scenario B (Crisis)
+  const nodesB = [
+    { id: "20000000-0000-0000-0000-000000000001", workspaceId: ws2Id, type: "hypothesis", content: "Suez blockage causes 2-week semiconductor delay", strength: "moderate" },
+    { id: "20000000-0000-0000-0000-000000000002", workspaceId: ws2Id, type: "observation", content: "Ever Given blockage duration: 6 days", strength: "strong" },
+  ];
+
+  // 4. Nodes for Scenario C (AI)
+  const nodesC = [
+    { id: "30000000-0000-0000-0000-000000000001", workspaceId: ws3Id, type: "claim", content: "Mandatory human approval prevents runaway loops", strength: "strong" },
+  ];
+
+  const allNodes = [...nodesA, ...nodesB, ...nodesC];
+
+  for (const node of allNodes) {
     await db.insert(schema.epistemicNodes).values({
       id: node.id,
       workspaceId: node.workspaceId,
@@ -107,29 +99,13 @@ async function seed() {
       strength: node.strength as any,
       evidence: [],
       metadata: {},
-    }).onConflictDoNothing();
+    }).onConflictDoUpdate({
+      target: schema.epistemicNodes.id,
+      set: { content: node.content }
+    });
   }
 
-  // 3. Edges
-  await db.insert(schema.epistemicEdges).values({
-    id: "20000000-0000-0000-0000-000000000001",
-    workspaceId: ws1Id,
-    sourceNodeId: n2Id,
-    targetNodeId: n1Id,
-    type: "supports",
-    metadata: {},
-  }).onConflictDoNothing();
-
-  await db.insert(schema.epistemicEdges).values({
-    id: "20000000-0000-0000-0000-000000000002",
-    workspaceId: ws1Id,
-    sourceNodeId: n3Id,
-    targetNodeId: n1Id,
-    type: "supports",
-    metadata: {},
-  }).onConflictDoNothing();
-
-  console.log("✅ Seeding completed successfully!");
+  console.log("✅ Seeding completed with 3 unique scenarios!");
   process.exit(0);
 }
 
