@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
 import { Vote, ArtifactVersion } from "@epios/domain";
 import { auditLogger } from "@epios/observability";

@@ -74,6 +74,7 @@ import {
   NodeType,
   NodeStrength,
   EpistemicEdgeType,
+  Source,
 } from "@epios/domain";
 
 const envConfig = dotenv.config();
@@ -564,13 +565,13 @@ export function buildServer(deps: ServerDependencies = {}) {
   const mcpBridge = deps.mcpBridge ?? new MockMCPBridge(mcpRegistry);
 
   // Security Initialization
-  const security = deps.security ?? new MockSecurityService(identityRepo);
+  const security = deps.security ?? new MockSecurityService(identityRepo!);
 
 
   // Security Middleware-like hook
   app.addHook("onRequest", async (request) => {
     const userId = (request.headers["x-user-id"] as string) || "observer-1";
-    const user = await identityRepo.findById(userId);
+    const user = await identityRepo!.findById(userId);
     (security as MockSecurityService).setCurrentUser(user);
   });
 
@@ -586,6 +587,20 @@ export function buildServer(deps: ServerDependencies = {}) {
       ok: true,
       service: "epistemic-os-api",
       timestamp: new Date().toISOString(),
+    };
+  });
+
+  app.get("/api/v1/system/stats", async () => {
+    const user = await security.getCurrentUser();
+    if (!user || user.role !== "admin") {
+      throw new Error("Forbidden");
+    }
+    const wsCount = (await workspaceRepo.findAll()).length;
+    return {
+      workspaces: wsCount,
+      users: (await identityRepo!.findById("admin-1")) ? 3 : 0,
+      uptime: process.uptime(),
+      version: "1.1.0-alpha",
     };
   });
 

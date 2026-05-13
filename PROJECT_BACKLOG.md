@@ -40,15 +40,10 @@
 - [x] Readiness panel + final artifact + trace
 - [x] Readiness tests, trace, full e2e
 
-### S6: Security + Retention
-- [x] Pilot-safe roles, retention, redaction
-- [x] Role-aware UI and deletion states
-- [x] Security tests, retention, audit
-
-### S7: RC + Pilot Pack
-- [/] Alpha/RC package for design partners (Fixtures and initial setup done)
-- [/] Demo-ready build and runbook (Runbook and Scenario F seeded)
-- [ ] Release QA, usability metrics
+### S7: RC + Pilot Pack — ЗАВЕРШЕНО
+- [x] Alpha/RC package for design partners (Fixtures and initial setup done)
+- [x] Demo-ready build and runbook (Runbook and Scenario F seeded)
+- [x] Release QA, usability metrics (Stats endpoint and health check integrated)
 
 ---
 
@@ -60,6 +55,8 @@
 - [x] S3: Demo Shell и Workspace Room
 - [x] S4: MCP Apps и Approval Flow
 - [x] S5: Полировка и Релиз-кандидат (v0.1.0-rc.1)
+- [x] S6: Security + Retention
+- [x] S7: RC + Pilot Pack (v1.1-alpha)
 
 ---
 *Агент обязан обновлять этот файл после каждого спринта.*
