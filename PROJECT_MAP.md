@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-13 14:48:14`
+> Автоматически сгенерировано: `2026-05-13 14:51:21`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `93` | Только JS/TS/TSX исходники |
-| **Total Lines** | `7953` | Суммарно по проекту |
-| **Project Weight** | `~65 730 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `51.4%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Lines** | `7947` | Суммарно по проекту |
+| **Project Weight** | `~65 680 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `51.3%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~86%` | Экономия контекста через карту |
 
 ---
@@ -271,16 +271,16 @@ subgraph 33["src"]
 36["governance.port.js"]
 37["graph.repository.port.js"]
 38["mcp.port.js"]
-71["domain.repository.port.d.ts"]
-72["domain.repository.port.ts"]
-73["governance.port.d.ts"]
-74["governance.port.ts"]
-75["graph.repository.port.d.ts"]
-76["graph.repository.port.ts"]
-77["index.d.ts"]
-78["index.ts"]
-79["mcp.port.d.ts"]
-7A["mcp.port.ts"]
+70["domain.repository.port.d.ts"]
+71["domain.repository.port.ts"]
+72["governance.port.d.ts"]
+73["governance.port.ts"]
+74["graph.repository.port.d.ts"]
+75["graph.repository.port.ts"]
+76["index.d.ts"]
+77["index.ts"]
+78["mcp.port.d.ts"]
+79["mcp.port.ts"]
 end
 end
 subgraph 3T["infrastructure-mcp"]
@@ -374,10 +374,10 @@ subgraph 6O["src"]
 6P["index.ts"]
 end
 end
-subgraph 7B["testing"]
-subgraph 7C["src"]
-7D["fixtures.ts"]
-7E["index.ts"]
+subgraph 7A["testing"]
+subgraph 7B["src"]
+7C["fixtures.ts"]
+7D["index.ts"]
 end
 end
 end
@@ -386,7 +386,6 @@ end
 subgraph 62["@epos"]
 63["ports"]
 end
-70["url"]
 4-->6
 8-->G
 8-->V
@@ -663,24 +662,22 @@ X-->13
 6Q-->2A
 6Q-->6V
 6Q-->6Z
-6Q-->4O
-6Q-->70
+70-->17
 71-->17
 72-->17
 73-->17
 74-->17
 75-->17
-76-->17
+76-->35
+76-->36
+76-->37
+76-->38
 77-->35
 77-->36
 77-->37
 77-->38
-78-->35
-78-->36
-78-->37
-78-->38
-7D-->17
-7E-->7D
+7C-->17
+7D-->7C
 ```
 
 ## Детальная карта компонентов
@@ -941,16 +938,16 @@ subgraph 33["src"]
 36["governance.port.js"]
 37["graph.repository.port.js"]
 38["mcp.port.js"]
-71["domain.repository.port.d.ts"]
-72["domain.repository.port.ts"]
-73["governance.port.d.ts"]
-74["governance.port.ts"]
-75["graph.repository.port.d.ts"]
-76["graph.repository.port.ts"]
-77["index.d.ts"]
-78["index.ts"]
-79["mcp.port.d.ts"]
-7A["mcp.port.ts"]
+70["domain.repository.port.d.ts"]
+71["domain.repository.port.ts"]
+72["governance.port.d.ts"]
+73["governance.port.ts"]
+74["graph.repository.port.d.ts"]
+75["graph.repository.port.ts"]
+76["index.d.ts"]
+77["index.ts"]
+78["mcp.port.d.ts"]
+79["mcp.port.ts"]
 end
 end
 subgraph 3T["infrastructure-mcp"]
@@ -1044,10 +1041,10 @@ subgraph 6O["src"]
 6P["index.ts"]
 end
 end
-subgraph 7B["testing"]
-subgraph 7C["src"]
-7D["fixtures.ts"]
-7E["index.ts"]
+subgraph 7A["testing"]
+subgraph 7B["src"]
+7C["fixtures.ts"]
+7D["index.ts"]
 end
 end
 end
@@ -1056,7 +1053,6 @@ end
 subgraph 62["@epos"]
 63["ports"]
 end
-70["url"]
 4-->6
 8-->G
 8-->V
@@ -1333,24 +1329,22 @@ X-->13
 6Q-->2A
 6Q-->6V
 6Q-->6Z
-6Q-->4O
-6Q-->70
+70-->17
 71-->17
 72-->17
 73-->17
 74-->17
 75-->17
-76-->17
+76-->35
+76-->36
+76-->37
+76-->38
 77-->35
 77-->36
 77-->37
 77-->38
-78-->35
-78-->36
-78-->37
-78-->38
-7D-->17
-7E-->7D
+7C-->17
+7D-->7C
 ```
 
 ## Компонент: `apps`
@@ -1458,7 +1452,7 @@ X-->13
 | `infrastructure-mcp/src/mcp-bridge.ts` | 64 | 1.6 KB | — |
 | `infrastructure-mcp/test/smoke.test.ts` | 8 | 0.2 KB | — |
 | `infrastructure-models/src/index.ts` | 3 | 0.1 KB | — |
-| `infrastructure-postgres/drizzle.config.ts` | 23 | 0.6 KB | — |
+| `infrastructure-postgres/drizzle.config.ts` | 17 | 0.4 KB | — |
 | `infrastructure-postgres/src/graph.repository.ts` | 142 | 4.0 KB | — |
 | `infrastructure-postgres/src/index.ts` | 10 | 0.3 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
