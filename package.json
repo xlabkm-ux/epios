@@ -29,6 +29,8 @@
     "db:down": "docker compose down",
     "db:migrate": "pnpm --filter @epios/infrastructure-postgres migrate",
     "db:seed": "pnpm --filter @epios/infrastructure-postgres seed",
+    "db:init": "pnpm db:migrate && pnpm db:seed",
+    "db:reseed": "pnpm db:seed",
     "db:reset": "pnpm db:down && docker compose up -d postgres && pnpm db:migrate && pnpm db:seed",
     "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm depcruise",
     "ci:release": "pnpm verify && pnpm build && pnpm depcruise",

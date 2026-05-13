@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-13 22:16:23`
+> Автоматически сгенерировано: `2026-05-13 22:37:17`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `117` | Только JS/TS/TSX исходники |
-| **Total Lines** | `10699` | Суммарно по проекту |
-| **Project Weight** | `~87 104 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `68.0%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Lines** | `11016` | Суммарно по проекту |
+| **Project Weight** | `~89 715 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `70.1%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~86%` | Экономия контекста через карту |
 
 ---
@@ -1684,7 +1684,7 @@ Y-->E
 | `api/src/routes/mission.routes.ts` | 34 | 0.9 KB | — |
 | `api/src/routes/rating.routes.ts` | 30 | 0.9 KB | — |
 | `api/src/routes/workspace.routes.ts` | 37 | 1.0 KB | — |
-| `api/src/server.ts` | 681 | 20.5 KB | — |
+| `api/src/server.ts` | 803 | 27.1 KB | — |
 | `api/test/adr.test.ts` | 48 | 1.2 KB | — |
 | `api/test/api.test.ts` | 222 | 5.9 KB | — |
 | `api/vitest.config.ts` | 42 | 1.1 KB | — |
@@ -1745,7 +1745,7 @@ Y-->E
 | `infrastructure-postgres/src/index.ts` | 11 | 0.3 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
 | `infrastructure-postgres/src/schema.ts` | 107 | 3.3 KB | — |
-| `infrastructure-postgres/src/seed.ts` | 133 | 4.9 KB | — |
+| `infrastructure-postgres/src/seed.ts` | 328 | 11.3 KB | — |
 | `infrastructure-postgres/src/source.repository.ts` | 60 | 1.6 KB | — |
 | `infrastructure-postgres/src/workspace.repository.ts` | 96 | 3.0 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 99 | 2.9 KB | — |

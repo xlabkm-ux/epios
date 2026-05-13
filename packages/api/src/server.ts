@@ -75,6 +75,8 @@ import {
   NodeStrength,
   EpistemicEdgeType,
   Source,
+  RedactionRule,
+  RetentionPolicy,
 } from "@epios/domain";
 
 const envConfig = dotenv.config();
@@ -294,6 +296,57 @@ export function buildServer(deps: ServerDependencies = {}) {
           updatedAt: new Date(),
           createdBy: { type: "user", id: "architect-1" },
         },
+        {
+          id: "m7",
+          title: "Демо: Микросервисы (10 нод)",
+          status: "running" as WorkspaceStatus,
+          mode: "assisted" as WorkspaceMode,
+          sensitivity: "internal" as WorkspaceSensitivity,
+          version: 1,
+          brief: {
+            goal: "Оценка архитектурных рисков при переходе на микросервисы",
+            successCriteria: ["Выявить 5 рисков"],
+            constraints: [],
+            unknowns: [],
+          },
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          createdBy: { type: "user", id: "architect-1" },
+        },
+        {
+          id: "m8",
+          title: "Демо: Облачная миграция (20 нод)",
+          status: "running" as WorkspaceStatus,
+          mode: "assisted" as WorkspaceMode,
+          sensitivity: "internal" as WorkspaceSensitivity,
+          version: 1,
+          brief: {
+            goal: "Синтез стратегии переноса legacy-систем в облако",
+            successCriteria: ["Сформировать 3 стратегии"],
+            constraints: [],
+            unknowns: [],
+          },
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          createdBy: { type: "user", id: "cloud-architect" },
+        },
+        {
+          id: "m9",
+          title: "Демо: Система лояльности (50 нод)",
+          status: "running" as WorkspaceStatus,
+          mode: "assisted" as WorkspaceMode,
+          sensitivity: "internal" as WorkspaceSensitivity,
+          version: 1,
+          brief: {
+            goal: "Глубокий анализ требований и противоречий новой системы",
+            successCriteria: ["Покрыть 50 аспектов системы"],
+            constraints: [],
+            unknowns: [],
+          },
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          createdBy: { type: "user", id: "business-analyst" },
+        },
       ];
 
       const demoNodes: EpistemicNode[] = [
@@ -425,6 +478,75 @@ export function buildServer(deps: ServerDependencies = {}) {
         },
         // Scenario E
         ...workspaceENodes,
+        // Russian Demo Scenarios
+        ...Array.from({ length: 10 }, (_, i) => ({
+          id: `ws7-n${i}`,
+          workspaceId: "m7",
+          type: (i % 2 === 0 ? "claim" : "hypothesis") as NodeType,
+          content: [
+            "Микросервисы повышают масштабируемость системы",
+            "Сложность отладки в распределенных системах увеличивается",
+            "Необходимость внедрения распределенной трассировки (Jaeger/Zipkin)",
+            "Выбор протокола: gRPC обеспечивает лучшую производительность чем REST",
+            "Использование Kafka для асинхронного взаимодействия сервисов",
+            "Риск рассогласованности данных (Eventual Consistency)",
+            "Паттерн Saga для управления распределенными транзакциями",
+            "Централизованное логирование (ELK Stack) критично для эксплуатации",
+            "Kubernetes как стандарт оркестрации контейнеров",
+            "Мониторинг через Prometheus и Grafana для контроля SLA",
+          ][i],
+          strength: "moderate" as NodeStrength,
+          evidence: [],
+          metadata: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        })),
+        ...Array.from({ length: 20 }, (_, i) => ({
+          id: `ws8-n${i}`,
+          workspaceId: "m8",
+          type: (i % 4 === 0 ? "risk" : "claim") as NodeType,
+          content:
+            [
+              "Облачные провайдеры снижают капитальные затраты (CAPEX)",
+              "Безопасность данных в публичном облаке вызывает опасения",
+              "Гибридное облако — оптимальный баланс для энтерпрайза",
+              "Задержка сети (Latency) между on-prem и облаком",
+              "Автоматическое масштабирование (Auto-scaling) экономит ресурсы",
+              "Vendor lock-in: сложность миграции между провайдерами",
+              "Terraform для управления инфраструктурой как кодом (IaC)",
+              "Облачные базы данных (Managed SQL) упрощают администрирование",
+              "Стоимость исходящего трафика (Egress) может быть высокой",
+              "Serverless (Lambda/Cloud Functions) для событийных задач",
+            ][i % 10] + ` (Аргумент #${i + 1})`,
+          strength: "moderate" as NodeStrength,
+          evidence: [],
+          metadata: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        })),
+        ...Array.from({ length: 50 }, (_, i) => ({
+          id: `ws9-n${i}`,
+          workspaceId: "m9",
+          type: (i % 5 === 0 ? "observation" : "claim") as NodeType,
+          content:
+            [
+              "Бонусные баллы должны сгорать через 12 месяцев",
+              "Интеграция с кассовым ПО (POS) — критическая точка отказа",
+              "Мобильное приложение как основной канал взаимодействия",
+              "Персонализация предложений на основе ML-моделей",
+              "Риск фрода (мошенничества) с начислением баллов",
+              "Высокая нагрузка в периоды распродаж (Черная пятница)",
+              "Соответствие ФЗ-152 о персональных данных",
+              "Омниканальность: единый баланс в онлайне и офлайне",
+              "A/B тесты механик лояльности для повышения конверсии",
+              "Партнерская сеть: возможность тратить баллы у партнеров",
+            ][i % 10] + ` (Деталь #${i + 1})`,
+          strength: "strong" as NodeStrength,
+          evidence: [],
+          metadata: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        })),
       ];
 
       const demoEdges: EpistemicEdge[] = [
@@ -621,14 +743,14 @@ export function buildServer(deps: ServerDependencies = {}) {
   app.post("/api/v1/security/redact", async (request) => {
     const { nodeId, rules } = request.body as {
       nodeId: string;
-      rules: Record<string, unknown>;
+      rules: RedactionRule[];
     };
     const node = await redactNodeUseCase.execute(nodeId, rules);
     return { node };
   });
 
   app.post("/api/v1/security/retention", async (request) => {
-    const { policy } = request.body as { policy: Record<string, unknown> };
+    const { policy } = request.body as { policy: RetentionPolicy };
     const result = await applyRetentionUseCase.execute(policy);
     return result;
   });
