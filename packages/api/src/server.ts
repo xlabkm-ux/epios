@@ -28,6 +28,12 @@ import {
 import { workspaceRoutes } from "./routes/workspace.routes.js";
 import { mappingRoutes } from "./routes/mapping.routes.js";
 import { governanceRoutes } from "./routes/governance.routes.js";
+import {
+  StartMappingRunUseCase,
+  GetMappingRunUseCase,
+  ListMappingRunsUseCase,
+  MappingProcessor,
+} from "@epios/application";
 import { adrRoutes } from "./routes/adr.routes.js";
 import { mcpRoutes } from "./routes/mcp.routes.js";
 import { missionRoutes } from "./routes/mission.routes.js";
@@ -39,6 +45,8 @@ import {
   InMemoryADRRepository,
   InMemorySourceRepository,
   InMemoryRatingRepository,
+  InMemoryMappingRepository,
+  InMemoryOutboxRepository,
   MOCK_ADRS,
 } from "@epios/infrastructure-runtime";
 import {
@@ -65,6 +73,8 @@ import {
   GovernanceRepositoryPort,
   SourceRepositoryPort,
   RatingRepositoryPort,
+  MappingRepositoryPort,
+  OutboxRepositoryPort,
   MCPAppRegistryPort,
   MCPBridgePort,
 } from "@epios/ports";
@@ -75,6 +85,8 @@ export type ServerDependencies = {
   governanceRepo?: GovernanceRepositoryPort;
   sourceRepo?: SourceRepositoryPort;
   ratingRepo?: RatingRepositoryPort;
+  mappingRepo?: MappingRepositoryPort;
+  outboxRepo?: OutboxRepositoryPort;
   mcpRegistry?: MCPAppRegistryPort;
   mcpBridge?: MCPBridgePort;
 };
@@ -90,6 +102,8 @@ export function buildServer(deps: ServerDependencies = {}) {
   let graphRepo = deps.graphRepo;
   let sourceRepo = deps.sourceRepo;
   let ratingRepo = deps.ratingRepo;
+  let mappingRepo = deps.mappingRepo;
+  let outboxRepo = deps.outboxRepo;
 
   if (!workspaceRepo || !graphRepo) {
     const databaseUrl = process.env.DATABASE_URL;
@@ -453,6 +467,9 @@ export function buildServer(deps: ServerDependencies = {}) {
         ratingRepo = new InMemoryRatingRepository();
       }
     }
+
+    mappingRepo = mappingRepo ?? new InMemoryMappingRepository();
+    outboxRepo = outboxRepo ?? new InMemoryOutboxRepository();
   }
 
   const createWorkspaceUseCase = new CreateWorkspaceUseCase(workspaceRepo!);
@@ -488,6 +505,20 @@ export function buildServer(deps: ServerDependencies = {}) {
     };
   });
 
+  const startMappingRunUseCase = new StartMappingRunUseCase(
+    mappingRepo!,
+    outboxRepo!,
+  );
+  const getMappingRunUseCase = new GetMappingRunUseCase(mappingRepo!);
+  const listMappingRunsUseCase = new ListMappingRunsUseCase(mappingRepo!);
+
+  const mappingProcessor = new MappingProcessor(
+    mappingRepo!,
+    outboxRepo!,
+    graphRepo!,
+  );
+  mappingProcessor.start();
+
   app.register(workspaceRoutes, {
     createWorkspaceUseCase,
     listWorkspacesUseCase,
@@ -497,6 +528,9 @@ export function buildServer(deps: ServerDependencies = {}) {
     addEdgeUseCase,
     patchNodeUseCase,
     getWorkspaceGraphUseCase,
+    startMappingRunUseCase,
+    getMappingRunUseCase,
+    listMappingRunsUseCase,
   });
   app.register(governanceRoutes, { submitClaimUseCase, castVoteUseCase });
   app.register(adrRoutes, { listADRsUseCase, getADRUseCase });

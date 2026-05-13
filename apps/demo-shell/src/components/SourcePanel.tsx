@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link2, FileText, Globe, Plus, Trash2, Send } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { FileText, Globe, Link2, Send } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface Source {
   id: string;

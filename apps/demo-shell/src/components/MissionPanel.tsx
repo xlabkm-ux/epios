@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import {
-  Zap,
-  ShieldCheck,
-  XCircle,
-  Share2,
-  Maximize2,
-  Minimize2,
-} from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Zap, XCircle, Share2, Maximize2, Minimize2 } from "lucide-react";
+import { motion } from "framer-motion";
 import { GovernancePanel } from "./GovernancePanel";
 import { SourcePanel } from "./SourcePanel";
+import { MappingPanel } from "./MappingPanel";
 import { Workspace } from "@epios/domain";
 
 export const MissionPanel: React.FC<{
@@ -19,7 +13,7 @@ export const MissionPanel: React.FC<{
   setIsFocusMode: (v: boolean) => void;
 }> = ({ workspace, onClose, isFocusMode, setIsFocusMode }) => {
   const [activeTab, setActiveTab] = useState<
-    "strategy" | "governance" | "sources"
+    "strategy" | "governance" | "sources" | "mapping"
   >("strategy");
 
   return (
@@ -140,28 +134,30 @@ export const MissionPanel: React.FC<{
           borderBottom: "1px solid var(--border)",
         }}
       >
-        {(["strategy", "governance", "sources"] as const).map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            style={{
-              padding: "0.75rem 0",
-              fontSize: "0.85rem",
-              fontWeight: 700,
-              color: activeTab === tab ? "var(--primary)" : "var(--text-dim)",
-              borderBottom: `2px solid ${activeTab === tab ? "var(--primary)" : "transparent"}`,
-              background: "none",
-              borderTop: "none",
-              borderLeft: "none",
-              borderRight: "none",
-              cursor: "pointer",
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-            }}
-          >
-            {tab}
-          </button>
-        ))}
+        {(["strategy", "governance", "sources", "mapping"] as const).map(
+          (tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                padding: "0.75rem 0",
+                fontSize: "0.85rem",
+                fontWeight: 700,
+                color: activeTab === tab ? "var(--primary)" : "var(--text-dim)",
+                borderBottom: `2px solid ${activeTab === tab ? "var(--primary)" : "transparent"}`,
+                background: "none",
+                borderTop: "none",
+                borderLeft: "none",
+                borderRight: "none",
+                cursor: "pointer",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+              }}
+            >
+              {tab}
+            </button>
+          ),
+        )}
       </div>
 
       {/* Content Area */}
@@ -253,6 +249,8 @@ export const MissionPanel: React.FC<{
         )}
 
         {activeTab === "sources" && <SourcePanel missionId={workspace.id} />}
+
+        {activeTab === "mapping" && <MappingPanel workspaceId={workspace.id} />}
       </div>
 
       {/* Action Hub */}
@@ -267,7 +265,7 @@ export const MissionPanel: React.FC<{
       >
         <button
           className="glow-box"
-          onClick={() => alert("Deep Neural Synthesis Initiated...")}
+          onClick={() => setActiveTab("mapping")}
           style={{
             flex: 2,
             padding: "1rem",

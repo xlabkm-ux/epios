@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import GraphCanvas from "./GraphCanvas";
 import { ShieldCheck, Zap } from "lucide-react";
 import { useWorkspace } from "../context/WorkspaceContext";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { MissionPanel } from "./MissionPanel";
 import { RatingPanel } from "./RatingPanel";
 import { Workspace } from "@epios/domain";

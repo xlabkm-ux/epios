@@ -5,12 +5,16 @@ import {
   ADR,
   Source,
   Rating,
+  MappingRun,
 } from "@epios/domain";
 import {
   WorkspaceRepositoryPort,
   GraphRepositoryPort,
   SourceRepositoryPort,
   RatingRepositoryPort,
+  MappingRepositoryPort,
+  OutboxRepositoryPort,
+  OutboxMessage,
 } from "@epios/ports";
 
 export class InMemoryADRRepository {
@@ -156,5 +160,44 @@ export class InMemoryRatingRepository implements RatingRepositoryPort {
 
   async findByNodeId(nodeId: string): Promise<Rating[]> {
     return Array.from(this.ratings.values()).filter((r) => r.nodeId === nodeId);
+  }
+}
+
+export class InMemoryMappingRepository implements MappingRepositoryPort {
+  private runs: Map<string, MappingRun> = new Map();
+
+  async save(run: MappingRun): Promise<void> {
+    this.runs.set(run.id, run);
+  }
+
+  async findById(id: string): Promise<MappingRun | null> {
+    return this.runs.get(id) || null;
+  }
+
+  async findByWorkspaceId(workspaceId: string): Promise<MappingRun[]> {
+    return Array.from(this.runs.values()).filter(
+      (r) => r.workspaceId === workspaceId,
+    );
+  }
+}
+
+export class InMemoryOutboxRepository implements OutboxRepositoryPort {
+  private messages: Map<string, OutboxMessage> = new Map();
+
+  async save(message: OutboxMessage): Promise<void> {
+    this.messages.set(message.id, message);
+  }
+
+  async findPending(): Promise<OutboxMessage[]> {
+    return Array.from(this.messages.values()).filter(
+      (m) => m.status === "pending",
+    );
+  }
+
+  async markProcessed(id: string): Promise<void> {
+    const message = this.messages.get(id);
+    if (message) {
+      message.status = "processed";
+    }
   }
 }

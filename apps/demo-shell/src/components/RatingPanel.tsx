@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Star, MessageSquare, Shield } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Star, Shield } from "lucide-react";
 
 interface Rating {
   id: string;

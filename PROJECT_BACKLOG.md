@@ -26,9 +26,9 @@
 - [x] Domain tests, Testcontainers, reload logic
 
 ### S3: Async Mapping + Evidence
-- [ ] Async run, claims/evidence, outbox, events
-- [ ] Mapping progress + claims/evidence panels
-- [ ] Async tests, outbox, SSE/polling
+- [x] Async run, claims/evidence, outbox, events
+- [x] Mapping progress + claims/evidence panels
+- [x] Async tests, outbox, SSE/polling
 
 ### S4: Patch + Approval
 - [ ] Real patch and approval lifecycle

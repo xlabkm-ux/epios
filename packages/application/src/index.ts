@@ -11,3 +11,7 @@ export * from "./use-cases/add-source.js";
 export * from "./use-cases/list-sources.js";
 export * from "./use-cases/rate-node.js";
 export * from "./use-cases/get-node-ratings.js";
+export * from "./use-cases/start-mapping-run.js";
+export * from "./use-cases/get-mapping-run.js";
+export * from "./use-cases/list-mapping-runs.js";
+export * from "./mapping-processor.js";

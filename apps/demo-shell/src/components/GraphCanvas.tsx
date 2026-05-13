@@ -4,7 +4,6 @@ import ReactFlow, {
   Background,
   Controls,
   Connection,
-  Edge,
   Node,
   useNodesState,
   useEdgesState,
@@ -83,6 +82,7 @@ const GraphCanvasInner: React.FC = () => {
     error,
   } = useApi<GraphData>(
     selectedWorkspaceId ? `/workspaces/${selectedWorkspaceId}/graph` : "",
+    5000, // Poll every 5s
   );
 
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -108,6 +108,99 @@ const GraphCanvasInner: React.FC = () => {
       }
     }
   }, [selectedWorkspaceId]);
+
+  // Merge API data with current state (polling results)
+  useEffect(() => {
+    if (graphData && selectedWorkspaceId) {
+      setNodes((currentNodes) => {
+        const apiNodes = graphData.nodes || [];
+        const newNodes = [...currentNodes];
+        let hasChanges = false;
+
+        apiNodes.forEach((apiNode) => {
+          if (!currentNodes.some((n) => n.id === apiNode.id)) {
+            hasChanges = true;
+            newNodes.push({
+              id: apiNode.id,
+              type: "epistemic",
+              position: {
+                x: 150 + ((newNodes.length * 280) % 840),
+                y: 100 + Math.floor(newNodes.length / 3) * 220,
+              },
+              data: {
+                label: apiNode.content,
+                type: apiNode.type,
+                hierarchicalId: `${selectedWorkspaceId.replace("m", "")}.${newNodes.length + 1}`,
+              },
+            });
+          }
+        });
+
+        return hasChanges ? newNodes : currentNodes;
+      });
+
+      setEdges((currentEdges) => {
+        const apiEdges = graphData.edges || [];
+        const newEdges = [...currentEdges];
+        let hasChanges = false;
+
+        apiEdges.forEach((apiEdge) => {
+          if (!currentEdges.some((e) => e.id === apiEdge.id)) {
+            hasChanges = true;
+            newEdges.push({
+              id: apiEdge.id,
+              source: apiEdge.sourceNodeId,
+              target: apiEdge.targetNodeId,
+              animated: true,
+              label: apiEdge.type,
+              labelStyle: {
+                fill: "var(--text-dim)",
+                fontSize: "10px",
+                fontWeight: 500,
+                fontFamily: "var(--font-mono)",
+              },
+              style: {
+                stroke:
+                  apiEdge.type === "SUPPORTS"
+                    ? "var(--success)"
+                    : "var(--primary)",
+                strokeWidth: 2,
+                opacity: 0.6,
+              },
+              markerEnd: {
+                type: MarkerType.ArrowClosed,
+                color:
+                  apiEdge.type === "SUPPORTS"
+                    ? "var(--success)"
+                    : "var(--primary)",
+              },
+            });
+          }
+        });
+
+        return hasChanges ? newEdges : currentEdges;
+      });
+    }
+  }, [graphData, selectedWorkspaceId]);
+
+  const onConnect = useCallback(
+    (params: Connection) =>
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...params,
+            animated: true,
+            style: { stroke: "var(--primary)", strokeWidth: 2 },
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+              color: "var(--primary)",
+            },
+          },
+          eds,
+        ),
+      ),
+    [setEdges],
+  );
 
   // Save state on every change
   useEffect(() => {
@@ -136,19 +229,15 @@ const GraphCanvasInner: React.FC = () => {
     [setSelectedNodeId],
   );
 
-  // Auto-center camera when selection changes, accounting for right panel and card dimensions
+  // Auto-center camera when selection changes
   useEffect(() => {
     if (selectedNodeId) {
       const node = nodes.find((n) => n.id === selectedNodeId);
       if (node) {
         const zoom = 1.0;
-        // The right panel is 360px + 24px margin = 384px.
-        // We want to center the card in the remaining space.
-        // Screen center is at 0 offset. Visible center is shifted left by 192px (384/2).
-        // To compensate, we shift the graph center to the right.
         const panelOffset = 384 / 2 / zoom;
-        const cardCenterX = 110; // 220 / 2
-        const cardCenterY = 75; // approx
+        const cardCenterX = 110;
+        const cardCenterY = 75;
 
         setCenter(
           node.position.x + cardCenterX + panelOffset,
@@ -185,10 +274,9 @@ const GraphCanvasInner: React.FC = () => {
       if (edge.target === selectedNodeId) connectedNodeIds.add(edge.source);
     });
 
-    const REPULSION_RADIUS = 440; // Reduced from 500
-    const NEIGHBOR_RADIUS = 350; // Reduced from 380
+    const REPULSION_RADIUS = 440;
+    const NEIGHBOR_RADIUS = 350;
 
-    // Pre-calculate neighbor angles to avoid overlap
     const neighbors = nodes
       .filter((n) => connectedNodeIds.has(n.id))
       .map((n) => ({
@@ -223,14 +311,12 @@ const GraphCanvasInner: React.FC = () => {
       let displayPos = { ...node.position };
 
       if (isNeighbor) {
-        // Neighbors: Spread out evenly in a circle to avoid overlap
         const targetAngle = neighborAngles.get(node.id) || 0;
         displayPos = {
           x: sPos.x + Math.cos(targetAngle) * NEIGHBOR_RADIUS,
           y: sPos.y + Math.sin(targetAngle) * NEIGHBOR_RADIUS,
         };
       } else {
-        // Non-neighbors: PUSH AWAY if they are within REPULSION_RADIUS
         if (dist < REPULSION_RADIUS) {
           const ratio = REPULSION_RADIUS / dist;
           displayPos = {
@@ -289,78 +375,6 @@ const GraphCanvasInner: React.FC = () => {
       };
     });
   }, [edges, selectedNodeId]);
-
-  useEffect(() => {
-    if (
-      graphData &&
-      selectedWorkspaceId &&
-      (!graphStates || !graphStates[selectedWorkspaceId])
-    ) {
-      console.log(
-        "GraphCanvas: Initializing nodes from API for workspace",
-        selectedWorkspaceId,
-      );
-      const rfNodes: Node[] = (graphData.nodes || []).map((node, index) => ({
-        id: node.id,
-        type: "epistemic",
-        position: {
-          x: 150 + ((index * 280) % 840),
-          y: 100 + Math.floor(index / 3) * 220,
-        },
-        data: {
-          label: node.content,
-          type: node.type,
-          hierarchicalId: `${selectedWorkspaceId?.replace("m", "") || "0"}.${index + 1}`,
-        },
-      }));
-
-      const rfEdges: Edge[] = (graphData.edges || []).map((edge) => ({
-        id: edge.id,
-        source: edge.sourceNodeId,
-        target: edge.targetNodeId,
-        animated: true,
-        label: edge.type,
-        labelStyle: {
-          fill: "var(--text-dim)",
-          fontSize: "10px",
-          fontWeight: 500,
-          fontFamily: "var(--font-mono)",
-        },
-        style: {
-          stroke:
-            edge.type === "SUPPORTS" ? "var(--success)" : "var(--primary)",
-          strokeWidth: 2,
-          opacity: 0.6,
-        },
-        markerEnd: {
-          type: MarkerType.ArrowClosed,
-          color: edge.type === "SUPPORTS" ? "var(--success)" : "var(--primary)",
-        },
-      }));
-
-      setNodes(rfNodes);
-      setEdges(rfEdges);
-    }
-  }, [graphData, selectedWorkspaceId, setNodes, setEdges]);
-
-  const onConnect = useCallback(
-    (params: Connection) =>
-      setEdges((eds) =>
-        addEdge(
-          {
-            ...params,
-            animated: true,
-            style: { stroke: "var(--primary)", strokeWidth: 2 },
-            markerEnd: {
-              type: MarkerType.ArrowClosed,
-              color: "var(--primary)",
-            },
-          },
-          eds,
-        ),
-      ),
-    [setEdges],
-  );
 
   if (error) {
     return (

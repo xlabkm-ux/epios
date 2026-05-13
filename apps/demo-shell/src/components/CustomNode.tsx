@@ -1,12 +1,6 @@
 import React, { memo } from "react";
 import { Handle, Position, NodeProps } from "reactflow";
-import {
-  Lightbulb,
-  Database,
-  FileText,
-  AlertCircle,
-  Sparkles,
-} from "lucide-react";
+import { Lightbulb, Database, FileText, AlertCircle } from "lucide-react";
 
 const CustomNode = ({ data, selected }: NodeProps) => {
   const getTypeIcon = (type: string) => {

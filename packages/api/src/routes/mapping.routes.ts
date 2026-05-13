@@ -4,6 +4,9 @@ import {
   AddEdgeUseCase,
   PatchNodeUseCase,
   GetWorkspaceGraphUseCase,
+  StartMappingRunUseCase,
+  GetMappingRunUseCase,
+  ListMappingRunsUseCase,
 } from "@epios/application";
 import { AddNodeDto, AddEdgeDto, PatchNodeDto } from "../dto/index.js";
 
@@ -14,6 +17,9 @@ export async function mappingRoutes(
     addEdgeUseCase: AddEdgeUseCase;
     patchNodeUseCase: PatchNodeUseCase;
     getWorkspaceGraphUseCase: GetWorkspaceGraphUseCase;
+    startMappingRunUseCase: StartMappingRunUseCase;
+    getMappingRunUseCase: GetMappingRunUseCase;
+    listMappingRunsUseCase: ListMappingRunsUseCase;
   },
 ) {
   fastify.get<{ Params: { workspaceId: string } }>(
@@ -57,4 +63,32 @@ export async function mappingRoutes(
     });
     return reply.send(node);
   });
+
+  fastify.post<{ Params: { workspaceId: string } }>(
+    "/workspaces/:workspaceId/mapping/runs",
+    async (request, reply) => {
+      const run = await options.startMappingRunUseCase.execute({
+        workspaceId: request.params.workspaceId,
+      });
+      return reply.status(202).send(run);
+    },
+  );
+
+  fastify.get<{ Params: { workspaceId: string } }>(
+    "/workspaces/:workspaceId/mapping/runs",
+    async (request) => {
+      return options.listMappingRunsUseCase.execute(request.params.workspaceId);
+    },
+  );
+
+  fastify.get<{ Params: { workspaceId: string; runId: string } }>(
+    "/workspaces/:workspaceId/mapping/runs/:runId",
+    async (request, reply) => {
+      const run = await options.getMappingRunUseCase.execute(
+        request.params.runId,
+      );
+      if (!run) return reply.status(404).send({ error: "Run not found" });
+      return reply.send(run);
+    },
+  );
 }
