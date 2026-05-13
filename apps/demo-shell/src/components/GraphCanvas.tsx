@@ -129,7 +129,9 @@ const GraphCanvasInner: React.FC = () => {
 
   const onNodeDoubleClick = useCallback(
     (_event: React.MouseEvent, node: Node) => {
-      setSelectedNodeId((prev) => (prev === node.id ? null : node.id));
+      setSelectedNodeId((prev: string | null) =>
+        prev === node.id ? null : node.id,
+      );
     },
     [setSelectedNodeId],
   );
@@ -245,7 +247,9 @@ const GraphCanvasInner: React.FC = () => {
           ...node.style,
           opacity: isNeighbor ? 1 : 0.05,
           transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-          pointerEvents: isNeighbor ? "all" : "none",
+          pointerEvents: (isNeighbor
+            ? "all"
+            : "none") as React.CSSProperties["pointerEvents"],
         },
       };
     });
@@ -280,7 +284,7 @@ const GraphCanvasInner: React.FC = () => {
           fillOpacity: isHighlighted ? 0.8 : 0,
           transition: "fill-opacity 0.3s ease",
         },
-        labelBgPadding: [4, 2],
+        labelBgPadding: [4, 2] as [number, number],
         labelBgBorderRadius: 4,
       };
     });

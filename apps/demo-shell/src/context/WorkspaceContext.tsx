@@ -7,17 +7,13 @@ import React, {
 } from "react";
 import { Node, Edge } from "reactflow";
 
-interface Workspace {
-  id: string;
-  title: string;
-  status: string;
-}
+import { Workspace } from "@epios/domain";
 
 interface WorkspaceContextType {
   selectedWorkspaceId: string | null;
   setSelectedWorkspaceId: (id: string | null) => void;
   selectedNodeId: string | null;
-  setSelectedNodeId: (id: string | null) => void;
+  setSelectedNodeId: React.Dispatch<React.SetStateAction<string | null>>;
   workspaces: Workspace[];
   setWorkspaces: (workspaces: Workspace[]) => void;
   graphStates: Record<string, { nodes: Node[]; edges: Edge[] }>;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import GraphCanvas from "./GraphCanvas";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Zap } from "lucide-react";
 import { useWorkspace } from "../context/WorkspaceContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { MissionPanel } from "./MissionPanel";

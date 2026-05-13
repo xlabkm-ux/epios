@@ -15,11 +15,7 @@ import { useApi } from "../hooks/useApi";
 import { useWorkspace } from "../context/WorkspaceContext";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface Workspace {
-  id: string;
-  title: string;
-  status: string;
-}
+import { Workspace } from "@epios/domain";
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -233,7 +229,7 @@ const Sidebar: React.FC = () => {
                       height: 8,
                       borderRadius: "50%",
                       backgroundColor:
-                        workspace.status === "ACTIVE"
+                        workspace.status === "running"
                           ? "var(--success)"
                           : "var(--text-dim)",
                       border: "1px solid rgba(255,255,255,0.05)",

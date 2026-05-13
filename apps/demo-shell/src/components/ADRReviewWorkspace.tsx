@@ -522,7 +522,7 @@ const ADRReviewWorkspace: React.FC = () => {
               flex: 1,
               display: "flex",
               alignItems: "center",
-              justifyCenter: "center",
+              justifyContent: "center",
               color: "var(--text-dim)",
             }}
           >
