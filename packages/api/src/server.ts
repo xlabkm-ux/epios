@@ -482,15 +482,16 @@ export function buildServer(deps: ServerDependencies = {}) {
           id: "s1",
           missionId: "m6",
           type: "file",
-          content: "Proposed decision to adopt Event Sourcing for all mission history.",
-          metadata: { 
+          content:
+            "Proposed decision to adopt Event Sourcing for all mission history.",
+          metadata: {
             title: "Event Sourcing Draft ADR",
             url: "fixtures/adr-review/event-sourcing-draft.md",
             reliability: "unrated",
-            author: "architect" 
+            author: "architect",
           },
           createdAt: new Date(),
-        }
+        },
       ];
 
       workspaceRepo =
@@ -567,7 +568,6 @@ export function buildServer(deps: ServerDependencies = {}) {
   // Security Initialization
   const security = deps.security ?? new MockSecurityService(identityRepo!);
 
-
   // Security Middleware-like hook
   app.addHook("onRequest", async (request) => {
     const userId = (request.headers["x-user-id"] as string) || "observer-1";
@@ -595,7 +595,7 @@ export function buildServer(deps: ServerDependencies = {}) {
     if (!user || user.role !== "admin") {
       throw new Error("Forbidden");
     }
-    const wsCount = (await workspaceRepo.findAll()).length;
+    const wsCount = (await workspaceRepo!.findAll()).length;
     return {
       workspaces: wsCount,
       users: (await identityRepo!.findById("admin-1")) ? 3 : 0,
@@ -609,7 +609,7 @@ export function buildServer(deps: ServerDependencies = {}) {
     return { user };
   });
 
-  app.get("/api/v1/security/audit", async (request) => {
+  app.get("/api/v1/security/audit", async (_request) => {
     const user = await security.getCurrentUser();
     if (!user || user.role !== "admin") {
       throw new Error("Forbidden");
@@ -619,13 +619,16 @@ export function buildServer(deps: ServerDependencies = {}) {
   });
 
   app.post("/api/v1/security/redact", async (request) => {
-    const { nodeId, rules } = request.body as any;
+    const { nodeId, rules } = request.body as {
+      nodeId: string;
+      rules: Record<string, unknown>;
+    };
     const node = await redactNodeUseCase.execute(nodeId, rules);
     return { node };
   });
 
   app.post("/api/v1/security/retention", async (request) => {
-    const { policy } = request.body as any;
+    const { policy } = request.body as { policy: Record<string, unknown> };
     const result = await applyRetentionUseCase.execute(policy);
     return result;
   });

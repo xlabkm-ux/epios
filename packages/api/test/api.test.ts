@@ -30,6 +30,11 @@ describe("API E2E", () => {
   const mockGovernanceRepo = {
     saveProcess: vi.fn(),
     findProcessByNodeId: vi.fn(),
+    saveTraceEvent: vi.fn(),
+    findPatchById: vi.fn(),
+    savePatch: vi.fn(),
+    getLatestVersion: vi.fn(),
+    saveArtifactVersion: vi.fn(),
   };
 
   const mockMCPRegistry = {
@@ -41,6 +46,12 @@ describe("API E2E", () => {
     executeTool: vi.fn().mockResolvedValue({ success: true }),
   };
 
+  const mockIdentityRepo = {
+    findById: vi
+      .fn()
+      .mockResolvedValue({ id: "admin-1", username: "admin", role: "admin" }),
+  };
+
   beforeEach(async () => {
     app = buildServer({
       workspaceRepo: mockWorkspaceRepo as unknown as WorkspaceRepositoryPort,
@@ -48,6 +59,7 @@ describe("API E2E", () => {
       governanceRepo: mockGovernanceRepo as unknown as GovernanceRepositoryPort,
       mcpRegistry: mockMCPRegistry as unknown as MCPAppRegistryPort,
       mcpBridge: mockMCPBridge as unknown as MCPBridgePort,
+      identityRepo: mockIdentityRepo as unknown as IdentityRepositoryPort,
     });
     await app.ready();
   });

@@ -12,12 +12,7 @@ import {
   GraphRepositoryPort,
   GovernanceRepositoryPort,
 } from "@epios/ports";
-import {
-  Workspace,
-  EpistemicNode,
-  EpistemicEdge,
-  GovernanceProcess,
-} from "@epios/domain";
+import { Workspace, EpistemicNode, GovernanceProcess } from "@epios/domain";
 
 const mockWorkspaceRepo = {
   save: vi.fn(),
@@ -38,6 +33,12 @@ const mockGovernanceRepo = {
   saveProcess: vi.fn(),
   findProcessByNodeId: vi.fn(),
   findProcessesByWorkspaceId: vi.fn(),
+  saveTraceEvent: vi.fn(),
+  saveArtifactVersion: vi.fn(),
+  findPatchById: vi.fn(),
+  savePatch: vi.fn(),
+  getLatestVersion: vi.fn(),
+  saveReadiness: vi.fn(),
 } as unknown as GovernanceRepositoryPort;
 
 describe("Use Cases", () => {

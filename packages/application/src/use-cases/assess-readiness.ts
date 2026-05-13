@@ -1,4 +1,4 @@
-import crypto from "node:crypto";
+import { randomUUID } from "node:crypto";
 import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
 import { ReadinessAssessment, ReadinessStatus } from "@epios/domain";
 
@@ -18,17 +18,15 @@ export class AssessReadinessUseCase {
       request.workspaceId,
     );
 
-    // Simple heuristic for readiness v0.1
+    // Simple heuristic for readiness v1.1
     // Evidence Coverage
     const nodesWithEvidence = nodes.filter(
       (n) => n.evidence && n.evidence.length > 0,
     ).length;
     const coverageRatio =
       nodes.length > 0 ? nodesWithEvidence / nodes.length : 0;
-
-    let evidenceCoverage: "high" | "medium" | "low" = "low";
-    if (coverageRatio > 0.8) evidenceCoverage = "high";
-    else if (coverageRatio > 0.4) evidenceCoverage = "medium";
+    const coverage: "high" | "medium" | "low" =
+      coverageRatio > 0.8 ? "high" : coverageRatio > 0.4 ? "medium" : "low";
 
     // Traceability
     const processes = await this.governanceRepo.findProcessesByWorkspaceId(
@@ -36,7 +34,7 @@ export class AssessReadinessUseCase {
     );
     let traceability: "complete" | "partial" | "missing" = "missing";
     if (processes.length > 0) traceability = "partial";
-    if (processes.every((p) => p.status !== "pending"))
+    if (processes.length > 0 && processes.every((p) => p.status !== "pending"))
       traceability = "complete";
 
     // Risk Handling
@@ -46,30 +44,30 @@ export class AssessReadinessUseCase {
     else if (risks > 0) riskHandling = "weak";
 
     // Status
-    let status: ReadinessStatus = "needs_review";
-    if (
-      evidenceCoverage === "high" &&
+    const readiness: ReadinessStatus =
+      coverage === "high" &&
       traceability === "complete" &&
       riskHandling === "explicit"
-    ) {
-      status = "ready";
-    } else if (riskHandling === "missing") {
-      status = "blocked"; // Hard block if no risks addressed
-    }
+        ? "ready"
+        : riskHandling === "missing"
+          ? "blocked"
+          : "needs_review";
+
+    const score = Math.round(coverageRatio * 100);
 
     const assessment: ReadinessAssessment = {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       workspaceId: request.workspaceId,
       profileId: request.profileId,
-      methodVersion: "v0.1",
-      status,
+      methodVersion: "1.1",
+      status: readiness,
       indicators: {
-        evidenceCoverage,
-        traceability,
-        riskHandling,
+        evidenceCoverage: coverage,
+        traceability: traceability,
+        riskHandling: riskHandling,
       },
-      numericScore: Math.round(coverageRatio * 100),
-      explanation: `Readiness assessed based on ${nodes.length} nodes. Evidence coverage is ${Math.round(coverageRatio * 100)}%. ${status === "blocked" ? "Critical: No risks identified/handled." : ""}`,
+      numericScore: score,
+      explanation: `Readiness: ${readiness}. Score: ${score}%. Evidence Coverage: ${coverage}. Traceability: ${traceability}.`,
       createdAt: new Date(),
     };
 
@@ -77,12 +75,12 @@ export class AssessReadinessUseCase {
 
     // Log trace event
     await this.governanceRepo.saveTraceEvent({
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       workspaceId: request.workspaceId,
       type: "readiness_assessed",
       actorId: "system",
-      targetId: assessment.id,
-      metadata: { status, score: assessment.numericScore },
+      targetId: request.workspaceId,
+      metadata: { status: readiness, score },
       timestamp: new Date(),
     });
 

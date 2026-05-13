@@ -1,4 +1,4 @@
-import crypto from "node:crypto";
+import { randomUUID } from "node:crypto";
 import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
 import { ArtifactVersion } from "@epios/domain";
 
@@ -21,10 +21,10 @@ export class ApplyPatchUseCase {
       throw new Error("PATCH_ALREADY_APPLIED");
     }
 
-    const process = await this.governanceRepo.findProcessByNodeId(
+    const governanceProcess = await this.governanceRepo.findProcessByNodeId(
       request.patchId,
     );
-    if (process && process.status !== "approved") {
+    if (governanceProcess && governanceProcess.status !== "approved") {
       throw new Error("PATCH_NOT_APPROVED");
     }
 
@@ -47,7 +47,7 @@ export class ApplyPatchUseCase {
     const newVersionNumber = latestVersion ? latestVersion.version + 1 : 1;
 
     const version: ArtifactVersion = {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       artifactId: patch.targetNodeId,
       workspaceId: patch.workspaceId,
       version: newVersionNumber,
@@ -60,7 +60,7 @@ export class ApplyPatchUseCase {
 
     // Log trace event
     await this.governanceRepo.saveTraceEvent({
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       workspaceId: patch.workspaceId,
       type: "artifact_version_created",
       actorId: request.actorId,

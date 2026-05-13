@@ -1,4 +1,4 @@
-import crypto from "node:crypto";
+import { randomUUID } from "node:crypto";
 import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
 import { Vote, ArtifactVersion } from "@epios/domain";
 import { auditLogger } from "@epios/observability";
@@ -17,14 +17,14 @@ export class CastVoteUseCase {
   ) {}
 
   async execute(request: CastVoteRequest): Promise<void> {
-    const process = await this.governanceRepo.findProcessByNodeId(
+    const governanceProcess = await this.governanceRepo.findProcessByNodeId(
       request.nodeId,
     );
-    if (!process) {
+    if (!governanceProcess) {
       throw new Error("GOVERNANCE_PROCESS_NOT_FOUND");
     }
 
-    if (process.status !== "pending") {
+    if (governanceProcess.status !== "pending") {
       throw new Error("PROCESS_ALREADY_FINALIZED");
     }
 
@@ -35,8 +35,8 @@ export class CastVoteUseCase {
       timestamp: new Date(),
     };
 
-    process.votes.push(vote);
-    process.updatedAt = new Date();
+    governanceProcess.votes.push(vote);
+    governanceProcess.updatedAt = new Date();
 
     auditLogger.log({
       actorId: request.actorId,
@@ -47,8 +47,8 @@ export class CastVoteUseCase {
 
     // Log trace event for the vote
     await this.governanceRepo.saveTraceEvent({
-      id: crypto.randomUUID(),
-      workspaceId: process.workspaceId,
+      id: randomUUID(),
+      workspaceId: governanceProcess.workspaceId,
       type: "vote_cast",
       actorId: request.actorId,
       targetId: request.nodeId,
@@ -56,16 +56,16 @@ export class CastVoteUseCase {
       timestamp: new Date(),
     });
 
-    // Check if process should be finalized
-    const approvals = process.votes.filter(
+    // Check if governanceProcess should be finalized
+    const approvals = governanceProcess.votes.filter(
       (v) => v.decision === "approve",
     ).length;
-    const rejections = process.votes.filter(
+    const rejections = governanceProcess.votes.filter(
       (v) => v.decision === "reject",
     ).length;
 
-    if (approvals >= process.requiredVotes) {
-      process.status = "approved";
+    if (approvals >= governanceProcess.requiredVotes) {
+      governanceProcess.status = "approved";
 
       // 1. Try to find if this is a Patch
       const patch = await this.governanceRepo.findPatchById(request.nodeId);
@@ -91,7 +91,7 @@ export class CastVoteUseCase {
             : 1;
 
           const version: ArtifactVersion = {
-            id: crypto.randomUUID(),
+            id: randomUUID(),
             artifactId: patch.targetNodeId,
             workspaceId: patch.workspaceId,
             version: newVersionNumber,
@@ -104,7 +104,7 @@ export class CastVoteUseCase {
 
           // Log trace event for artifact version
           await this.governanceRepo.saveTraceEvent({
-            id: crypto.randomUUID(),
+            id: randomUUID(),
             workspaceId: patch.workspaceId,
             type: "artifact_version_created",
             actorId: request.actorId,
@@ -123,10 +123,10 @@ export class CastVoteUseCase {
         }
       }
 
-      // Log process approved event
+      // Log governanceProcess approved event
       await this.governanceRepo.saveTraceEvent({
-        id: crypto.randomUUID(),
-        workspaceId: process.workspaceId,
+        id: randomUUID(),
+        workspaceId: governanceProcess.workspaceId,
         type: "governance_approved",
         actorId: "system",
         targetId: request.nodeId,
@@ -135,10 +135,10 @@ export class CastVoteUseCase {
       });
     } else if (
       rejections > 0 &&
-      (process.votes.length >= process.requiredVotes ||
-        rejections >= process.requiredVotes)
+      (governanceProcess.votes.length >= governanceProcess.requiredVotes ||
+        rejections >= governanceProcess.requiredVotes)
     ) {
-      process.status = "rejected";
+      governanceProcess.status = "rejected";
 
       const patch = await this.governanceRepo.findPatchById(request.nodeId);
       if (patch) {
@@ -147,10 +147,10 @@ export class CastVoteUseCase {
         await this.governanceRepo.savePatch(patch);
       }
 
-      // Log process rejected event
+      // Log governanceProcess rejected event
       await this.governanceRepo.saveTraceEvent({
-        id: crypto.randomUUID(),
-        workspaceId: process.workspaceId,
+        id: randomUUID(),
+        workspaceId: governanceProcess.workspaceId,
         type: "governance_rejected",
         actorId: "system",
         targetId: request.nodeId,
@@ -159,6 +159,6 @@ export class CastVoteUseCase {
       });
     }
 
-    await this.governanceRepo.saveProcess(process);
+    await this.governanceRepo.saveProcess(governanceProcess);
   }
 }
