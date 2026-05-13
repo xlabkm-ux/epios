@@ -29,6 +29,8 @@ interface WorkspaceContextType {
     y: number,
     zoom: number,
   ) => void;
+  activeView: "ROOM" | "ADR";
+  setActiveView: (view: "ROOM" | "ADR") => void;
 }
 
 const WorkspaceContext = createContext<WorkspaceContextType | undefined>(
@@ -43,6 +45,7 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
       return localStorage.getItem("selectedWorkspaceId");
     },
   );
+  const [activeView, setActiveView] = useState<"ROOM" | "ADR">("ROOM");
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
   const [graphStates, setGraphStates] = useState<
@@ -112,6 +115,8 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
         setGraphState,
         viewports,
         setViewport,
+        activeView,
+        setActiveView,
       }}
     >
       {children}

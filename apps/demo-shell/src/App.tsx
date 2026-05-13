@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import WorkspaceRoom from "./components/WorkspaceRoom";
 import CommandPalette from "./components/CommandPalette";
+import ADRReviewWorkspace from "./components/ADRReviewWorkspace";
+import { useWorkspace } from "./context/WorkspaceContext";
 
 function App() {
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const { activeView } = useWorkspace();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -41,7 +44,7 @@ function App() {
           position: "relative",
         }}
       >
-        <WorkspaceRoom />
+        {activeView === "ROOM" ? <WorkspaceRoom /> : <ADRReviewWorkspace />}
       </main>
 
       <CommandPalette

@@ -13,8 +13,13 @@ import { GovernancePanel } from "./GovernancePanel";
 import { motion, AnimatePresence } from "framer-motion";
 
 const WorkspaceRoom: React.FC = () => {
-  const { workspaces, selectedWorkspaceId, selectedNodeId, graphStates } =
-    useWorkspace();
+  const {
+    workspaces,
+    selectedWorkspaceId,
+    selectedNodeId,
+    setSelectedNodeId,
+    graphStates,
+  } = useWorkspace();
   const [isFocusMode, setIsFocusMode] = useState(false);
   const [showWorkspaceCard, setShowWorkspaceCard] = useState(false);
   const selectedWorkspace = workspaces.find(
@@ -362,6 +367,8 @@ const WorkspaceRoom: React.FC = () => {
         {/* Left Side: Mission Title Trigger */}
         <div
           onMouseEnter={() => setShowWorkspaceCard(true)}
+          onClick={() => setShowWorkspaceCard(!showWorkspaceCard)}
+          data-testid="workspace-command-trigger"
           style={{
             display: "flex",
             alignItems: "center",
@@ -373,7 +380,9 @@ const WorkspaceRoom: React.FC = () => {
           }}
         >
           <Zap size={12} fill="currentColor" />
-          <span>{selectedWorkspace.title}</span>
+          <span data-testid="workspace-title-footer">
+            {selectedWorkspace.title}
+          </span>
 
           {/* Expanded Workspace Details Card (Primary Command Center) */}
           <AnimatePresence>
@@ -383,6 +392,7 @@ const WorkspaceRoom: React.FC = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.98 }}
                 className="premium-card"
+                data-testid="workspace-card"
                 style={{
                   position: "absolute",
                   bottom: "45px",

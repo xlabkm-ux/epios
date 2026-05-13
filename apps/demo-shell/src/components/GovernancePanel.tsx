@@ -110,6 +110,7 @@ export const GovernancePanel: React.FC<{
       >
         <Shield size={20} color="var(--primary)" />
         <h2
+          data-testid="governance-title"
           style={{
             fontSize: "1rem",
             fontWeight: 600,

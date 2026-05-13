@@ -17,7 +17,7 @@
     "test:contracts": "pnpm --filter @epios/api test",
     "test:postgres": "pnpm --filter @epios/infrastructure-postgres test",
     "test:async": "echo 'Async tests not yet implemented' && exit 0",
-    "test:e2e": "pnpm --filter demo-shell test",
+    "test:e2e": "npx playwright test",
     "test:security": "echo 'Security tests not yet implemented' && exit 0",
     "test:trace": "pnpm --filter @epios/observability test",
     "qa:adr-review": "pnpm ci && pnpm test:e2e && pnpm test:trace",

@@ -11,9 +11,9 @@
 ## 🚀 План разработки v1.1
 
 ### S0: Governance + Shell Skeleton
-- [ ] Managed repo and visible product frame
-- [ ] ADR Review Workspace skeleton
-- [ ] CI, boundaries, shell smoke tests
+- [x] Managed repo and visible product frame
+- [x] ADR Review Workspace skeleton
+- [x] CI, boundaries, shell smoke tests
 
 ### S1: Contracts + Clickable Flow
 - [ ] Frozen MVP contracts and mock ADR flow

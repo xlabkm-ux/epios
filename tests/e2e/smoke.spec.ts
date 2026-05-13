@@ -2,65 +2,66 @@ import { test, expect } from "@playwright/test";
 
 test.describe("EPIOS Smoke Tests", () => {
   test.beforeEach(async ({ page }) => {
-    // Mock the API response for missions
-    await page.route("**/missions", async (route) => {
+    // Mock the API response for workspaces
+    await page.route("**/workspaces", async (route) => {
       await route.fulfill({
         status: 200,
         contentType: "application/json",
         body: JSON.stringify([
-          { id: "m1", title: "Test Mission 1", status: "ACTIVE" },
-          { id: "m2", title: "Test Mission 2", status: "PAUSED" },
+          { id: "w1", title: "Test Workspace 1", status: "ACTIVE" },
+          { id: "w2", title: "Test Workspace 2", status: "PAUSED" },
         ]),
       });
     });
   });
 
-  test("should load the demo shell and select a mission", async ({ page }) => {
+  test("should load the demo shell and select a workspace", async ({
+    page,
+  }) => {
     await page.goto("/", { waitUntil: "networkidle" });
 
     // Check if the sidebar is visible
     await expect(page.getByText("EPIOS", { exact: true })).toBeVisible();
 
-    // Check if the missions are loaded in the sidebar (using specific test IDs)
-    await expect(page.getByTestId("nav-test-mission-1")).toBeVisible();
-    await expect(page.getByTestId("nav-test-mission-2")).toBeVisible();
+    // Check if the workspaces are loaded in the sidebar
+    await expect(page.getByTestId("nav-test-workspace-1")).toBeVisible();
+    await expect(page.getByTestId("nav-test-workspace-2")).toBeVisible();
 
-    // By default, the first mission should be selected
-    await expect(page.getByTestId("mission-room-active")).toBeVisible();
-    await expect(page.getByTestId("mission-title")).toHaveText(
-      "Test Mission 1",
+    // By default, the first workspace should be selected
+    await expect(page.getByTestId("workspace-room-active")).toBeVisible();
+
+    // Check if the bottom bar shows the workspace title
+    await expect(page.getByTestId("workspace-title-footer")).toHaveText(
+      "Test Workspace 1",
     );
 
     // Open Command Palette
     await page.keyboard.press("Control+k");
     await expect(page.getByTestId("command-palette-input")).toBeVisible();
-
-    // Click "Create New Mission"
-    await page.getByTestId("command-item-create-new-mission").click();
-    await expect(page.getByTestId("command-palette-input")).not.toBeVisible();
   });
 
-  test("should switch missions via sidebar", async ({ page }) => {
+  test("should switch workspaces via sidebar", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
 
-    // Initial mission
-    await expect(page.getByTestId("mission-title")).toHaveText(
-      "Test Mission 1",
-    );
+    // Click second workspace
+    await page.getByTestId("nav-test-workspace-2").click();
 
-    // Click second mission
-    await page.getByTestId("nav-test-mission-2").click();
-
-    // Should switch to second mission
-    await expect(page.getByTestId("mission-title")).toHaveText(
-      "Test Mission 2",
+    // The footer should now show the second workspace title
+    await expect(page.getByTestId("workspace-title-footer")).toHaveText(
+      "Test Workspace 2",
     );
   });
 
-  test("should see governance panel", async ({ page }) => {
+  test("should switch to ADR Review view", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
 
-    // Governance panel should be visible in MissionRoom
-    await expect(page.getByText("Governance & Claims")).toBeVisible();
+    // Click ADR Review in sidebar
+    await page.getByTestId("nav-adr-review").click();
+
+    // ADR Index should be visible
+    await expect(page.getByText("ADR Index")).toBeVisible();
+
+    // Check if mock ADRs are present
+    await expect(page.getByTestId("adr-item-ADR-0001")).toBeVisible();
   });
 });

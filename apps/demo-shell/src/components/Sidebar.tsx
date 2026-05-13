@@ -9,6 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Zap,
+  FileText,
 } from "lucide-react";
 import { useApi } from "../hooks/useApi";
 import { useWorkspace } from "../context/WorkspaceContext";
@@ -29,6 +30,8 @@ const Sidebar: React.FC = () => {
     setWorkspaces,
     selectedWorkspaceId,
     setSelectedWorkspaceId,
+    activeView,
+    setActiveView,
   } = useWorkspace();
 
   useEffect(() => {
@@ -144,9 +147,16 @@ const Sidebar: React.FC = () => {
         <SidebarItem
           icon={<Layout size={18} />}
           label="Workspace Room"
-          active
+          active={activeView === "ROOM"}
           isCollapsed={isCollapsed}
-          onClick={() => alert("Already in Workspace Room")}
+          onClick={() => setActiveView("ROOM")}
+        />
+        <SidebarItem
+          icon={<FileText size={18} />}
+          label="ADR Review"
+          active={activeView === "ADR"}
+          isCollapsed={isCollapsed}
+          onClick={() => setActiveView("ADR")}
         />
         <SidebarItem
           icon={<Database size={18} />}
