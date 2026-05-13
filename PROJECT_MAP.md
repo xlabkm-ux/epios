@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-13 20:42:28`
+> Автоматически сгенерировано: `2026-05-13 20:56:52`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
-| **Total Files** | `108` | Только JS/TS/TSX исходники |
-| **Total Lines** | `9851` | Суммарно по проекту |
-| **Project Weight** | `~80 207 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `62.7%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Files** | `109` | Только JS/TS/TSX исходники |
+| **Total Lines** | `9989` | Суммарно по проекту |
+| **Project Weight** | `~81 031 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `63.3%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~86%` | Экономия контекста через карту |
 
 ---
@@ -277,18 +277,18 @@ subgraph 2Z["src"]
 32["governance.port.js"]
 33["graph.repository.port.js"]
 34["mcp.port.js"]
-7D["domain.repository.port.d.ts"]
-7E["domain.repository.port.ts"]
-7F["governance.port.d.ts"]
-7G["governance.port.ts"]
-7H["graph.repository.port.d.ts"]
-7I["graph.repository.port.ts"]
-7J["index.d.ts"]
-7K["index.ts"]
-7L["mapping.repository.port.ts"]
-7M["outbox.repository.port.ts"]
-7N["mcp.port.d.ts"]
-7O["mcp.port.ts"]
+7E["domain.repository.port.d.ts"]
+7F["domain.repository.port.ts"]
+7G["governance.port.d.ts"]
+7H["governance.port.ts"]
+7I["graph.repository.port.d.ts"]
+7J["graph.repository.port.ts"]
+7K["index.d.ts"]
+7L["index.ts"]
+7M["mapping.repository.port.ts"]
+7N["outbox.repository.port.ts"]
+7O["mcp.port.d.ts"]
+7P["mcp.port.ts"]
 end
 end
 subgraph 38["observability"]
@@ -374,6 +374,7 @@ subgraph 4C["src"]
 4J["rating.repository.ts"]
 4K["source.repository.ts"]
 4L["workspace.repository.ts"]
+7D["seed.ts"]
 end
 73["drizzle.config.ts"]
 end
@@ -389,10 +390,10 @@ subgraph 71["src"]
 72["index.ts"]
 end
 end
-subgraph 7P["testing"]
-subgraph 7Q["src"]
-7R["fixtures.ts"]
-7S["index.ts"]
+subgraph 7Q["testing"]
+subgraph 7R["src"]
+7S["fixtures.ts"]
+7T["index.ts"]
 end
 end
 end
@@ -718,25 +719,30 @@ Z-->15
 73-->2D
 73-->78
 73-->7C
-7D-->19
+7D-->4G
+7D-->2D
+7D-->78
+7D-->2I
+7D-->2R
 7E-->19
 7F-->19
 7G-->19
 7H-->19
 7I-->19
-7J-->31
-7J-->32
-7J-->33
-7J-->34
+7J-->19
 7K-->31
 7K-->32
 7K-->33
-7K-->7L
 7K-->34
-7K-->7M
-7L-->19
-7R-->19
-7S-->7R
+7L-->31
+7L-->32
+7L-->33
+7L-->7M
+7L-->34
+7L-->7N
+7M-->19
+7S-->19
+7T-->7S
 ```
 
 ## Детальная карта компонентов
@@ -1003,18 +1009,18 @@ subgraph 2Z["src"]
 32["governance.port.js"]
 33["graph.repository.port.js"]
 34["mcp.port.js"]
-7D["domain.repository.port.d.ts"]
-7E["domain.repository.port.ts"]
-7F["governance.port.d.ts"]
-7G["governance.port.ts"]
-7H["graph.repository.port.d.ts"]
-7I["graph.repository.port.ts"]
-7J["index.d.ts"]
-7K["index.ts"]
-7L["mapping.repository.port.ts"]
-7M["outbox.repository.port.ts"]
-7N["mcp.port.d.ts"]
-7O["mcp.port.ts"]
+7E["domain.repository.port.d.ts"]
+7F["domain.repository.port.ts"]
+7G["governance.port.d.ts"]
+7H["governance.port.ts"]
+7I["graph.repository.port.d.ts"]
+7J["graph.repository.port.ts"]
+7K["index.d.ts"]
+7L["index.ts"]
+7M["mapping.repository.port.ts"]
+7N["outbox.repository.port.ts"]
+7O["mcp.port.d.ts"]
+7P["mcp.port.ts"]
 end
 end
 subgraph 38["observability"]
@@ -1100,6 +1106,7 @@ subgraph 4C["src"]
 4J["rating.repository.ts"]
 4K["source.repository.ts"]
 4L["workspace.repository.ts"]
+7D["seed.ts"]
 end
 73["drizzle.config.ts"]
 end
@@ -1115,10 +1122,10 @@ subgraph 71["src"]
 72["index.ts"]
 end
 end
-subgraph 7P["testing"]
-subgraph 7Q["src"]
-7R["fixtures.ts"]
-7S["index.ts"]
+subgraph 7Q["testing"]
+subgraph 7R["src"]
+7S["fixtures.ts"]
+7T["index.ts"]
 end
 end
 end
@@ -1444,25 +1451,30 @@ Z-->15
 73-->2D
 73-->78
 73-->7C
-7D-->19
+7D-->4G
+7D-->2D
+7D-->78
+7D-->2I
+7D-->2R
 7E-->19
 7F-->19
 7G-->19
 7H-->19
 7I-->19
-7J-->31
-7J-->32
-7J-->33
-7J-->34
+7J-->19
 7K-->31
 7K-->32
 7K-->33
-7K-->7L
 7K-->34
-7K-->7M
-7L-->19
-7R-->19
-7S-->7R
+7L-->31
+7L-->32
+7L-->33
+7L-->7M
+7L-->34
+7L-->7N
+7M-->19
+7S-->19
+7T-->7S
 ```
 
 ## Компонент: `apps`
@@ -1598,6 +1610,7 @@ Z-->15
 | `infrastructure-postgres/src/index.ts` | 10 | 0.3 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
 | `infrastructure-postgres/src/schema.ts` | 95 | 3.0 KB | — |
+| `infrastructure-postgres/src/seed.ts` | 138 | 3.2 KB | — |
 | `infrastructure-postgres/src/source.repository.ts` | 60 | 1.6 KB | — |
 | `infrastructure-postgres/src/workspace.repository.ts` | 96 | 3.0 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 99 | 2.9 KB | — |
@@ -1894,7 +1907,7 @@ Z-->15
 
 | Переменная | Используется в |
 |---|---|
-| `DATABASE_URL` | packages/server.ts, packages/drizzle.config.ts |
+| `DATABASE_URL` | packages/server.ts, packages/drizzle.config.ts, packages/seed.ts |
 | `EPIOS_DATABASE_MODE` | packages/server.ts |
 | `PORT` | packages/bin.ts |
 
