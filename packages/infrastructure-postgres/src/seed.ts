@@ -84,6 +84,27 @@ async function seed() {
     }).onConflictDoNothing();
   }
 
+  // 4. Identities (Admin, Reviewer, Observer)
+  console.log("Seeding identities...");
+  const users = [
+    { id: "admin-1", username: "admin", email: "admin@epios.local", role: "admin" },
+    { id: "reviewer-1", username: "reviewer", email: "reviewer@epios.local", role: "reviewer" },
+    { id: "observer-1", username: "observer", email: "observer@epios.local", role: "observer" },
+  ];
+
+  for (const user of users) {
+    await db.insert(schema.identities).values({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      isActive: 1,
+    }).onConflictDoUpdate({
+      target: schema.identities.id,
+      set: { role: user.role }
+    });
+  }
+
   console.log("✅ MASTER SYNC COMPLETED!");
   process.exit(0);
 }

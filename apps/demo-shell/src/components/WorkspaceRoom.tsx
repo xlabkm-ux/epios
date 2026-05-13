@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import GraphCanvas from "./GraphCanvas";
 import { ShieldCheck, Zap } from "lucide-react";
 import { useWorkspace } from "../context/WorkspaceContext";
+import { useSecurity } from "../context/SecurityContext";
 import { AnimatePresence } from "framer-motion";
 import { MissionPanel } from "./MissionPanel";
 import { RatingPanel } from "./RatingPanel";
+import { ShieldAlert } from "lucide-react";
 import { Workspace } from "@epios/domain";
 
 const WorkspaceRoom: React.FC = () => {
@@ -20,6 +22,10 @@ const WorkspaceRoom: React.FC = () => {
   const [showWorkspaceCard, setShowWorkspaceCard] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState("");
+  const { currentUser } = useSecurity();
+
+  const isAdmin = currentUser?.role === "admin";
+  const canEdit = currentUser?.role === "admin" || currentUser?.role === "reviewer";
 
   const selectedWorkspace = workspaces.find(
     (m) => m.id === selectedWorkspaceId,
@@ -37,17 +43,50 @@ const WorkspaceRoom: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE_URL}/governance/patches`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": currentUser?.id || "observer-1",
+        },
         body: JSON.stringify({
           targetNodeId: selectedNode.id,
           workspaceId: selectedWorkspaceId,
-          authorId: "user-1",
+          authorId: currentUser?.id,
           content: editContent,
         }),
       });
       if (res.ok) {
         setIsEditing(false);
         alert("Patch proposed successfully!");
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const redactNode = async () => {
+    if (!selectedNode) return;
+    const rules = [
+      {
+        id: "pii-redaction",
+        pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+        replacement: "[EMAIL_REDACTED]",
+        description: "Redact email addresses",
+      },
+    ];
+    try {
+      const res = await fetch(`${API_BASE_URL}/security/redact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": currentUser?.id || "observer-1",
+        },
+        body: JSON.stringify({
+          nodeId: selectedNode.id,
+          rules,
+        }),
+      });
+      if (res.ok) {
+        alert("Content redacted successfully!");
       }
     } catch (e) {
       console.error(e);
@@ -365,6 +404,7 @@ const WorkspaceRoom: React.FC = () => {
                   <>
                     <button
                       className="glass"
+                      disabled={!canEdit}
                       onClick={() => {
                         setEditContent(selectedNode.data.label);
                         setIsEditing(true);
@@ -375,30 +415,55 @@ const WorkspaceRoom: React.FC = () => {
                         borderRadius: "10px",
                         fontSize: "0.9rem",
                         fontWeight: 600,
-                        color: "var(--text-main)",
+                        color: canEdit ? "var(--text-main)" : "var(--text-dim)",
+                        opacity: canEdit ? 1 : 0.5,
+                        cursor: canEdit ? "pointer" : "not-allowed",
                       }}
                     >
                       Edit
                     </button>
-                    <button
-                      onClick={() =>
-                        alert(
-                          `Purging node ${selectedNode.id} from neural graph...`,
-                        )
-                      }
-                      style={{
-                        flex: 1,
-                        padding: "0.85rem",
-                        borderRadius: "10px",
-                        border: "1px solid var(--error)",
-                        fontSize: "0.9rem",
-                        fontWeight: 600,
-                        color: "var(--error)",
-                        backgroundColor: "rgba(239, 68, 68, 0.05)",
-                      }}
-                    >
-                      Purge
-                    </button>
+                    {isAdmin && (
+                      <button
+                        onClick={redactNode}
+                        style={{
+                          padding: "0.85rem",
+                          borderRadius: "10px",
+                          border: "1px solid var(--warning)",
+                          backgroundColor: "rgba(255, 152, 0, 0.05)",
+                          color: "var(--warning)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                        title="Redact Sensitive Data"
+                      >
+                        <ShieldAlert size={18} />
+                      </button>
+                    )}
+                      <button
+                        disabled={!isAdmin}
+                        onClick={() =>
+                          alert(
+                            `Purging node ${selectedNode.id} from neural graph...`,
+                          )
+                        }
+                        style={{
+                          flex: 1,
+                          padding: "0.85rem",
+                          borderRadius: "10px",
+                          border: `1px solid ${isAdmin ? "var(--error)" : "var(--border)"}`,
+                          fontSize: "0.9rem",
+                          fontWeight: 600,
+                          color: isAdmin ? "var(--error)" : "var(--text-dim)",
+                          backgroundColor: isAdmin
+                            ? "rgba(239, 68, 68, 0.05)"
+                            : "transparent",
+                          opacity: isAdmin ? 1 : 0.5,
+                          cursor: isAdmin ? "pointer" : "not-allowed",
+                        }}
+                      >
+                        Purge
+                      </button>
                   </>
                 )}
               </div>

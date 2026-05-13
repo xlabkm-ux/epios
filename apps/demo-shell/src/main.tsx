@@ -5,11 +5,14 @@ import "./index.css";
 import "reactflow/dist/style.css";
 
 import { WorkspaceProvider } from "./context/WorkspaceContext";
+import { SecurityProvider } from "./context/SecurityContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <WorkspaceProvider>
-      <App />
-    </WorkspaceProvider>
+    <SecurityProvider>
+      <WorkspaceProvider>
+        <App />
+      </WorkspaceProvider>
+    </SecurityProvider>
   </React.StrictMode>,
 );

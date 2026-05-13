@@ -8,6 +8,7 @@ import {
   PostgresGraphRepository,
   PostgresSourceRepository,
   PostgresRatingRepository,
+  PostgresIdentityRepository,
 } from "@epios/infrastructure-postgres";
 import {
   CreateWorkspaceUseCase,
@@ -30,6 +31,8 @@ import {
   GetReadinessUseCase,
   ApplyPatchUseCase,
   GetTraceUseCase,
+  RedactNodeUseCase,
+  ApplyRetentionUseCase,
 } from "@epios/application";
 import { workspaceRoutes } from "./routes/workspace.routes.js";
 import { mappingRoutes } from "./routes/mapping.routes.js";
@@ -53,6 +56,8 @@ import {
   InMemoryRatingRepository,
   InMemoryMappingRepository,
   InMemoryOutboxRepository,
+  InMemoryIdentityRepository,
+  MockSecurityService,
   MOCK_ADRS,
 } from "@epios/infrastructure-runtime";
 import {
@@ -85,6 +90,8 @@ import {
   OutboxRepositoryPort,
   MCPAppRegistryPort,
   MCPBridgePort,
+  SecurityPort,
+  IdentityRepositoryPort,
 } from "@epios/ports";
 
 export type ServerDependencies = {
@@ -97,6 +104,8 @@ export type ServerDependencies = {
   outboxRepo?: OutboxRepositoryPort;
   mcpRegistry?: MCPAppRegistryPort;
   mcpBridge?: MCPBridgePort;
+  security?: SecurityPort;
+  identityRepo?: IdentityRepositoryPort;
 };
 
 export function buildServer(deps: ServerDependencies = {}) {
@@ -112,6 +121,7 @@ export function buildServer(deps: ServerDependencies = {}) {
   let ratingRepo = deps.ratingRepo;
   let mappingRepo = deps.mappingRepo;
   let outboxRepo = deps.outboxRepo;
+  let identityRepo = deps.identityRepo;
 
   if (!workspaceRepo || !graphRepo) {
     const databaseUrl = process.env.DATABASE_URL;
@@ -455,6 +465,7 @@ export function buildServer(deps: ServerDependencies = {}) {
         graphRepo ?? new InMemoryGraphRepository(demoNodes, demoEdges);
       sourceRepo = sourceRepo ?? new InMemorySourceRepository();
       ratingRepo = ratingRepo ?? new InMemoryRatingRepository();
+      identityRepo = identityRepo ?? new InMemoryIdentityRepository();
     } else if (databaseUrl) {
       try {
         const queryClient = postgres(databaseUrl);
@@ -463,7 +474,8 @@ export function buildServer(deps: ServerDependencies = {}) {
         workspaceRepo = workspaceRepo ?? new PostgresWorkspaceRepository(db);
         graphRepo = graphRepo ?? new PostgresGraphRepository(db);
         sourceRepo = sourceRepo ?? new PostgresSourceRepository(db);
-        ratingRepo = ratingRepo ?? new PostgresRatingRepository(db);
+        ratingRepo = deps.ratingRepo ?? new PostgresRatingRepository(db);
+        identityRepo = deps.identityRepo ?? new PostgresIdentityRepository(db);
       } catch (e) {
         console.error(
           "Failed to connect to Postgres, falling back to mock mode",
@@ -518,12 +530,56 @@ export function buildServer(deps: ServerDependencies = {}) {
   const mcpRegistry = deps.mcpRegistry ?? new InMemoryMCPAppRegistry();
   const mcpBridge = deps.mcpBridge ?? new MockMCPBridge(mcpRegistry);
 
+  // Security Initialization
+  const security = deps.security ?? new MockSecurityService(identityRepo);
+
+
+  // Security Middleware-like hook
+  app.addHook("onRequest", async (request) => {
+    const userId = (request.headers["x-user-id"] as string) || "observer-1";
+    const user = await identityRepo.findById(userId);
+    (security as MockSecurityService).setCurrentUser(user);
+  });
+
+  const redactNodeUseCase = new RedactNodeUseCase(graphRepo!, security);
+  const applyRetentionUseCase = new ApplyRetentionUseCase(
+    graphRepo!,
+    governanceRepo,
+    security,
+  );
+
   app.get("/health", async () => {
     return {
       ok: true,
       service: "epistemic-os-api",
       timestamp: new Date().toISOString(),
     };
+  });
+
+  app.get("/api/v1/security/me", async () => {
+    const user = await security.getCurrentUser();
+    return { user };
+  });
+
+  app.get("/api/v1/security/audit", async (request) => {
+    const user = await security.getCurrentUser();
+    if (!user || user.role !== "admin") {
+      throw new Error("Forbidden");
+    }
+    const logs = await security.listAuditLogs({});
+    return { logs };
+  });
+
+  app.post("/api/v1/security/redact", async (request) => {
+    const { nodeId, rules } = request.body as any;
+    const node = await redactNodeUseCase.execute(nodeId, rules);
+    return { node };
+  });
+
+  app.post("/api/v1/security/retention", async (request) => {
+    const { policy } = request.body as any;
+    const result = await applyRetentionUseCase.execute(policy);
+    return result;
   });
 
   const startMappingRunUseCase = new StartMappingRunUseCase(

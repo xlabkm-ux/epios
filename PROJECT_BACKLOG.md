@@ -41,9 +41,9 @@
 - [x] Readiness tests, trace, full e2e
 
 ### S6: Security + Retention
-- [ ] Pilot-safe roles, retention, redaction
-- [ ] Role-aware UI and deletion states
-- [ ] Security tests, retention, audit
+- [x] Pilot-safe roles, retention, redaction
+- [x] Role-aware UI and deletion states
+- [x] Security tests, retention, audit
 
 ### S7: RC + Pilot Pack
 - [ ] Alpha/RC package for design partners

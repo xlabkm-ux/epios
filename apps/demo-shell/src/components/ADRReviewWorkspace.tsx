@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
-  FileText,
   CheckCircle2,
-  Clock,
   AlertCircle,
   Search,
-  Filter,
-  ChevronRight,
-  ExternalLink,
   History,
   ShieldCheck,
   Zap,
   Check,
-  X,
   Loader2,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -38,7 +32,7 @@ interface ADR {
 type FlowStep = "idle" | "analyzing" | "reviewing" | "finalizing" | "completed";
 
 const ADRReviewWorkspace: React.FC = () => {
-  const { data: adrs, loading, error } = useApi<ADR[]>("/adrs");
+  const { data: adrs, loading } = useApi<ADR[]>("/adrs");
   const [selectedAdrId, setSelectedAdrId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [flowStep, setFlowStep] = useState<FlowStep>("idle");

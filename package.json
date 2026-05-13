@@ -4,6 +4,7 @@
   "description": "Epistemic Operating System v1.0 — a platform for traceable reasoning and human-in-the-loop AI workflows.",
   "license": "Apache-2.0",
   "type": "module",
+  "packageManager": "pnpm@9.12.3",
   "engines": {
     "node": ">=22.0.0"
   },

@@ -13,7 +13,9 @@ import {
 } from "lucide-react";
 import { useApi } from "../hooks/useApi";
 import { useWorkspace } from "../context/WorkspaceContext";
+import { useSecurity } from "../context/SecurityContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { Shield, User as UserIcon, Eye } from "lucide-react";
 
 import { Workspace } from "@epios/domain";
 
@@ -29,6 +31,7 @@ const Sidebar: React.FC = () => {
     activeView,
     setActiveView,
   } = useWorkspace();
+  const { currentUser, setCurrentUserId } = useSecurity();
 
   useEffect(() => {
     if (fetchedWorkspaces) {
@@ -264,6 +267,86 @@ const Sidebar: React.FC = () => {
           isCollapsed={isCollapsed}
           onClick={() => alert("Opening System Configuration...")}
         />
+
+        <div
+          style={{
+            marginTop: "1rem",
+            padding: isCollapsed ? "0.5rem" : "0.75rem",
+            backgroundColor: "rgba(255,255,255,0.03)",
+            borderRadius: "10px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+          }}
+        >
+          {!isCollapsed && (
+            <div
+              style={{
+                fontSize: "0.6rem",
+                color: "var(--text-dim)",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+              }}
+            >
+              Identity (Pilot)
+            </div>
+          )}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: isCollapsed ? "center" : "space-between",
+              gap: "0.5rem",
+            }}
+          >
+            {!isCollapsed && (
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>
+                  {currentUser?.username}
+                </span>
+                <span
+                  style={{
+                    fontSize: "0.7rem",
+                    color:
+                      currentUser?.role === "admin"
+                        ? "var(--primary)"
+                        : "var(--text-dim)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "4px",
+                  }}
+                >
+                  {currentUser?.role === "admin" ? (
+                    <Shield size={10} />
+                  ) : currentUser?.role === "reviewer" ? (
+                    <UserIcon size={10} />
+                  ) : (
+                    <Eye size={10} />
+                  )}
+                  {currentUser?.role}
+                </span>
+              </div>
+            )}
+
+            <select
+              value={currentUser?.id}
+              onChange={(e) => setCurrentUserId(e.target.value)}
+              style={{
+                backgroundColor: "var(--bg-sidebar)",
+                color: "var(--text-main)",
+                border: "1px solid var(--border)",
+                borderRadius: "4px",
+                fontSize: "0.7rem",
+                padding: "2px",
+                width: isCollapsed ? "100%" : "auto",
+              }}
+            >
+              <option value="admin-1">Admin</option>
+              <option value="reviewer-1">Reviewer</option>
+              <option value="observer-1">Observer</option>
+            </select>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

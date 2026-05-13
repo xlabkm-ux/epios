@@ -21,3 +21,5 @@ export * from "./use-cases/assess-readiness.js";
 export * from "./use-cases/get-readiness.js";
 export * from "./use-cases/apply-patch.js";
 export * from "./use-cases/get-trace.js";
+export * from "./use-cases/redact-node.js";
+export * from "./use-cases/apply-retention.js";

@@ -2,6 +2,7 @@ import { API_BASE_URL } from "../api-config";
 import React, { useState, useEffect } from "react";
 import { Shield, Send, CheckCircle, XCircle, Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSecurity } from "../context/SecurityContext";
 
 interface Claim {
   id: string;
@@ -39,6 +40,10 @@ export const GovernancePanel: React.FC<{
   const [patches, setPatches] = useState<Patch[]>([]);
   const [newClaim, setNewClaim] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { currentUser } = useSecurity();
+
+  const canVote = currentUser?.role === "admin" || currentUser?.role === "reviewer";
+  const canPropose = currentUser?.role !== "observer";
 
   useEffect(() => {
     fetchClaims();
@@ -49,6 +54,11 @@ export const GovernancePanel: React.FC<{
     try {
       const res = await fetch(
         `${API_BASE_URL}/governance/patches?workspaceId=${workspaceId}`,
+        {
+          headers: {
+            "x-user-id": currentUser?.id || "observer-1",
+          },
+        },
       );
       if (res.ok) {
         const data = await res.json();
@@ -64,7 +74,11 @@ export const GovernancePanel: React.FC<{
     try {
       // Note: In this version, we simulate fetching from backend
       // and fallback to MOCK_CLAIMS for the demo
-      const res = await fetch(`${API_BASE_URL}/governance/claims`);
+      const res = await fetch(`${API_BASE_URL}/governance/claims`, {
+        headers: {
+          "x-user-id": currentUser?.id || "observer-1",
+        },
+      });
       if (res.ok) {
         const data = await res.json();
         setClaims(data.length > 0 ? data : MOCK_CLAIMS);
@@ -85,7 +99,10 @@ export const GovernancePanel: React.FC<{
     try {
       const res = await fetch(`${API_BASE_URL}/governance/claims`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": currentUser?.id || "observer-1",
+        },
         body: JSON.stringify({ workspaceId, content: newClaim }),
       });
       if (res.ok) {
@@ -111,8 +128,11 @@ export const GovernancePanel: React.FC<{
     try {
       await fetch(`${API_BASE_URL}/governance/votes`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nodeId, actorId: "user-1", decision }),
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": currentUser?.id || "observer-1",
+        },
+        body: JSON.stringify({ nodeId, actorId: currentUser?.id, decision }),
       });
 
       if (isPatch) {
@@ -184,17 +204,19 @@ export const GovernancePanel: React.FC<{
           />
           <button
             onClick={submitClaim}
-            disabled={!newClaim || isLoading}
+            disabled={!newClaim || isLoading || !canPropose}
             style={{
               position: "absolute",
               bottom: "16px",
               right: "8px",
               padding: "6px",
               borderRadius: "var(--radius-sm)",
-              backgroundColor: newClaim ? "var(--primary)" : "var(--border)",
+              backgroundColor:
+                newClaim && canPropose ? "var(--primary)" : "var(--border)",
               color: "white",
               border: "none",
-              cursor: "pointer",
+              cursor: canPropose ? "pointer" : "not-allowed",
+              opacity: canPropose ? 1 : 0.5,
             }}
           >
             <Send size={14} />
@@ -277,7 +299,7 @@ export const GovernancePanel: React.FC<{
                 </div>
               </div>
 
-              {claim.status === "pending" && (
+              {claim.status === "pending" && canVote && (
                 <div style={{ display: "flex", gap: "0.5rem" }}>
                   <button
                     onClick={() => vote(claim.id, "approve")}
@@ -290,6 +312,7 @@ export const GovernancePanel: React.FC<{
                       color: "var(--success)",
                       borderRadius: "var(--radius-sm)",
                       border: "1px solid rgba(16, 185, 129, 0.2)",
+                      cursor: "pointer",
                     }}
                   >
                     Approve
@@ -305,11 +328,23 @@ export const GovernancePanel: React.FC<{
                       color: "var(--error)",
                       borderRadius: "var(--radius-sm)",
                       border: "1px solid rgba(239, 68, 68, 0.2)",
+                      cursor: "pointer",
                     }}
                   >
                     Reject
                   </button>
                 </div>
+              )}
+              {claim.status === "pending" && !canVote && (
+                <p
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "var(--text-dim)",
+                    textAlign: "center",
+                  }}
+                >
+                  View-only mode for your role.
+                </p>
               )}
             </motion.div>
           ))}
@@ -401,7 +436,7 @@ export const GovernancePanel: React.FC<{
                 </div>
               </div>
 
-              {patch.status === "pending" && (
+              {patch.status === "pending" && canVote && (
                 <div style={{ display: "flex", gap: "0.5rem" }}>
                   <button
                     onClick={() => vote(patch.id, "approve", true)}
@@ -414,6 +449,7 @@ export const GovernancePanel: React.FC<{
                       color: "var(--success)",
                       borderRadius: "var(--radius-sm)",
                       border: "1px solid rgba(16, 185, 129, 0.2)",
+                      cursor: "pointer",
                     }}
                   >
                     Apply
@@ -429,11 +465,23 @@ export const GovernancePanel: React.FC<{
                       color: "var(--error)",
                       borderRadius: "var(--radius-sm)",
                       border: "1px solid rgba(239, 68, 68, 0.2)",
+                      cursor: "pointer",
                     }}
                   >
                     Reject
                   </button>
                 </div>
+              )}
+              {patch.status === "pending" && !canVote && (
+                <p
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "var(--text-dim)",
+                    textAlign: "center",
+                  }}
+                >
+                  View-only mode for your role.
+                </p>
               )}
             </motion.div>
           ))}

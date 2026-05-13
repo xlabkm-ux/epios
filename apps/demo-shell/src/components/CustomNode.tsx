@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Handle, Position, NodeProps } from "reactflow";
-import { Lightbulb, Database, FileText, AlertCircle } from "lucide-react";
+import { Lightbulb, Database, FileText, AlertCircle, ShieldAlert } from "lucide-react";
 
 const CustomNode = ({ data, selected }: NodeProps) => {
   const getTypeIcon = (type: string) => {
@@ -114,6 +114,22 @@ const CustomNode = ({ data, selected }: NodeProps) => {
           }}
         >
           {data.label}
+          {data.metadata?.redacted && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "4px",
+                fontSize: "10px",
+                color: "var(--warning)",
+                marginTop: "4px",
+                fontStyle: "italic",
+              }}
+            >
+              <ShieldAlert size={12} />
+              Redacted for pilot safety
+            </div>
+          )}
         </div>
 
         {/* Node Footer / Metadata */}

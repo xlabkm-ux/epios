@@ -80,6 +80,7 @@ export const sources = pgTable("sources", {
     .defaultNow(),
 });
 
+
 export const ratings = pgTable("ratings", {
   id: uuid("id").primaryKey(),
   nodeId: uuid("node_id")
@@ -88,6 +89,17 @@ export const ratings = pgTable("ratings", {
   actorId: text("actor_id").notNull(),
   value: integer("value").notNull(),
   comment: text("comment"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const identities = pgTable("identities", {
+  id: text("id").primaryKey(),
+  username: text("username").notNull(),
+  email: text("email").notNull(),
+  role: text("role").notNull(),
+  isActive: integer("is_active").notNull().default(1), // 1 for true
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
