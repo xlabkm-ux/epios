@@ -11,6 +11,11 @@
     "drizzle-orm": "^0.30.10",
     "postgres": "^3.4.4"
   },
+  "scripts": {
+    "generate": "drizzle-kit generate",
+    "push": "drizzle-kit push",
+    "migrate": "drizzle-kit migrate"
+  },
   "devDependencies": {
     "drizzle-kit": "^0.21.4"
   }
