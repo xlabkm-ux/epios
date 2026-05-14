@@ -250,22 +250,19 @@ const GraphCanvasInner: React.FC = () => {
     }
   }, [selectedNodeId, setCenter, nodes]);
 
-  // Auto-fit view when workspace changes
+  // Auto-fit view when workspace changes and nodes are loaded
   useEffect(() => {
     if (selectedWorkspaceId && nodes.length > 0) {
-      // ONLY fitView if we don't have a saved viewport, otherwise ReactFlow uses defaultViewport
-      if (!viewports[selectedWorkspaceId]) {
-        const timer = setTimeout(() => {
-          fitView({
-            duration: 1000,
-            padding: 0.3,
-            includeHiddenNodes: false,
-          });
-        }, 200);
-        return () => clearTimeout(timer);
-      }
+      const timer = setTimeout(() => {
+        fitView({
+          duration: 1000,
+          padding: 0.3,
+          includeHiddenNodes: false,
+        });
+      }, 200);
+      return () => clearTimeout(timer);
     }
-  }, [selectedWorkspaceId, nodes.length > 0, fitView, viewports]);
+  }, [selectedWorkspaceId, nodes.length > 0, fitView]);
 
   const onPaneClick = useCallback(() => {
     setSelectedNodeId(null);
