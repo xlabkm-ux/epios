@@ -59,6 +59,7 @@
 | EPIOS-DEL-003| [Week 2 Issues](../04_delivery/EPIOS-12-week-2-issues.md) | @architect | accepted | 0.1 | 2026-05-14 | Execution |
 | EPIOS-DEL-004| [GITHUB_SETUP_GUIDE.md](../04_delivery/GITHUB_SETUP_GUIDE.md) | @architect | reference | 0.1 | 2026-05-14 | DevEx |
 | EPIOS-DEL-005| [QA Plan Pack](../04_delivery/qa/) | @architect | accepted | 0.1 | 2026-05-14 | QA |
+| EPIOS-DEL-006| [ADR-0099 Hardening Plan](../04_delivery/SPRINT_PLAN_ADR_0099_HARDENING.md) | @architect | proposed | 0.1 | 2026-05-15 | Execution |
 | **REFERENCE / ROADMAPS** | | | | | | |
 | EPIOS-REF-001| [UI Roadmap](../20_reference/ui_roadmap/) | @architect | deferred | 0.1 | 2026-05-14 | UI |
 | EPIOS-REF-002| [User Management](../20_reference/user_management/) | @architect | deferred | 0.1 | 2026-05-14 | Security |
