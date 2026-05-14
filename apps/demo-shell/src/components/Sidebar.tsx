@@ -63,38 +63,6 @@ const Sidebar: React.FC = () => {
         overflow: "hidden",
       }}
     >
-      <button
-        onClick={() => setIsCollapsed(!isCollapsed)}
-        style={{
-          position: "absolute",
-          right: "12px",
-          top: "1.25rem",
-          width: "24px",
-          height: "24px",
-          backgroundColor: "var(--bg-card)",
-          border: "1px solid var(--border-bright)",
-          borderRadius: "6px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "var(--primary)",
-          zIndex: 100,
-          cursor: "pointer",
-          transition: "all 0.2s ease",
-          boxShadow: "var(--panel-shadow)",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = "var(--primary)";
-          e.currentTarget.style.backgroundColor = "var(--surface-hover)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = "var(--border-bright)";
-          e.currentTarget.style.backgroundColor = "var(--bg-card)";
-        }}
-      >
-        {isCollapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
-      </button>
-
       <div
         style={{
           display: "flex",
@@ -135,7 +103,7 @@ const Sidebar: React.FC = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              EPIOS
+              EpiOS
             </motion.span>
           )}
         </AnimatePresence>
@@ -286,8 +254,37 @@ const Sidebar: React.FC = () => {
             display: "flex",
             flexDirection: "column",
             gap: "0.5rem",
+            position: "relative",
           }}
         >
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            style={{
+              position: "absolute",
+              right: isCollapsed ? "50%" : "12px",
+              top: "-12px",
+              transform: isCollapsed ? "translateX(50%)" : "none",
+              width: "24px",
+              height: "24px",
+              backgroundColor: "var(--bg-card)",
+              border: "1px solid var(--border-bright)",
+              borderRadius: "6px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--primary)",
+              zIndex: 100,
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              boxShadow: "var(--panel-shadow)",
+            }}
+          >
+            {isCollapsed ? (
+              <ChevronRight size={12} />
+            ) : (
+              <ChevronLeft size={12} />
+            )}
+          </button>
           {!isCollapsed && (
             <div
               style={{

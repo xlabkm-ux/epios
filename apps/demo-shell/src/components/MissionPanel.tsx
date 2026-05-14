@@ -21,6 +21,7 @@ export const MissionPanel: React.FC<{
       exit={{ opacity: 0, y: 10, scale: 0.98 }}
       className="premium-card"
       data-testid="workspace-card"
+      onClick={(e) => e.stopPropagation()}
       style={{
         position: "absolute",
         bottom: "45px",
