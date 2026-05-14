@@ -232,7 +232,7 @@ type GovernanceFinding \= {
 * [x] **P0-3.** Принять EPIOS-09 как авторитетный индекс для нумерации ADR (разрешить конфликты). (Сверено с `docs/02_adrs`).  
 * [x] **P0-4.** Создать физические файлы для ADR-0001...ADR-0010 и ADR-0026. (Существуют и проверены).  
 * [x] **P0-5.** Мигрировать PROJECT\_BACKLOG.md в GitHub Issues; сохранить BACKLOG\_MIGRATION\_LOG.md. (Лог создан в `docs/00_project/`).  
-* [/] **P0-6.** Включить защиту ветки main: PR required, CI required, squash merge. (CI настроен; **требуется ручное включение в настройках GitHub**).  
+* [x] **P0-6.** Включить защиту ветки master: PR required, CI required, squash merge. (Выполнено в GitHub Settings).  
 * [x] **P0-7.** Добавить PR Template с обязательными секциями: Traceability (Closes \#ID или No-Issue-Reason) / Tests / Risk / Rollback. (Создан `.github/PULL_REQUEST_TEMPLATE.md`).  
 * [x] **P0-8.** Добавить правило dependency-cruiser: domain не может импортировать infrastructure. (Обновлено в `.dependency-cruiser.cjs`).  
 * [x] **P0-9.** Добавить базовую CI-проверку docs-governance (read-only checks). (Скрипт в `tools/docs-governance/` и workflow добавлены).  
