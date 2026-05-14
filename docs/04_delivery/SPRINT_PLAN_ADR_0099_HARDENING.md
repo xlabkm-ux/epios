@@ -10,17 +10,17 @@ Achieve full compliance with the "P0 Hardening" requirements of ADR-0099, focusi
 
 ## 2. Scope & Tasks
 
-### 2.1. Transactional Integrity (Directive 3.3)
+### 2.1. Sprint 1: Транзакционный фундамент (Directive 3.3)
 - [ ] **Define `UnitOfWorkPort`**: Interface in `packages/ports` for transaction management.
 - [ ] **Implement `PostgresUnitOfWork`**: Drizzle-based transaction manager in `infrastructure-postgres`.
 - [ ] **Domain Events**: Add `domainEvents` collection to `EpistemicNode` and `GovernanceProcess` classes to capture side effects.
 - [ ] **Refactor Use Cases**: Update `CastVote`, `SubmitClaim`, and `ApplyPatch` to use the `UnitOfWork` for atomic execution.
 
-### 2.2. Reliability (Directive 4.2 & 4.3)
+### 2.2. Sprint 2: Консистентность и Фоновые задачи (Directive 4.2 & 4.3)
 - [ ] **Outbox Worker**: Implement a background worker in `infrastructure-runtime` to process events from the `outbox` table.
 - [ ] **Optimistic Concurrency**: Add `version: number` property to `EpistemicNode` and ensure it is checked during repository `save()`.
 
-### 2.3. Security (Directive 5.2)
+### 2.3. Sprint 3: Безопасность и Финализация (Directive 5.2)
 - [ ] **Secure MCP Bridge**: Refactor `packages/infrastructure-mcp` to use Zod for strict message validation.
 - [ ] **Bridge Protocol**: Implement `nonce` and `origin` checks for all `postMessage` communications.
 
