@@ -303,7 +303,7 @@ const Sidebar: React.FC = () => {
           />
           <SidebarItem
             icon={<Database size={18} />}
-            label={t("sidebar.archive")}
+            label={`${t("sidebar.archive")} (${workspaces.filter((ws) => ws.status === "archived").length})`}
             active={activeView === "ARCHIVE"}
             isCollapsed={isCollapsed}
             onClick={() => setActiveView("ARCHIVE")}
@@ -370,10 +370,70 @@ const Sidebar: React.FC = () => {
         <div
           style={{
             marginTop: "auto",
-            paddingTop: "1.5rem",
+            paddingTop: "1rem",
             borderTop: "1px solid var(--border)",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.25rem",
           }}
         >
+          {/* User Info Block */}
+          {!isCollapsed && (
+            <div
+              style={{
+                padding: "0.75rem 1rem",
+                marginBottom: "0.25rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: "50%",
+                  backgroundColor: "var(--primary-alpha)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--primary)",
+                }}
+              >
+                <UserIcon size={16} />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  minWidth: 0,
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    color: "var(--text-main)",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {currentUser?.username}
+                </span>
+                <span
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "var(--text-dim)",
+                    opacity: 0.8,
+                  }}
+                >
+                  {currentUser?.username}
+                </span>
+              </div>
+            </div>
+          )}
+
           <SidebarItem
             icon={<Settings size={18} />}
             label={t("sidebar.settings")}
