@@ -18,8 +18,21 @@ module.exports = {
     },
     /* EPIOS Architecture Rules */
     {
-      name: 'domain-independence',
-      comment: 'The domain package should only depend on observability or external libraries (no other internal packages).',
+      name: 'domain-no-infrastructure',
+      comment: 'The domain package is the core and MUST NOT depend on infrastructure, api, or application layers.',
+      severity: 'error',
+      from: { path: '^packages/domain' },
+      to: {
+        path: [
+          '^packages/infrastructure',
+          '^packages/api',
+          '^packages/application'
+        ]
+      }
+    },
+    {
+      name: 'domain-independence-general',
+      comment: 'The domain package should only depend on observability or external libraries.',
       severity: 'error',
       from: { path: '^packages/domain' },
       to: {

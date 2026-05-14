@@ -1,0 +1,26 @@
+name: Governance & Documentation Check
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  governance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Run Dependency Cruiser
+        run: pnpm dlx dependency-cruiser --config .dependency-cruiser.cjs packages
+
+      - name: Run Documentation Governance Check
+        run: npx tsx tools/docs-governance/check-docs.ts
