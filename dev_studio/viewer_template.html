@@ -296,6 +296,7 @@
     <div class="nav-group">
         <p class="nav-title">Обзор</p>
         <div class="nav-item active" onclick="showSection('architecture')">🏗️ Архитектура</div>
+        <div class="nav-item" onclick="showSection('ui-architecture')">🎨 UI Архитектура</div>
         <div class="nav-item" onclick="showSection('inventory')">📦 Пакеты и Приложения</div>
         <div class="nav-item" onclick="showSection('api')">🔌 API Реестр</div>
         <div class="nav-item" onclick="showSection('env')">🔑 Окружение</div>
@@ -373,6 +374,7 @@
         }
         projectData.mermaidHigh = mermaidBlocks[0] || '';
         projectData.mermaidDetailed = mermaidBlocks[1] || '';
+        projectData.mermaidUI = mermaidBlocks[2] || '';
         projectData.mermaid = projectData.mermaidHigh;
 
         const sections = text.split('\n## ');
@@ -419,6 +421,7 @@
             else if (label.includes('окружение') && sectionId === 'env') item.classList.add('active');
             else if (label.includes('пакеты') && sectionId === 'inventory') item.classList.add('active');
             else if (label.includes('архитектура') && sectionId === 'architecture') item.classList.add('active');
+            else if (label.includes('ui архитектура') && sectionId === 'ui-architecture') item.classList.add('active');
         });
 
         let html = '';
@@ -446,6 +449,34 @@
                                 <div class="mermaid" id="mermaid-graph">
                                     ${projectData.mermaid}
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                break;
+            case 'ui-architecture':
+                html = `
+                    <div class="view-section">
+                        <header>
+                            <h1>🎨 UI Архитектура</h1>
+                            <p class="meta">Концептуальная структура компонентов demo-shell</p>
+                        </header>
+                        <div class="card">
+                            <div class="card-title">🧩 Схема компонентов</div>
+                            <div class="mermaid-container">
+                                <div class="graph-controls">
+                                    <button class="btn" onclick="resetZoom()">Сброс</button>
+                                </div>
+                                <div class="mermaid" id="mermaid-graph">
+                                    ${projectData.mermaidUI}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">🚀 UI Roadmap</div>
+                            <p>Подробная документация и план развития интерфейсов доступны в разделе:</p>
+                            <div style="margin-top: 15px;">
+                                <a href="../docs/05_ui_roadmap/00_ROADMAP_INDEX.md" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">📂 docs/05_ui_roadmap/00_ROADMAP_INDEX.md</a>
                             </div>
                         </div>
                     </div>
@@ -529,7 +560,7 @@
 
         area.innerHTML = html;
         
-        if (sectionId === 'architecture') {
+        if (sectionId === 'architecture' || sectionId === 'ui-architecture') {
             mermaid.init(undefined, document.querySelectorAll('.mermaid'));
             setTimeout(initPanZoom, 500);
         }

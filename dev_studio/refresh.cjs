@@ -240,6 +240,41 @@ function generateMap() {
   sections.push(mermaidDetailed);
   sections.push('');
 
+  sections.push('## 🎨 Архитектура UI Интерфейсов (demo-shell)');
+  sections.push('> Обобщенная концептуальная структура компонентов пользовательского интерфейса');
+  sections.push('');
+  const uiDiagram = `\`\`\`mermaid
+flowchart TD
+    subgraph "Global Contexts"
+        Security["SecurityContext (RBAC)"]
+        WSContext["WorkspaceContext"]
+    end
+
+    subgraph "Core Layout"
+        App["App.tsx"] --> Sidebar["Sidebar / Command Palette"]
+        App --> Workspace["ADRReviewWorkspace"]
+    end
+
+    subgraph "Workspace Panels"
+        Workspace --> GraphCanvas["GraphCanvas (React Flow)"]
+        Workspace --> MissionPanel["MissionPanel"]
+        Workspace --> SourcePanel["SourcePanel"]
+        Workspace --> RatingPanel["RatingPanel"]
+        Workspace --> MappingPanel["MappingPanel (Async Status)"]
+        Workspace --> GovernancePanel["GovernancePanel (Patches)"]
+        Workspace --> ReadinessPanel["ReadinessPanel"]
+    end
+    
+    App -. "Provides" .-> Security
+    App -. "Provides" .-> WSContext
+    Workspace -. "Reads" .-> WSContext
+    GovernancePanel -. "Role Check" .-> Security
+\`\`\``;
+  sections.push(uiDiagram);
+  sections.push('');
+  sections.push('> Подробная документация и Roadmap по развитию интерфейсов находится в [docs/05_ui_roadmap/](docs/05_ui_roadmap/00_ROADMAP_INDEX.md)');
+  sections.push('');
+
   for (const [component, files] of Object.entries(componentMap)) {
     sections.push(`## Компонент: \`${component}\``);
     sections.push('');

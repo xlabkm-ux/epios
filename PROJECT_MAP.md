@@ -1,13 +1,13 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-14 01:32:56`
+> Автоматически сгенерировано: `2026-05-14 09:53:41`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `115` | Только JS/TS/TSX исходники |
-| **Total Lines** | `11216` | Суммарно по проекту |
-| **Project Weight** | `~90 523 tokens` | Оценка (4 символа/токен) |
+| **Total Lines** | `11221` | Суммарно по проекту |
+| **Project Weight** | `~90 532 tokens` | Оценка (4 символа/токен) |
 | **Context Pressure** | `70.7%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
@@ -1581,6 +1581,39 @@ Y-->E
 7Y-->7X
 ```
 
+## 🎨 Архитектура UI Интерфейсов (demo-shell)
+> Обобщенная концептуальная структура компонентов пользовательского интерфейса
+
+```mermaid
+flowchart TD
+    subgraph "Global Contexts"
+        Security["SecurityContext (RBAC)"]
+        WSContext["WorkspaceContext"]
+    end
+
+    subgraph "Core Layout"
+        App["App.tsx"] --> Sidebar["Sidebar / Command Palette"]
+        App --> Workspace["ADRReviewWorkspace"]
+    end
+
+    subgraph "Workspace Panels"
+        Workspace --> GraphCanvas["GraphCanvas (React Flow)"]
+        Workspace --> MissionPanel["MissionPanel"]
+        Workspace --> SourcePanel["SourcePanel"]
+        Workspace --> RatingPanel["RatingPanel"]
+        Workspace --> MappingPanel["MappingPanel (Async Status)"]
+        Workspace --> GovernancePanel["GovernancePanel (Patches)"]
+        Workspace --> ReadinessPanel["ReadinessPanel"]
+    end
+    
+    App -. "Provides" .-> Security
+    App -. "Provides" .-> WSContext
+    Workspace -. "Reads" .-> WSContext
+    GovernancePanel -. "Role Check" .-> Security
+```
+
+> Подробная документация и Roadmap по развитию интерфейсов находится в [docs/05_ui_roadmap/](docs/05_ui_roadmap/00_ROADMAP_INDEX.md)
+
 ## Компонент: `apps`
 
 | Файл | Строк | Размер | Описание |
@@ -1596,7 +1629,7 @@ Y-->E
 | `demo-shell/src/components/MissionPanel.tsx` | 303 | 8.7 KB | — |
 | `demo-shell/src/components/RatingPanel.tsx` | 234 | 6.2 KB | — |
 | `demo-shell/src/components/ReadinessPanel.tsx` | 403 | 11.7 KB | — |
-| `demo-shell/src/components/Sidebar.tsx` | 468 | 13.3 KB | — |
+| `demo-shell/src/components/Sidebar.tsx` | 473 | 13.4 KB | — |
 | `demo-shell/src/components/SourcePanel.tsx` | 232 | 6.9 KB | — |
 | `demo-shell/src/components/WorkspaceRoom.tsx` | 665 | 21.5 KB | — |
 | `demo-shell/src/context/SecurityContext.tsx` | 68 | 1.6 KB | — |
