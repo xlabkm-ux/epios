@@ -45,6 +45,7 @@
 | EPIOS-ADR-024| [ADR-0024: No ChatAVG Import](../02_adrs/ADR-0024-do-not-import-chatavg.md) | @architect | accepted | 0.1 | 2026-05-12 | Legacy |
 | EPIOS-ADR-025| [ADR-0025: Clean Rewrite](../02_adrs/ADR-0025-reuse-chatavg-through-extraction.md) | @architect | accepted | 0.1 | 2026-05-12 | Legacy |
 | EPIOS-ADR-026| [ADR-0026: License](../02_adrs/ADR-0026-license-choice.md) | @architect | accepted | 0.1 | 2026-05-12 | Legal |
+| EPIOS-ADR-099| [ADR-0099: Audit Directives](../02_adrs/ADR-0099-mvp-audit-directives.md) | @architect | accepted | 1.0 | 2026-05-15 | Audit |
 | **SPECS** | | | | | | |
 | EPIOS-SPC-001| [APPLICATION_USE_CASE_CONTRACTS.md](../03_specs/APPLICATION_USE_CASE_CONTRACTS.md) | @architect | accepted | 0.1 | 2026-05-14 | Specs |
 | EPIOS-SPC-002| [ERROR_CATALOG.md](../03_specs/ERROR_CATALOG.md) | @architect | accepted | 0.1 | 2026-05-14 | Specs |
