@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-14 15:03:22`
+> Автоматически сгенерировано: `2026-05-14 17:23:07`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `121` | Только JS/TS/TSX исходники |
-| **Total Lines** | `12374` | Суммарно по проекту |
-| **Project Weight** | `~100 097 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `78.2%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Lines** | `12391` | Суммарно по проекту |
+| **Project Weight** | `~99 745 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `77.9%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
 ---
@@ -1763,7 +1763,7 @@ flowchart TD
 | `demo-shell/src/api-config.ts` | 7 | 0.3 KB | Централизованная конфигурация API URL. |
 | `demo-shell/src/App.tsx` | 73 | 1.9 KB | — |
 | `demo-shell/src/components/ADRReviewWorkspace.tsx` | 738 | 22.9 KB | — |
-| `demo-shell/src/components/ArchiveView.tsx` | 247 | 7.7 KB | — |
+| `demo-shell/src/components/ArchiveView.tsx` | 247 | 7.4 KB | — |
 | `demo-shell/src/components/CommandPalette.tsx` | 341 | 9.1 KB | — |
 | `demo-shell/src/components/CustomNode.tsx` | 169 | 4.4 KB | — |
 | `demo-shell/src/components/GovernancePanel.tsx` | 498 | 14.7 KB | — |
@@ -1773,12 +1773,12 @@ flowchart TD
 | `demo-shell/src/components/Modal.tsx` | 100 | 2.7 KB | — |
 | `demo-shell/src/components/RatingPanel.tsx` | 234 | 6.2 KB | — |
 | `demo-shell/src/components/ReadinessPanel.tsx` | 403 | 11.7 KB | — |
-| `demo-shell/src/components/Sidebar.tsx` | 774 | 25.4 KB | — |
+| `demo-shell/src/components/Sidebar.tsx` | 774 | 24.7 KB | — |
 | `demo-shell/src/components/SidebarItem.tsx` | 281 | 7.6 KB | — |
 | `demo-shell/src/components/SourcePanel.tsx` | 232 | 6.9 KB | — |
 | `demo-shell/src/components/WorkspaceRoom.tsx` | 665 | 21.5 KB | — |
 | `demo-shell/src/context/SecurityContext.tsx` | 68 | 1.6 KB | — |
-| `demo-shell/src/context/WorkspaceContext.tsx` | 146 | 3.9 KB | — |
+| `demo-shell/src/context/WorkspaceContext.tsx` | 145 | 3.8 KB | — |
 | `demo-shell/src/hooks/useApi.ts` | 43 | 1.1 KB | — |
 | `demo-shell/src/i18n.ts` | 99 | 3.4 KB | — |
 | `demo-shell/src/main.tsx` | 20 | 0.5 KB | — |
@@ -1868,8 +1868,8 @@ flowchart TD
 | `api/src/routes/rating.routes.ts` | 30 | 0.9 KB | — |
 | `api/src/routes/security.routes.ts` | 66 | 2.0 KB | — |
 | `api/src/routes/source.routes.ts` | 34 | 0.9 KB | — |
-| `api/src/routes/workspace.routes.ts` | 43 | 1.2 KB | — |
-| `api/src/server.ts` | 264 | 9.1 KB | — |
+| `api/src/routes/workspace.routes.ts` | 52 | 1.4 KB | — |
+| `api/src/server.ts` | 264 | 8.8 KB | — |
 | `api/test/adr.test.ts` | 48 | 1.2 KB | — |
 | `api/test/api.test.ts` | 222 | 5.9 KB | — |
 | `api/vitest.config.ts` | 42 | 1.1 KB | — |
@@ -1914,7 +1914,7 @@ flowchart TD
 | `domain/src/rating.ts` | 11 | 0.2 KB | — |
 | `domain/src/security.ts` | 40 | 0.8 KB | — |
 | `domain/src/source.ts` | 11 | 0.2 KB | — |
-| `domain/src/workspace.ts` | 53 | 1.1 KB | — |
+| `domain/src/workspace.ts` | 53 | 1.0 KB | — |
 | `domain/test/domain-smoke.test.ts` | 51 | 1.3 KB | — |
 | `domain/test/node-invariants.test.ts` | 51 | 1.2 KB | — |
 | `domain/test/source-rating.test.ts` | 33 | 0.8 KB | — |
@@ -1929,12 +1929,12 @@ flowchart TD
 | `infrastructure-postgres/src/graph.repository.ts` | 175 | 5.0 KB | — |
 | `infrastructure-postgres/src/identity.repository.ts` | 68 | 1.7 KB | — |
 | `infrastructure-postgres/src/index.ts` | 11 | 0.3 KB | — |
-| `infrastructure-postgres/src/manual_migrate.ts` | 26 | 0.8 KB | — |
+| `infrastructure-postgres/src/manual_migrate.ts` | 30 | 0.9 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
-| `infrastructure-postgres/src/schema.ts` | 110 | 3.6 KB | — |
+| `infrastructure-postgres/src/schema.ts` | 110 | 3.5 KB | — |
 | `infrastructure-postgres/src/seed.ts` | 378 | 13.2 KB | — |
 | `infrastructure-postgres/src/source.repository.ts` | 60 | 1.6 KB | — |
-| `infrastructure-postgres/src/workspace.repository.ts` | 105 | 3.5 KB | — |
+| `infrastructure-postgres/src/workspace.repository.ts` | 110 | 3.6 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 97 | 2.9 KB | — |
 | `infrastructure-runtime/src/in-memory-repositories.ts` | 237 | 6.2 KB | — |
 | `infrastructure-runtime/src/index.ts` | 7 | 0.3 KB | — |

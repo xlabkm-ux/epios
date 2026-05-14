@@ -6,6 +6,10 @@ import { expand } from "dotenv-expand";
 const envConfig = dotenv.config({ path: "../../.env" });
 expand(envConfig);
 
+console.log(
+  "Using DATABASE_URL:",
+  process.env.DATABASE_URL?.replace(/:[^:@]+@/, ":****@"),
+);
 const sql = postgres(process.env.DATABASE_URL!);
 
 async function migrate() {

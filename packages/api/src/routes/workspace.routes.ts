@@ -16,7 +16,12 @@ export async function workspaceRoutes(
   },
 ) {
   fastify.get("/workspaces", async () => {
-    return options.listWorkspacesUseCase.execute();
+    try {
+      return await options.listWorkspacesUseCase.execute();
+    } catch (error) {
+      console.error("GET /workspaces error:", error);
+      throw error;
+    }
   });
 
   fastify.post<{ Body: CreateWorkspaceDto }>(
@@ -29,14 +34,18 @@ export async function workspaceRoutes(
     },
   );
 
-  fastify.patch<{ Params: { id: string }; Body: PatchWorkspaceDto }>(
-    "/workspaces/:id",
-    async (request, reply) => {
-      const workspace = await options.patchWorkspaceUseCase.execute({
-        id: request.params.id,
-        ...request.body,
-      });
-      return reply.send(workspace);
-    },
-  );
+  fastify.patch<{
+    Params: { id: string };
+    Body: Partial<PatchWorkspaceDto> & { archivedAt?: string | Date };
+  }>("/workspaces/:id", async (request, reply) => {
+    const data = { ...request.body };
+    if (data.archivedAt) {
+      data.archivedAt = new Date(data.archivedAt);
+    }
+    const workspace = await options.patchWorkspaceUseCase.execute({
+      id: request.params.id,
+      ...data,
+    });
+    return reply.send(workspace);
+  });
 }

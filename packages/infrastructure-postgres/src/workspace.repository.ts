@@ -70,8 +70,13 @@ export class PostgresWorkspaceRepository implements WorkspaceRepositoryPort {
   }
 
   async findAll(): Promise<Workspace[]> {
-    const records = await this.db.select().from(workspaces);
-    return records.map((record) => this.mapToDomain(record));
+    try {
+      const records = await this.db.select().from(workspaces);
+      return records.map((record) => this.mapToDomain(record));
+    } catch (error) {
+      console.error("PostgresWorkspaceRepository.findAll error:", error);
+      throw error;
+    }
   }
 
   private mapToDomain(record: typeof workspaces.$inferSelect): Workspace {
