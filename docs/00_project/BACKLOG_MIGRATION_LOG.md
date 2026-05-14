@@ -38,11 +38,11 @@ All tasks from `PROJECT_BACKLOG.md` have been reviewed. Since the project has re
 | GOV-P0-2 | #11 | Closed | Create Registers |
 | GOV-P0-3 | #12 | Closed | ADR Index |
 | GOV-P0-4 | #13 | Closed | ADR Physical Files |
-| GOV-P0-5 | #14 | Open | Migrate Backlog (Self-ref) |
-| GOV-P0-6 | #15 | Open | Branch Protection |
-| GOV-P0-7 | #16 | Open | PR Template |
-| GOV-P0-8 | #17 | Open | Dependency Cruiser Rule |
-| GOV-P0-9 | #18 | Open | Docs Governance CI |
+| GOV-P0-5 | #14 | Closed | Migrate Backlog (Self-ref) |
+| GOV-P0-6 | #15 | Closed | Branch Protection |
+| GOV-P0-7 | #16 | Closed | PR Template |
+| GOV-P0-8 | #17 | Closed | Dependency Cruiser Rule |
+| GOV-P0-9 | #18 | Closed | Docs Governance CI |
 | GOV-P0-10| #19 | Closed | Product Epic Creation |
 
 ---
