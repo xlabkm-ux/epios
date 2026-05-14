@@ -1,4 +1,5 @@
-import { User, UserRole, AuditRecord, AuditRecord as AuditRecordDomain } from "@epios/domain";
+import { randomUUID } from "node:crypto";
+import { User, UserRole, AuditRecord } from "@epios/domain";
 import { SecurityPort, IdentityRepositoryPort } from "@epios/ports";
 
 export class InMemoryIdentityRepository implements IdentityRepositoryPort {
@@ -9,7 +10,10 @@ export class InMemoryIdentityRepository implements IdentityRepositoryPort {
   }
 
   async findByUsername(username: string): Promise<User | null> {
-    return Array.from(this.users.values()).find(u => u.username === username) || null;
+    return (
+      Array.from(this.users.values()).find((u) => u.username === username) ||
+      null
+    );
   }
 
   async save(user: User): Promise<void> {
@@ -19,7 +23,7 @@ export class InMemoryIdentityRepository implements IdentityRepositoryPort {
 
 export class MockSecurityService implements SecurityPort {
   private currentUser: User | null = null;
-  private auditLogs: AuditRecordDomain[] = [];
+  private auditLogs: AuditRecord[] = [];
 
   constructor(private identityRepo: IdentityRepositoryPort) {}
 
@@ -31,14 +35,18 @@ export class MockSecurityService implements SecurityPort {
     return this.currentUser;
   }
 
-  async authorize(role: UserRole, action: string, resource: string): Promise<boolean> {
+  async authorize(
+    role: UserRole,
+    action: string,
+    resource: string,
+  ): Promise<boolean> {
     if (!this.currentUser) return false;
-    
+
     // Simple hierarchy: admin > reviewer > observer
     const rolePower = {
       admin: 3,
       reviewer: 2,
-      observer: 1
+      observer: 1,
     };
 
     const userPower = rolePower[this.currentUser.role];
@@ -47,20 +55,26 @@ export class MockSecurityService implements SecurityPort {
     return userPower >= requiredPower;
   }
 
-  async logAudit(record: Omit<AuditRecordDomain, "id" | "timestamp">): Promise<void> {
-    const newRecord: AuditRecordDomain = {
+  async logAudit(record: Omit<AuditRecord, "id" | "timestamp">): Promise<void> {
+    const newRecord: AuditRecord = {
       ...record,
-      id: Math.random().toString(36).substr(2, 9),
-      timestamp: new Date()
+      id: randomUUID(),
+      timestamp: new Date(),
     };
     this.auditLogs.push(newRecord);
-    console.log(`[AUDIT] ${newRecord.timestamp.toISOString()} - ${newRecord.actorId} performed ${newRecord.action} on ${newRecord.resourceType}:${newRecord.resourceId}`);
+    console.log(
+      `[AUDIT] ${newRecord.timestamp.toISOString()} - ${newRecord.actorId} performed ${newRecord.action} on ${newRecord.resourceType}:${newRecord.resourceId}`,
+    );
   }
 
-  async listAuditLogs(filters: { actorId?: string; resourceType?: string }): Promise<AuditRecordDomain[]> {
-    return this.auditLogs.filter(log => {
+  async listAuditLogs(filters: {
+    actorId?: string;
+    resourceType?: string;
+  }): Promise<AuditRecord[]> {
+    return this.auditLogs.filter((log) => {
       if (filters.actorId && log.actorId !== filters.actorId) return false;
-      if (filters.resourceType && log.resourceType !== filters.resourceType) return false;
+      if (filters.resourceType && log.resourceType !== filters.resourceType)
+        return false;
       return true;
     });
   }

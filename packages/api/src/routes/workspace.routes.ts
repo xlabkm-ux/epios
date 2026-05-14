@@ -13,15 +13,7 @@ export async function workspaceRoutes(
   },
 ) {
   fastify.get("/workspaces", async () => {
-    console.log("[API] GET /workspaces called");
-    try {
-      const workspaces = await options.listWorkspacesUseCase.execute();
-      console.log(`[API] Returning ${workspaces.length} workspaces`);
-      return workspaces;
-    } catch (e) {
-      console.error("[API] Error in GET /workspaces:", e);
-      throw e;
-    }
+    return options.listWorkspacesUseCase.execute();
   });
 
   fastify.post<{ Body: CreateWorkspaceDto }>(

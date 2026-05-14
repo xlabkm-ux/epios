@@ -81,9 +81,7 @@ export class InMemoryGovernanceRepository implements GovernanceRepositoryPort {
       (v) => v.artifactId === artifactId,
     );
     if (artifactVersions.length === 0) return null;
-    return artifactVersions.sort(
-      (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
-    )[0];
+    return artifactVersions.sort((a, b) => b.version - a.version)[0];
   }
 
   async saveTraceEvent(event: TraceEvent): Promise<void> {

@@ -5,6 +5,8 @@ import {
 } from "@epios/ports";
 
 export class MappingProcessor {
+  private intervalId: ReturnType<typeof setInterval> | null = null;
+
   constructor(
     private mappingRepo: MappingRepositoryPort,
     private outboxRepo: OutboxRepositoryPort,
@@ -29,7 +31,6 @@ export class MappingProcessor {
 
       // Simulate mapping process
       for (let i = 1; i <= 5; i++) {
-        // Use a smaller timeout for demo/tests if needed, but 500ms is fine for "seeing" progress
         await new Promise((resolve) => setTimeout(resolve, 500));
 
         run.progress = i * 20;
@@ -71,12 +72,21 @@ export class MappingProcessor {
   }
 
   start(intervalMs: number = 2000) {
-    setInterval(async () => {
+    if (this.intervalId !== null) return; // Prevent duplicate starts
+
+    this.intervalId = setInterval(async () => {
       try {
         await this.processNext();
       } catch (e) {
         console.error("MappingProcessor error:", e);
       }
     }, intervalMs);
+  }
+
+  stop() {
+    if (this.intervalId !== null) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
   }
 }

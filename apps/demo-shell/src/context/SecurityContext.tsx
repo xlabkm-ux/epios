@@ -1,5 +1,12 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import { User } from "@epios/domain";
+import { API_BASE_URL } from "../api-config";
 
 interface SecurityContextType {
   currentUser: User | null;
@@ -7,9 +14,13 @@ interface SecurityContextType {
   isLoading: boolean;
 }
 
-const SecurityContext = createContext<SecurityContextType | undefined>(undefined);
+const SecurityContext = createContext<SecurityContextType | undefined>(
+  undefined,
+);
 
-export const SecurityProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const SecurityProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string>(() => {
     return localStorage.getItem("currentUserId") || "observer-1";
@@ -24,10 +35,10 @@ export const SecurityProvider: React.FC<{ children: ReactNode }> = ({ children }
   const fetchUser = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:3001/api/v1/security/me", {
+      const response = await fetch(`${API_BASE_URL}/api/v1/security/me`, {
         headers: {
-          "x-user-id": currentUserId
-        }
+          "x-user-id": currentUserId,
+        },
       });
       const data = await response.json();
       setCurrentUser(data.user);
@@ -39,7 +50,9 @@ export const SecurityProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   return (
-    <SecurityContext.Provider value={{ currentUser, setCurrentUserId, isLoading }}>
+    <SecurityContext.Provider
+      value={{ currentUser, setCurrentUserId, isLoading }}
+    >
       {children}
     </SecurityContext.Provider>
   );

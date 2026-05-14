@@ -19,11 +19,11 @@ export class PatchNodeUseCase {
       throw new Error("NODE_NOT_FOUND");
     }
 
-    if (request.type) node.type = request.type;
-    if (request.content) node.content = request.content;
-    if (request.strength) node.strength = request.strength;
-    if (request.evidence) node.evidence = request.evidence;
-    if (request.metadata) {
+    if (request.type !== undefined) node.type = request.type;
+    if (request.content !== undefined) node.content = request.content;
+    if (request.strength !== undefined) node.strength = request.strength;
+    if (request.evidence !== undefined) node.evidence = request.evidence;
+    if (request.metadata !== undefined) {
       node.metadata = { ...node.metadata, ...request.metadata };
     }
 

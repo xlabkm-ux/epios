@@ -1,7 +1,8 @@
 import { randomUUID } from "node:crypto";
 import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
-import { Vote, ArtifactVersion } from "@epios/domain";
+import { Vote } from "@epios/domain";
 import { auditLogger } from "@epios/observability";
+import { ApplyPatchUseCase } from "./apply-patch.js";
 
 export interface CastVoteRequest {
   nodeId: string;
@@ -11,10 +12,14 @@ export interface CastVoteRequest {
 }
 
 export class CastVoteUseCase {
+  private applyPatchUseCase: ApplyPatchUseCase;
+
   constructor(
     private governanceRepo: GovernanceRepositoryPort,
     private graphRepo: GraphRepositoryPort,
-  ) {}
+  ) {
+    this.applyPatchUseCase = new ApplyPatchUseCase(governanceRepo, graphRepo);
+  }
 
   async execute(request: CastVoteRequest): Promise<void> {
     const governanceProcess = await this.governanceRepo.findProcessByNodeId(
@@ -67,54 +72,15 @@ export class CastVoteUseCase {
     if (approvals >= governanceProcess.requiredVotes) {
       governanceProcess.status = "approved";
 
-      // 1. Try to find if this is a Patch
+      // Check if this is a Patch governance — delegate to ApplyPatchUseCase
       const patch = await this.governanceRepo.findPatchById(request.nodeId);
-      if (patch) {
-        const targetNode = await this.graphRepo.findNodeById(
-          patch.targetNodeId,
-        );
-        if (targetNode) {
-          targetNode.content = patch.content;
-          targetNode.updatedAt = new Date();
-          await this.graphRepo.saveNode(targetNode);
-
-          patch.status = "applied";
-          patch.updatedAt = new Date();
-          await this.governanceRepo.savePatch(patch);
-
-          // Create Artifact Version
-          const latestVersion = await this.governanceRepo.getLatestVersion(
-            patch.targetNodeId,
-          );
-          const newVersionNumber = latestVersion
-            ? latestVersion.version + 1
-            : 1;
-
-          const version: ArtifactVersion = {
-            id: randomUUID(),
-            artifactId: patch.targetNodeId,
-            workspaceId: patch.workspaceId,
-            version: newVersionNumber,
-            content: targetNode.content,
-            authorId: request.actorId,
-            createdAt: new Date(),
-          };
-
-          await this.governanceRepo.saveArtifactVersion(version);
-
-          // Log trace event for artifact version
-          await this.governanceRepo.saveTraceEvent({
-            id: randomUUID(),
-            workspaceId: patch.workspaceId,
-            type: "artifact_version_created",
-            actorId: request.actorId,
-            targetId: version.id,
-            metadata: { version: newVersionNumber, patchId: patch.id },
-            timestamp: new Date(),
-          });
-        }
-      } else {
-        // 2. Otherwise assume it's a regular node (Claim)
+      if (patch && patch.status === "pending") {
+        await this.applyPatchUseCase.execute({
+          patchId: patch.id,
+          actorId: request.actorId,
+        });
+      } else if (!patch) {
+        // Regular node (Claim) — strengthen on approval
         const node = await this.graphRepo.findNodeById(request.nodeId);
         if (node) {
           node.strength = "strong";

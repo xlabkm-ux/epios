@@ -693,7 +693,7 @@ export function buildServer(deps: ServerDependencies = {}) {
   const listADRsUseCase = new ListADRsUseCase(adrRepo);
   const getADRUseCase = new GetADRUseCase(adrRepo);
 
-  // Week 5: Governance & MCP
+  // S4+: Governance & MCP
   const governanceRepo =
     deps.governanceRepo ?? new InMemoryGovernanceRepository();
   const submitClaimUseCase = new SubmitClaimUseCase(graphRepo!, governanceRepo);
