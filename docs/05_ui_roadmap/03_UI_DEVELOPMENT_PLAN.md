@@ -33,8 +33,8 @@
 ---
 
 ## 🟣 Горизонт 3: Enterprise & Ecosystem (Стратегия)
-- [ ] **RBAC Admin UI:** Полноценный раздел настроек для управления ролями, доступами и политиками.
-- [ ] **MCP Plugins Interface:** Зона (например, выдвижная панель справа), куда смогут инжектиться UI-виджеты сторонних MCP-серверов.
+- [ ] **Admin & RBAC UI:** Реализация интерфейсов для управления ролями и SSO (см. детальный план в `docs/08_user_management_roadmap/05_RBAC_DEVELOPMENT_PLAN.md`).
+- [ ] **MCP & Plugin Interfaces:** Зона инжекции UI-виджетов сторонних плагинов (см. `docs/09_ai_and_mcp_integration_roadmap/01_AI_MCP_ROADMAP.md`).
 - [ ] **Audit / Time-Machine:** Визуальный интерфейс для Event Sourcing (ползунок времени графа, просмотр цепочки хешей).
 - [ ] **External Integrations UI:** Экраны настройки биндингов (вебхуки, OAuth) для GitHub PRs, Slack-уведомлений.
 - [ ] **Ecosystem Debug:** Финальная отладка и стабилизация всех интерфейсных модулей в диалоге с разработчиком.
