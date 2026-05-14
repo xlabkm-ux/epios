@@ -1,13 +1,13 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-14 00:03:58`
+> Автоматически сгенерировано: `2026-05-14 00:08:12`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `117` | Только JS/TS/TSX исходники |
-| **Total Lines** | `11090` | Суммарно по проекту |
-| **Project Weight** | `~90 400 tokens` | Оценка (4 символа/токен) |
+| **Total Lines** | `11091` | Суммарно по проекту |
+| **Project Weight** | `~90 412 tokens` | Оценка (4 символа/токен) |
 | **Context Pressure** | `70.6%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
@@ -23,7 +23,7 @@ subgraph 0["apps"]
 subgraph 1["demo-shell"]
 subgraph 2["dist"]
 subgraph 3["assets"]
-4["index-B07rtVl0.js"]
+4["index-5F4OA6-i.js"]
 end
 end
 subgraph 7["src"]
@@ -812,7 +812,7 @@ subgraph 0["apps"]
 subgraph 1["demo-shell"]
 subgraph 2["dist"]
 subgraph 3["assets"]
-4["index-B07rtVl0.js"]
+4["index-5F4OA6-i.js"]
 end
 end
 subgraph 7["src"]
@@ -1601,7 +1601,7 @@ Y-->E
 | `demo-shell/src/components/CommandPalette.tsx` | 341 | 9.1 KB | — |
 | `demo-shell/src/components/CustomNode.tsx` | 169 | 4.4 KB | — |
 | `demo-shell/src/components/GovernancePanel.tsx` | 498 | 14.7 KB | — |
-| `demo-shell/src/components/GraphCanvas.tsx` | 579 | 16.2 KB | — |
+| `demo-shell/src/components/GraphCanvas.tsx` | 580 | 16.2 KB | — |
 | `demo-shell/src/components/MappingPanel.tsx` | 270 | 7.8 KB | — |
 | `demo-shell/src/components/MissionPanel.tsx` | 301 | 8.6 KB | — |
 | `demo-shell/src/components/RatingPanel.tsx` | 234 | 6.2 KB | — |

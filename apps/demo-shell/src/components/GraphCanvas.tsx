@@ -524,6 +524,7 @@ const GraphCanvasInner: React.FC = () => {
             : undefined
         }
         fitView
+        proOptions={{ hideAttribution: true }}
         fitViewOptions={{
           padding: 0.3,
           duration: 800,
