@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-14 01:21:29`
+> Автоматически сгенерировано: `2026-05-14 01:32:56`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `115` | Только JS/TS/TSX исходники |
-| **Total Lines** | `11185` | Суммарно по проекту |
-| **Project Weight** | `~91 125 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `71.2%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Lines** | `11216` | Суммарно по проекту |
+| **Project Weight** | `~90 523 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `70.7%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
 ---
@@ -23,7 +23,7 @@ subgraph 0["apps"]
 subgraph 1["demo-shell"]
 subgraph 2["dist"]
 subgraph 3["assets"]
-4["index-DMmJBOAa.js"]
+4["index-CTiC8DDP.js"]
 end
 end
 subgraph 7["src"]
@@ -807,7 +807,7 @@ subgraph 0["apps"]
 subgraph 1["demo-shell"]
 subgraph 2["dist"]
 subgraph 3["assets"]
-4["index-DMmJBOAa.js"]
+4["index-CTiC8DDP.js"]
 end
 end
 subgraph 7["src"]
@@ -1596,9 +1596,9 @@ Y-->E
 | `demo-shell/src/components/MissionPanel.tsx` | 303 | 8.7 KB | — |
 | `demo-shell/src/components/RatingPanel.tsx` | 234 | 6.2 KB | — |
 | `demo-shell/src/components/ReadinessPanel.tsx` | 403 | 11.7 KB | — |
-| `demo-shell/src/components/Sidebar.tsx` | 465 | 13.6 KB | — |
+| `demo-shell/src/components/Sidebar.tsx` | 468 | 13.3 KB | — |
 | `demo-shell/src/components/SourcePanel.tsx` | 232 | 6.9 KB | — |
-| `demo-shell/src/components/WorkspaceRoom.tsx` | 665 | 22.1 KB | — |
+| `demo-shell/src/components/WorkspaceRoom.tsx` | 665 | 21.5 KB | — |
 | `demo-shell/src/context/SecurityContext.tsx` | 68 | 1.6 KB | — |
 | `demo-shell/src/context/WorkspaceContext.tsx` | 130 | 3.4 KB | — |
 | `demo-shell/src/hooks/useApi.ts` | 43 | 1.1 KB | — |
@@ -1668,16 +1668,16 @@ Y-->E
 | `api/src/bin.ts` | 13 | 0.3 KB | — |
 | `api/src/dto/index.ts` | 57 | 1.1 KB | — |
 | `api/src/index.ts` | 3 | 0.0 KB | — |
-| `api/src/mock-data.ts` | 551 | 17.5 KB | — |
+| `api/src/mock-data.ts` | 551 | 17.0 KB | Mock data factory for demo/development mode. |
 | `api/src/routes/adr.routes.ts` | 26 | 0.6 KB | — |
-| `api/src/routes/governance.routes.ts` | 127 | 3.8 KB | — |
+| `api/src/routes/governance.routes.ts` | 126 | 3.7 KB | — |
 | `api/src/routes/mapping.routes.ts` | 95 | 2.8 KB | — |
 | `api/src/routes/mcp.routes.ts` | 38 | 1.0 KB | — |
 | `api/src/routes/rating.routes.ts` | 30 | 0.9 KB | — |
 | `api/src/routes/security.routes.ts` | 66 | 2.0 KB | — |
-| `api/src/routes/source.routes.ts` | 35 | 1.0 KB | — |
+| `api/src/routes/source.routes.ts` | 34 | 0.9 KB | — |
 | `api/src/routes/workspace.routes.ts` | 29 | 0.7 KB | — |
-| `api/src/server.ts` | 235 | 8.8 KB | — |
+| `api/src/server.ts` | 261 | 8.7 KB | — |
 | `api/test/adr.test.ts` | 48 | 1.2 KB | — |
 | `api/test/api.test.ts` | 222 | 5.9 KB | — |
 | `api/vitest.config.ts` | 42 | 1.1 KB | — |
@@ -1685,10 +1685,10 @@ Y-->E
 | `application/src/mapping-processor.ts` | 93 | 2.4 KB | — |
 | `application/src/use-cases/add-edge.ts` | 47 | 1.3 KB | — |
 | `application/src/use-cases/add-node.ts` | 55 | 1.4 KB | — |
-| `application/src/use-cases/add-source.ts` | 30 | 0.8 KB | — |
+| `application/src/use-cases/add-source.ts` | 29 | 0.7 KB | — |
 | `application/src/use-cases/adr-use-cases.ts` | 19 | 0.5 KB | — |
 | `application/src/use-cases/apply-patch.ts` | 75 | 2.2 KB | — |
-| `application/src/use-cases/apply-retention.ts` | 52 | 1.7 KB | — |
+| `application/src/use-cases/apply-retention.ts` | 60 | 1.7 KB | — |
 | `application/src/use-cases/assess-readiness.ts` | 90 | 2.8 KB | — |
 | `application/src/use-cases/cast-vote.ts` | 131 | 4.0 KB | — |
 | `application/src/use-cases/create-workspace.ts` | 49 | 1.2 KB | — |
@@ -1733,23 +1733,23 @@ Y-->E
 | `infrastructure-mcp/test/smoke.test.ts` | 8 | 0.2 KB | — |
 | `infrastructure-models/src/index.ts` | 3 | 0.1 KB | — |
 | `infrastructure-postgres/drizzle.config.ts` | 17 | 0.4 KB | — |
-| `infrastructure-postgres/src/graph.repository.ts` | 175 | 5.1 KB | — |
+| `infrastructure-postgres/src/graph.repository.ts` | 175 | 5.0 KB | — |
 | `infrastructure-postgres/src/identity.repository.ts` | 68 | 1.7 KB | — |
 | `infrastructure-postgres/src/index.ts` | 11 | 0.3 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
-| `infrastructure-postgres/src/schema.ts` | 107 | 3.4 KB | — |
+| `infrastructure-postgres/src/schema.ts` | 106 | 3.3 KB | — |
 | `infrastructure-postgres/src/seed.ts` | 378 | 13.2 KB | — |
-| `infrastructure-postgres/src/source.repository.ts` | 61 | 1.7 KB | — |
+| `infrastructure-postgres/src/source.repository.ts` | 60 | 1.6 KB | — |
 | `infrastructure-postgres/src/workspace.repository.ts` | 96 | 3.0 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 97 | 2.9 KB | — |
-| `infrastructure-runtime/src/in-memory-repositories.ts` | 238 | 6.4 KB | — |
+| `infrastructure-runtime/src/in-memory-repositories.ts` | 237 | 6.2 KB | — |
 | `infrastructure-runtime/src/index.ts` | 7 | 0.3 KB | — |
 | `infrastructure-runtime/src/security-mocks.ts` | 82 | 2.2 KB | — |
 | `observability/src/audit.ts` | 25 | 0.6 KB | — |
 | `observability/src/index.ts` | 3 | 0.1 KB | — |
 | `observability/src/tracer.ts` | 24 | 0.5 KB | — |
 | `ports/src/adr.repository.port.ts` | 8 | 0.2 KB | — |
-| `ports/src/domain.repository.port.ts` | 19 | 0.6 KB | — |
+| `ports/src/domain.repository.port.ts` | 19 | 0.5 KB | — |
 | `ports/src/governance.port.ts` | 32 | 1.2 KB | — |
 | `ports/src/graph.repository.port.ts` | 14 | 0.6 KB | — |
 | `ports/src/index.ts` | 10 | 0.3 KB | — |
@@ -1819,7 +1819,6 @@ Y-->E
 - **Экспорт**: `ApplyRetentionUseCase`
 - **Зависимости**:
   - `@epios/domain` → RetentionPolicy
-  - `@epios/ports` → GraphRepositoryPort, SecurityPort, GovernanceRepositoryPort
 
 ### `application/src/use-cases/assess-readiness.ts`
 - **Экспорт**: `AssessReadinessRequest`, `AssessReadinessUseCase`

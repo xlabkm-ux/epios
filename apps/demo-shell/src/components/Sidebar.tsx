@@ -34,7 +34,15 @@ const Sidebar: React.FC = () => {
   useEffect(() => {
     if (fetchedWorkspaces) {
       setWorkspaces(fetchedWorkspaces);
-      if (fetchedWorkspaces.length > 0 && !selectedWorkspaceId) {
+
+      // Auto-select first workspace if none selected OR if current selection is invalid
+      const isValidSelection = fetchedWorkspaces.some(
+        (ws) => ws.id === selectedWorkspaceId,
+      );
+      if (
+        fetchedWorkspaces.length > 0 &&
+        (!selectedWorkspaceId || !isValidSelection)
+      ) {
         setSelectedWorkspaceId(fetchedWorkspaces[0].id);
       }
     }

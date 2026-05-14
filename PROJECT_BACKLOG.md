@@ -60,6 +60,8 @@
 - [x] S3: Demo Shell и Workspace Room
 - [x] S4: MCP Apps и Approval Flow
 - [x] S5: Полировка и Релиз-кандидат (v0.1.0-rc.1)
+- [x] S6: Security + Retention
+- [x] S7: RC + Pilot Pack (v1.1-alpha)
 
 ---
 *Агент обязан обновлять этот файл после каждого спринта.*
