@@ -372,9 +372,6 @@ const Sidebar: React.FC = () => {
             marginTop: "auto",
             paddingTop: "1.5rem",
             borderTop: "1px solid var(--border)",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.5rem",
           }}
         >
           <SidebarItem
@@ -383,80 +380,6 @@ const Sidebar: React.FC = () => {
             isCollapsed={isCollapsed}
             onClick={() => setShowSettings(true)}
           />
-
-          <div
-            style={{
-              marginTop: "0.5rem",
-              padding: isCollapsed ? "0.5rem" : "0.75rem",
-              backgroundColor: "rgba(255,255,255,0.03)",
-              borderRadius: "10px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.5rem",
-            }}
-          >
-            {!isCollapsed && (
-              <div
-                style={{
-                  fontSize: "0.6rem",
-                  color: "var(--text-dim)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                }}
-              >
-                {t("sidebar.identity")}
-              </div>
-            )}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: isCollapsed ? "center" : "space-between",
-                gap: "0.5rem",
-              }}
-            >
-              {!isCollapsed && (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>
-                    {currentUser?.username}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "0.7rem",
-                      color: "var(--text-dim)",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
-                    }}
-                  >
-                    {currentUser?.role === "admin" ? (
-                      <Shield size={10} />
-                    ) : (
-                      <UserIcon size={10} />
-                    )}
-                    {currentUser?.role}
-                  </span>
-                </div>
-              )}
-              <select
-                value={currentUser?.id}
-                onChange={(e) => setCurrentUserId(e.target.value)}
-                style={{
-                  backgroundColor: "var(--bg-sidebar)",
-                  color: "var(--text-main)",
-                  border: "1px solid var(--border)",
-                  borderRadius: "4px",
-                  fontSize: "0.7rem",
-                  padding: "2px",
-                  width: isCollapsed ? "100%" : "auto",
-                }}
-              >
-                <option value="admin-1">Admin</option>
-                <option value="reviewer-1">Reviewer</option>
-                <option value="observer-1">Observer</option>
-              </select>
-            </div>
-          </div>
         </div>
       </motion.div>
 
@@ -535,6 +458,114 @@ const Sidebar: React.FC = () => {
             <div
               style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
             >
+              <section>
+                <h3
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "var(--text-dim)",
+                    marginBottom: "1rem",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {t("sidebar.identity")}
+                </h3>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.75rem",
+                    backgroundColor: "rgba(255,255,255,0.03)",
+                    padding: "1rem",
+                    borderRadius: "12px",
+                    border: "1px solid var(--border)",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "12px",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: "50%",
+                        backgroundColor: "var(--primary-alpha)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "var(--primary)",
+                      }}
+                    >
+                      {currentUser?.role === "admin" ? (
+                        <Shield size={20} />
+                      ) : (
+                        <UserIcon size={20} />
+                      )}
+                    </div>
+                    <div>
+                      <div
+                        style={{
+                          fontSize: "1rem",
+                          fontWeight: 600,
+                          color: "var(--text-main)",
+                        }}
+                      >
+                        {currentUser?.username}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "0.75rem",
+                          color: "var(--text-dim)",
+                        }}
+                      >
+                        {currentUser?.role}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                    {[
+                      { id: "admin-1", label: "Admin" },
+                      { id: "reviewer-1", label: "Reviewer" },
+                      { id: "observer-1", label: "Observer" },
+                    ].map((role) => {
+                      const isActive = currentUser?.id === role.id;
+                      return (
+                        <button
+                          key={role.id}
+                          onClick={() => setCurrentUserId(role.id)}
+                          style={{
+                            flex: 1,
+                            padding: "10px 8px",
+                            borderRadius: "10px",
+                            border: isActive
+                              ? "1px solid var(--primary)"
+                              : "1px solid var(--border)",
+                            textAlign: "center",
+                            fontSize: "0.75rem",
+                            color: isActive
+                              ? "var(--text-main)"
+                              : "var(--text-dim)",
+                            backgroundColor: isActive
+                              ? "var(--surface-active)"
+                              : "transparent",
+                            cursor: "pointer",
+                            fontWeight: isActive ? 600 : 400,
+                            transition: "all 0.2s",
+                          }}
+                        >
+                          {role.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </section>
+
               <section>
                 <h3
                   style={{
