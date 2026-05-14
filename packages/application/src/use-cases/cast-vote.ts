@@ -1,6 +1,5 @@
 import { randomUUID } from "node:crypto";
 import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
-import { Vote } from "@epios/domain";
 import { auditLogger } from "@epios/observability";
 import { ApplyPatchUseCase } from "./apply-patch.js";
 
@@ -29,19 +28,12 @@ export class CastVoteUseCase {
       throw new Error("GOVERNANCE_PROCESS_NOT_FOUND");
     }
 
-    if (governanceProcess.status !== "pending") {
-      throw new Error("PROCESS_ALREADY_FINALIZED");
-    }
-
-    const vote: Vote = {
+    governanceProcess.castVote({
       actorId: request.actorId,
       decision: request.decision,
       rationale: request.rationale,
       timestamp: new Date(),
-    };
-
-    governanceProcess.votes.push(vote);
-    governanceProcess.updatedAt = new Date();
+    });
 
     auditLogger.log({
       actorId: request.actorId,
@@ -61,17 +53,8 @@ export class CastVoteUseCase {
       timestamp: new Date(),
     });
 
-    // Check if governanceProcess should be finalized
-    const approvals = governanceProcess.votes.filter(
-      (v) => v.decision === "approve",
-    ).length;
-    const rejections = governanceProcess.votes.filter(
-      (v) => v.decision === "reject",
-    ).length;
-
-    if (approvals >= governanceProcess.requiredVotes) {
-      governanceProcess.status = "approved";
-
+    // Check if governanceProcess was finalized
+    if (governanceProcess.status === "approved") {
       // Check if this is a Patch governance — delegate to ApplyPatchUseCase
       const patch = await this.governanceRepo.findPatchById(request.nodeId);
       if (patch && patch.status === "pending") {
@@ -83,8 +66,7 @@ export class CastVoteUseCase {
         // Regular node (Claim) — strengthen on approval
         const node = await this.graphRepo.findNodeById(request.nodeId);
         if (node) {
-          node.strength = "strong";
-          node.updatedAt = new Date();
+          node.setStrength("strong");
           await this.graphRepo.saveNode(node);
         }
       }
@@ -96,20 +78,17 @@ export class CastVoteUseCase {
         type: "governance_approved",
         actorId: "system",
         targetId: request.nodeId,
-        metadata: { approvals },
+        metadata: {
+          approvals: governanceProcess.votes.filter(
+            (v) => v.decision === "approve",
+          ).length,
+        },
         timestamp: new Date(),
       });
-    } else if (
-      rejections > 0 &&
-      (governanceProcess.votes.length >= governanceProcess.requiredVotes ||
-        rejections >= governanceProcess.requiredVotes)
-    ) {
-      governanceProcess.status = "rejected";
-
+    } else if (governanceProcess.status === "rejected") {
       const patch = await this.governanceRepo.findPatchById(request.nodeId);
       if (patch) {
-        patch.status = "rejected";
-        patch.updatedAt = new Date();
+        patch.reject();
         await this.governanceRepo.savePatch(patch);
       }
 
@@ -120,7 +99,11 @@ export class CastVoteUseCase {
         type: "governance_rejected",
         actorId: "system",
         targetId: request.nodeId,
-        metadata: { rejections },
+        metadata: {
+          rejections: governanceProcess.votes.filter(
+            (v) => v.decision === "reject",
+          ).length,
+        },
         timestamp: new Date(),
       });
     }

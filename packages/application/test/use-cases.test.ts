@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { CreateWorkspaceUseCase } from "../src/use-cases/create-workspace.js";
 import { AddNodeUseCase } from "../src/use-cases/add-node.js";
 import { AddEdgeUseCase } from "../src/use-cases/add-edge.js";
@@ -42,6 +42,10 @@ const mockGovernanceRepo = {
 } as unknown as GovernanceRepositoryPort;
 
 describe("Use Cases", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   describe("CreateWorkspaceUseCase", () => {
     it("should create a workspace", async () => {
       const useCase = new CreateWorkspaceUseCase(mockWorkspaceRepo);
@@ -140,13 +144,18 @@ describe("Use Cases", () => {
   describe("PatchNodeUseCase", () => {
     it("should patch an existing node", async () => {
       const useCase = new PatchNodeUseCase(mockGraphRepo);
-      const existingNode = {
-        id: "node-1",
-        content: "Old Content",
-        metadata: { key: "old" },
-      };
       vi.mocked(mockGraphRepo.findNodeById).mockResolvedValue(
-        existingNode as unknown as EpistemicNode,
+        new EpistemicNode({
+          id: "node-1",
+          workspaceId: "workspace-1",
+          type: "claim",
+          content: "Old Content",
+          strength: "none",
+          evidence: [],
+          metadata: { key: "old" },
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }),
       );
 
       const request = {
@@ -195,15 +204,17 @@ describe("Use Cases", () => {
   describe("CastVoteUseCase", () => {
     it("should cast a vote and keep status as pending if threshold not met", async () => {
       const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
-      const mockProcess = {
+      const mockProcess = new GovernanceProcess({
         nodeId: "node-1",
         workspaceId: "workspace-1",
         status: "pending",
         votes: [],
         requiredVotes: 2,
-      };
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
       vi.mocked(mockGovernanceRepo.findProcessByNodeId).mockResolvedValue(
-        mockProcess as unknown as GovernanceProcess,
+        mockProcess,
       );
 
       const request = {
@@ -214,26 +225,40 @@ describe("Use Cases", () => {
 
       await useCase.execute(request);
 
-      expect(mockGovernanceRepo.saveProcess).toHaveBeenCalledWith(
-        expect.objectContaining({ status: "pending" }),
-      );
+      const savedProcess = vi.mocked(mockGovernanceRepo.saveProcess).mock
+        .calls[0][0];
+      expect(savedProcess.toJSON().status).toBe("pending");
     });
 
     it("should finalize process as approved if threshold met", async () => {
       const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
-      const mockProcess = {
+      const mockProcess = new GovernanceProcess({
         nodeId: "node-1",
         workspaceId: "workspace-1",
         status: "pending",
-        votes: [{ actorId: "voter-1", decision: "approve" }],
+        votes: [
+          { actorId: "voter-1", decision: "approve", timestamp: new Date() },
+        ],
         requiredVotes: 2,
-      };
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
       vi.mocked(mockGovernanceRepo.findProcessByNodeId).mockResolvedValue(
-        mockProcess as unknown as GovernanceProcess,
+        mockProcess,
       );
-      vi.mocked(mockGraphRepo.findNodeById).mockResolvedValue({
-        id: "node-1",
-      } as unknown as EpistemicNode);
+      vi.mocked(mockGraphRepo.findNodeById).mockResolvedValue(
+        new EpistemicNode({
+          id: "node-1",
+          workspaceId: "workspace-1",
+          type: "claim",
+          content: "Test",
+          strength: "none",
+          evidence: [],
+          metadata: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }),
+      );
 
       const request = {
         nodeId: "node-1",
@@ -243,25 +268,29 @@ describe("Use Cases", () => {
 
       await useCase.execute(request);
 
-      expect(mockGovernanceRepo.saveProcess).toHaveBeenCalledWith(
-        expect.objectContaining({ status: "approved" }),
-      );
-      expect(mockGraphRepo.saveNode).toHaveBeenCalledWith(
-        expect.objectContaining({ strength: "strong" }),
-      );
+      const savedProcess = vi.mocked(mockGovernanceRepo.saveProcess).mock
+        .calls[0][0];
+      expect(savedProcess.toJSON().status).toBe("approved");
+
+      const savedNode = vi.mocked(mockGraphRepo.saveNode).mock.calls[0][0];
+      expect(savedNode.strength).toBe("strong");
     });
 
     it("should finalize process as rejected if rejection threshold met", async () => {
       const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
-      const mockProcess = {
+      const mockProcess = new GovernanceProcess({
         nodeId: "node-1",
         workspaceId: "workspace-1",
         status: "pending",
-        votes: [{ actorId: "voter-1", decision: "reject" }],
+        votes: [
+          { actorId: "voter-1", decision: "reject", timestamp: new Date() },
+        ],
         requiredVotes: 2,
-      };
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
       vi.mocked(mockGovernanceRepo.findProcessByNodeId).mockResolvedValue(
-        mockProcess as unknown as GovernanceProcess,
+        mockProcess,
       );
 
       const request = {
@@ -272,9 +301,9 @@ describe("Use Cases", () => {
 
       await useCase.execute(request);
 
-      expect(mockGovernanceRepo.saveProcess).toHaveBeenCalledWith(
-        expect.objectContaining({ status: "rejected" }),
-      );
+      const savedProcess = vi.mocked(mockGovernanceRepo.saveProcess).mock
+        .calls[0][0];
+      expect(savedProcess.toJSON().status).toBe("rejected");
     });
 
     it("should throw if process not found", async () => {
@@ -294,9 +323,17 @@ describe("Use Cases", () => {
 
     it("should throw if process already finalized", async () => {
       const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
-      vi.mocked(mockGovernanceRepo.findProcessByNodeId).mockResolvedValue({
-        status: "approved",
-      } as unknown as GovernanceProcess);
+      vi.mocked(mockGovernanceRepo.findProcessByNodeId).mockResolvedValue(
+        new GovernanceProcess({
+          nodeId: "node-1",
+          workspaceId: "workspace-1",
+          status: "approved",
+          votes: [],
+          requiredVotes: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }),
+      );
 
       const request = {
         nodeId: "node-1",
@@ -305,7 +342,7 @@ describe("Use Cases", () => {
       };
 
       await expect(useCase.execute(request)).rejects.toThrow(
-        "PROCESS_ALREADY_FINALIZED",
+        "Cannot transition from approved to finalized",
       );
     });
   });

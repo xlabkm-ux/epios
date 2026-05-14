@@ -83,18 +83,21 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       .from(epistemicNodes)
       .where(eq(epistemicNodes.workspaceId, workspaceId));
 
-    return records.map((record) => ({
-      id: record.id,
-      workspaceId: record.workspaceId,
-      type: record.type as NodeType,
-      content: record.content,
-      strength: record.strength as NodeStrength,
-      evidence:
-        record.evidence as unknown as import("@epios/domain").EvidenceRef[],
-      metadata: record.metadata as Record<string, unknown>,
-      createdAt: record.createdAt,
-      updatedAt: record.updatedAt,
-    }));
+    return records.map(
+      (record) =>
+        new EpistemicNode({
+          id: record.id,
+          workspaceId: record.workspaceId,
+          type: record.type as NodeType,
+          content: record.content,
+          strength: record.strength as NodeStrength,
+          evidence:
+            record.evidence as unknown as import("@epios/domain").EvidenceRef[],
+          metadata: record.metadata as Record<string, unknown>,
+          createdAt: record.createdAt,
+          updatedAt: record.updatedAt,
+        }),
+    );
   }
 
   async findEdgesByWorkspaceId(workspaceId: string): Promise<EpistemicEdge[]> {
@@ -122,7 +125,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
 
     if (!record) return null;
 
-    return {
+    return new EpistemicNode({
       id: record.id,
       workspaceId: record.workspaceId,
       type: record.type as NodeType,
@@ -133,7 +136,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       metadata: record.metadata as Record<string, unknown>,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
-    };
+    });
   }
 
   async findEdgeById(id: string): Promise<EpistemicEdge | null> {
@@ -158,17 +161,20 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
   async findAllNodes(): Promise<EpistemicNode[]> {
     const records = await this.db.select().from(epistemicNodes);
 
-    return records.map((record) => ({
-      id: record.id,
-      workspaceId: record.workspaceId,
-      type: record.type as NodeType,
-      content: record.content,
-      strength: record.strength as NodeStrength,
-      evidence:
-        record.evidence as unknown as import("@epios/domain").EvidenceRef[],
-      metadata: record.metadata as Record<string, unknown>,
-      createdAt: record.createdAt,
-      updatedAt: record.updatedAt,
-    }));
+    return records.map(
+      (record) =>
+        new EpistemicNode({
+          id: record.id,
+          workspaceId: record.workspaceId,
+          type: record.type as NodeType,
+          content: record.content,
+          strength: record.strength as NodeStrength,
+          evidence:
+            record.evidence as unknown as import("@epios/domain").EvidenceRef[],
+          metadata: record.metadata as Record<string, unknown>,
+          createdAt: record.createdAt,
+          updatedAt: record.updatedAt,
+        }),
+    );
   }
 }

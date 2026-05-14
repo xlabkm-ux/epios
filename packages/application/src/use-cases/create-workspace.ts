@@ -20,7 +20,7 @@ export class CreateWorkspaceUseCase {
   constructor(private readonly workspaceRepo: WorkspaceRepositoryPort) {}
 
   async execute(request: CreateWorkspaceRequest): Promise<Workspace> {
-    const workspace: Workspace = {
+    const workspace = new Workspace({
       id: randomUUID(),
       title: request.title,
       brief: request.brief,
@@ -31,7 +31,7 @@ export class CreateWorkspaceUseCase {
       createdAt: new Date(),
       updatedAt: new Date(),
       version: 1,
-    };
+    });
 
     assertWorkspaceCanRun(workspace);
 

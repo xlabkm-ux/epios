@@ -5,9 +5,11 @@ import {
   WorkspaceRepositoryPort,
   GraphRepositoryPort,
   GovernanceRepositoryPort,
+  IdentityRepositoryPort,
   MCPAppRegistryPort,
   MCPBridgePort,
 } from "@epios/ports";
+import { Workspace, EpistemicNode, GovernanceProcess } from "@epios/domain";
 
 describe("API E2E", () => {
   let app: FastifyInstance;
@@ -95,7 +97,25 @@ describe("API E2E", () => {
   });
 
   it("should add a node to a workspace", async () => {
-    mockWorkspaceRepo.findById.mockResolvedValue({ id: "workspace-1" });
+    mockWorkspaceRepo.findById.mockResolvedValue(
+      new Workspace({
+        id: "workspace-1",
+        title: "Workspace 1",
+        status: "running",
+        mode: "assisted",
+        sensitivity: "internal",
+        version: 1,
+        brief: {
+          goal: "G",
+          successCriteria: [],
+          constraints: [],
+          unknowns: [],
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        createdBy: { type: "user", id: "u1" },
+      }),
+    );
 
     const response = await app.inject({
       method: "POST",
@@ -124,11 +144,17 @@ describe("API E2E", () => {
   });
 
   it("should cast a governance vote", async () => {
-    mockGovernanceRepo.findProcessByNodeId.mockResolvedValue({
-      status: "pending",
-      votes: [],
-      requiredVotes: 2,
-    });
+    mockGovernanceRepo.findProcessByNodeId.mockResolvedValue(
+      new GovernanceProcess({
+        nodeId: "n1",
+        workspaceId: "w1",
+        status: "pending",
+        votes: [],
+        requiredVotes: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    );
 
     const response = await app.inject({
       method: "POST",
@@ -172,11 +198,19 @@ describe("API E2E", () => {
   });
 
   it("should patch a node", async () => {
-    mockGraphRepo.findNodeById.mockResolvedValue({
-      id: "node-1",
-      content: "Old Content",
-      metadata: {},
-    });
+    mockGraphRepo.findNodeById.mockResolvedValue(
+      new EpistemicNode({
+        id: "node-1",
+        workspaceId: "workspace-1",
+        type: "claim",
+        content: "Old Content",
+        strength: "none",
+        evidence: [],
+        metadata: {},
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    );
 
     const response = await app.inject({
       method: "PATCH",
@@ -192,14 +226,50 @@ describe("API E2E", () => {
   });
 
   it("should list workspaces", async () => {
-    mockWorkspaceRepo.findAll.mockResolvedValue([{ id: "w1", title: "W1" }]);
+    mockWorkspaceRepo.findAll.mockResolvedValue([
+      new Workspace({
+        id: "w1",
+        title: "W1",
+        status: "running",
+        mode: "assisted",
+        sensitivity: "internal",
+        version: 1,
+        brief: {
+          goal: "G",
+          successCriteria: [],
+          constraints: [],
+          unknowns: [],
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        createdBy: { type: "user", id: "u1" },
+      }),
+    ]);
     const response = await app.inject({ method: "GET", url: "/workspaces" });
     expect(response.statusCode).toBe(200);
     expect(response.json()).toHaveLength(1);
   });
 
   it("should add an edge between nodes", async () => {
-    mockWorkspaceRepo.findById.mockResolvedValue({ id: "workspace-1" });
+    mockWorkspaceRepo.findById.mockResolvedValue(
+      new Workspace({
+        id: "workspace-1",
+        title: "W1",
+        status: "running",
+        mode: "assisted",
+        sensitivity: "internal",
+        version: 1,
+        brief: {
+          goal: "G",
+          successCriteria: [],
+          constraints: [],
+          unknowns: [],
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        createdBy: { type: "user", id: "u1" },
+      }),
+    );
     const response = await app.inject({
       method: "POST",
       url: "/workspaces/workspace-1/edges",

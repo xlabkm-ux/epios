@@ -25,7 +25,7 @@ export class ProposePatchUseCase {
     const patchId = randomUUID();
     const now = new Date();
 
-    const patch: NodePatch = {
+    const patch = new NodePatch({
       id: patchId,
       targetNodeId: request.targetNodeId,
       workspaceId: request.workspaceId,
@@ -34,9 +34,9 @@ export class ProposePatchUseCase {
       status: "pending",
       createdAt: now,
       updatedAt: now,
-    };
+    });
 
-    const governance: GovernanceProcess = {
+    const governance = new GovernanceProcess({
       nodeId: patchId, // Use patchId as nodeId for governance
       workspaceId: request.workspaceId,
       status: "pending",
@@ -44,7 +44,7 @@ export class ProposePatchUseCase {
       requiredVotes: request.requiredVotes || 2, // Default 2 votes for patches
       createdAt: now,
       updatedAt: now,
-    };
+    });
 
     await this.governanceRepo.savePatch(patch);
     await this.governanceRepo.saveProcess(governance);

@@ -29,7 +29,7 @@ export class AddNodeUseCase {
       throw new Error("WORKSPACE_NOT_FOUND");
     }
 
-    const node: EpistemicNode = {
+    const node = new EpistemicNode({
       id: randomUUID(),
       workspaceId: request.workspaceId,
       type: request.type,
@@ -39,7 +39,7 @@ export class AddNodeUseCase {
       metadata: request.metadata ?? {},
       createdAt: new Date(),
       updatedAt: new Date(),
-    };
+    });
 
     await this.graphRepo.saveNode(node);
 

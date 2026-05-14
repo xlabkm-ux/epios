@@ -4,7 +4,9 @@
  */
 import {
   Workspace,
+  WorkspaceProps,
   EpistemicNode,
+  EpistemicNodeProps,
   EpistemicEdge,
   WorkspaceStatus,
   WorkspaceMode,
@@ -73,7 +75,10 @@ function createWorkspaceEData(): {
     });
   }
 
-  return { nodes, edges };
+  return {
+    nodes: nodes.map((n) => new EpistemicNode(n as EpistemicNodeProps)),
+    edges,
+  };
 }
 
 function createRussianDemoData(): {
@@ -184,7 +189,10 @@ function createRussianDemoData(): {
     })),
   ];
 
-  return { nodes, edges };
+  return {
+    nodes: nodes.map((n) => new EpistemicNode(n as EpistemicNodeProps)),
+    edges,
+  };
 }
 
 export function createMockData(): MockData {
@@ -345,7 +353,7 @@ export function createMockData(): MockData {
       updatedAt: new Date(),
       createdBy: { type: "user", id: "business-analyst" },
     },
-  ];
+  ].map((p) => new Workspace(p as WorkspaceProps));
 
   const baseNodes: EpistemicNode[] = [
     // Scenario A
@@ -543,7 +551,11 @@ export function createMockData(): MockData {
 
   return {
     workspaces,
-    nodes: [...baseNodes, ...workspaceE.nodes, ...russianDemo.nodes],
+    nodes: [
+      ...baseNodes.map((n) => new EpistemicNode(n as EpistemicNodeProps)),
+      ...workspaceE.nodes,
+      ...russianDemo.nodes,
+    ],
     edges: [...baseEdges, ...workspaceE.edges, ...russianDemo.edges],
     sources,
   };

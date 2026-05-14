@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@epios/application": "workspace:*",
+    "@epios/domain": "workspace:*",
     "@epios/infrastructure-mcp": "workspace:*",
     "@epios/infrastructure-postgres": "workspace:*",
     "@epios/infrastructure-runtime": "workspace:*",

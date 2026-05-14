@@ -114,6 +114,9 @@ importers:
       '@epios/application':
         specifier: workspace:*
         version: link:../application
+      '@epios/domain':
+        specifier: workspace:*
+        version: link:../domain
       '@epios/infrastructure-mcp':
         specifier: workspace:*
         version: link:../infrastructure-mcp

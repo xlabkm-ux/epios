@@ -80,7 +80,7 @@ export class PostgresWorkspaceRepository implements WorkspaceRepositoryPort {
   }
 
   private mapToDomain(record: typeof workspaces.$inferSelect): Workspace {
-    return {
+    return new Workspace({
       id: record.id,
       title: record.title,
       status: record.status as WorkspaceStatus,
@@ -104,6 +104,6 @@ export class PostgresWorkspaceRepository implements WorkspaceRepositoryPort {
       isPinned: record.isPinned,
       archivedAt: record.archivedAt ?? undefined,
       archiveComment: record.archiveComment ?? undefined,
-    };
+    });
   }
 }

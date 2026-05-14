@@ -1,4 +1,4 @@
-import { Claim, GovernanceProcess } from "@epios/domain";
+import { Claim, GovernanceProcess, EpistemicNode } from "@epios/domain";
 import { GraphRepositoryPort, GovernanceRepositoryPort } from "@epios/ports";
 import { randomUUID } from "crypto";
 
@@ -18,7 +18,7 @@ export class SubmitClaimUseCase {
     const claimId = randomUUID();
     const now = new Date();
 
-    const claim: Claim = {
+    const claim = new EpistemicNode({
       id: claimId,
       workspaceId: request.workspaceId,
       type: "claim",
@@ -28,9 +28,9 @@ export class SubmitClaimUseCase {
       metadata: {},
       createdAt: now,
       updatedAt: now,
-    };
+    });
 
-    const governance: GovernanceProcess = {
+    const governance = new GovernanceProcess({
       nodeId: claimId,
       workspaceId: request.workspaceId,
       status: "pending",
@@ -38,7 +38,7 @@ export class SubmitClaimUseCase {
       requiredVotes: request.requiredVotes || 3,
       createdAt: now,
       updatedAt: now,
-    };
+    });
 
     await this.graphRepo.saveNode(claim);
     await this.governanceRepo.saveProcess(governance);

@@ -32,12 +32,10 @@ export class ApplyPatchUseCase {
     const targetNode = await this.graphRepo.findNodeById(patch.targetNodeId);
     if (!targetNode) throw new Error("TARGET_NODE_NOT_FOUND");
 
-    targetNode.content = patch.content;
-    targetNode.updatedAt = new Date();
+    targetNode.updateContent(patch.content);
     await this.graphRepo.saveNode(targetNode);
 
-    patch.status = "applied";
-    patch.updatedAt = new Date();
+    patch.apply();
     await this.governanceRepo.savePatch(patch);
 
     // Create new artifact version
