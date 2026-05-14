@@ -30,6 +30,8 @@ const Sidebar: React.FC = () => {
   const [isResizing, setIsResizing] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [shareModalWs, setShareModalWs] = useState<Workspace | null>(null);
+  // pinnedIds stores IDs in pin order — last pinned first (unshift)
+  const [pinnedIds, setPinnedIds] = useState<string[]>([]);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const { data: fetchedWorkspaces } = useApi<Workspace[]>("/workspaces");
@@ -112,14 +114,30 @@ const Sidebar: React.FC = () => {
   const handleAction = (ws: Workspace, action: string) => {
     if (action === "share") {
       setShareModalWs(ws);
-    } else if (action === "archive" || action === "restore") {
-      const newStatus: WorkspaceStatus =
-        action === "archive" ? "archived" : "running";
+    } else if (action === "archive") {
+      // Remove from pinned if pinned, then archive
+      setPinnedIds((prev) => prev.filter((id) => id !== ws.id));
       setWorkspaces(
         workspaces.map((w) =>
-          w.id === ws.id ? { ...w, status: newStatus } : w,
+          w.id === ws.id ? { ...w, status: "archived" as WorkspaceStatus } : w,
         ),
       );
+    } else if (action === "restore") {
+      setWorkspaces(
+        workspaces.map((w) =>
+          w.id === ws.id ? { ...w, status: "running" as WorkspaceStatus } : w,
+        ),
+      );
+    } else if (action === "pin") {
+      setPinnedIds((prev) => {
+        if (prev.includes(ws.id)) {
+          // Unpin
+          return prev.filter((id) => id !== ws.id);
+        } else {
+          // Pin — new pins go to the front (most recent = top)
+          return [ws.id, ...prev];
+        }
+      });
     } else {
       alert(`Action: ${action} for ${ws.title}`);
     }
@@ -286,59 +304,110 @@ const Sidebar: React.FC = () => {
             }
           />
 
-          {!isCollapsed && (
-            <div
-              style={{
-                margin: "2rem 0 0.75rem 0.75rem",
-                fontSize: "0.65rem",
-                color: "var(--text-dim)",
-                textTransform: "uppercase",
-                letterSpacing: "0.15em",
-                fontWeight: 700,
-              }}
-            >
-              {t("sidebar.active_workspaces")}
-            </div>
+          {/* ── Pinned Workspaces ── */}
+          {pinnedIds.length > 0 && (
+            <>
+              {!isCollapsed && (
+                <SectionLabel label={t("sidebar.pinned_workspaces")} />
+              )}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.25rem",
+                }}
+              >
+                {pinnedIds
+                  .map((id) => workspaces.find((w) => w.id === id))
+                  .filter(Boolean)
+                  .map((workspace) => {
+                    const ws = workspace!;
+                    return (
+                      <SidebarItem
+                        key={ws.id}
+                        active={selectedWorkspaceId === ws.id}
+                        isCollapsed={isCollapsed}
+                        isPinned
+                        onClick={() => setSelectedWorkspaceId(ws.id)}
+                        onAction={(action) => handleAction(ws, action)}
+                        isWorkspace
+                        status={ws.status}
+                        icon={<WsDot active={selectedWorkspaceId === ws.id} />}
+                        label={ws.title}
+                      />
+                    );
+                  })}
+              </div>
+            </>
           )}
 
+          {/* ── Active Workspaces ── */}
+          {!isCollapsed && (
+            <SectionLabel label={t("sidebar.active_workspaces")} />
+          )}
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
           >
-            {workspaces.map((workspace) => (
-              <SidebarItem
-                key={workspace.id}
-                active={selectedWorkspaceId === workspace.id}
-                isCollapsed={isCollapsed}
-                onClick={() => setSelectedWorkspaceId(workspace.id)}
-                onAction={(action) => handleAction(workspace, action)}
-                isWorkspace
-                status={workspace.status}
-                icon={
-                  selectedWorkspaceId === workspace.id ? (
-                    <Zap
-                      size={14}
-                      fill="var(--primary)"
-                      style={{
-                        filter: "drop-shadow(0 0 5px var(--primary-glow))",
-                        color: "var(--primary)",
-                      }}
-                    />
-                  ) : (
-                    <div
-                      style={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: "50%",
-                        backgroundColor: "var(--text-dim)",
-                        opacity: 0.6,
-                      }}
-                    />
-                  )
-                }
-                label={workspace.title}
-              />
-            ))}
+            {workspaces
+              .filter(
+                (ws) => ws.status !== "archived" && !pinnedIds.includes(ws.id),
+              )
+              .map((workspace) => (
+                <SidebarItem
+                  key={workspace.id}
+                  active={selectedWorkspaceId === workspace.id}
+                  isCollapsed={isCollapsed}
+                  onClick={() => setSelectedWorkspaceId(workspace.id)}
+                  onAction={(action) => handleAction(workspace, action)}
+                  isWorkspace
+                  status={workspace.status}
+                  icon={<WsDot active={selectedWorkspaceId === workspace.id} />}
+                  label={workspace.title}
+                />
+              ))}
           </div>
+
+          {/* ── Archived Workspaces ── */}
+          {workspaces.some((ws) => ws.status === "archived") && (
+            <>
+              {!isCollapsed && (
+                <SectionLabel label={t("sidebar.archived_workspaces")} />
+              )}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.25rem",
+                }}
+              >
+                {workspaces
+                  .filter((ws) => ws.status === "archived")
+                  .map((workspace) => (
+                    <SidebarItem
+                      key={workspace.id}
+                      active={selectedWorkspaceId === workspace.id}
+                      isCollapsed={isCollapsed}
+                      onClick={() => setSelectedWorkspaceId(workspace.id)}
+                      onAction={(action) => handleAction(workspace, action)}
+                      isWorkspace
+                      status={workspace.status}
+                      icon={
+                        <div
+                          style={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: "50%",
+                            backgroundColor: "var(--text-muted)",
+                            opacity: 0.4,
+                          }}
+                        />
+                      }
+                      label={workspace.title}
+                    />
+                  ))}
+              </div>
+            </>
+          )}
 
           <SidebarItem
             icon={<Plus size={18} />}
@@ -620,5 +689,44 @@ const Sidebar: React.FC = () => {
     </>
   );
 };
+
+// ── Helper components ───────────────────────────────────────────────────────
+
+const SectionLabel: React.FC<{ label: string }> = ({ label }) => (
+  <div
+    style={{
+      margin: "1.25rem 0 0.5rem 0.75rem",
+      fontSize: "0.6rem",
+      color: "var(--text-muted)",
+      textTransform: "uppercase",
+      letterSpacing: "0.15em",
+      fontWeight: 700,
+    }}
+  >
+    {label}
+  </div>
+);
+
+const WsDot: React.FC<{ active: boolean }> = ({ active }) =>
+  active ? (
+    <Zap
+      size={14}
+      fill="var(--primary)"
+      style={{
+        filter: "drop-shadow(0 0 5px var(--primary))",
+        color: "var(--primary)",
+      }}
+    />
+  ) : (
+    <div
+      style={{
+        width: 8,
+        height: 8,
+        borderRadius: "50%",
+        backgroundColor: "var(--text-dim)",
+        opacity: 0.6,
+      }}
+    />
+  );
 
 export default Sidebar;

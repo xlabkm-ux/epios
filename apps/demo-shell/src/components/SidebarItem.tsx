@@ -17,6 +17,7 @@ export interface SidebarItemProps {
   isAction?: boolean;
   isCollapsed?: boolean;
   isWorkspace?: boolean;
+  isPinned?: boolean;
   status?: string;
   onClick?: () => void;
   onAction?: (action: string) => void;
@@ -29,6 +30,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   isAction,
   isCollapsed,
   isWorkspace,
+  isPinned,
   status,
   onClick,
   onAction,
@@ -131,6 +133,18 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
             <MoreVertical size={16} />
           </div>
         )}
+        {isPinned && !isCollapsed && (
+          <div
+            style={{
+              color: "var(--primary)",
+              opacity: 0.7,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Pin size={10} />
+          </div>
+        )}
         <style>{`
           .workspace-menu-trigger { opacity: 0; }
           .workspace-menu-trigger.active { opacity: 1 !important; }
@@ -167,8 +181,22 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               }}
             />
             <MenuItem
-              icon={<Pin size={14} />}
-              label={t("workspace_menu.pin")}
+              icon={
+                <div
+                  style={{
+                    width: 14,
+                    height: 14,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Pin size={13} />
+                </div>
+              }
+              label={
+                isPinned ? t("workspace_menu.unpin") : t("workspace_menu.pin")
+              }
               onClick={() => {
                 setShowMenu(false);
                 onAction?.("pin");
