@@ -256,7 +256,7 @@ const GraphCanvasInner: React.FC = () => {
         const timer = setTimeout(() => {
           fitView({
             duration: 1000,
-            padding: { top: 100, bottom: 100, left: 100, right: 400 },
+            padding: 0.3,
             includeHiddenNodes: false,
           });
         }, 200);
@@ -525,7 +525,7 @@ const GraphCanvasInner: React.FC = () => {
         }
         fitView
         fitViewOptions={{
-          padding: { top: 100, bottom: 100, left: 100, right: 400 },
+          padding: 0.3,
           duration: 800,
           includeHiddenNodes: false,
         }}
