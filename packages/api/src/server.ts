@@ -13,6 +13,7 @@ import {
 import {
   CreateWorkspaceUseCase,
   ListWorkspacesUseCase,
+  PatchWorkspaceUseCase,
   AddNodeUseCase,
   AddEdgeUseCase,
   PatchNodeUseCase,
@@ -154,6 +155,7 @@ export function buildServer(deps: ServerDependencies = {}) {
   // S2: Ensure non-null repositories (repos are now guaranteed defined)
   const createWorkspaceUseCase = new CreateWorkspaceUseCase(workspaceRepo);
   const listWorkspacesUseCase = new ListWorkspacesUseCase(workspaceRepo);
+  const patchWorkspaceUseCase = new PatchWorkspaceUseCase(workspaceRepo);
   const addNodeUseCase = new AddNodeUseCase(workspaceRepo, graphRepo);
   const addEdgeUseCase = new AddEdgeUseCase(workspaceRepo, graphRepo);
   const patchNodeUseCase = new PatchNodeUseCase(graphRepo);
@@ -225,6 +227,7 @@ export function buildServer(deps: ServerDependencies = {}) {
   app.register(workspaceRoutes, {
     createWorkspaceUseCase,
     listWorkspacesUseCase,
+    patchWorkspaceUseCase,
   });
   app.register(mappingRoutes, {
     addNodeUseCase,

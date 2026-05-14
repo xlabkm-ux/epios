@@ -17,7 +17,8 @@ import { useWorkspace } from "../context/WorkspaceContext";
 import { useSecurity } from "../context/SecurityContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Workspace, WorkspaceStatus } from "@epios/domain";
+import { Workspace } from "@epios/domain";
+import { API_BASE_URL } from "../api-config";
 
 // Refactored Components
 import { Modal } from "./Modal";
@@ -32,7 +33,8 @@ const Sidebar: React.FC = () => {
   const [shareModalWs, setShareModalWs] = useState<Workspace | null>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const { data: fetchedWorkspaces } = useApi<Workspace[]>("/workspaces");
+  const { data: fetchedWorkspaces, refresh: refreshWorkspaces } =
+    useApi<Workspace[]>("/workspaces");
   const {
     workspaces,
     setWorkspaces,
@@ -40,9 +42,6 @@ const Sidebar: React.FC = () => {
     setSelectedWorkspaceId,
     activeView,
     setActiveView,
-    setArchiveMeta,
-    pinnedIds,
-    setPinnedIds,
   } = useWorkspace();
   const { currentUser, setCurrentUserId } = useSecurity();
 
@@ -121,44 +120,54 @@ const Sidebar: React.FC = () => {
     i18n.changeLanguage(lang);
   };
 
-  const handleAction = (ws: Workspace, action: string) => {
+  const handleAction = async (ws: Workspace, action: string) => {
     if (action === "share") {
       setShareModalWs(ws);
     } else if (action === "archive") {
-      // Record archive date and comment
-      setArchiveMeta((prev) => ({
-        ...prev,
-        [ws.id]: {
-          archivedAt: new Date(),
-          comment:
-            i18n.language === "ru"
-              ? "Архивировано пользователем"
-              : "Archived by user",
-        },
-      }));
-      // Remove from pinned if pinned, then archive
-      setPinnedIds((prev) => prev.filter((id) => id !== ws.id));
-      setWorkspaces(
-        workspaces.map((w) =>
-          w.id === ws.id ? { ...w, status: "archived" as WorkspaceStatus } : w,
-        ),
-      );
-    } else if (action === "restore") {
-      setWorkspaces(
-        workspaces.map((w) =>
-          w.id === ws.id ? { ...w, status: "running" as WorkspaceStatus } : w,
-        ),
-      );
-    } else if (action === "pin") {
-      setPinnedIds((prev) => {
-        if (prev.includes(ws.id)) {
-          // Unpin
-          return prev.filter((id) => id !== ws.id);
-        } else {
-          // Pin — new pins go to the front (most recent = top)
-          return [ws.id, ...prev];
-        }
+      const archivedAt = new Date();
+      const archiveComment =
+        i18n.language === "ru"
+          ? "Архивировано пользователем"
+          : "Archived by user";
+
+      // Persist to DB
+      await fetch(`${API_BASE_URL}/workspaces/${ws.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          status: "archived",
+          archivedAt,
+          archiveComment,
+          isPinned: false, // Unpin when archiving
+        }),
       });
+
+      refreshWorkspaces();
+    } else if (action === "restore") {
+      await fetch(`${API_BASE_URL}/workspaces/${ws.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "running" }),
+      });
+      refreshWorkspaces();
+    } else if (action === "pin") {
+      const isCurrentlyPinned = !!ws.isPinned;
+      await fetch(`${API_BASE_URL}/workspaces/${ws.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isPinned: !isCurrentlyPinned }),
+      });
+      refreshWorkspaces();
+    } else if (action === "rename") {
+      const newTitle = prompt("Enter new title:", ws.title);
+      if (newTitle && newTitle !== ws.title) {
+        await fetch(`${API_BASE_URL}/workspaces/${ws.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: newTitle }),
+        });
+        refreshWorkspaces();
+      }
     } else {
       alert(`Action: ${action} for ${ws.title}`);
     }
@@ -335,34 +344,34 @@ const Sidebar: React.FC = () => {
               marginTop: isCollapsed ? "0" : "1rem",
             }}
           >
-            {[
-              // 1. Pinned workspaces first (in order of pinnedIds)
-              ...pinnedIds
-                .map((id) => workspaces.find((w) => w.id === id))
-                .filter(
-                  (ws): ws is Workspace => !!ws && ws.status !== "archived",
-                ),
-              // 2. Then the rest of running workspaces
-              ...workspaces.filter(
-                (ws) => ws.status !== "archived" && !pinnedIds.includes(ws.id),
-              ),
-            ].map((ws) => (
-              <SidebarItem
-                key={ws.id}
-                active={selectedWorkspaceId === ws.id}
-                isCollapsed={isCollapsed}
-                isPinned={pinnedIds.includes(ws.id)}
-                onClick={() => {
-                  setSelectedWorkspaceId(ws.id);
-                  setActiveView("ROOM"); // Switch back to ROOM when selecting a WS
-                }}
-                onAction={(action) => handleAction(ws, action)}
-                isWorkspace
-                status={ws.status}
-                icon={<WsDot active={selectedWorkspaceId === ws.id} />}
-                label={ws.title}
-              />
-            ))}
+            {workspaces
+              .filter((ws) => ws.status !== "archived")
+              .sort((a, b) => {
+                // Pin logic: pinned first
+                if (!!a.isPinned !== !!b.isPinned) return a.isPinned ? -1 : 1;
+                // Then by update date
+                return (
+                  new Date(b.updatedAt).getTime() -
+                  new Date(a.updatedAt).getTime()
+                );
+              })
+              .map((ws) => (
+                <SidebarItem
+                  key={ws.id}
+                  active={selectedWorkspaceId === ws.id}
+                  isCollapsed={isCollapsed}
+                  isPinned={!!ws.isPinned}
+                  onClick={() => {
+                    setSelectedWorkspaceId(ws.id);
+                    setActiveView("ROOM"); // Switch back to ROOM when selecting a WS
+                  }}
+                  onAction={(action) => handleAction(ws, action)}
+                  isWorkspace
+                  status={ws.status}
+                  icon={<WsDot active={selectedWorkspaceId === ws.id} />}
+                  label={ws.title}
+                />
+              ))}
           </div>
 
           <SidebarItem

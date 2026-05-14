@@ -32,6 +32,9 @@ export class PostgresWorkspaceRepository implements WorkspaceRepositoryPort {
         createdAt: workspace.createdAt,
         updatedAt: workspace.updatedAt,
         version: workspace.version,
+        isPinned: workspace.isPinned ?? false,
+        archivedAt: workspace.archivedAt,
+        archiveComment: workspace.archiveComment,
       })
       .onConflictDoUpdate({
         target: workspaces.id,
@@ -48,6 +51,9 @@ export class PostgresWorkspaceRepository implements WorkspaceRepositoryPort {
           desiredArtifactType: workspace.desiredArtifactType,
           updatedAt: workspace.updatedAt,
           version: workspace.version,
+          isPinned: workspace.isPinned ?? false,
+          archivedAt: workspace.archivedAt,
+          archiveComment: workspace.archiveComment,
         },
       });
   }
@@ -90,6 +96,9 @@ export class PostgresWorkspaceRepository implements WorkspaceRepositoryPort {
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
       version: record.version,
+      isPinned: record.isPinned,
+      archivedAt: record.archivedAt ?? undefined,
+      archiveComment: record.archiveComment ?? undefined,
     };
   }
 }

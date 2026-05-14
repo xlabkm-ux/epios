@@ -5,6 +5,7 @@ import {
   jsonb,
   timestamp,
   integer,
+  boolean,
 } from "drizzle-orm/pg-core";
 
 export const workspaces = pgTable("workspaces", {
@@ -22,6 +23,9 @@ export const workspaces = pgTable("workspaces", {
   createdByEmail: text("created_by_email"),
   createdByType: text("created_by_type").notNull(),
   createdById: text("created_by_id").notNull(),
+  isPinned: boolean("is_pinned").notNull().default(false),
+  archivedAt: timestamp("archived_at", { withTimezone: true }),
+  archiveComment: text("archive_comment"),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),

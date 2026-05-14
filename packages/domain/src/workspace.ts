@@ -40,6 +40,9 @@ export type Workspace = {
   createdAt: Date;
   updatedAt: Date;
   version: number;
+  isPinned?: boolean;
+  archivedAt?: Date;
+  archiveComment?: string;
 };
 
 export function assertWorkspaceCanRun(workspace: Workspace): void {

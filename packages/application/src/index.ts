@@ -23,3 +23,4 @@ export * from "./use-cases/apply-patch.js";
 export * from "./use-cases/get-trace.js";
 export * from "./use-cases/redact-node.js";
 export * from "./use-cases/apply-retention.js";
+export * from "./use-cases/patch-workspace.js";

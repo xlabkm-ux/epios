@@ -4,21 +4,11 @@ import { ArchiveRestore, Database } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useWorkspace } from "../context/WorkspaceContext";
 
-// Metadata attached to each archived workspace
-export interface ArchiveMeta {
-  archivedAt: Date;
-  comment?: string;
-}
-
 interface ArchiveViewProps {
-  archiveMeta: Record<string, ArchiveMeta>;
   onRestore: (wsId: string) => void;
 }
 
-export const ArchiveView: React.FC<ArchiveViewProps> = ({
-  archiveMeta,
-  onRestore,
-}) => {
+export const ArchiveView: React.FC<ArchiveViewProps> = ({ onRestore }) => {
   const { t } = useTranslation();
   const { workspaces } = useWorkspace();
 
@@ -144,7 +134,6 @@ export const ArchiveView: React.FC<ArchiveViewProps> = ({
 
           {/* Table rows */}
           {archivedWorkspaces.map((ws, idx) => {
-            const meta = archiveMeta[ws.id];
             return (
               <motion.div
                 key={ws.id}
@@ -200,7 +189,7 @@ export const ArchiveView: React.FC<ArchiveViewProps> = ({
                     fontVariantNumeric: "tabular-nums",
                   }}
                 >
-                  {meta?.archivedAt ? formatDate(meta.archivedAt) : "—"}
+                  {ws.archivedAt ? formatDate(ws.archivedAt) : "—"}
                 </span>
 
                 {/* Comment */}
@@ -208,12 +197,12 @@ export const ArchiveView: React.FC<ArchiveViewProps> = ({
                   style={{
                     fontSize: "0.82rem",
                     color: "var(--text-dim)",
-                    fontStyle: meta?.comment ? "normal" : "italic",
-                    opacity: meta?.comment ? 1 : 0.5,
+                    fontStyle: ws.archiveComment ? "normal" : "italic",
+                    opacity: ws.archiveComment ? 1 : 0.5,
                     paddingRight: "1rem",
                   }}
                 >
-                  {meta?.comment || t("archive_view.no_comment")}
+                  {ws.archiveComment || t("archive_view.no_comment")}
                 </span>
 
                 {/* Action */}

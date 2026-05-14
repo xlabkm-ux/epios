@@ -8,7 +8,7 @@ import { useWorkspace } from "./context/WorkspaceContext";
 
 function App() {
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
-  const { activeView, archiveMeta, restoreWorkspace } = useWorkspace();
+  const { activeView, restoreWorkspace } = useWorkspace();
 
   const renderContent = () => {
     switch (activeView) {
@@ -17,9 +17,7 @@ function App() {
       case "ADR":
         return <ADRReviewWorkspace />;
       case "ARCHIVE":
-        return (
-          <ArchiveView archiveMeta={archiveMeta} onRestore={restoreWorkspace} />
-        );
+        return <ArchiveView onRestore={restoreWorkspace} />;
       default:
         return <WorkspaceRoom />;
     }
