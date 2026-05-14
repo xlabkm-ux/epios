@@ -87,12 +87,18 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       >
         <div
           style={{
-            width: isCollapsed ? "100%" : "18px",
+            width: isCollapsed ? "100%" : "24px", // Slightly wider to accommodate pin icon comfortably
             display: "flex",
             justifyContent: "center",
+            alignItems: "center",
+            flexShrink: 0,
           }}
         >
-          {icon}
+          {isWorkspace && isPinned && !isCollapsed ? (
+            <Pin size={14} style={{ color: "var(--primary)" }} />
+          ) : (
+            icon
+          )}
         </div>
         {!isCollapsed && (
           <span
@@ -101,6 +107,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
+              paddingRight: "4px",
             }}
           >
             {label}
@@ -116,12 +123,14 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
             className={`workspace-menu-trigger ${showMenu ? "active" : ""}`}
             style={{
               color: "var(--text-dim)",
-              padding: "4px",
+              width: "16px", // Narrower
+              height: "24px",
               borderRadius: "4px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               transition: "opacity 0.2s, background-color 0.2s",
+              flexShrink: 0,
             }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor = "var(--surface-hover)")
@@ -130,19 +139,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               (e.currentTarget.style.backgroundColor = "transparent")
             }
           >
-            <MoreVertical size={16} />
-          </div>
-        )}
-        {isPinned && !isCollapsed && (
-          <div
-            style={{
-              color: "var(--primary)",
-              opacity: 0.7,
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Pin size={10} />
+            <MoreVertical size={14} />
           </div>
         )}
         <style>{`

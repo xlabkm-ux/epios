@@ -1,13 +1,13 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-14 17:23:07`
+> Автоматически сгенерировано: `2026-05-14 17:46:54`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `121` | Только JS/TS/TSX исходники |
-| **Total Lines** | `12391` | Суммарно по проекту |
-| **Project Weight** | `~99 745 tokens` | Оценка (4 символа/токен) |
+| **Total Lines** | `12388` | Суммарно по проекту |
+| **Project Weight** | `~99 764 tokens` | Оценка (4 символа/токен) |
 | **Context Pressure** | `77.9%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
@@ -1774,7 +1774,7 @@ flowchart TD
 | `demo-shell/src/components/RatingPanel.tsx` | 234 | 6.2 KB | — |
 | `demo-shell/src/components/ReadinessPanel.tsx` | 403 | 11.7 KB | — |
 | `demo-shell/src/components/Sidebar.tsx` | 774 | 24.7 KB | — |
-| `demo-shell/src/components/SidebarItem.tsx` | 281 | 7.6 KB | — |
+| `demo-shell/src/components/SidebarItem.tsx` | 278 | 7.6 KB | — |
 | `demo-shell/src/components/SourcePanel.tsx` | 232 | 6.9 KB | — |
 | `demo-shell/src/components/WorkspaceRoom.tsx` | 665 | 21.5 KB | — |
 | `demo-shell/src/context/SecurityContext.tsx` | 68 | 1.6 KB | — |
