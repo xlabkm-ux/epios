@@ -518,7 +518,7 @@ const WorkspaceRoom: React.FC = () => {
       >
         {/* Left Side: Mission Title Trigger */}
         <div
-          onClick={() => setShowWorkspaceCard(true)}
+          onClick={() => setShowWorkspaceCard(!showWorkspaceCard)}
           data-testid="workspace-command-trigger"
           style={{
             display: "flex",

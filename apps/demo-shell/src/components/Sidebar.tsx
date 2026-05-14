@@ -70,43 +70,90 @@ const Sidebar: React.FC = () => {
           gap: "1rem",
           marginBottom: "3rem",
           padding: isCollapsed ? "0" : "0 0.5rem",
-          justifyContent: isCollapsed ? "center" : "flex-start",
+          justifyContent: isCollapsed ? "center" : "space-between",
+          width: "100%",
         }}
       >
-        <div
-          style={{
-            width: "36px",
-            minWidth: "36px",
-            height: "36px",
-            backgroundColor: "var(--primary)",
-            borderRadius: "8px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            boxShadow: "var(--panel-shadow)",
-          }}
-        >
-          <Terminal size={22} strokeWidth={2.5} />
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div
+            style={{
+              width: "36px",
+              minWidth: "36px",
+              height: "36px",
+              backgroundColor: "var(--primary)",
+              borderRadius: "8px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "white",
+              boxShadow: "var(--panel-shadow)",
+            }}
+          >
+            <Terminal size={22} strokeWidth={2.5} />
+          </div>
+          <AnimatePresence>
+            {!isCollapsed && (
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                style={{
+                  fontSize: "1.5rem",
+                  fontWeight: 700,
+                  letterSpacing: "-0.04em",
+                  color: "var(--text-main)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                EpiOS
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
-        <AnimatePresence>
-          {!isCollapsed && (
-            <motion.span
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -10 }}
-              style={{
-                fontSize: "1.5rem",
-                fontWeight: 700,
-                letterSpacing: "-0.04em",
-                color: "var(--text-main)",
-                whiteSpace: "nowrap",
-              }}
-            >
-              EpiOS
-            </motion.span>
-          )}
-        </AnimatePresence>
+
+        <button
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "3px",
+            padding: "4px",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            opacity: 0.6,
+            transition: "opacity 0.2s",
+            alignItems: "center",
+            width: "12px",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.6")}
+        >
+          <div
+            style={{
+              width: "4px",
+              height: "4px",
+              borderRadius: "50%",
+              backgroundColor: "white",
+            }}
+          />
+          <div
+            style={{
+              width: "4px",
+              height: "4px",
+              borderRadius: "50%",
+              backgroundColor: "white",
+            }}
+          />
+          <div
+            style={{
+              width: "4px",
+              height: "4px",
+              borderRadius: "50%",
+              backgroundColor: "white",
+            }}
+          />
+        </button>
       </div>
 
       <nav
@@ -257,34 +304,6 @@ const Sidebar: React.FC = () => {
             position: "relative",
           }}
         >
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            style={{
-              position: "absolute",
-              right: isCollapsed ? "50%" : "12px",
-              top: "-12px",
-              transform: isCollapsed ? "translateX(50%)" : "none",
-              width: "24px",
-              height: "24px",
-              backgroundColor: "var(--bg-card)",
-              border: "1px solid var(--border-bright)",
-              borderRadius: "6px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--primary)",
-              zIndex: 100,
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              boxShadow: "var(--panel-shadow)",
-            }}
-          >
-            {isCollapsed ? (
-              <ChevronRight size={12} />
-            ) : (
-              <ChevronLeft size={12} />
-            )}
-          </button>
           {!isCollapsed && (
             <div
               style={{
