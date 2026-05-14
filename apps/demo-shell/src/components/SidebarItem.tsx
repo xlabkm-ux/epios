@@ -111,8 +111,8 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               e.stopPropagation();
               setShowMenu(!showMenu);
             }}
+            className={`workspace-menu-trigger ${showMenu ? "active" : ""}`}
             style={{
-              opacity: showMenu ? 1 : 0,
               color: "var(--text-dim)",
               padding: "4px",
               borderRadius: "4px",
@@ -121,9 +121,8 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               justifyContent: "center",
               transition: "opacity 0.2s, background-color 0.2s",
             }}
-            className="workspace-menu-trigger"
             onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)")
+              (e.currentTarget.style.backgroundColor = "var(--surface-hover)")
             }
             onMouseLeave={(e) =>
               (e.currentTarget.style.backgroundColor = "transparent")
@@ -132,7 +131,11 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
             <MoreVertical size={16} />
           </div>
         )}
-        <style>{`.sidebar-item:hover .workspace-menu-trigger { opacity: 1; }`}</style>
+        <style>{`
+          .workspace-menu-trigger { opacity: 0; }
+          .workspace-menu-trigger.active { opacity: 1 !important; }
+          .sidebar-item:hover .workspace-menu-trigger { opacity: 1; }
+        `}</style>
       </motion.button>
 
       <AnimatePresence>

@@ -217,10 +217,6 @@ const Sidebar: React.FC = () => {
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             style={{
-              position: "absolute",
-              right: isCollapsed ? "50%" : "1.25rem",
-              top: "2.1rem",
-              transform: "translateX(50%)",
               display: "flex",
               flexDirection: "column",
               gap: "3px",
@@ -229,11 +225,12 @@ const Sidebar: React.FC = () => {
               border: "none",
               cursor: "pointer",
               opacity: 0.6,
-              transition: "all 0.2s",
+              transition: "opacity 0.2s",
               alignItems: "center",
-              width: "12px",
-              zIndex: 100,
+              justifyContent: "center",
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.6")}
           >
             {[1, 2, 3].map((i) => (
               <div
@@ -242,7 +239,7 @@ const Sidebar: React.FC = () => {
                   width: "4px",
                   height: "4px",
                   borderRadius: "50%",
-                  backgroundColor: "white",
+                  backgroundColor: "var(--text-dim)",
                 }}
               />
             ))}
@@ -332,7 +329,7 @@ const Sidebar: React.FC = () => {
                         width: 8,
                         height: 8,
                         borderRadius: "50%",
-                        backgroundColor: "white",
+                        backgroundColor: "var(--text-dim)",
                         opacity: 0.6,
                       }}
                     />
