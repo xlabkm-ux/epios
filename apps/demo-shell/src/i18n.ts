@@ -34,6 +34,16 @@ i18n
             archive: "Archive",
             restore: "Restore from archive",
           },
+          archive_view: {
+            title: "Workspace Archive",
+            count: "items in neural storage",
+            empty: "No archived workspaces found.",
+            col_name: "Workspace Name",
+            col_date: "Archived On",
+            col_comment: "System Comment",
+            no_comment: "No details provided",
+            restore: "Restore",
+          },
           share_modal: {
             title: "Public link",
             copy: "Copy link",
@@ -63,6 +73,16 @@ i18n
             rename: "Переименовать",
             archive: "Архивировать",
             restore: "Вернуть из архива",
+          },
+          archive_view: {
+            title: "Архив воркспейсов",
+            count: "объектов в нейрохранилище",
+            empty: "В архиве пока ничего нет.",
+            col_name: "Название",
+            col_date: "Дата архивации",
+            col_comment: "Комментарий системы",
+            no_comment: "Детали отсутствуют",
+            restore: "Восстановить",
           },
           share_modal: {
             title: "Общедоступная ссылка",

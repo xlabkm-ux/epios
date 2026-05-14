@@ -42,6 +42,7 @@ const Sidebar: React.FC = () => {
     setSelectedWorkspaceId,
     activeView,
     setActiveView,
+    setArchiveMeta,
   } = useWorkspace();
   const { currentUser, setCurrentUserId } = useSecurity();
 
@@ -115,6 +116,17 @@ const Sidebar: React.FC = () => {
     if (action === "share") {
       setShareModalWs(ws);
     } else if (action === "archive") {
+      // Record archive date and comment
+      setArchiveMeta((prev) => ({
+        ...prev,
+        [ws.id]: {
+          archivedAt: new Date(),
+          comment:
+            i18n.language === "ru"
+              ? "Архивировано пользователем"
+              : "Archived by user",
+        },
+      }));
       // Remove from pinned if pinned, then archive
       setPinnedIds((prev) => prev.filter((id) => id !== ws.id));
       setWorkspaces(
@@ -292,8 +304,9 @@ const Sidebar: React.FC = () => {
           <SidebarItem
             icon={<Database size={18} />}
             label={t("sidebar.archive")}
+            active={activeView === "ARCHIVE"}
             isCollapsed={isCollapsed}
-            onClick={() => alert("Accessing historical neural data...")}
+            onClick={() => setActiveView("ARCHIVE")}
           />
           <SidebarItem
             icon={<Activity size={18} />}
@@ -304,110 +317,44 @@ const Sidebar: React.FC = () => {
             }
           />
 
-          {/* ── Pinned Workspaces ── */}
-          {pinnedIds.length > 0 && (
-            <>
-              {!isCollapsed && (
-                <SectionLabel label={t("sidebar.pinned_workspaces")} />
-              )}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.25rem",
-                }}
-              >
-                {pinnedIds
-                  .map((id) => workspaces.find((w) => w.id === id))
-                  .filter(Boolean)
-                  .map((workspace) => {
-                    const ws = workspace!;
-                    return (
-                      <SidebarItem
-                        key={ws.id}
-                        active={selectedWorkspaceId === ws.id}
-                        isCollapsed={isCollapsed}
-                        isPinned
-                        onClick={() => setSelectedWorkspaceId(ws.id)}
-                        onAction={(action) => handleAction(ws, action)}
-                        isWorkspace
-                        status={ws.status}
-                        icon={<WsDot active={selectedWorkspaceId === ws.id} />}
-                        label={ws.title}
-                      />
-                    );
-                  })}
-              </div>
-            </>
-          )}
-
-          {/* ── Active Workspaces ── */}
-          {!isCollapsed && (
-            <SectionLabel label={t("sidebar.active_workspaces")} />
-          )}
+          {/* ── Workspaces List (Pinned first, no headers) ── */}
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.25rem",
+              marginTop: isCollapsed ? "0" : "1rem",
+            }}
           >
-            {workspaces
-              .filter(
+            {[
+              // 1. Pinned workspaces first (in order of pinnedIds)
+              ...pinnedIds
+                .map((id) => workspaces.find((w) => w.id === id))
+                .filter(
+                  (ws): ws is Workspace => !!ws && ws.status !== "archived",
+                ),
+              // 2. Then the rest of running workspaces
+              ...workspaces.filter(
                 (ws) => ws.status !== "archived" && !pinnedIds.includes(ws.id),
-              )
-              .map((workspace) => (
-                <SidebarItem
-                  key={workspace.id}
-                  active={selectedWorkspaceId === workspace.id}
-                  isCollapsed={isCollapsed}
-                  onClick={() => setSelectedWorkspaceId(workspace.id)}
-                  onAction={(action) => handleAction(workspace, action)}
-                  isWorkspace
-                  status={workspace.status}
-                  icon={<WsDot active={selectedWorkspaceId === workspace.id} />}
-                  label={workspace.title}
-                />
-              ))}
-          </div>
-
-          {/* ── Archived Workspaces ── */}
-          {workspaces.some((ws) => ws.status === "archived") && (
-            <>
-              {!isCollapsed && (
-                <SectionLabel label={t("sidebar.archived_workspaces")} />
-              )}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.25rem",
+              ),
+            ].map((ws) => (
+              <SidebarItem
+                key={ws.id}
+                active={selectedWorkspaceId === ws.id}
+                isCollapsed={isCollapsed}
+                isPinned={pinnedIds.includes(ws.id)}
+                onClick={() => {
+                  setSelectedWorkspaceId(ws.id);
+                  setActiveView("ROOM"); // Switch back to ROOM when selecting a WS
                 }}
-              >
-                {workspaces
-                  .filter((ws) => ws.status === "archived")
-                  .map((workspace) => (
-                    <SidebarItem
-                      key={workspace.id}
-                      active={selectedWorkspaceId === workspace.id}
-                      isCollapsed={isCollapsed}
-                      onClick={() => setSelectedWorkspaceId(workspace.id)}
-                      onAction={(action) => handleAction(workspace, action)}
-                      isWorkspace
-                      status={workspace.status}
-                      icon={
-                        <div
-                          style={{
-                            width: 8,
-                            height: 8,
-                            borderRadius: "50%",
-                            backgroundColor: "var(--text-muted)",
-                            opacity: 0.4,
-                          }}
-                        />
-                      }
-                      label={workspace.title}
-                    />
-                  ))}
-              </div>
-            </>
-          )}
+                onAction={(action) => handleAction(ws, action)}
+                isWorkspace
+                status={ws.status}
+                icon={<WsDot active={selectedWorkspaceId === ws.id} />}
+                label={ws.title}
+              />
+            ))}
+          </div>
 
           <SidebarItem
             icon={<Plus size={18} />}
@@ -691,21 +638,6 @@ const Sidebar: React.FC = () => {
 };
 
 // ── Helper components ───────────────────────────────────────────────────────
-
-const SectionLabel: React.FC<{ label: string }> = ({ label }) => (
-  <div
-    style={{
-      margin: "1.25rem 0 0.5rem 0.75rem",
-      fontSize: "0.6rem",
-      color: "var(--text-muted)",
-      textTransform: "uppercase",
-      letterSpacing: "0.15em",
-      fontWeight: 700,
-    }}
-  >
-    {label}
-  </div>
-);
 
 const WsDot: React.FC<{ active: boolean }> = ({ active }) =>
   active ? (

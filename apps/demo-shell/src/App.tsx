@@ -3,11 +3,27 @@ import Sidebar from "./components/Sidebar";
 import WorkspaceRoom from "./components/WorkspaceRoom";
 import CommandPalette from "./components/CommandPalette";
 import ADRReviewWorkspace from "./components/ADRReviewWorkspace";
+import { ArchiveView } from "./components/ArchiveView";
 import { useWorkspace } from "./context/WorkspaceContext";
 
 function App() {
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
-  const { activeView } = useWorkspace();
+  const { activeView, archiveMeta, restoreWorkspace } = useWorkspace();
+
+  const renderContent = () => {
+    switch (activeView) {
+      case "ROOM":
+        return <WorkspaceRoom />;
+      case "ADR":
+        return <ADRReviewWorkspace />;
+      case "ARCHIVE":
+        return (
+          <ArchiveView archiveMeta={archiveMeta} onRestore={restoreWorkspace} />
+        );
+      default:
+        return <WorkspaceRoom />;
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -44,7 +60,7 @@ function App() {
           position: "relative",
         }}
       >
-        {activeView === "ROOM" ? <WorkspaceRoom /> : <ADRReviewWorkspace />}
+        {renderContent()}
       </main>
 
       <CommandPalette

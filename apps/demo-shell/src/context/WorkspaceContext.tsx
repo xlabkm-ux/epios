@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { Node, Edge } from "reactflow";
 
-import { Workspace } from "@epios/domain";
+import { Workspace, WorkspaceStatus } from "@epios/domain";
 
 interface WorkspaceContextType {
   selectedWorkspaceId: string | null;
@@ -25,8 +25,13 @@ interface WorkspaceContextType {
     y: number,
     zoom: number,
   ) => void;
-  activeView: "ROOM" | "ADR";
-  setActiveView: (view: "ROOM" | "ADR") => void;
+  activeView: "ROOM" | "ADR" | "ARCHIVE";
+  setActiveView: (view: "ROOM" | "ADR" | "ARCHIVE") => void;
+  archiveMeta: Record<string, { archivedAt: Date; comment?: string }>;
+  setArchiveMeta: React.Dispatch<
+    React.SetStateAction<Record<string, { archivedAt: Date; comment?: string }>>
+  >;
+  restoreWorkspace: (id: string) => void;
 }
 
 const WorkspaceContext = createContext<WorkspaceContextType | undefined>(
@@ -41,9 +46,14 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
       return localStorage.getItem("selectedWorkspaceId");
     },
   );
-  const [activeView, setActiveView] = useState<"ROOM" | "ADR">("ROOM");
+  const [activeView, setActiveView] = useState<"ROOM" | "ADR" | "ARCHIVE">(
+    "ROOM",
+  );
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
+  const [archiveMeta, setArchiveMeta] = useState<
+    Record<string, { archivedAt: Date; comment?: string }>
+  >({});
   const [graphStates, setGraphStates] = useState<
     Record<string, { nodes: Node[]; edges: Edge[] }>
   >(() => {
@@ -98,6 +108,16 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
     }));
   };
 
+  const restoreWorkspace = (id: string) => {
+    setWorkspaces(
+      workspaces.map((w) =>
+        w.id === id ? { ...w, status: "running" as WorkspaceStatus } : w,
+      ),
+    );
+    setSelectedWorkspaceId(id);
+    setActiveView("ROOM");
+  };
+
   return (
     <WorkspaceContext.Provider
       value={{
@@ -113,6 +133,9 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
         setViewport,
         activeView,
         setActiveView,
+        archiveMeta,
+        setArchiveMeta,
+        restoreWorkspace,
       }}
     >
       {children}

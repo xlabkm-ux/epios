@@ -181,19 +181,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               }}
             />
             <MenuItem
-              icon={
-                <div
-                  style={{
-                    width: 14,
-                    height: 14,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Pin size={13} />
-                </div>
-              }
+              icon={<Pin size={14} />}
               label={
                 isPinned ? t("workspace_menu.unpin") : t("workspace_menu.pin")
               }
@@ -257,7 +245,7 @@ const MenuItem: React.FC<{
     style={{
       display: "flex",
       alignItems: "center",
-      gap: "10px",
+      gap: "12px",
       width: "100%",
       padding: "8px 12px",
       borderRadius: "8px",
@@ -276,6 +264,17 @@ const MenuItem: React.FC<{
       (e.currentTarget.style.backgroundColor = "transparent")
     }
   >
-    {icon} {label}
+    <div
+      style={{
+        width: "16px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexShrink: 0,
+      }}
+    >
+      {icon}
+    </div>
+    <span style={{ flex: 1 }}>{label}</span>
   </button>
 );
