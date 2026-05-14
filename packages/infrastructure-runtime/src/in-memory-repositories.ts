@@ -154,6 +154,10 @@ export class InMemoryGraphRepository implements GraphRepositoryPort {
   async findEdgeById(id: string): Promise<EpistemicEdge | null> {
     return this.edges.get(id) || null;
   }
+
+  async findAllNodes(): Promise<EpistemicNode[]> {
+    return Array.from(this.nodes.values());
+  }
 }
 
 export class InMemorySourceRepository implements SourceRepositoryPort {
@@ -169,9 +173,9 @@ export class InMemorySourceRepository implements SourceRepositoryPort {
     this.sources.set(source.id, source);
   }
 
-  async findByMissionId(missionId: string): Promise<Source[]> {
+  async findByWorkspaceId(workspaceId: string): Promise<Source[]> {
     return Array.from(this.sources.values()).filter(
-      (s) => s.missionId === missionId,
+      (s) => s.workspaceId === workspaceId,
     );
   }
 

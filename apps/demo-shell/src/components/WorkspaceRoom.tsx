@@ -648,35 +648,6 @@ const WorkspaceRoom: React.FC = () => {
             pointer-events: all;
           }
 
-          /* Edge Label Hover Logic */
-          .react-flow__edge-label {
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            pointer-events: none;
-          }
-          
-          .react-flow__edge:hover .react-flow__edge-label,
-          .react-flow__edge.edge-highlighted .react-flow__edge-label {
-            opacity: 1;
-          }
-
-          /* Hide label background when label is hidden */
-          .react-flow__edge-labelbg {
-             opacity: 0;
-             transition: opacity 0.2s ease;
-          }
-
-          .react-flow__edge:hover .react-flow__edge-labelbg,
-          .react-flow__edge.edge-highlighted .react-flow__edge-labelbg {
-            opacity: 0.8;
-          }
-
-          .react-flow__edge.edge-dimmed .react-flow__edge-label,
-          .react-flow__edge.edge-dimmed .react-flow__edge-labelbg {
-            opacity: 0 !important;
-            display: none;
-          }
-
           /* Smooth Node Movement for Gravity Effect */
           .react-flow__node {
             transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;

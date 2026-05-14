@@ -61,6 +61,22 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       });
   }
 
+  async deleteNode(id: string): Promise<boolean> {
+    const result = await this.db
+      .delete(epistemicNodes)
+      .where(eq(epistemicNodes.id, id))
+      .returning();
+    return result.length > 0;
+  }
+
+  async deleteEdge(id: string): Promise<boolean> {
+    const result = await this.db
+      .delete(epistemicEdges)
+      .where(eq(epistemicEdges.id, id))
+      .returning();
+    return result.length > 0;
+  }
+
   async findNodesByWorkspaceId(workspaceId: string): Promise<EpistemicNode[]> {
     const records = await this.db
       .select()
@@ -137,5 +153,22 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       metadata: record.metadata as Record<string, unknown>,
       createdAt: record.createdAt,
     };
+  }
+
+  async findAllNodes(): Promise<EpistemicNode[]> {
+    const records = await this.db.select().from(epistemicNodes);
+
+    return records.map((record) => ({
+      id: record.id,
+      workspaceId: record.workspaceId,
+      type: record.type as NodeType,
+      content: record.content,
+      strength: record.strength as NodeStrength,
+      evidence:
+        record.evidence as unknown as import("@epios/domain").EvidenceRef[],
+      metadata: record.metadata as Record<string, unknown>,
+      createdAt: record.createdAt,
+      updatedAt: record.updatedAt,
+    }));
   }
 }

@@ -9,6 +9,7 @@ import {
   ApplyPatchUseCase,
   GetTraceUseCase,
 } from "@epios/application";
+import { SecurityPort } from "@epios/ports";
 
 export async function governanceRoutes(
   fastify: FastifyInstance,
@@ -21,26 +22,54 @@ export async function governanceRoutes(
     getReadinessUseCase: GetReadinessUseCase;
     applyPatchUseCase: ApplyPatchUseCase;
     getTraceUseCase: GetTraceUseCase;
+    security: SecurityPort;
   },
 ) {
+  const { security } = options;
+
+  async function checkRole(roles: string[]) {
+    const user = await security.getCurrentUser();
+    if (!user || !roles.includes(user.role)) {
+      throw new Error("FORBIDDEN");
+    }
+  }
+
   fastify.get("/governance/patches", async (request, reply) => {
     const { workspaceId } = request.query as { workspaceId: string };
     const patches = await options.listPatchesUseCase.execute({ workspaceId });
     return reply.status(200).send(patches);
   });
 
-  fastify.post("/governance/claims", async (request, reply) => {
-    const claim = await options.submitClaimUseCase.execute(
-      request.body as {
-        workspaceId: string;
-        content: string;
-        requiredVotes?: number;
+  fastify.post(
+    "/governance/claims",
+    {
+      schema: {
+        body: {
+          type: "object",
+          required: ["workspaceId", "content"],
+          properties: {
+            workspaceId: { type: "string" },
+            content: { type: "string" },
+            requiredVotes: { type: "number" },
+          },
+        },
       },
-    );
-    return reply.status(201).send(claim);
-  });
+    },
+    async (request, reply) => {
+      await checkRole(["admin", "reviewer"]);
+      const claim = await options.submitClaimUseCase.execute(
+        request.body as {
+          workspaceId: string;
+          content: string;
+          requiredVotes?: number;
+        },
+      );
+      return reply.status(201).send(claim);
+    },
+  );
 
   fastify.post("/governance/patches", async (request, reply) => {
+    await checkRole(["admin", "reviewer"]);
     const patch = await options.proposePatchUseCase.execute(
       request.body as {
         targetNodeId: string;
@@ -54,6 +83,7 @@ export async function governanceRoutes(
   });
 
   fastify.post("/governance/votes", async (request, reply) => {
+    await checkRole(["admin", "reviewer"]);
     await options.castVoteUseCase.execute(
       request.body as {
         nodeId: string;
@@ -66,6 +96,7 @@ export async function governanceRoutes(
   });
 
   fastify.post("/governance/readiness", async (request, reply) => {
+    await checkRole(["admin", "reviewer"]);
     const assessment = await options.assessReadinessUseCase.execute(
       request.body as { workspaceId: string; profileId: string },
     );
@@ -79,6 +110,7 @@ export async function governanceRoutes(
   });
 
   fastify.post("/governance/apply-patch", async (request, reply) => {
+    await checkRole(["admin"]);
     const version = await options.applyPatchUseCase.execute(
       request.body as { patchId: string; actorId: string },
     );

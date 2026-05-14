@@ -69,7 +69,7 @@ export const epistemicEdges = pgTable("epistemic_edges", {
 
 export const sources = pgTable("sources", {
   id: uuid("id").primaryKey(),
-  missionId: uuid("mission_id")
+  workspaceId: uuid("workspace_id")
     .notNull()
     .references(() => workspaces.id, { onDelete: "cascade" }),
   type: text("type").notNull(),
@@ -79,7 +79,6 @@ export const sources = pgTable("sources", {
     .notNull()
     .defaultNow(),
 });
-
 
 export const ratings = pgTable("ratings", {
   id: uuid("id").primaryKey(),

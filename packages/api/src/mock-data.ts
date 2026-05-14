@@ -527,7 +527,7 @@ export function createMockData(): MockData {
   const sources: Source[] = [
     {
       id: "s1",
-      missionId: "m6",
+      workspaceId: "m6",
       type: "file",
       content:
         "Proposed decision to adopt Event Sourcing for all mission history.",

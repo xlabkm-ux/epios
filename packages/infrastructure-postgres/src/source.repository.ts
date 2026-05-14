@@ -12,7 +12,7 @@ export class PostgresSourceRepository implements SourceRepositoryPort {
       .insert(sources)
       .values({
         id: source.id,
-        missionId: source.missionId,
+        workspaceId: source.workspaceId,
         type: source.type,
         content: source.content,
         metadata: source.metadata,
@@ -27,11 +27,11 @@ export class PostgresSourceRepository implements SourceRepositoryPort {
       });
   }
 
-  async findByMissionId(missionId: string): Promise<Source[]> {
+  async findByWorkspaceId(workspaceId: string): Promise<Source[]> {
     const records = await this.db
       .select()
       .from(sources)
-      .where(eq(sources.missionId, missionId));
+      .where(eq(sources.workspaceId, workspaceId));
 
     return records.map((record) => this.mapToDomain(record));
   }
@@ -49,7 +49,7 @@ export class PostgresSourceRepository implements SourceRepositoryPort {
   private mapToDomain(record: typeof sources.$inferSelect): Source {
     return {
       id: record.id,
-      missionId: record.missionId,
+      workspaceId: record.workspaceId,
       type: record.type as SourceType,
       content: record.content,
       metadata: record.metadata as Record<string, unknown>,

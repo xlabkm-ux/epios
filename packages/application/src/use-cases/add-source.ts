@@ -3,7 +3,7 @@ import { SourceRepositoryPort } from "@epios/ports";
 import { randomUUID } from "crypto";
 
 export interface AddSourceRequest {
-  missionId: string;
+  workspaceId: string;
   type: SourceType;
   content: string;
   metadata?: Record<string, unknown>;
@@ -15,7 +15,7 @@ export class AddSourceUseCase {
   async execute(request: AddSourceRequest): Promise<Source> {
     const source: Source = {
       id: randomUUID(),
-      missionId: request.missionId,
+      workspaceId: request.workspaceId,
       type: request.type,
       content: request.content,
       metadata: request.metadata || {},

@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-14 01:14:30`
+> Автоматически сгенерировано: `2026-05-14 01:21:29`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `115` | Только JS/TS/TSX исходники |
-| **Total Lines** | `11748` | Суммарно по проекту |
-| **Project Weight** | `~94 745 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `74.0%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Lines** | `11185` | Суммарно по проекту |
+| **Project Weight** | `~91 125 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `71.2%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
 ---
@@ -23,7 +23,7 @@ subgraph 0["apps"]
 subgraph 1["demo-shell"]
 subgraph 2["dist"]
 subgraph 3["assets"]
-4["index-CdMRCu3c.js"]
+4["index-DMmJBOAa.js"]
 end
 end
 subgraph 7["src"]
@@ -141,9 +141,9 @@ subgraph 2O["drizzle-orm"]
 subgraph 2P["postgres-js"]
 2Q["index.js"]
 end
-4T["index.js"]
-subgraph 4V["pg-core"]
-4W["index.js"]
+4V["index.js"]
+subgraph 4X["pg-core"]
+4Y["index.js"]
 end
 end
 end
@@ -218,21 +218,21 @@ end
 subgraph 24["src"]
 25["bin.ts"]
 26["server.ts"]
-subgraph 30["routes"]
-31["adr.routes.ts"]
-4C["governance.routes.ts"]
-4D["mapping.routes.ts"]
-4G["mcp.routes.ts"]
-4H["mission.routes.ts"]
+30["mock-data.ts"]
+subgraph 31["routes"]
+32["adr.routes.ts"]
+4D["governance.routes.ts"]
+4E["mapping.routes.ts"]
+4H["mcp.routes.ts"]
 4I["rating.routes.ts"]
-4J["workspace.routes.ts"]
-59["security.routes.ts"]
+4J["security.routes.ts"]
+4K["source.routes.ts"]
+4L["workspace.routes.ts"]
 end
-subgraph 4E["dto"]
-4F["index.ts"]
+subgraph 4F["dto"]
+4G["index.ts"]
 end
-57["index.ts"]
-58["mock-data.ts"]
+59["index.ts"]
 end
 subgraph 5A["test"]
 5B["adr.test.ts"]
@@ -240,35 +240,35 @@ subgraph 5A["test"]
 end
 5I["vitest.config.ts"]
 end
-subgraph 32["application"]
-subgraph 33["src"]
-34["index.ts"]
-35["mapping-processor.ts"]
-subgraph 3H["use-cases"]
-3I["add-edge.ts"]
-3P["add-node.ts"]
-3Q["add-source.ts"]
-3R["adr-use-cases.ts"]
-3S["apply-patch.ts"]
-3T["apply-retention.ts"]
-3U["assess-readiness.ts"]
-3V["cast-vote.ts"]
-3W["create-workspace.ts"]
-3X["get-mapping-run.ts"]
-3Y["get-node-ratings.ts"]
-3Z["get-readiness.ts"]
-40["get-trace.ts"]
-41["get-workspace-graph.ts"]
-42["list-mapping-runs.ts"]
-43["list-patches.ts"]
-44["list-sources.ts"]
-45["list-workspaces.ts"]
-46["patch-node.ts"]
-47["propose-patch.ts"]
-48["rate-node.ts"]
-49["redact-node.ts"]
-4A["start-mapping-run.ts"]
-4B["submit-claim.ts"]
+subgraph 33["application"]
+subgraph 34["src"]
+35["index.ts"]
+36["mapping-processor.ts"]
+subgraph 3I["use-cases"]
+3J["add-edge.ts"]
+3Q["add-node.ts"]
+3R["add-source.ts"]
+3S["adr-use-cases.ts"]
+3T["apply-patch.ts"]
+3U["apply-retention.ts"]
+3V["assess-readiness.ts"]
+3W["cast-vote.ts"]
+3X["create-workspace.ts"]
+3Y["get-mapping-run.ts"]
+3Z["get-node-ratings.ts"]
+40["get-readiness.ts"]
+41["get-trace.ts"]
+42["get-workspace-graph.ts"]
+43["list-mapping-runs.ts"]
+44["list-patches.ts"]
+45["list-sources.ts"]
+46["list-workspaces.ts"]
+47["patch-node.ts"]
+48["propose-patch.ts"]
+49["rate-node.ts"]
+4A["redact-node.ts"]
+4B["start-mapping-run.ts"]
+4C["submit-claim.ts"]
 end
 end
 subgraph 5L["test"]
@@ -277,31 +277,31 @@ subgraph 5L["test"]
 end
 5O["vitest.config.ts"]
 end
-subgraph 36["ports"]
-subgraph 37["src"]
-38["index.ts"]
-39["adr.repository.port.ts"]
-3A["domain.repository.port.ts"]
-3B["governance.port.ts"]
-3C["graph.repository.port.ts"]
-3D["mapping.repository.port.ts"]
-3E["mcp.port.ts"]
-3F["outbox.repository.port.ts"]
-3G["security.port.ts"]
+subgraph 37["ports"]
+subgraph 38["src"]
+39["index.ts"]
+3A["adr.repository.port.ts"]
+3B["domain.repository.port.ts"]
+3C["governance.port.ts"]
+3D["graph.repository.port.ts"]
+3E["mapping.repository.port.ts"]
+3F["mcp.port.ts"]
+3G["outbox.repository.port.ts"]
+3H["security.port.ts"]
 end
 end
-subgraph 3K["observability"]
-subgraph 3L["src"]
-3M["index.ts"]
-3N["audit.ts"]
-3O["tracer.ts"]
+subgraph 3L["observability"]
+subgraph 3M["src"]
+3N["index.ts"]
+3O["audit.ts"]
+3P["tracer.ts"]
 end
 end
-subgraph 4K["infrastructure-mcp"]
-subgraph 4L["src"]
-4M["index.ts"]
-4N["mcp-app.registry.ts"]
-4O["mcp-bridge.ts"]
+subgraph 4M["infrastructure-mcp"]
+subgraph 4N["src"]
+4O["index.ts"]
+4P["mcp-app.registry.ts"]
+4Q["mcp-bridge.ts"]
 end
 subgraph 5Z["dist"]
 subgraph 60["domain"]
@@ -369,25 +369,25 @@ subgraph 7K["test"]
 7L["smoke.test.ts"]
 end
 end
-subgraph 4P["infrastructure-postgres"]
-subgraph 4Q["src"]
-4R["index.ts"]
-4S["graph.repository.ts"]
-4U["schema.ts"]
-4X["identity.repository.ts"]
-4Y["rating.repository.ts"]
-4Z["source.repository.ts"]
-50["workspace.repository.ts"]
+subgraph 4R["infrastructure-postgres"]
+subgraph 4S["src"]
+4T["index.ts"]
+4U["graph.repository.ts"]
+4W["schema.ts"]
+4Z["identity.repository.ts"]
+50["rating.repository.ts"]
+51["source.repository.ts"]
+52["workspace.repository.ts"]
 7U["seed.ts"]
 end
 7P["drizzle.config.ts"]
 end
-subgraph 51["infrastructure-runtime"]
-subgraph 52["src"]
-53["index.ts"]
-54["in-memory-governance.repository.ts"]
-55["in-memory-repositories.ts"]
-56["security-mocks.ts"]
+subgraph 53["infrastructure-runtime"]
+subgraph 54["src"]
+55["index.ts"]
+56["in-memory-governance.repository.ts"]
+57["in-memory-repositories.ts"]
+58["security-mocks.ts"]
 end
 end
 subgraph 7M["infrastructure-models"]
@@ -402,7 +402,7 @@ subgraph 7W["src"]
 end
 end
 end
-3J["crypto"]
+3K["crypto"]
 5J["path"]
 subgraph 6Z["@epos"]
 70["ports"]
@@ -504,224 +504,226 @@ Y-->E
 1T-->1Y
 1T-->1N
 25-->26
-26-->31
-26-->4C
+26-->30
+26-->32
 26-->4D
-26-->4G
+26-->4E
 26-->4H
 26-->4I
 26-->4J
-26-->34
-26-->12
-26-->4M
-26-->4R
-26-->53
-26-->38
+26-->4K
+26-->4L
+26-->35
+26-->4O
+26-->4T
+26-->55
+26-->39
 26-->2B
 26-->2G
 26-->2L
 26-->2Q
 26-->2U
 26-->2Z
-31-->34
-31-->2U
-34-->35
-34-->3I
-34-->3P
-34-->3Q
-34-->3R
-34-->3S
-34-->3T
-34-->3U
-34-->3V
-34-->3W
-34-->3X
-34-->3Y
-34-->3Z
-34-->40
-34-->41
-34-->42
-34-->43
-34-->44
-34-->45
-34-->46
-34-->47
-34-->48
-34-->49
-34-->4A
-34-->4B
-35-->38
-38-->39
-38-->3A
-38-->3B
-38-->3C
-38-->3D
-38-->3E
-38-->3F
-38-->3G
-39-->12
+30-->12
+32-->35
+32-->2U
+35-->36
+35-->3J
+35-->3Q
+35-->3R
+35-->3S
+35-->3T
+35-->3U
+35-->3V
+35-->3W
+35-->3X
+35-->3Y
+35-->3Z
+35-->40
+35-->41
+35-->42
+35-->43
+35-->44
+35-->45
+35-->46
+35-->47
+35-->48
+35-->49
+35-->4A
+35-->4B
+35-->4C
+36-->39
+39-->3A
+39-->3B
+39-->3C
+39-->3D
+39-->3E
+39-->3F
+39-->3G
+39-->3H
 3A-->12
 3B-->12
 3C-->12
 3D-->12
-3G-->12
-3I-->12
-3I-->3M
-3I-->38
-3I-->3J
-3M-->3N
-3M-->3O
-3P-->12
-3P-->3M
-3P-->38
-3P-->3J
+3E-->12
+3H-->12
+3J-->12
+3J-->3N
+3J-->39
+3J-->3K
+3N-->3O
+3N-->3P
 3Q-->12
-3Q-->38
-3Q-->3J
+3Q-->3N
+3Q-->39
+3Q-->3K
 3R-->12
-3R-->38
+3R-->39
+3R-->3K
 3S-->12
-3S-->38
-3S-->3J
+3S-->39
 3T-->12
-3T-->38
+3T-->39
+3T-->3K
 3U-->12
-3U-->38
-3U-->3J
-3V-->3S
+3U-->39
 3V-->12
-3V-->3M
-3V-->38
-3V-->3J
+3V-->39
+3V-->3K
+3W-->3T
 3W-->12
-3W-->3M
-3W-->38
-3W-->3J
+3W-->3N
+3W-->39
+3W-->3K
 3X-->12
-3X-->38
+3X-->3N
+3X-->39
+3X-->3K
 3Y-->12
-3Y-->38
+3Y-->39
 3Z-->12
-3Z-->38
+3Z-->39
 40-->12
-40-->38
+40-->39
 41-->12
-41-->38
+41-->39
 42-->12
-42-->38
+42-->39
 43-->12
-43-->38
+43-->39
 44-->12
-44-->38
+44-->39
 45-->12
-45-->38
+45-->39
 46-->12
-46-->38
+46-->39
 47-->12
-47-->38
-47-->3J
+47-->39
 48-->12
-48-->38
-48-->3J
+48-->39
+48-->3K
 49-->12
-49-->38
+49-->39
+49-->3K
 4A-->12
-4A-->38
-4A-->3J
+4A-->39
 4B-->12
-4B-->38
-4B-->3J
-4C-->34
-4C-->2U
-4D-->4F
-4D-->34
+4B-->39
+4B-->3K
+4C-->12
+4C-->39
+4C-->3K
+4D-->35
+4D-->39
 4D-->2U
-4F-->12
-4G-->38
-4G-->2U
-4H-->34
-4H-->12
+4E-->4G
+4E-->35
+4E-->2U
+4G-->12
+4H-->39
 4H-->2U
-4I-->34
+4I-->35
 4I-->12
 4I-->2U
-4J-->4F
-4J-->34
+4J-->35
+4J-->12
+4J-->39
 4J-->2U
-4M-->4N
-4M-->4O
-4N-->38
-4O-->38
-4R-->4S
-4R-->4X
-4R-->4Y
-4R-->4U
-4R-->4Z
-4R-->50
-4S-->4U
-4S-->12
-4S-->38
-4S-->4T
-4S-->2Q
+4K-->35
+4K-->12
+4K-->2U
+4L-->4G
+4L-->35
+4L-->2U
+4O-->4P
+4O-->4Q
+4P-->39
+4Q-->39
+4T-->4U
+4T-->4Z
+4T-->50
+4T-->4W
+4T-->51
+4T-->52
 4U-->4W
-4X-->4U
-4X-->12
-4X-->38
-4X-->4T
-4X-->2Q
-4Y-->4U
-4Y-->12
-4Y-->38
-4Y-->4T
-4Y-->2Q
-4Z-->4U
+4U-->12
+4U-->39
+4U-->4V
+4U-->2Q
+4W-->4Y
+4Z-->4W
 4Z-->12
-4Z-->38
-4Z-->4T
+4Z-->39
+4Z-->4V
 4Z-->2Q
-50-->4U
+50-->4W
 50-->12
-50-->38
-50-->4T
+50-->39
+50-->4V
 50-->2Q
-53-->54
-53-->55
-53-->56
-54-->12
-54-->38
-55-->12
-55-->38
+51-->4W
+51-->12
+51-->39
+51-->4V
+51-->2Q
+52-->4W
+52-->12
+52-->39
+52-->4V
+52-->2Q
+55-->56
+55-->57
+55-->58
 56-->12
-56-->38
-56-->3J
-57-->26
+56-->39
+57-->12
+57-->39
 58-->12
-59-->34
-59-->12
-59-->38
-59-->2U
+58-->39
+58-->3K
+59-->26
 5B-->26
 5B-->2U
 5B-->5G
 5H-->26
-5H-->38
+5H-->39
 5H-->2U
 5H-->5G
 5I-->5J
 5I-->5K
-5M-->3W
-5M-->38
+5M-->3X
+5M-->39
 5M-->5G
-5N-->3I
-5N-->3P
-5N-->3V
+5N-->3J
+5N-->3Q
 5N-->3W
-5N-->41
-5N-->45
+5N-->3X
+5N-->42
 5N-->46
-5N-->4B
+5N-->47
+5N-->4C
 5N-->12
-5N-->38
+5N-->39
 5N-->5G
 5O-->5J
 5O-->5K
@@ -759,8 +761,8 @@ Y-->E
 6S-->6U
 6V-->6T
 6V-->6U
-6W-->38
-6X-->38
+6W-->39
+6X-->39
 6Y-->70
 71-->70
 74-->12
@@ -786,7 +788,7 @@ Y-->E
 7P-->2G
 7P-->2L
 7P-->7T
-7U-->4U
+7U-->4W
 7U-->2G
 7U-->2L
 7U-->2Q
@@ -805,7 +807,7 @@ subgraph 0["apps"]
 subgraph 1["demo-shell"]
 subgraph 2["dist"]
 subgraph 3["assets"]
-4["index-CdMRCu3c.js"]
+4["index-DMmJBOAa.js"]
 end
 end
 subgraph 7["src"]
@@ -923,9 +925,9 @@ subgraph 2O["drizzle-orm"]
 subgraph 2P["postgres-js"]
 2Q["index.js"]
 end
-4T["index.js"]
-subgraph 4V["pg-core"]
-4W["index.js"]
+4V["index.js"]
+subgraph 4X["pg-core"]
+4Y["index.js"]
 end
 end
 end
@@ -1000,21 +1002,21 @@ end
 subgraph 24["src"]
 25["bin.ts"]
 26["server.ts"]
-subgraph 30["routes"]
-31["adr.routes.ts"]
-4C["governance.routes.ts"]
-4D["mapping.routes.ts"]
-4G["mcp.routes.ts"]
-4H["mission.routes.ts"]
+30["mock-data.ts"]
+subgraph 31["routes"]
+32["adr.routes.ts"]
+4D["governance.routes.ts"]
+4E["mapping.routes.ts"]
+4H["mcp.routes.ts"]
 4I["rating.routes.ts"]
-4J["workspace.routes.ts"]
-59["security.routes.ts"]
+4J["security.routes.ts"]
+4K["source.routes.ts"]
+4L["workspace.routes.ts"]
 end
-subgraph 4E["dto"]
-4F["index.ts"]
+subgraph 4F["dto"]
+4G["index.ts"]
 end
-57["index.ts"]
-58["mock-data.ts"]
+59["index.ts"]
 end
 subgraph 5A["test"]
 5B["adr.test.ts"]
@@ -1022,35 +1024,35 @@ subgraph 5A["test"]
 end
 5I["vitest.config.ts"]
 end
-subgraph 32["application"]
-subgraph 33["src"]
-34["index.ts"]
-35["mapping-processor.ts"]
-subgraph 3H["use-cases"]
-3I["add-edge.ts"]
-3P["add-node.ts"]
-3Q["add-source.ts"]
-3R["adr-use-cases.ts"]
-3S["apply-patch.ts"]
-3T["apply-retention.ts"]
-3U["assess-readiness.ts"]
-3V["cast-vote.ts"]
-3W["create-workspace.ts"]
-3X["get-mapping-run.ts"]
-3Y["get-node-ratings.ts"]
-3Z["get-readiness.ts"]
-40["get-trace.ts"]
-41["get-workspace-graph.ts"]
-42["list-mapping-runs.ts"]
-43["list-patches.ts"]
-44["list-sources.ts"]
-45["list-workspaces.ts"]
-46["patch-node.ts"]
-47["propose-patch.ts"]
-48["rate-node.ts"]
-49["redact-node.ts"]
-4A["start-mapping-run.ts"]
-4B["submit-claim.ts"]
+subgraph 33["application"]
+subgraph 34["src"]
+35["index.ts"]
+36["mapping-processor.ts"]
+subgraph 3I["use-cases"]
+3J["add-edge.ts"]
+3Q["add-node.ts"]
+3R["add-source.ts"]
+3S["adr-use-cases.ts"]
+3T["apply-patch.ts"]
+3U["apply-retention.ts"]
+3V["assess-readiness.ts"]
+3W["cast-vote.ts"]
+3X["create-workspace.ts"]
+3Y["get-mapping-run.ts"]
+3Z["get-node-ratings.ts"]
+40["get-readiness.ts"]
+41["get-trace.ts"]
+42["get-workspace-graph.ts"]
+43["list-mapping-runs.ts"]
+44["list-patches.ts"]
+45["list-sources.ts"]
+46["list-workspaces.ts"]
+47["patch-node.ts"]
+48["propose-patch.ts"]
+49["rate-node.ts"]
+4A["redact-node.ts"]
+4B["start-mapping-run.ts"]
+4C["submit-claim.ts"]
 end
 end
 subgraph 5L["test"]
@@ -1059,31 +1061,31 @@ subgraph 5L["test"]
 end
 5O["vitest.config.ts"]
 end
-subgraph 36["ports"]
-subgraph 37["src"]
-38["index.ts"]
-39["adr.repository.port.ts"]
-3A["domain.repository.port.ts"]
-3B["governance.port.ts"]
-3C["graph.repository.port.ts"]
-3D["mapping.repository.port.ts"]
-3E["mcp.port.ts"]
-3F["outbox.repository.port.ts"]
-3G["security.port.ts"]
+subgraph 37["ports"]
+subgraph 38["src"]
+39["index.ts"]
+3A["adr.repository.port.ts"]
+3B["domain.repository.port.ts"]
+3C["governance.port.ts"]
+3D["graph.repository.port.ts"]
+3E["mapping.repository.port.ts"]
+3F["mcp.port.ts"]
+3G["outbox.repository.port.ts"]
+3H["security.port.ts"]
 end
 end
-subgraph 3K["observability"]
-subgraph 3L["src"]
-3M["index.ts"]
-3N["audit.ts"]
-3O["tracer.ts"]
+subgraph 3L["observability"]
+subgraph 3M["src"]
+3N["index.ts"]
+3O["audit.ts"]
+3P["tracer.ts"]
 end
 end
-subgraph 4K["infrastructure-mcp"]
-subgraph 4L["src"]
-4M["index.ts"]
-4N["mcp-app.registry.ts"]
-4O["mcp-bridge.ts"]
+subgraph 4M["infrastructure-mcp"]
+subgraph 4N["src"]
+4O["index.ts"]
+4P["mcp-app.registry.ts"]
+4Q["mcp-bridge.ts"]
 end
 subgraph 5Z["dist"]
 subgraph 60["domain"]
@@ -1151,25 +1153,25 @@ subgraph 7K["test"]
 7L["smoke.test.ts"]
 end
 end
-subgraph 4P["infrastructure-postgres"]
-subgraph 4Q["src"]
-4R["index.ts"]
-4S["graph.repository.ts"]
-4U["schema.ts"]
-4X["identity.repository.ts"]
-4Y["rating.repository.ts"]
-4Z["source.repository.ts"]
-50["workspace.repository.ts"]
+subgraph 4R["infrastructure-postgres"]
+subgraph 4S["src"]
+4T["index.ts"]
+4U["graph.repository.ts"]
+4W["schema.ts"]
+4Z["identity.repository.ts"]
+50["rating.repository.ts"]
+51["source.repository.ts"]
+52["workspace.repository.ts"]
 7U["seed.ts"]
 end
 7P["drizzle.config.ts"]
 end
-subgraph 51["infrastructure-runtime"]
-subgraph 52["src"]
-53["index.ts"]
-54["in-memory-governance.repository.ts"]
-55["in-memory-repositories.ts"]
-56["security-mocks.ts"]
+subgraph 53["infrastructure-runtime"]
+subgraph 54["src"]
+55["index.ts"]
+56["in-memory-governance.repository.ts"]
+57["in-memory-repositories.ts"]
+58["security-mocks.ts"]
 end
 end
 subgraph 7M["infrastructure-models"]
@@ -1184,7 +1186,7 @@ subgraph 7W["src"]
 end
 end
 end
-3J["crypto"]
+3K["crypto"]
 5J["path"]
 subgraph 6Z["@epos"]
 70["ports"]
@@ -1286,224 +1288,226 @@ Y-->E
 1T-->1Y
 1T-->1N
 25-->26
-26-->31
-26-->4C
+26-->30
+26-->32
 26-->4D
-26-->4G
+26-->4E
 26-->4H
 26-->4I
 26-->4J
-26-->34
-26-->12
-26-->4M
-26-->4R
-26-->53
-26-->38
+26-->4K
+26-->4L
+26-->35
+26-->4O
+26-->4T
+26-->55
+26-->39
 26-->2B
 26-->2G
 26-->2L
 26-->2Q
 26-->2U
 26-->2Z
-31-->34
-31-->2U
-34-->35
-34-->3I
-34-->3P
-34-->3Q
-34-->3R
-34-->3S
-34-->3T
-34-->3U
-34-->3V
-34-->3W
-34-->3X
-34-->3Y
-34-->3Z
-34-->40
-34-->41
-34-->42
-34-->43
-34-->44
-34-->45
-34-->46
-34-->47
-34-->48
-34-->49
-34-->4A
-34-->4B
-35-->38
-38-->39
-38-->3A
-38-->3B
-38-->3C
-38-->3D
-38-->3E
-38-->3F
-38-->3G
-39-->12
+30-->12
+32-->35
+32-->2U
+35-->36
+35-->3J
+35-->3Q
+35-->3R
+35-->3S
+35-->3T
+35-->3U
+35-->3V
+35-->3W
+35-->3X
+35-->3Y
+35-->3Z
+35-->40
+35-->41
+35-->42
+35-->43
+35-->44
+35-->45
+35-->46
+35-->47
+35-->48
+35-->49
+35-->4A
+35-->4B
+35-->4C
+36-->39
+39-->3A
+39-->3B
+39-->3C
+39-->3D
+39-->3E
+39-->3F
+39-->3G
+39-->3H
 3A-->12
 3B-->12
 3C-->12
 3D-->12
-3G-->12
-3I-->12
-3I-->3M
-3I-->38
-3I-->3J
-3M-->3N
-3M-->3O
-3P-->12
-3P-->3M
-3P-->38
-3P-->3J
+3E-->12
+3H-->12
+3J-->12
+3J-->3N
+3J-->39
+3J-->3K
+3N-->3O
+3N-->3P
 3Q-->12
-3Q-->38
-3Q-->3J
+3Q-->3N
+3Q-->39
+3Q-->3K
 3R-->12
-3R-->38
+3R-->39
+3R-->3K
 3S-->12
-3S-->38
-3S-->3J
+3S-->39
 3T-->12
-3T-->38
+3T-->39
+3T-->3K
 3U-->12
-3U-->38
-3U-->3J
-3V-->3S
+3U-->39
 3V-->12
-3V-->3M
-3V-->38
-3V-->3J
+3V-->39
+3V-->3K
+3W-->3T
 3W-->12
-3W-->3M
-3W-->38
-3W-->3J
+3W-->3N
+3W-->39
+3W-->3K
 3X-->12
-3X-->38
+3X-->3N
+3X-->39
+3X-->3K
 3Y-->12
-3Y-->38
+3Y-->39
 3Z-->12
-3Z-->38
+3Z-->39
 40-->12
-40-->38
+40-->39
 41-->12
-41-->38
+41-->39
 42-->12
-42-->38
+42-->39
 43-->12
-43-->38
+43-->39
 44-->12
-44-->38
+44-->39
 45-->12
-45-->38
+45-->39
 46-->12
-46-->38
+46-->39
 47-->12
-47-->38
-47-->3J
+47-->39
 48-->12
-48-->38
-48-->3J
+48-->39
+48-->3K
 49-->12
-49-->38
+49-->39
+49-->3K
 4A-->12
-4A-->38
-4A-->3J
+4A-->39
 4B-->12
-4B-->38
-4B-->3J
-4C-->34
-4C-->2U
-4D-->4F
-4D-->34
+4B-->39
+4B-->3K
+4C-->12
+4C-->39
+4C-->3K
+4D-->35
+4D-->39
 4D-->2U
-4F-->12
-4G-->38
-4G-->2U
-4H-->34
-4H-->12
+4E-->4G
+4E-->35
+4E-->2U
+4G-->12
+4H-->39
 4H-->2U
-4I-->34
+4I-->35
 4I-->12
 4I-->2U
-4J-->4F
-4J-->34
+4J-->35
+4J-->12
+4J-->39
 4J-->2U
-4M-->4N
-4M-->4O
-4N-->38
-4O-->38
-4R-->4S
-4R-->4X
-4R-->4Y
-4R-->4U
-4R-->4Z
-4R-->50
-4S-->4U
-4S-->12
-4S-->38
-4S-->4T
-4S-->2Q
+4K-->35
+4K-->12
+4K-->2U
+4L-->4G
+4L-->35
+4L-->2U
+4O-->4P
+4O-->4Q
+4P-->39
+4Q-->39
+4T-->4U
+4T-->4Z
+4T-->50
+4T-->4W
+4T-->51
+4T-->52
 4U-->4W
-4X-->4U
-4X-->12
-4X-->38
-4X-->4T
-4X-->2Q
-4Y-->4U
-4Y-->12
-4Y-->38
-4Y-->4T
-4Y-->2Q
-4Z-->4U
+4U-->12
+4U-->39
+4U-->4V
+4U-->2Q
+4W-->4Y
+4Z-->4W
 4Z-->12
-4Z-->38
-4Z-->4T
+4Z-->39
+4Z-->4V
 4Z-->2Q
-50-->4U
+50-->4W
 50-->12
-50-->38
-50-->4T
+50-->39
+50-->4V
 50-->2Q
-53-->54
-53-->55
-53-->56
-54-->12
-54-->38
-55-->12
-55-->38
+51-->4W
+51-->12
+51-->39
+51-->4V
+51-->2Q
+52-->4W
+52-->12
+52-->39
+52-->4V
+52-->2Q
+55-->56
+55-->57
+55-->58
 56-->12
-56-->38
-56-->3J
-57-->26
+56-->39
+57-->12
+57-->39
 58-->12
-59-->34
-59-->12
-59-->38
-59-->2U
+58-->39
+58-->3K
+59-->26
 5B-->26
 5B-->2U
 5B-->5G
 5H-->26
-5H-->38
+5H-->39
 5H-->2U
 5H-->5G
 5I-->5J
 5I-->5K
-5M-->3W
-5M-->38
+5M-->3X
+5M-->39
 5M-->5G
-5N-->3I
-5N-->3P
-5N-->3V
+5N-->3J
+5N-->3Q
 5N-->3W
-5N-->41
-5N-->45
+5N-->3X
+5N-->42
 5N-->46
-5N-->4B
+5N-->47
+5N-->4C
 5N-->12
-5N-->38
+5N-->39
 5N-->5G
 5O-->5J
 5O-->5K
@@ -1541,8 +1545,8 @@ Y-->E
 6S-->6U
 6V-->6T
 6V-->6U
-6W-->38
-6X-->38
+6W-->39
+6X-->39
 6Y-->70
 71-->70
 74-->12
@@ -1568,7 +1572,7 @@ Y-->E
 7P-->2G
 7P-->2L
 7P-->7T
-7U-->4U
+7U-->4W
 7U-->2G
 7U-->2L
 7U-->2Q
@@ -1592,12 +1596,12 @@ Y-->E
 | `demo-shell/src/components/MissionPanel.tsx` | 303 | 8.7 KB | — |
 | `demo-shell/src/components/RatingPanel.tsx` | 234 | 6.2 KB | — |
 | `demo-shell/src/components/ReadinessPanel.tsx` | 403 | 11.7 KB | — |
-| `demo-shell/src/components/Sidebar.tsx` | 462 | 13.0 KB | — |
+| `demo-shell/src/components/Sidebar.tsx` | 465 | 13.6 KB | — |
 | `demo-shell/src/components/SourcePanel.tsx` | 232 | 6.9 KB | — |
-| `demo-shell/src/components/WorkspaceRoom.tsx` | 694 | 22.4 KB | — |
+| `demo-shell/src/components/WorkspaceRoom.tsx` | 665 | 22.1 KB | — |
 | `demo-shell/src/context/SecurityContext.tsx` | 68 | 1.6 KB | — |
 | `demo-shell/src/context/WorkspaceContext.tsx` | 130 | 3.4 KB | — |
-| `demo-shell/src/hooks/useApi.ts` | 44 | 1.1 KB | — |
+| `demo-shell/src/hooks/useApi.ts` | 43 | 1.1 KB | — |
 | `demo-shell/src/main.tsx` | 19 | 0.5 KB | — |
 
 ### `demo-shell/src/api-config.ts`
@@ -1664,16 +1668,16 @@ Y-->E
 | `api/src/bin.ts` | 13 | 0.3 KB | — |
 | `api/src/dto/index.ts` | 57 | 1.1 KB | — |
 | `api/src/index.ts` | 3 | 0.0 KB | — |
-| `api/src/mock-data.ts` | 566 | 17.1 KB | Mock data factory for demo/development mode. |
+| `api/src/mock-data.ts` | 551 | 17.5 KB | — |
 | `api/src/routes/adr.routes.ts` | 26 | 0.6 KB | — |
-| `api/src/routes/governance.routes.ts` | 94 | 2.9 KB | — |
+| `api/src/routes/governance.routes.ts` | 127 | 3.8 KB | — |
 | `api/src/routes/mapping.routes.ts` | 95 | 2.8 KB | — |
 | `api/src/routes/mcp.routes.ts` | 38 | 1.0 KB | — |
-| `api/src/routes/mission.routes.ts` | 34 | 0.9 KB | — |
 | `api/src/routes/rating.routes.ts` | 30 | 0.9 KB | — |
-| `api/src/routes/security.routes.ts` | 69 | 2.0 KB | — |
+| `api/src/routes/security.routes.ts` | 66 | 2.0 KB | — |
+| `api/src/routes/source.routes.ts` | 35 | 1.0 KB | — |
 | `api/src/routes/workspace.routes.ts` | 29 | 0.7 KB | — |
-| `api/src/server.ts` | 831 | 28.1 KB | — |
+| `api/src/server.ts` | 235 | 8.8 KB | — |
 | `api/test/adr.test.ts` | 48 | 1.2 KB | — |
 | `api/test/api.test.ts` | 222 | 5.9 KB | — |
 | `api/vitest.config.ts` | 42 | 1.1 KB | — |
@@ -1681,10 +1685,10 @@ Y-->E
 | `application/src/mapping-processor.ts` | 93 | 2.4 KB | — |
 | `application/src/use-cases/add-edge.ts` | 47 | 1.3 KB | — |
 | `application/src/use-cases/add-node.ts` | 55 | 1.4 KB | — |
-| `application/src/use-cases/add-source.ts` | 29 | 0.7 KB | — |
-| `application/src/use-cases/adr-use-cases.ts` | 20 | 0.5 KB | — |
+| `application/src/use-cases/add-source.ts` | 30 | 0.8 KB | — |
+| `application/src/use-cases/adr-use-cases.ts` | 19 | 0.5 KB | — |
 | `application/src/use-cases/apply-patch.ts` | 75 | 2.2 KB | — |
-| `application/src/use-cases/apply-retention.ts` | 46 | 1.6 KB | — |
+| `application/src/use-cases/apply-retention.ts` | 52 | 1.7 KB | — |
 | `application/src/use-cases/assess-readiness.ts` | 90 | 2.8 KB | — |
 | `application/src/use-cases/cast-vote.ts` | 131 | 4.0 KB | — |
 | `application/src/use-cases/create-workspace.ts` | 49 | 1.2 KB | — |
@@ -1700,7 +1704,7 @@ Y-->E
 | `application/src/use-cases/patch-node.ts` | 37 | 1.1 KB | — |
 | `application/src/use-cases/propose-patch.ts` | 55 | 1.5 KB | — |
 | `application/src/use-cases/rate-node.ts` | 29 | 0.7 KB | — |
-| `application/src/use-cases/redact-node.ts` | 68 | 1.7 KB | — |
+| `application/src/use-cases/redact-node.ts` | 67 | 1.7 KB | — |
 | `application/src/use-cases/start-mapping-run.ts` | 43 | 1.0 KB | — |
 | `application/src/use-cases/submit-claim.ts` | 49 | 1.2 KB | — |
 | `application/test/create-workspace.test.ts` | 63 | 1.6 KB | — |
@@ -1729,25 +1733,25 @@ Y-->E
 | `infrastructure-mcp/test/smoke.test.ts` | 8 | 0.2 KB | — |
 | `infrastructure-models/src/index.ts` | 3 | 0.1 KB | — |
 | `infrastructure-postgres/drizzle.config.ts` | 17 | 0.4 KB | — |
-| `infrastructure-postgres/src/graph.repository.ts` | 142 | 4.0 KB | — |
+| `infrastructure-postgres/src/graph.repository.ts` | 175 | 5.1 KB | — |
 | `infrastructure-postgres/src/identity.repository.ts` | 68 | 1.7 KB | — |
 | `infrastructure-postgres/src/index.ts` | 11 | 0.3 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
-| `infrastructure-postgres/src/schema.ts` | 107 | 3.3 KB | — |
+| `infrastructure-postgres/src/schema.ts` | 107 | 3.4 KB | — |
 | `infrastructure-postgres/src/seed.ts` | 378 | 13.2 KB | — |
-| `infrastructure-postgres/src/source.repository.ts` | 60 | 1.6 KB | — |
+| `infrastructure-postgres/src/source.repository.ts` | 61 | 1.7 KB | — |
 | `infrastructure-postgres/src/workspace.repository.ts` | 96 | 3.0 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 97 | 2.9 KB | — |
-| `infrastructure-runtime/src/in-memory-repositories.ts` | 233 | 6.1 KB | — |
+| `infrastructure-runtime/src/in-memory-repositories.ts` | 238 | 6.4 KB | — |
 | `infrastructure-runtime/src/index.ts` | 7 | 0.3 KB | — |
 | `infrastructure-runtime/src/security-mocks.ts` | 82 | 2.2 KB | — |
 | `observability/src/audit.ts` | 25 | 0.6 KB | — |
 | `observability/src/index.ts` | 3 | 0.1 KB | — |
 | `observability/src/tracer.ts` | 24 | 0.5 KB | — |
 | `ports/src/adr.repository.port.ts` | 8 | 0.2 KB | — |
-| `ports/src/domain.repository.port.ts` | 19 | 0.5 KB | — |
+| `ports/src/domain.repository.port.ts` | 19 | 0.6 KB | — |
 | `ports/src/governance.port.ts` | 32 | 1.2 KB | — |
-| `ports/src/graph.repository.port.ts` | 14 | 0.5 KB | — |
+| `ports/src/graph.repository.port.ts` | 14 | 0.6 KB | — |
 | `ports/src/index.ts` | 10 | 0.3 KB | — |
 | `ports/src/mapping.repository.port.ts` | 8 | 0.2 KB | — |
 | `ports/src/mcp.port.ts` | 35 | 1.0 KB | Port for MCP Application Registry. |
@@ -1766,19 +1770,16 @@ Y-->E
 - **Экспорт**: `ServerDependencies`, `buildServer`
 - **Роуты**:
   - `GET /health`
-  - `GET /api/v1/system/stats`
-  - `GET /api/v1/security/me`
-  - `GET /api/v1/security/audit`
-  - `POST /api/v1/security/redact`
-  - `POST /api/v1/security/retention`
 - **Зависимости**:
   - `./routes/workspace.routes.js` → workspaceRoutes
   - `./routes/mapping.routes.js` → mappingRoutes
   - `./routes/governance.routes.js` → governanceRoutes
   - `./routes/adr.routes.js` → adrRoutes
   - `./routes/mcp.routes.js` → mcpRoutes
-  - `./routes/mission.routes.js` → missionRoutes
+  - `./routes/source.routes.js` → sourceRoutes
   - `./routes/rating.routes.js` → ratingRoutes
+  - `./routes/security.routes.js` → securityRoutes
+  - `./mock-data.js` → createMockData
 
 ### `application/src/mapping-processor.ts`
 - **Экспорт**: `MappingProcessor`
@@ -2079,6 +2080,8 @@ Y-->E
 |---|---|
 | `DATABASE_URL` | packages/server.ts, packages/drizzle.config.ts, packages/seed.ts |
 | `EPIOS_DATABASE_MODE` | packages/server.ts |
+| `FRONTEND_URL` | packages/server.ts |
+| `NODE_ENV` | packages/server.ts |
 | `PORT` | packages/bin.ts |
 
 ## API Реестр
@@ -2086,8 +2089,3 @@ Y-->E
 | Метод | Путь | Файл |
 |---|---|---|
 | `GET` | `/health` | `packages/api/src/server.ts` |
-| `GET` | `/api/v1/system/stats` | `packages/api/src/server.ts` |
-| `GET` | `/api/v1/security/me` | `packages/api/src/server.ts` |
-| `GET` | `/api/v1/security/audit` | `packages/api/src/server.ts` |
-| `POST` | `/api/v1/security/redact` | `packages/api/src/server.ts` |
-| `POST` | `/api/v1/security/retention` | `packages/api/src/server.ts` |

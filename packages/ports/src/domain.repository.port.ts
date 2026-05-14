@@ -8,7 +8,7 @@ export interface WorkspaceRepositoryPort {
 
 export interface SourceRepositoryPort {
   save(source: Source): Promise<void>;
-  findByMissionId(missionId: string): Promise<Source[]>;
+  findByWorkspaceId(workspaceId: string): Promise<Source[]>;
   findById(id: string): Promise<Source | null>;
 }
 

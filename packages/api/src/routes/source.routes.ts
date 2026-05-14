@@ -2,30 +2,30 @@ import { FastifyInstance } from "fastify";
 import { AddSourceUseCase, ListSourcesUseCase } from "@epios/application";
 import { SourceType } from "@epios/domain";
 
-export async function missionRoutes(
+export async function sourceRoutes(
   fastify: FastifyInstance,
   options: {
     addSourceUseCase: AddSourceUseCase;
     listSourcesUseCase: ListSourcesUseCase;
   },
 ) {
-  fastify.get<{ Params: { missionId: string } }>(
-    "/missions/:missionId/sources",
+  fastify.get<{ Params: { workspaceId: string } }>(
+    "/workspaces/:workspaceId/sources",
     async (request) => {
-      return options.listSourcesUseCase.execute(request.params.missionId);
+      return options.listSourcesUseCase.execute(request.params.workspaceId);
     },
   );
 
   fastify.post<{
-    Params: { missionId: string };
+    Params: { workspaceId: string };
     Body: {
       type: SourceType;
       content: string;
       metadata?: Record<string, unknown>;
     };
-  }>("/missions/:missionId/sources", async (request, reply) => {
+  }>("/workspaces/:workspaceId/sources", async (request, reply) => {
     const source = await options.addSourceUseCase.execute({
-      missionId: request.params.missionId,
+      workspaceId: request.params.workspaceId,
       ...request.body,
     });
     return reply.status(201).send(source);

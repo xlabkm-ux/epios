@@ -9,4 +9,5 @@ export interface GraphRepositoryPort {
   findEdgesByWorkspaceId(workspaceId: string): Promise<EpistemicEdge[]>;
   findNodeById(id: string): Promise<EpistemicNode | null>;
   findEdgeById(id: string): Promise<EpistemicEdge | null>;
+  findAllNodes(): Promise<EpistemicNode[]>;
 }

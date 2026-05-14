@@ -1,11 +1,15 @@
 import { RetentionPolicy } from "@epios/domain";
-import { GraphRepositoryPort, SecurityPort, GovernanceRepositoryPort } from "@epios/ports";
+import {
+  GraphRepositoryPort,
+  SecurityPort,
+  GovernanceRepositoryPort,
+} from "@epios/ports";
 
 export class ApplyRetentionUseCase {
   constructor(
     private graphRepo: GraphRepositoryPort,
     private governanceRepo: GovernanceRepositoryPort,
-    private security: SecurityPort
+    private security: SecurityPort,
   ) {}
 
   async execute(policy: RetentionPolicy): Promise<{ prunedCount: number }> {
@@ -20,16 +24,26 @@ export class ApplyRetentionUseCase {
     let prunedCount = 0;
 
     if (policy.resourceType === "node") {
-      // This is a simplification. In a real DB we'd use a query.
-      // For now, we might not have a way to list all nodes easily from the port if it's not implemented.
-      // Let's assume we can list them or we just log that we would prune them.
-      console.log(`[RETENTION] Pruning nodes older than ${cutoffDate.toISOString()}`);
-      // Actual implementation would go here if port supports it.
+      const allNodes = await this.graphRepo.findAllNodes();
+      for (const node of allNodes) {
+        if (node.createdAt < cutoffDate) {
+          const success = await this.graphRepo.deleteNode(node.id);
+          if (success) {
+            prunedCount++;
+            console.log(
+              `[RETENTION] Pruned node ${node.id} (Created: ${node.createdAt.toISOString()})`,
+            );
+          }
+        }
+      }
     }
 
     if (policy.resourceType === "audit_log") {
-      // Similar for audit logs
-      console.log(`[RETENTION] Pruning audit logs older than ${cutoffDate.toISOString()}`);
+      // Security port currently doesn't have a bulk delete for audit logs,
+      // so we keep it as a log for now.
+      console.log(
+        `[RETENTION] Pruning audit logs older than ${cutoffDate.toISOString()}`,
+      );
     }
 
     await this.security.logAudit({
@@ -37,7 +51,7 @@ export class ApplyRetentionUseCase {
       action: "APPLY_RETENTION",
       resourceId: policy.id,
       resourceType: "retention_policy",
-      details: { policy, cutoffDate }
+      details: { policy, cutoffDate, prunedCount },
     });
 
     return { prunedCount };
