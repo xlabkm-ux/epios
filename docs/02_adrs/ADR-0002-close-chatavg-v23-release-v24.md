@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0002 — Close ChatAVG v2.3 Development and Release v2.4 Stabilization
 
 ## Status
@@ -15,3 +18,4 @@ Close v2.3 development. Release ChatAVG v2.4 as a stabilized version at the curr
 
 ## Revisit Trigger
 Do not revisit unless a critical maintenance obligation appears.
+

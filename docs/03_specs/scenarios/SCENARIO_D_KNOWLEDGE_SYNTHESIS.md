@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Demo Scenario D: Knowledge Synthesis - "Automated Research Brief"
 
 ## Overview
@@ -40,3 +43,4 @@ The Analyst clicks a link in the report.
 - Hub-and-spoke graph analysis.
 - Narrative generation from structured data.
 - Bi-directional linking between reports and the graph.
+

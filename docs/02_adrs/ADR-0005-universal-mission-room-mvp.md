@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0005 — Use Universal Mission Room as MVP Domain
 
 ## Status
@@ -15,3 +18,4 @@ Use **Universal Mission Room** as MVP domain with demo scenarios: architectural 
 
 ## Revisit Trigger
 Revisit after MVP demo feedback.
+

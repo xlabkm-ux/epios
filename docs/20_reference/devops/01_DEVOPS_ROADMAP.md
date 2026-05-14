@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Infrastructure & DevOps Roadmap
 
 ## 🟡 Горизонт 1: Стабилизация On-Premise
@@ -14,3 +17,4 @@
 - [ ] Интеграция с Datadog / Prometheus для сбора APM метрик.
 - [ ] Настройка алертов (Slack/Email) на 500-е ошибки или падение базы данных.
 - [ ] Регулярное тестирование плана Disaster Recovery (DRP).
+

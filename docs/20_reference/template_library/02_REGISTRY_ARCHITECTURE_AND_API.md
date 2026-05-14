@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Архитектура Реестра и API
 
 Для поддержки Template Library бэкенд (`packages/api` и `packages/application`) должен быть дополнен новым модулем реестра.
@@ -29,3 +32,4 @@
 1. `StartMappingRunUseCase` получает `Template` из БД.
 2. Он извлекает из шаблона `mapping_config` (какие типы узлов искать).
 3. Передает этот конфиг в MCP Bridge, который динамически формирует запрос (LLM Prompt) на основе конфигурации шаблона.
+

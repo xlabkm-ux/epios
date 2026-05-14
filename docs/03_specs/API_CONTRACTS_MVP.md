@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # API CONTRACTS: MVP v1.0
 
 This document defines the primary HTTP/BFF API surface for the Epistemic OS Demo Shell.
@@ -70,3 +73,4 @@ This document defines the primary HTTP/BFF API surface for the Epistemic OS Demo
 ## Common Headers
 - `X-Idempotency-Key`: Required for all POST/PATCH/DELETE actions.
 - `X-Actor-ID`: Identity of the user/agent performing the action.
+

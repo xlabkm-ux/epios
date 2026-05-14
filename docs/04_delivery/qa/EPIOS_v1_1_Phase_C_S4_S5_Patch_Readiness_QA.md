@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # EPIOS v1.1 — Phase C QA Plan: S4–S5 Artifact Patch, Approval, Readiness, Trace
 
 **Document ID:** `EPIOS-V1_1-PHASE-C-S4-S5-QA`  
@@ -245,3 +248,4 @@ But score is not primary UI and cannot approve.
 [ ] Readiness and trace are visible.
 [ ] Full happy path is covered by Playwright.
 ```
+

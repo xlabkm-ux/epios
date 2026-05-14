@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ChatAVG Document Handover Register
 
 Этот реестр отслеживает документы проекта ChatAVG v2.3/v2.4, которые используются как справочные материалы для Epistemic OS.
@@ -16,3 +19,4 @@
 - **REFERENCE_FOR_EPIOS**: Справочный материал для разработки EPIOS.
 - **SUPERSEDED_BY_EPIOS**: Заменен документацией EPIOS.
 - **ARCHIVED**: Исторический документ.
+

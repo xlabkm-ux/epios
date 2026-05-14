@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # TRACE EVENT CATALOG
 
 This catalog defines the events captured in the Epistemic OS mission trace for observability and audit.
@@ -56,3 +59,4 @@ Trace events stored in the system of record must be redacted for:
 - Provider API keys.
 - Raw session tokens.
 - Personal Identifiable Information (PII) where not explicitly required by mission scope.
+

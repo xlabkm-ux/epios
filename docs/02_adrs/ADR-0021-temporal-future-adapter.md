@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0021 — Keep Temporal as Future Runtime Adapter, Not MVP Blocker
 
 ## Status
@@ -18,3 +21,4 @@ Decouples the system from the specific implementation of durability while acknow
 
 ## Revisit Trigger
 Revisit after MVP or when runtime complexity exceeds MVP runner.
+

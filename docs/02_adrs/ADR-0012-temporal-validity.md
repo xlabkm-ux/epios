@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0012 — Use Temporal Validity for Epistemic Nodes
 
 ## Status
@@ -18,3 +21,4 @@ Ensures that claims are not treated as universal truths if they are context-depe
 
 ## Revisit Trigger
 Revisit after MVP if temporal model is too heavy for simple missions.
+

@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Управление пользователями и Enterprise RBAC: Индекс раздела
 
 **Документ:** Устав раздела управления пользователями и политиками доступа  
@@ -30,3 +33,4 @@
 
 ### 5. [05_RBAC_DEVELOPMENT_PLAN.md](./05_RBAC_DEVELOPMENT_PLAN.md)
 Roadmap реализации недостающих административных интерфейсов (RBAC Admin UI) и доработок бэкенда.
+

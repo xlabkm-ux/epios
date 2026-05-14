@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Epistemic OS Documentation
 
 This directory contains the **Engineering and Development Documentation** for Epistemic OS.
@@ -30,3 +33,4 @@ Roadmap documents are not backlog. Backlog lives in GitHub Issues.
 2. **[GOVERNANCE_PLAN.md](00_project/GOVERNANCE_PLAN.md)**: The rules of project management.
 3. **[OPEN_DECISIONS_REGISTER.md](00_project/OPEN_DECISIONS_REGISTER.md)**: Current pending decisions.
 4. **[ADR_REVIEW_WORKFLOW_MVP.md](03_specs/ADR_REVIEW_WORKFLOW_MVP.md)**: Core MVP workflow.
+

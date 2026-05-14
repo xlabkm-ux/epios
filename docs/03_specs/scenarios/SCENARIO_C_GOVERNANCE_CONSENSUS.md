@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Demo Scenario C: Governance & Consensus - "Community Knowledge Standard"
 
 ## Overview
@@ -42,3 +45,4 @@ The system reaches the required approval threshold (e.g., 2/3 majority or specif
 - Automated and human voting.
 - Evidence-based debate and clarification.
 - State-driven graph visualization (Pending -> Accepted).
+

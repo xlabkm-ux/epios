@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # EpiOS — инвестиционное предложение
 
 **Версия:** v0.2 investor memo  
@@ -604,4 +607,5 @@ EpiOS не должен продаваться как “ещё одна AI-пл
 Долгосрочная категория:
 
 > **Traceable AI work infrastructure for organizations where decisions must be explainable, source-backed and human-approved.**
+
 

@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Актуальное состояние интерфейса и Changelog
 
 **Версия продукта:** MVP v1.1 (Pilot RC)  
@@ -43,3 +46,4 @@
 
 ### S1-S2: MVP Skeleton & Domain Binding
 - **Что сделано:** Создан базовый каркас приложения (Sidebar, Main Workspace). Внедрена дизайн-система Dark Mode. Созданы `MissionPanel`, `SourcePanel`, `RatingPanel`. Подключены первые реальные API эндпоинты домена.
+

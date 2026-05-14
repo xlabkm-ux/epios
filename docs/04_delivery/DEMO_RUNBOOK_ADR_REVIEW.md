@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Demo Runbook: ADR Review Flow
 
 ## Introduction
@@ -44,3 +47,4 @@ This runbook guides you through the canonical ADR Review demonstration for Epist
 1. Verify the workspace status changed to `ready`.
 2. View the **Final Artifact** (the versioned ADR).
 3. Inspect the **Trace Summary** to show the full reasoning chain to the pilot user.
+

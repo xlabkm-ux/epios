@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # BACKLOG MIGRATION LOG: Epistemic OS (epios)
 
 **Status:** Active
@@ -44,3 +47,4 @@ All tasks from `PROJECT_BACKLOG.md` have been reviewed. Since the project has re
 
 ---
 *This log will be updated as the migration to GitHub Project completes.*
+

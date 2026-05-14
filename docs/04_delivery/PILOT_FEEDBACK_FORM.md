@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Pilot Feedback Form: Epistemic OS v1.1
 
 ## Session Info
@@ -31,3 +34,4 @@ What is the ONE feature that would make this indispensable for your real-world A
 
 ### 6. General Comments
 (Any other thoughts, bugs, or UX improvements?)
+

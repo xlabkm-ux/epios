@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Analytics & Reporting Roadmap
 
 ## 🟡 Горизонт 1: Basic In-App Reporting
@@ -13,3 +16,4 @@
 ## 🟣 Горизонт 3: Enterprise DWH Integration
 - [ ] Разработка механизма ETL (Export, Transform, Load) для стриминга агрегированных метрик в корпоративные хранилища (Snowflake, ClickHouse).
 - [ ] Поддержка BI-систем (Tableau, PowerBI) через специальные Read-Only SQL views в базе PostgreSQL.
+

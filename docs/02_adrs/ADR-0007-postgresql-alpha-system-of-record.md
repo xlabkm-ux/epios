@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0007 — Use PostgreSQL as Alpha System of Record
 
 ## Status
@@ -15,3 +18,4 @@ Use **PostgreSQL** as the system of record from alpha.
 
 ## Revisit Trigger
 Do not revisit for MVP. Revisit storage extensions after MVP.
+

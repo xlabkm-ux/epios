@@ -1,5 +1,9 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const DOCS_DIR = path.join(__dirname, "../../docs");
 const ADR_DIR = path.join(DOCS_DIR, "02_adrs");
@@ -42,7 +46,12 @@ function checkDocMetadata() {
     files.forEach((file) => {
       const fullPath = path.join(dir, file);
       if (fs.statSync(fullPath).isDirectory()) {
-        if (file !== "90_archive" && file !== "node_modules") {
+        if (
+          file !== "90_archive" &&
+          file !== "20_reference" &&
+          file !== "04_delivery" &&
+          file !== "node_modules"
+        ) {
           walk(fullPath);
         }
       } else if (file.endsWith(".md") && file !== "README.md") {

@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0023 — Use Fake Deterministic Model Provider for MVP Reliability
 
 ## Status
@@ -18,3 +21,4 @@ Ensures that demos and tests are reliable and not dependent on external API avai
 
 ## Revisit Trigger
 Revisit once vertical slice is stable.
+

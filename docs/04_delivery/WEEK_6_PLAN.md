@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Implementation Plan: Week 6 - Polishing & Release Candidate
 
 This final phase focuses on stabilizing the Epistemic OS (EPIOS) platform, ensuring all core features work seamlessly together, and preparing for the MVP release.
@@ -45,3 +48,4 @@ This final phase focuses on stabilizing the Epistemic OS (EPIOS) platform, ensur
 - The UI feels responsive, stable, and visually polished.
 - The project documentation is complete and up-to-date.
 - The MVP Release Candidate tag is pushed to the repository.
+

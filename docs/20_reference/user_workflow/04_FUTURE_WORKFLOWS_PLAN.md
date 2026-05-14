@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # План развития пользовательских процессов (Workflow Roadmap)
 
 В данном документе фиксируются планы по улучшению и расширению пользовательского опыта (User Journey) за рамками базового ADR Review.
@@ -24,3 +27,4 @@
 *Бесшовная встройка в привычные инструменты инженера.*
 - [ ] **Git-Flow Integration:** Возможность затриггерить создание Workspace прямо из Pull Request (через GitHub Actions). Патчи в EpiOS могут генерировать коммиты обратно в Markdown файл в репозитории.
 - [ ] **Slack/Teams Approvals:** Бот присылает Summary патча в мессенджер, Reviewer может нажать "Approve" прямо в чате, не открывая EpiOS Studio.
+

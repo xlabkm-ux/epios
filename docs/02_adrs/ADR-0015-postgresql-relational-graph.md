@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0015 — Use PostgreSQL Relational Graph Before Graph Database
 
 ## Status
@@ -18,3 +21,4 @@ Leverages existing PostgreSQL infrastructure while maintaining a path to move to
 
 ## Revisit Trigger
 Revisit when relational graph queries become a measured bottleneck.
+

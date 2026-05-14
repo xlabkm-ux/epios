@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0025 — Reuse ChatAVG Through Reviewed Extraction or Clean Rewrite
 
 ## Status
@@ -18,3 +21,4 @@ Allows the project to benefit from previous work while ensuring that only high-q
 
 ## Revisit Trigger
 Revisit only per asset through extraction inventory.
+

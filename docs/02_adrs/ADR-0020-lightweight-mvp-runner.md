@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0020 — Use Lightweight MVP Runner Behind DurableRuntimePort
 
 ## Status
@@ -18,3 +21,4 @@ Allows for basic workflow execution while maintaining the interface for a more r
 
 ## Revisit Trigger
 Adopt Temporal when long-running waits/retries become necessary.
+

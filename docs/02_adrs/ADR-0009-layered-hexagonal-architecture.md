@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0009 — Use Layered Hexagonal Architecture
 
 ## Status
@@ -15,3 +18,4 @@ Use **layered hexagonal architecture**: Interfaces → Application → Domain; I
 
 ## Revisit Trigger
 Do not revisit. This is a foundational architecture decision.
+

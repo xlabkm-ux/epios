@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # EPIOS v1.1 — Phase B QA Plan: S2–S3 Core Domain, Persistence, Async Mapping
 
 **Document ID:** `EPIOS-V1_1-PHASE-B-S2-S3-QA`  
@@ -274,3 +277,4 @@ Start Mapping
 [ ] UI updates from backend state, not command response.
 [ ] Claims/evidence panel is partially real and testable.
 ```
+

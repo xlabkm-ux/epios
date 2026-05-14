@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # User Workflow Roadmap: Индекс раздела
 
 **Документ:** Организационный устав раздела User Workflow  
@@ -28,3 +31,4 @@
 - Синхронная и асинхронная коллаборация нескольких ревьюеров.
 - Интеграция с внешними Workflow (GitHub PR, Jira).
 - Развитие сценариев на базе новых шаблонов (RFC, Incident Response).
+

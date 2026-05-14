@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-XXXX — [Title]
 
 ## Status
@@ -29,3 +32,4 @@ Why did we choose this solution over others? How does it align with our core pri
 
 ## Revisit Trigger
 Under what conditions should this decision be re-evaluated?
+

@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ERROR CATALOG: Epistemic OS (epios)
 
 This catalog defines the standardized errors used across the Epistemic OS kernel, application, and API layers.
@@ -34,3 +37,4 @@ This catalog defines the standardized errors used across the Epistemic OS kernel
 ## Retry Policy
 - **Yes**: Client should retry with exponential backoff.
 - **No**: Client must fix the request or state before retrying.
+

@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # EPIOS v1.1 — Phase A QA Plan: S0–S1 Governance, Contracts, Visible Product Skeleton
 
 **Document ID:** `EPIOS-V1_1-PHASE-A-S0-S1-QA`  
@@ -215,3 +218,4 @@ Questions:
 [ ] Every contract has at least one test skeleton.
 [ ] Discovery feedback is captured and reflected in backlog.
 ```
+

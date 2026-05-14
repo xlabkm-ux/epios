@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # EPIOS v1.1 — Phase D QA Plan: S6–S7 Hardening, Security, Retention, RC, Pilot
 
 **Document ID:** `EPIOS-V1_1-PHASE-D-S6-S7-QA`  
@@ -271,3 +274,4 @@ Template:
 - Extend pilot
 - Cut/rework major feature
 ```
+

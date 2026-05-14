@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0011 — Use EpistemicNode as Core Claim Primitive
 
 ## Status
@@ -20,3 +23,4 @@ Negative:
 
 ## Revisit Trigger
 Revisit after MVP if node model proves too broad or too complex.
+

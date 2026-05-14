@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # TEST STRATEGY AND MATRIX: Epistemic OS
 
 This document defines the testing layers and quality gates for the Epistemic OS project.
@@ -33,3 +36,4 @@ A feature is considered done when:
 4. Security review is completed (for P0 areas).
 5. Documentation (Register/Catalog) is updated.
 6. Code is reviewed and merged to `master`.
+

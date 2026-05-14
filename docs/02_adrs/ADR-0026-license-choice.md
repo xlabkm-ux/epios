@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0026 — License Choice
 
 ## Status
@@ -28,3 +31,4 @@ We choose **Apache-2.0** as the primary license for Epistemic OS.
 ## Impact
 - Repository initialization: P0.
 - Legal clarity: High.
+

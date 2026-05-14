@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Implementation Plan: Week 5 - MCP Apps & Approval Flow
 
 This plan covers the integration of the Model Context Protocol (MCP) and the implementation of governance flows (Claims and Approvals) within Epistemic OS.
@@ -46,3 +49,4 @@ This plan covers the integration of the Model Context Protocol (MCP) and the imp
 - A user can submit a claim which appears in the "Pending Approval" state.
 - Multiple users/agents can approve a claim, changing its state in the graph.
 - All actions are recorded in the audit log with proper timestamps and actor IDs.
+

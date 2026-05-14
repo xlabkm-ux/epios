@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Модель Идентификации и Управления Доступом (Enterprise RBAC)
 
 Epistemic OS применяет ролевую модель (Role-Based Access Control) на уровне домена (см. `packages/domain/src/security.ts`).
@@ -29,3 +32,4 @@ Epistemic OS применяет ролевую модель (Role-Based Access C
 - **API Middleware:** Эндпоинты в `packages/api/src/routes/` защищены декораторами/мидлварами, проверяющими токен и роль.
 - **Domain Enforcement:** Агрегаты и UseCases проверяют права. Например, `ApplyPatchUseCase` выбросит `UnauthorizedError`, если ActorRole не имеет права `patch.approve`.
 - **UI Adaptation:** Фронтенд использует `SecurityContext`, чтобы скрывать или переводить в `disabled` состояние кнопки, недоступные текущей роли (чтобы не провоцировать 403 ошибки).
+

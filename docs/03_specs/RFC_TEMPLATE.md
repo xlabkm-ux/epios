@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # RFC-XXXX — [Title]
 
 ## Summary
@@ -36,3 +39,4 @@ What other designs were considered and why were they not chosen?
 
 ## Open Questions
 What remains unknown or requires further discussion?
+

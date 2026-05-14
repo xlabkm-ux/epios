@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # EPIOS-12 — Week 2: Domain & Persistence (Issues & PR Bodies)
 
 **Project:** Epistemic OS v1.0  
@@ -74,3 +77,4 @@ Verify repository implementations with real database.
 - Adds migrations for expanded schema.
 - Includes integration tests.
 - Closes #27, #28, #29.
+

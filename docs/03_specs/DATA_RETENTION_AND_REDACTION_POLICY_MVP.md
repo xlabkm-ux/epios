@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # DATA RETENTION AND REDACTION POLICY: MVP v1.0
 
 This document defines the security hygiene for data storage during the Epistemic OS MVP phase.
@@ -29,3 +32,4 @@ The following data must NEVER be stored in the system of record (PostgreSQL, Log
 
 ## 4. Privacy Boundary
 MVP data is assumed to be technical and non-PII. If PII is ingested as source material, it is the user's responsibility during the MVP phase to ensure compliance. Future versions will include automated PII detection and redaction.
+

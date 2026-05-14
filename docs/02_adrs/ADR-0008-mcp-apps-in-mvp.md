@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0008 — Include MCP Apps in MVP v1.0
 
 ## Status
@@ -15,3 +18,4 @@ Include **MCP Apps** in MVP: ClaimApp, EvidenceViewer, and ApprovalApp.
 
 ## Revisit Trigger
 If schedule risk becomes critical, reduce to ClaimApp + ApprovalApp only.
+

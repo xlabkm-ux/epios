@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Known Limitations: Epistemic OS v1.1 Alpha
 
 ## Product Scope
@@ -20,3 +23,4 @@
 ## Security
 - **Redaction:** Automatic redaction is pattern-based (e.g., keys, tokens); manual review is still required for sensitive content.
 - **Audit:** The trace is immutable in the database but the UI view is a summary, not a cryptographic proof.
+

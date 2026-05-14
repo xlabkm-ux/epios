@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Demo Scenario B: Crisis Management - "Cyber-Physical Event Response"
 
 ## Overview
@@ -40,3 +43,4 @@ The graph automatically highlights that isolating SCADA will affect "Sector 8 Ho
 - Identifying critical infrastructure dependencies.
 - Handling and resolving conflicting evidence.
 - Proactive impact analysis.
+

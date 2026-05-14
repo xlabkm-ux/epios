@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # UI Roadmap & Documentation Index
 
 **Документ:** Организационный устав раздела UI Roadmap  
@@ -42,3 +45,4 @@
 
 ---
 *Примечание: Данный раздел является единым источником правды для развития фронтенда проекта Epistemic OS.*
+

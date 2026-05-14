@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Аналитика и Отчетность (Analytics & Reporting): Индекс
 
 **Цель:** Обеспечение бизнеса метриками по качеству архитектурных решений, скорости их принятия и здоровью процессов Governance.
@@ -6,3 +9,4 @@
 1. [01_ANALYTICS_ROADMAP.md](./01_ANALYTICS_ROADMAP.md) — План разработки дашбордов и выгрузок.
 2. `02_GOVERNANCE_METRICS.md` (В планах) — Словарь ключевых метрик (Velocity, Blockers, Coverage).
 3. `03_DATA_WAREHOUSE_SYNC.md` (В планах) — Процесс ETL для выгрузки графов в корпоративные DWH.
+

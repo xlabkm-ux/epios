@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # SECURITY STABILIZATION NOTES: ChatAVG v2.4
 
 This document covers immediate security fixes and hygiene required before freezing ChatAVG v2.4.
@@ -15,3 +18,4 @@ This document covers immediate security fixes and hygiene required before freezi
 
 ## 4. Security Scope for v2.4
 ChatAVG v2.4 is provided "as is" with only critical security patches. New security features (secure bridge, nonce protection) are implemented in the Epistemic OS project.
+

@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Template Library Registry: Индекс раздела
 
 **Документ:** Организационный устав раздела Template Library  
@@ -26,3 +29,4 @@
 
 ### 4. [04_LIBRARY_DEVELOPMENT_PLAN.md](./04_LIBRARY_DEVELOPMENT_PLAN.md)
 **Что внутри:** Пошаговый Roadmap (план разработки) для внедрения Template Library, разбитый на горизонты (от выделения текущего хардкода до полноценного маркетплейса шаблонов).
+

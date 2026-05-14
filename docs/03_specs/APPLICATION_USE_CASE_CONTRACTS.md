@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # APPLICATION USE CASE CONTRACTS
 
 This document defines the application-layer use cases (interactors) that coordinate domain logic and infrastructure ports.
@@ -53,3 +56,4 @@ Every use case implementation must follow this structure:
 4. **Execute Domain Logic**: Invoke methods on the aggregate/entities.
 5. **Persist Changes**: Save through the repository in a transaction.
 6. **Emit Events**: Send events to the trace/outbox.
+

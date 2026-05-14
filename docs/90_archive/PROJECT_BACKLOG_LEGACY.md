@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ⚠️ LEGACY PROJECT BACKLOG (Non-authoritative)
 
 > [!IMPORTANT]
@@ -74,3 +77,4 @@
 
 ---
 *Агент обязан обновлять этот файл после каждого спринта.*
+

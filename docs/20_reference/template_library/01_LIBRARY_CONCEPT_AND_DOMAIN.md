@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Концепция и Доменная модель (Template Library)
 
 В MVP v1.1 Epistemic OS был сфокусирован на едином хардкодном сценарии: **ADR Review** с использованием статичного профиля `engineering-adr-review-v0.1`. 
@@ -24,3 +27,4 @@
 - Появится агрегат `TemplateRegistry` (или `OntologyRegistry`).
 - Сущность `Mission` и `Workspace` будет ссылаться на `templateId` и `profileId` вместо хардкодной логики.
 - Движок `ReadinessAssessment` (в application layer) станет "интерпретатором", который принимает граф и применяет к нему правила из `Adequacy Profile`, возвращая динамический статус.
+

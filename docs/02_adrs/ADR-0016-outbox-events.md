@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0016 — Use Outbox Events from MVP
 
 ## Status
@@ -18,3 +21,4 @@ Ensures transactional integrity between the system of record and asynchronous pr
 
 ## Revisit Trigger
 Do not remove. Later event streaming may supplement it.
+

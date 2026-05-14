@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0024 — Do Not Import ChatAVG as a Dependency
 
 ## Status
@@ -18,3 +21,4 @@ Ensures that the new project starts with a clean slate and does not inherit tech
 
 ## Revisit Trigger
 Do not revisit for MVP.
+

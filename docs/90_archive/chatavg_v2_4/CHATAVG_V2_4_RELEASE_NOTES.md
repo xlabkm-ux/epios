@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # RELEASE NOTES: ChatAVG v2.4 (Stabilization)
 
 ## Release Summary
@@ -11,3 +14,4 @@ ChatAVG v2.4 is a maintenance and stabilization release. It marks the transition
 
 ## Strategic Note
 Active feature development for ChatAVG as a standalone product shell is now closed. The architectural core and concepts of ChatAVG are being evolved into **Epistemic OS v1.0**.
+

@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0018 — Treat MCP Apps as Untrusted UI Surfaces
 
 ## Status
@@ -18,3 +21,4 @@ Maintains a strict security boundary and ensures that all state mutations are va
 
 ## Revisit Trigger
 Do not revisit for MVP. This is a security baseline.
+

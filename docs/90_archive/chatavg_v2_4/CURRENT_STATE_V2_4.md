@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # CURRENT STATE: ChatAVG v2.4
 
 This document records the functional and technical state of ChatAVG at the point of stabilization (v2.4).
@@ -20,3 +23,4 @@ This document records the functional and technical state of ChatAVG at the point
 - Ensure reproducibility of local setup.
 - Document extraction paths for Epistemic OS.
 - Close all non-essential RC development branches.
+

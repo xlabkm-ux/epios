@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0013 — Use LivingArtifact and ArtifactPatch as Artifact Model
 
 ## Status
@@ -18,3 +21,4 @@ Allows for precise tracking of changes and attribution to evidence or decisions.
 
 ## Revisit Trigger
 Revisit patch format after MVP artifact scenarios.
+

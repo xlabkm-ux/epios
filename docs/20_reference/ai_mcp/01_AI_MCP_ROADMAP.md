@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # AI & MCP Roadmap
 
 ## 🟡 Горизонт 1: Prompt Management
@@ -11,3 +14,4 @@
 ## 🟣 Горизонт 3: Continuous AI Evaluation
 - [ ] Внедрение фреймворка для оценки качества извлечения сущностей (например, RAGAS или LangSmith).
 - [ ] Дашборд качества: процент успешных маппингов, время ответа LLM, стоимость токенов.
+

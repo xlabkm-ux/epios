@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # API & DX Roadmap
 
 ## 🟡 Горизонт 1: API Core & Documentation
@@ -13,3 +16,4 @@
 ## 🟣 Горизонт 3: Event-Driven Webhooks
 - [ ] Создание системы Webhooks: возможность подписываться на события (например, `patch.approved`, `workspace.created`).
 - [ ] Механизм повторной доставки (Retry) вебхуков при недоступности системы-получателя.
+

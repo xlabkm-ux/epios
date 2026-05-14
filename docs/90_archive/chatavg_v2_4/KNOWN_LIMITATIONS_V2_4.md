@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # KNOWN LIMITATIONS: ChatAVG v2.4
 
 This document lists known architectural and functional limitations that will NOT be fixed in the legacy project but are addressed in the design of Epistemic OS.
@@ -16,3 +19,4 @@ This document lists known architectural and functional limitations that will NOT
 ## 3. Operations
 - **Secret Hygiene**: Risks of secrets leaking into logs if not manually scrubbed.
 - **Migration Path**: No automated SQL migrations; schema changes are manual and risky.
+

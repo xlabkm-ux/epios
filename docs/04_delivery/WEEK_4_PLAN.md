@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Implementation Plan: Week 4 - Demo Shell & Mission Room
 
 This plan covers the development of the frontend interface for Epistemic OS, focusing on the Demo Shell and the Mission Room UI.
@@ -43,3 +46,4 @@ This plan covers the development of the frontend interface for Epistemic OS, foc
 - **Primary**: `#00f2ff` (Neon Cyan)
 - **Secondary**: `#7000ff` (Electric Purple)
 - **Accents**: Glassmorphism effects, subtle glow on active nodes.
+

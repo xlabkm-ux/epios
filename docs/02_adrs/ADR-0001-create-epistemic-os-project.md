@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0001 — Create Epistemic OS as a New Project
 
 ## Status
@@ -15,3 +18,4 @@ Create a new project: **Epistemic Operating System v1.0**. The project is develo
 
 ## Revisit Trigger
 Revisit only if separate-repo overhead blocks MVP delivery or if legal/licensing constraints prevent reuse.
+

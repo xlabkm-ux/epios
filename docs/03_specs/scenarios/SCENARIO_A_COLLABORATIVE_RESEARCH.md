@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # Demo Scenario A: Collaborative Research - "The Great Energy Transition"
 
 ## Overview
@@ -42,3 +45,4 @@ Alice uses the "Summarize" feature (MCP tool) to generate a high-level view of t
 - Evidence-based node creation.
 - Logical relationship mapping (enables/hinders).
 - Automated synthesis of complex graphs.
+

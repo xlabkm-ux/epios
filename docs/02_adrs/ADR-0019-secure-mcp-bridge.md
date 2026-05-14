@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0019 — Use Secure MCP Bridge with Origin, Schema, Nonce and Capability Checks
 
 ## Status
@@ -18,3 +21,4 @@ Ensures the integrity and authenticity of communication between the shell and MC
 
 ## Revisit Trigger
 Revisit after production threat model; never remove core checks.
+

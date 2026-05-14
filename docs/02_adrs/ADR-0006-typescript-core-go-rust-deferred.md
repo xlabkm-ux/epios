@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0006 — Use TypeScript Core with Go/Rust Deferred
 
 ## Status
@@ -15,3 +18,4 @@ Use **TypeScript** for v1.0 core. Defer Go/Rust to future infrastructure compone
 
 ## Revisit Trigger
 Revisit after MVP if infrastructure bottlenecks are measured.
+

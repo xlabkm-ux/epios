@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0017 — Use Idempotency Keys for Side-Effecting Commands
 
 ## Status
@@ -18,3 +21,4 @@ Prevents duplicate execution of actions that change state or interact with exter
 
 ## Revisit Trigger
 Revisit retention policy after MVP.
+

@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0022 — Use Trace Events for Epistemic and Runtime Observability
 
 ## Status
@@ -18,3 +21,4 @@ Provides the necessary transparency and auditability required for epistemic inte
 
 ## Revisit Trigger
 Revisit when adopting OTel collector or external observability backend.
+

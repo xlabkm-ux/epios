@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0014 — Use ApprovalRequest and DecisionRecord for Human Decisions
 
 ## Status
@@ -18,3 +21,4 @@ Explicitly captures human intent and provides an audit trail for all system acti
 
 ## Revisit Trigger
 Revisit after MVP if approval fatigue or UX friction appears.
+

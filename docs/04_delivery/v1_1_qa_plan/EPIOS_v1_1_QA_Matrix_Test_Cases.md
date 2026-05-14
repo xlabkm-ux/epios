@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # EPIOS v1.1 — QA Matrix and Test Case Catalog
 
 **Document ID:** `EPIOS-V1_1-QA-MATRIX-TEST-CASES`  
@@ -202,3 +205,4 @@ After each sprint, score 1–5:
 | Architecture health | Were boundaries preserved? |
 
 A sprint with any score below 3 requires a corrective issue before adding new surface area.
+

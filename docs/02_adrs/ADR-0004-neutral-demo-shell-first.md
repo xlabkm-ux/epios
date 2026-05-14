@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0004 — Use Neutral Demo Shell as First Product Shell
 
 ## Status
@@ -15,3 +18,4 @@ The first product shell is: **Neutral Epistemic OS Demo Shell**.
 
 ## Revisit Trigger
 Revisit after MVP if a ChatAVG-branded shell becomes the next priority.
+

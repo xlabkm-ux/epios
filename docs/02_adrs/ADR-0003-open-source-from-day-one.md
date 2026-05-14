@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0003 — Open Source From Day One
 
 ## Status
@@ -15,3 +18,4 @@ Make the Epistemic OS repository open-source from day one.
 
 ## Revisit Trigger
 Revisit if legal/security review identifies unmanageable exposure risk.
+

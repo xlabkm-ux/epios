@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # ADR-0010 — Keep Domain Free of Infrastructure Dependencies
 
 ## Status
@@ -15,3 +18,4 @@ Domain package **cannot import** infrastructure packages or SDKs.
 
 ## Revisit Trigger
 Do not revisit unless architecture is formally replaced.
+
