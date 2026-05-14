@@ -289,7 +289,7 @@ const Sidebar: React.FC = () => {
         >
           <SidebarItem
             icon={<Layout size={18} />}
-            label={t("sidebar.workspace_room")}
+            label={t("sidebar.workplace")}
             active={activeView === "ROOM"}
             isCollapsed={isCollapsed}
             onClick={() => setActiveView("ROOM")}

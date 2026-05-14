@@ -15,7 +15,7 @@ i18n
       en: {
         translation: {
           sidebar: {
-            workspace_room: "Workspace Room",
+            workplace: "Workplace",
             adr_review: "ADR Review",
             archive: "Archive",
             telemetry: "Telemetry",
@@ -55,14 +55,14 @@ i18n
       ru: {
         translation: {
           sidebar: {
-            workspace_room: "Рабочая область",
+            workplace: "Рабочее место",
             adr_review: "Обзор ADR",
             archive: "Архив",
             telemetry: "Телеметрия",
             active_workspaces: "Активные",
             pinned_workspaces: "Закреплённые",
             archived_workspaces: "Архив",
-            new_workspace: "Новый воркспейс",
+            new_workspace: "Новое пространство",
             settings: "Настройки",
             identity: "Личность (Pilot)",
           },
