@@ -127,6 +127,14 @@ export class InMemoryGraphRepository implements GraphRepositoryPort {
     this.edges.set(edge.id, edge);
   }
 
+  async deleteNode(id: string): Promise<boolean> {
+    return this.nodes.delete(id);
+  }
+
+  async deleteEdge(id: string): Promise<boolean> {
+    return this.edges.delete(id);
+  }
+
   async findNodesByWorkspaceId(workspaceId: string): Promise<EpistemicNode[]> {
     return Array.from(this.nodes.values()).filter(
       (n) => n.workspaceId === workspaceId,

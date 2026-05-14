@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { API_BASE_URL } from "../api-config";
 
 export function useApi<T>(path: string, interval?: number) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const pathRef = useRef(path);
+  pathRef.current = path;
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}${path}`);
+      const response = await fetch(`${API_BASE_URL}${pathRef.current}`);
       if (!response.ok) {
         throw new Error(`API Error: ${response.statusText}`);
       }
@@ -20,7 +22,7 @@ export function useApi<T>(path: string, interval?: number) {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (!path) {
@@ -34,7 +36,7 @@ export function useApi<T>(path: string, interval?: number) {
       const id = setInterval(fetchData, interval);
       return () => clearInterval(id);
     }
-  }, [path, interval]);
+  }, [path, interval, fetchData]);
 
   return { data, loading, error, refresh: fetchData };
 }

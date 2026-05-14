@@ -1,24 +1,42 @@
 import { EpistemicNode, RedactionRule } from "@epios/domain";
 import { GraphRepositoryPort, SecurityPort } from "@epios/ports";
 
+const MAX_PATTERN_LENGTH = 500;
+
+function isSafeRegex(pattern: string): boolean {
+  if (pattern.length > MAX_PATTERN_LENGTH) return false;
+  try {
+    new RegExp(pattern);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export class RedactNodeUseCase {
   constructor(
     private graphRepo: GraphRepositoryPort,
-    private security: SecurityPort
+    private security: SecurityPort,
   ) {}
 
-  async execute(nodeId: string, rules: RedactionRule[]): Promise<EpistemicNode> {
+  async execute(
+    nodeId: string,
+    rules: RedactionRule[],
+  ): Promise<EpistemicNode> {
     const node = await this.graphRepo.findNodeById(nodeId);
-    if (!node) throw new Error("Node not found");
+    if (!node) throw new Error("NODE_NOT_FOUND");
 
     const currentUser = await this.security.getCurrentUser();
     if (!currentUser || currentUser.role !== "admin") {
-      throw new Error("Only admins can redact content");
+      throw new Error("FORBIDDEN");
     }
 
     let redactedContent = node.content;
 
     for (const rule of rules) {
+      if (!isSafeRegex(rule.pattern)) {
+        throw new Error(`INVALID_REDACTION_PATTERN: ${rule.id}`);
+      }
       const regex = new RegExp(rule.pattern, "gi");
       redactedContent = redactedContent.replace(regex, rule.replacement);
     }
@@ -29,8 +47,8 @@ export class RedactNodeUseCase {
       metadata: {
         ...node.metadata,
         redacted: true,
-        redactedAt: new Date().toISOString()
-      }
+        redactedAt: new Date().toISOString(),
+      },
     };
 
     await this.graphRepo.saveNode(updatedNode);
@@ -40,7 +58,7 @@ export class RedactNodeUseCase {
       action: "REDACT_NODE",
       resourceId: nodeId,
       resourceType: "node",
-      details: { rulesApplied: rules.map(r => r.id) }
+      details: { rulesApplied: rules.map((r) => r.id) },
     });
 
     return updatedNode;

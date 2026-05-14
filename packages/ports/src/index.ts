@@ -6,3 +6,4 @@ export * from "./mapping.repository.port.js";
 export * from "./outbox.repository.port.js";
 export * from "./governance.port.js";
 export * from "./security.port.js";
+export * from "./adr.repository.port.js";
