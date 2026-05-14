@@ -93,11 +93,12 @@ const GraphCanvasInner: React.FC = () => {
     if (selectedWorkspaceId) {
       const saved = graphStates[selectedWorkspaceId];
       if (saved && Array.isArray(saved.nodes) && Array.isArray(saved.edges)) {
+        const shortWsId = selectedWorkspaceId.replace(/^[0-]+/, "") || "0";
         const patchedNodes = saved.nodes.map((node, index) => ({
           ...node,
           data: {
             ...node.data,
-            hierarchicalId: `${selectedWorkspaceId.replace("m", "")}.${index + 1}`,
+            hierarchicalId: `${shortWsId}.${index + 1}`,
           },
         }));
         setNodes(patchedNodes);
@@ -116,6 +117,7 @@ const GraphCanvasInner: React.FC = () => {
         const apiNodes = graphData.nodes || [];
         const newNodes = [...currentNodes];
         let hasChanges = false;
+        const shortWsId = selectedWorkspaceId.replace(/^[0-]+/, "") || "0";
 
         apiNodes.forEach((apiNode) => {
           if (!currentNodes.some((n) => n.id === apiNode.id)) {
@@ -130,7 +132,7 @@ const GraphCanvasInner: React.FC = () => {
               data: {
                 label: apiNode.content,
                 type: apiNode.type,
-                hierarchicalId: `${selectedWorkspaceId.replace("m", "")}.${newNodes.length + 1}`,
+                hierarchicalId: `${shortWsId}.${newNodes.length + 1}`,
               },
             });
           }
