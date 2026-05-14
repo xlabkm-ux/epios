@@ -30,8 +30,6 @@ const Sidebar: React.FC = () => {
   const [isResizing, setIsResizing] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [shareModalWs, setShareModalWs] = useState<Workspace | null>(null);
-  // pinnedIds stores IDs in pin order — last pinned first (unshift)
-  const [pinnedIds, setPinnedIds] = useState<string[]>([]);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const { data: fetchedWorkspaces } = useApi<Workspace[]>("/workspaces");
@@ -43,6 +41,8 @@ const Sidebar: React.FC = () => {
     activeView,
     setActiveView,
     setArchiveMeta,
+    pinnedIds,
+    setPinnedIds,
   } = useWorkspace();
   const { currentUser, setCurrentUserId } = useSecurity();
 
@@ -89,16 +89,25 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     if (fetchedWorkspaces) {
-      setWorkspaces(fetchedWorkspaces);
+      // Apply locally saved status overrides (e.g. archived)
+      const savedStatuses = JSON.parse(
+        localStorage.getItem("workspaceStatuses") || "{}",
+      );
+      const workspacesWithOverrides = fetchedWorkspaces.map((ws) => ({
+        ...ws,
+        status: savedStatuses[ws.id] || ws.status,
+      }));
 
-      const isValidSelection = fetchedWorkspaces.some(
+      setWorkspaces(workspacesWithOverrides);
+
+      const isValidSelection = workspacesWithOverrides.some(
         (ws) => ws.id === selectedWorkspaceId,
       );
       if (
-        fetchedWorkspaces.length > 0 &&
+        workspacesWithOverrides.length > 0 &&
         (!selectedWorkspaceId || !isValidSelection)
       ) {
-        setSelectedWorkspaceId(fetchedWorkspaces[0].id);
+        setSelectedWorkspaceId(workspacesWithOverrides[0].id);
       }
     }
   }, [

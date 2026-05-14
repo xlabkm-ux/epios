@@ -32,6 +32,8 @@ interface WorkspaceContextType {
     React.SetStateAction<Record<string, { archivedAt: Date; comment?: string }>>
   >;
   restoreWorkspace: (id: string) => void;
+  pinnedIds: string[];
+  setPinnedIds: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const WorkspaceContext = createContext<WorkspaceContextType | undefined>(
@@ -53,7 +55,15 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
   const [archiveMeta, setArchiveMeta] = useState<
     Record<string, { archivedAt: Date; comment?: string }>
-  >({});
+  >(() => {
+    const saved = localStorage.getItem("archiveMeta");
+    return saved ? JSON.parse(saved) : {};
+  });
+  const [pinnedIds, setPinnedIds] = useState<string[]>(() => {
+    const saved = localStorage.getItem("pinnedIds");
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const [graphStates, setGraphStates] = useState<
     Record<string, { nodes: Node[]; edges: Edge[] }>
   >(() => {
@@ -88,6 +98,28 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     localStorage.setItem("viewports", JSON.stringify(viewports));
   }, [viewports]);
+
+  // Persist pinned IDs
+  useEffect(() => {
+    localStorage.setItem("pinnedIds", JSON.stringify(pinnedIds));
+  }, [pinnedIds]);
+
+  // Persist archive metadata
+  useEffect(() => {
+    localStorage.setItem("archiveMeta", JSON.stringify(archiveMeta));
+  }, [archiveMeta]);
+
+  // Persist workspace status overrides (since API doesn't support it yet)
+  useEffect(() => {
+    const statusOverrides = workspaces.reduce(
+      (acc, ws) => {
+        if (ws.status === "archived") acc[ws.id] = ws.status;
+        return acc;
+      },
+      {} as Record<string, WorkspaceStatus>,
+    );
+    localStorage.setItem("workspaceStatuses", JSON.stringify(statusOverrides));
+  }, [workspaces]);
 
   const setGraphState = (workspaceId: string, nodes: Node[], edges: Edge[]) => {
     setGraphStates((prev) => ({
@@ -136,6 +168,8 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
         archiveMeta,
         setArchiveMeta,
         restoreWorkspace,
+        pinnedIds,
+        setPinnedIds,
       }}
     >
       {children}
