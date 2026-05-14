@@ -15,13 +15,13 @@ We are proud to announce the first release candidate of the EPIOS MVP. This rele
 ## 🗺️ Roadmap v1.1: ADR Review Readiness
 We have shifted our focus for v1.1 to delivering a high-integrity **ADR Review Workspace**. 
 Details can be found in the [Master QA Plan](docs/04_delivery/v1_1_qa_plan/EPIOS_v1_1_Master_Sprint_QA_Plan.md).
-Current status and task tracking is available in [PROJECT_BACKLOG.md](PROJECT_BACKLOG.md).
+Current status and task tracking is available via [GitHub Issues](https://github.com/xlabkm-ux/epios/issues).
 
 ## 🛠 Quick Start
 
 ### Prerequisites
-- **Node.js**: v20 or higher
-- **pnpm**: `npm install -g pnpm`
+- **Node.js**: v22 LTS
+- **pnpm**: `npm install -g pnpm` (v9.12.3 recommended)
 - **Docker**: For running the PostgreSQL database
 
 ### 1. Clone & Install
@@ -78,7 +78,7 @@ graph TD
     InfraM -.-> |Implements| App
 ```
 
-For a deeper dive, see our [Architecture Foundation](work_doc/epios_01_architecture_foundation.md).
+For a deeper dive, see our [Architecture Foundation](docs/01_foundation/EPIOS-01-architecture-foundation.md).
 
 ## 🛡 Security & Governance
 
@@ -86,7 +86,7 @@ EPIOS implements a strict "Human-in-the-loop" policy for all state-changing acti
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) and [Engineering Process](work_doc/epios_04_repository_and_engineering_process.md) for details.
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) and [Governance Plan](docs/00_project/GOVERNANCE_PLAN.md) for details.
 
 ## 📜 License
 

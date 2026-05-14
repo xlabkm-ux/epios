@@ -36,3 +36,6 @@ yarn-error.log*
 
 # Artifacts
 /artifacts
+playwright-report/
+test-results/
+.turbo/

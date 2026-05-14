@@ -20,7 +20,31 @@
 | EPIOS-10     | [Bootstrap Checklist](../01_foundation/EPIOS-10-bootstrap-checklist.md) | @architect | accepted | 0.1 | 2026-05-14 | Execution |
 | **ADRs** | | | | | | |
 | EPIOS-ADR-001| [ADR-0001: Create Project](../02_adrs/ADR-0001-create-epistemic-os-project.md) | @architect | accepted | 0.1 | 2026-05-12 | Repository |
-| ... | *ADR-0002...ADR-0026 omitted for brevity, see ADR folder* | | accepted | | | |
+| EPIOS-ADR-002| [ADR-0002: Close v2.3](../02_adrs/ADR-0002-close-chatavg-v2-3-development.md) | @architect | accepted | 0.1 | 2026-05-12 | Strategy |
+| EPIOS-ADR-003| [ADR-0003: Open Source](../02_adrs/ADR-0003-open-source-from-day-one.md) | @architect | accepted | 0.1 | 2026-05-12 | Strategy |
+| EPIOS-ADR-004| [ADR-0004: Neutral Shell](../02_adrs/ADR-0004-use-neutral-demo-shell.md) | @architect | accepted | 0.1 | 2026-05-12 | Shell |
+| EPIOS-ADR-005| [ADR-0005: Mission Room](../02_adrs/ADR-0005-use-universal-mission-room.md) | @architect | accepted | 0.1 | 2026-05-12 | Domain |
+| EPIOS-ADR-006| [ADR-0006: TS Core](../02_adrs/ADR-0006-use-typescript-core.md) | @architect | accepted | 0.1 | 2026-05-12 | Stack |
+| EPIOS-ADR-007| [ADR-0007: PostgreSQL](../02_adrs/ADR-0007-use-postgresql-as-alpha-sor.md) | @architect | accepted | 0.1 | 2026-05-12 | Data |
+| EPIOS-ADR-008| [ADR-0008: MCP Apps](../02_adrs/ADR-0008-include-mcp-apps-in-mvp.md) | @architect | accepted | 0.1 | 2026-05-12 | MCP |
+| EPIOS-ADR-009| [ADR-0009: Hexagonal Arch](../02_adrs/ADR-0009-use-layered-hexagonal-architecture.md) | @architect | accepted | 0.1 | 2026-05-12 | Architecture |
+| EPIOS-ADR-010| [ADR-0010: Domain Purity](../02_adrs/ADR-0010-keep-domain-free-of-infra.md) | @architect | accepted | 0.1 | 2026-05-12 | Architecture |
+| EPIOS-ADR-011| [ADR-0011: Epistemic Node](../02_adrs/ADR-0011-use-epistemicnode-as-core-primitive.md) | @architect | accepted | 0.1 | 2026-05-12 | Domain |
+| EPIOS-ADR-012| [ADR-0012: Temporal Validity](../02_adrs/ADR-0012-use-temporal-validity.md) | @architect | accepted | 0.1 | 2026-05-12 | Domain |
+| EPIOS-ADR-013| [ADR-0013: Living Artifact](../02_adrs/ADR-0013-use-livingartifact-artifactpatch.md) | @architect | accepted | 0.1 | 2026-05-12 | Domain |
+| EPIOS-ADR-014| [ADR-0014: HITL Decisions](../02_adrs/ADR-0014-use-approvalrequest-decisionrecord.md) | @architect | accepted | 0.1 | 2026-05-12 | Domain |
+| EPIOS-ADR-015| [ADR-0015: Relational Graph](../02_adrs/ADR-0015-use-postgresql-relational-graph.md) | @architect | accepted | 0.1 | 2026-05-12 | Data |
+| EPIOS-ADR-016| [ADR-0016: Outbox Events](../02_adrs/ADR-0016-use-outbox-events.md) | @architect | accepted | 0.1 | 2026-05-12 | Ops |
+| EPIOS-ADR-017| [ADR-0017: Idempotency](../02_adrs/ADR-0017-use-idempotency-keys.md) | @architect | accepted | 0.1 | 2026-05-12 | Ops |
+| EPIOS-ADR-018| [ADR-0018: Untrusted MCP](../02_adrs/ADR-0018-treat-mcp-apps-as-untrusted-ui.md) | @architect | accepted | 0.1 | 2026-05-12 | Security |
+| EPIOS-ADR-019| [ADR-0019: Secure Bridge](../02_adrs/ADR-0019-use-secure-mcp-bridge.md) | @architect | accepted | 0.1 | 2026-05-12 | Security |
+| EPIOS-ADR-020| [ADR-0020: MVP Runner](../02_adrs/ADR-0020-use-lightweight-mvp-runner.md) | @architect | accepted | 0.1 | 2026-05-12 | Runtime |
+| EPIOS-ADR-021| [ADR-0021: Temporal Ready](../02_adrs/ADR-0021-keep-temporal-as-future-adapter.md) | @architect | accepted | 0.1 | 2026-05-12 | Runtime |
+| EPIOS-ADR-022| [ADR-0022: Trace Events](../02_adrs/ADR-0022-use-trace-events.md) | @architect | accepted | 0.1 | 2026-05-12 | Ops |
+| EPIOS-ADR-023| [ADR-0023: Fake Provider](../02_adrs/ADR-0023-use-fake-deterministic-model-provider.md) | @architect | accepted | 0.1 | 2026-05-12 | AI |
+| EPIOS-ADR-024| [ADR-0024: No ChatAVG Import](../02_adrs/ADR-0024-do-not-import-chatavg.md) | @architect | accepted | 0.1 | 2026-05-12 | Legacy |
+| EPIOS-ADR-025| [ADR-0025: Clean Rewrite](../02_adrs/ADR-0025-reuse-chatavg-through-extraction.md) | @architect | accepted | 0.1 | 2026-05-12 | Legacy |
+| EPIOS-ADR-026| [ADR-0026: License](../02_adrs/ADR-0026-license-choice.md) | @architect | accepted | 0.1 | 2026-05-12 | Legal |
 | **SPECS** | | | | | | |
 | EPIOS-SPC-001| [APPLICATION_USE_CASE_CONTRACTS.md](../03_specs/APPLICATION_USE_CASE_CONTRACTS.md) | @architect | accepted | 0.1 | 2026-05-14 | Specs |
 | EPIOS-SPC-002| [ERROR_CATALOG.md](../03_specs/ERROR_CATALOG.md) | @architect | accepted | 0.1 | 2026-05-14 | Specs |

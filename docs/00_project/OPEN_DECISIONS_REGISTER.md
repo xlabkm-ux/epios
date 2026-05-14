@@ -16,7 +16,7 @@ This register tracks key technical and project decisions that are either current
 | Auth mode for MVP | dev auth / none | dev auth | **Accepted** | Week 3 | @security-owner | - |
 | Model provider policy | fake + OpenAI / both | fake + OpenAI | **Accepted** | Week 1 | @architect | - |
 | Secret scanning | Gitleaks / TruffleHog | Gitleaks | **Accepted** | Week 1 | @security-owner | - |
-| Dependency boundary | Dependency Cruiser | Dependency Cruiser | **Proposed** | Week 2 | @architect | - |
+| Dependency boundary | Dependency Cruiser | Dependency Cruiser | **Accepted** | Week 2 | @architect | - |
 
 ## Decision Mechanism
 - **Accepted**: Decision made and applied.

@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ master, main, develop ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ master, main, develop ]
 
 jobs:
   build:
@@ -36,14 +36,12 @@ jobs:
     - name: Security Audit
       run: pnpm audit --audit-level=high
 
-    - name: Lint
-      run: pnpm lint
+    - name: Verify
+      run: pnpm verify
 
-    - name: Typecheck
-      run: pnpm typecheck
-
-    - name: Test
-      run: pnpm test
+    - name: PR Traceability
+      if: github.event_name == 'pull_request'
+      run: pnpm check:pr-traceability
 
     - name: Build
       run: pnpm build
