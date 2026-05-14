@@ -147,11 +147,11 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               top: "100%",
               right: "1rem",
               zIndex: 100,
-              backgroundColor: "#2a2a2a",
+              backgroundColor: "var(--bg-card)",
               borderRadius: "12px",
               padding: "0.5rem",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.3)",
-              border: "1px solid rgba(255,255,255,0.1)",
+              boxShadow: "var(--modal-shadow)",
+              border: "1px solid var(--border)",
               minWidth: "180px",
             }}
           >
@@ -182,7 +182,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
             <div
               style={{
                 height: "1px",
-                backgroundColor: "rgba(255,255,255,0.1)",
+                backgroundColor: "var(--border)",
                 margin: "4px 0",
               }}
             />
@@ -232,14 +232,14 @@ const MenuItem: React.FC<{
       borderRadius: "8px",
       border: "none",
       background: "none",
-      color: danger ? "#ff6b6b" : "var(--text-main)",
+      color: danger ? "var(--error)" : "var(--text-main)",
       fontSize: "0.85rem",
       cursor: "pointer",
       transition: "background-color 0.2s",
       textAlign: "left",
     }}
     onMouseEnter={(e) =>
-      (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.05)")
+      (e.currentTarget.style.backgroundColor = "var(--surface-hover)")
     }
     onMouseLeave={(e) =>
       (e.currentTarget.style.backgroundColor = "transparent")

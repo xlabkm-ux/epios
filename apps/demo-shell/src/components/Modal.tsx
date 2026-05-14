@@ -26,7 +26,7 @@ export const Modal: React.FC<ModalProps> = ({ children, onClose, title }) => {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.85)",
+        backgroundColor: "var(--surface-overlay)",
         zIndex: 2000,
         display: "flex",
         alignItems: "center",
@@ -42,12 +42,12 @@ export const Modal: React.FC<ModalProps> = ({ children, onClose, title }) => {
         onClick={(e) => e.stopPropagation()}
         style={{
           width: "480px",
-          backgroundColor: "#161616",
+          backgroundColor: "var(--bg-card)",
           borderRadius: "24px",
           padding: "2.5rem",
-          boxShadow: "0 30px 60px rgba(0,0,0,0.6)",
+          boxShadow: "var(--modal-shadow)",
           position: "relative",
-          border: "1px solid rgba(255,255,255,0.08)",
+          border: "1px solid var(--border)",
         }}
       >
         <button
@@ -56,7 +56,7 @@ export const Modal: React.FC<ModalProps> = ({ children, onClose, title }) => {
             position: "absolute",
             right: "1.5rem",
             top: "1.5rem",
-            background: "rgba(255,255,255,0.03)",
+            background: "var(--surface-hover)",
             border: "none",
             color: "var(--text-dim)",
             cursor: "pointer",
@@ -69,11 +69,11 @@ export const Modal: React.FC<ModalProps> = ({ children, onClose, title }) => {
             transition: "background 0.2s, color 0.2s",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)";
-            e.currentTarget.style.color = "white";
+            e.currentTarget.style.backgroundColor = "var(--surface-active)";
+            e.currentTarget.style.color = "var(--text-main)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.03)";
+            e.currentTarget.style.backgroundColor = "var(--surface-hover)";
             e.currentTarget.style.color = "var(--text-dim)";
           }}
         >
@@ -85,7 +85,7 @@ export const Modal: React.FC<ModalProps> = ({ children, onClose, title }) => {
             fontSize: "1.25rem",
             fontWeight: 700,
             marginBottom: "2rem",
-            color: "white",
+            color: "var(--text-main)",
             letterSpacing: "-0.02em",
           }}
         >

@@ -43,6 +43,16 @@ const Sidebar: React.FC = () => {
   } = useWorkspace();
   const { currentUser, setCurrentUserId } = useSecurity();
 
+  // Theme Logic
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "system";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
   // Resize Logic
   const startResizing = useCallback(() => {
     setIsResizing(true);
@@ -446,14 +456,14 @@ const Sidebar: React.FC = () => {
           >
             <div
               style={{
-                backgroundColor: "rgba(255,255,255,0.05)",
+                backgroundColor: "var(--surface-active)",
                 borderRadius: "15px",
                 padding: "0.5rem 0.5rem 0.5rem 1.25rem",
                 display: "flex",
                 alignItems: "center",
                 gap: "1rem",
                 marginBottom: "2rem",
-                border: "1px solid rgba(255,255,255,0.05)",
+                border: "1px solid var(--border)",
               }}
             >
               <span
@@ -470,8 +480,8 @@ const Sidebar: React.FC = () => {
               </span>
               <button
                 style={{
-                  backgroundColor: "#b4bcff",
-                  color: "#1e1e1e",
+                  backgroundColor: "var(--primary)",
+                  color: "var(--text-inverse)",
                   border: "none",
                   borderRadius: "30px",
                   padding: "0.6rem 1.25rem",
@@ -559,7 +569,7 @@ const Sidebar: React.FC = () => {
                   ))}
                 </div>
               </section>
-              <section style={{ opacity: 0.5 }}>
+              <section>
                 <h3
                   style={{
                     fontSize: "0.9rem",
@@ -573,22 +583,37 @@ const Sidebar: React.FC = () => {
                     : "Theme Settings"}
                 </h3>
                 <div style={{ display: "flex", gap: "0.5rem" }}>
-                  {["Light", "Dark", "System"].map((theme) => (
-                    <div
-                      key={theme}
-                      style={{
-                        flex: 1,
-                        padding: "12px 8px",
-                        borderRadius: "10px",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        textAlign: "center",
-                        fontSize: "0.75rem",
-                        color: "var(--text-dim)",
-                      }}
-                    >
-                      {theme}
-                    </div>
-                  ))}
+                  {["Light", "Dark", "System"].map((tOption) => {
+                    const themeVal = tOption.toLowerCase();
+                    const isActive = theme === themeVal;
+                    return (
+                      <button
+                        key={tOption}
+                        onClick={() => setTheme(themeVal)}
+                        style={{
+                          flex: 1,
+                          padding: "12px 8px",
+                          borderRadius: "10px",
+                          border: isActive
+                            ? "1px solid var(--primary)"
+                            : "1px solid var(--border)",
+                          textAlign: "center",
+                          fontSize: "0.75rem",
+                          color: isActive
+                            ? "var(--text-main)"
+                            : "var(--text-dim)",
+                          backgroundColor: isActive
+                            ? "var(--surface-active)"
+                            : "transparent",
+                          cursor: "pointer",
+                          fontWeight: isActive ? 600 : 400,
+                          transition: "all 0.2s",
+                        }}
+                      >
+                        {tOption}
+                      </button>
+                    );
+                  })}
                 </div>
               </section>
             </div>

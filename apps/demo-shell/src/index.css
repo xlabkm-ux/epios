@@ -1,5 +1,5 @@
 :root {
-  /* Neutral Palette - "Industrial Slate" */
+  /* Neutral Palette - "Industrial Slate" (Dark Mode Default) */
   --bg-dark: #09090b;       /* Zinc 950 */
   --bg-card: #18181b;       /* Zinc 900 */
   --bg-sidebar: #09090b;    /* Seamless sidebar */
@@ -15,6 +15,7 @@
   --text-main: #f4f4f5;     /* Zinc 100 */
   --text-dim: #a1a1aa;      /* Zinc 400 */
   --text-muted: #71717a;    /* Zinc 500 */
+  --text-inverse: #09090b;
   
   /* Borders & Dividers */
   --border: #27272a;        /* Zinc 800 */
@@ -23,8 +24,9 @@
   /* Surfaces */
   --bg-surface: #18181b;    /* Zinc 900 */
   --bg-hover: #27272a;      /* Zinc 800 */
-  --surface-hover: #27272a;
-  --surface-active: #3f3f46;
+  --surface-hover: rgba(255, 255, 255, 0.05);
+  --surface-active: rgba(255, 255, 255, 0.1);
+  --surface-overlay: rgba(0, 0, 0, 0.85);
   
   /* Functional Colors */
   --success: #10b981;
@@ -45,6 +47,64 @@
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
 }
+
+[data-theme="light"] {
+  /* Classic Windows 11 Light Theme */
+  --bg-dark: #f3f3f3;       /* Main window background */
+  --bg-card: #ffffff;       /* Modals and popups */
+  --bg-sidebar: #f3f3f3;    
+  
+  --primary: #0067c0;       /* Windows Blue */
+  --primary-muted: #004d90;
+  --primary-alpha: rgba(0, 103, 192, 0.1);
+  --secondary: #6366f1;
+  --accent: #e81123;
+  
+  --text-main: #1a1a1a;
+  --text-dim: #5c5c5c;
+  --text-muted: #8c8c8c;
+  --text-inverse: #ffffff;
+  
+  --border: #e5e5e5;
+  --border-bright: #d1d1d1;
+  
+  --bg-surface: #ffffff;
+  --bg-hover: #e5e5e5;
+  --surface-hover: rgba(0, 0, 0, 0.04);
+  --surface-active: rgba(0, 0, 0, 0.08);
+  --surface-overlay: rgba(255, 255, 255, 0.6);
+  
+  --panel-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --modal-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* System Theme Media Query Support */
+@media (prefers-color-scheme: light) {
+  [data-theme="system"] {
+    --bg-dark: #f3f3f3;
+    --bg-card: #ffffff;
+    --bg-sidebar: #f3f3f3;
+    --primary: #0067c0;
+    --primary-muted: #004d90;
+    --primary-alpha: rgba(0, 103, 192, 0.1);
+    --secondary: #6366f1;
+    --accent: #e81123;
+    --text-main: #1a1a1a;
+    --text-dim: #5c5c5c;
+    --text-muted: #8c8c8c;
+    --text-inverse: #ffffff;
+    --border: #e5e5e5;
+    --border-bright: #d1d1d1;
+    --bg-surface: #ffffff;
+    --bg-hover: #e5e5e5;
+    --surface-hover: rgba(0, 0, 0, 0.04);
+    --surface-active: rgba(0, 0, 0, 0.08);
+    --surface-overlay: rgba(255, 255, 255, 0.6);
+    --panel-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --modal-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  }
+}
+
 
 * {
   margin: 0;
