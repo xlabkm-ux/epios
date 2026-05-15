@@ -16,7 +16,7 @@ This document contains the source content for GitHub Issues to be created in the
 - [x] Integrate `pnpm audit`
 - [x] Implement regex-based secret scanning
 
-### Issue: [P0] Cleanup Release Truth & Roadmap Drift
+### Issue: [P0] Cleanup Release Truth & Roadmap Drift ✅ 2026-05-15
 **Label:** `area:docs`, `type:cleanup`, `P0`
 **Description:** Ensure README, package.json, and documentation registers are synchronized regarding the current version and roadmap.
 **Tasks:**
