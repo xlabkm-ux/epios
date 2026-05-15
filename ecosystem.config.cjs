@@ -9,5 +9,13 @@ module.exports = {
         NODE_ENV: "production",
       },
     },
+    {
+      name: "epios-ui",
+      script: "cmd.exe",
+      args: "/c pnpm --filter demo-shell dev",
+      env: {
+        NODE_ENV: "development",
+      },
+    },
   ],
 };

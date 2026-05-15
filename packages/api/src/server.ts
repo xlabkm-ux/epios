@@ -241,6 +241,11 @@ export function buildServer(deps: ServerDependencies = {}) {
     uowProvider = new PostgresUnitOfWorkProvider(db);
   }
 
+  const mcpRegistry = deps.mcpRegistry ?? new InMemoryMCPAppRegistry();
+  const mcpBridge = deps.mcpBridge ?? new MockMCPBridge(mcpRegistry);
+
+  const security = deps.security ?? new MockSecurityService(identityRepo);
+
   // S2: Ensure non-null repositories (repos are now guaranteed defined)
   const createWorkspaceUseCase = new CreateWorkspaceUseCase(workspaceRepo);
   const listWorkspacesUseCase = new ListWorkspacesUseCase(workspaceRepo);
@@ -292,11 +297,6 @@ export function buildServer(deps: ServerDependencies = {}) {
   );
   const getTraceSummaryUseCase = new GetTraceSummaryUseCase(governanceRepo);
 
-  const mcpRegistry = deps.mcpRegistry ?? new InMemoryMCPAppRegistry();
-  const mcpBridge = deps.mcpBridge ?? new MockMCPBridge(mcpRegistry);
-
-  const security = deps.security ?? new MockSecurityService(identityRepo);
-
   // Security identity injection
   app.addHook("onRequest", async (request) => {
     const userId = (request.headers["x-user-id"] as string) || "observer-1";
@@ -310,6 +310,13 @@ export function buildServer(deps: ServerDependencies = {}) {
     governanceRepo,
     security,
   );
+
+  app.get("/", async () => ({
+    message: "Epistemic OS API",
+    version: "0.1.0-rc.1",
+    status: "online",
+    docs: "/health",
+  }));
 
   app.get("/health", async () => ({
     ok: true,
