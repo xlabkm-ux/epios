@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted
+Status: Archived
 
 # ChatAVG Document Handover Register
 

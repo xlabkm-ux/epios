@@ -1,9 +1,13 @@
-# GitHub Issues Backlog (P0/P1)
+Owner: @architect
+Status: Archived
 
-This document contains the source content for GitHub Issues to be created in the repository.
+# GITHUB_ISSUES_BACKLOG (ARCHIVED)
 
-**Status:** accepted
-**Owner:** @architect
+> [!IMPORTANT]
+> **Status: ARCHIVED / REFERENCE ONLY**
+> This document was used as a staging area for creating GitHub Issues.
+> **All active tasks have been migrated to [GitHub Issues](https://github.com/xlabkm-ux/epios/issues).**
+
 
 
 ## Milestone: v0.1.0-rc.1 Stabilization

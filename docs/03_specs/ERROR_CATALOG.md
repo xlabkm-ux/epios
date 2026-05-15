@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted
+Status: Accepted_contract
 
 # ERROR CATALOG: Epistemic OS (epios)
 

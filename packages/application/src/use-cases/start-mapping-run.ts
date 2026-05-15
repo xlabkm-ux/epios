@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 
 export interface StartMappingRunRequest {
   workspaceId: string;
+  idempotencyKey?: string;
 }
 
 export class StartMappingRunUseCase {
@@ -13,8 +14,17 @@ export class StartMappingRunUseCase {
   ) {}
 
   async execute(request: StartMappingRunRequest): Promise<MappingRun> {
-    const runId = randomUUID();
+    // If idempotency key is provided, we should ideally check if a run with this key already exists.
+    // For now, we use the key as the run ID if it looks like a UUID, or just log it.
+
+    const runId = request.idempotencyKey || randomUUID();
     const now = new Date();
+
+    // Check if already exists (Idempotency)
+    const existing = await this.mappingRepo.findById(runId);
+    if (existing) {
+      return existing;
+    }
 
     const run: MappingRun = {
       id: runId,

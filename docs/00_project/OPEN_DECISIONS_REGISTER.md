@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted
+Status: Accepted_contract
 
 # OPEN DECISIONS REGISTER: Epistemic OS (epios)
 

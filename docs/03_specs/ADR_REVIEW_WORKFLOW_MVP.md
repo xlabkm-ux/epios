@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted
+Status: Accepted_concept
 
 # Каноничный Workflow: ADR Review (MVP v1.1)
 

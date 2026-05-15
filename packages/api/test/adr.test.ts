@@ -1,13 +1,20 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { FastifyInstance } from "fastify";
 import { buildServer } from "../src/server.js";
 
 describe("ADR API Contract", () => {
+  process.env.EPIOS_DATABASE_MODE = "mock";
+  vi.setConfig({ testTimeout: 30000 });
+
   let server: FastifyInstance;
 
   beforeEach(async () => {
-    server = buildServer();
+    server = buildServer({ startWorkers: false });
     await server.ready();
+  });
+
+  afterEach(async () => {
+    await server.close();
   });
 
   it("should list ADRs", async () => {

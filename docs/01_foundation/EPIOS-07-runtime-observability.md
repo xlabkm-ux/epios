@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPIOS-07-RUNTIME-OBSERVABILITY-RELEASE-GATES`  
 **Version:** Draft 0.1  
-**Status:** Accepted for MVP Bootstrap  
+**Status:** Accepted_concept for MVP Bootstrap  
 **Depends on:** `EPIOS-00`, `EPIOS-01`, `EPIOS-02`, `EPIOS-03`, `EPIOS-04`, `EPIOS-05`, `EPIOS-06`  
 **Target MVP horizon:** 6 weeks or faster  
 **Deployment target:** Internal dev only  

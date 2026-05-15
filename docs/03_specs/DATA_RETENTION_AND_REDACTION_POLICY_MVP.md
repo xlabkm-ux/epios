@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted
+Status: Accepted_contract
 
 # DATA RETENTION AND REDACTION POLICY: MVP v1.0
 

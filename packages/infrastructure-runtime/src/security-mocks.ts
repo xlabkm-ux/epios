@@ -6,7 +6,8 @@ export class InMemoryIdentityRepository implements IdentityRepositoryPort {
   private users: Map<string, User> = new Map();
 
   async findById(id: string): Promise<User | null> {
-    return this.users.get(id) || null;
+    const user = this.users.get(id) || null;
+    return user;
   }
 
   async findByUsername(username: string): Promise<User | null> {
@@ -37,8 +38,8 @@ export class MockSecurityService implements SecurityPort {
 
   async authorize(
     role: UserRole,
-    action: string,
-    resource: string,
+    _action: string,
+    _resource: string,
   ): Promise<boolean> {
     if (!this.currentUser) return false;
 

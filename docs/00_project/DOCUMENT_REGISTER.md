@@ -1,24 +1,25 @@
 # DOCUMENT REGISTER: Epistemic OS (epios)
 
-| Document ID | Title | Owner | Status | Version | Last Updated | Applies to |
-|-------------|-------|-------|--------|---------|--------------|------------|
-| **AUTHORITY** | | | | | | |
-| EPIOS-DOC-001| [DOCUMENT_REGISTER.md](DOCUMENT_REGISTER.md) | @architect | accepted | 0.3 | 2026-05-15 | Docs |
-| EPIOS-DOC-002| [GOVERNANCE_PLAN.md](GOVERNANCE_PLAN.md) | @architect | accepted | 1.3 | 2026-05-14 | Governance |
-| EPIOS-DOC-003| [OPEN_DECISIONS_REGISTER.md](OPEN_DECISIONS_REGISTER.md) | @architect | accepted | 0.1 | 2026-05-14 | Decisions |
+| Document ID | Title | Owner | Status | Version | Last Updated | Applies to | Supersedes | Release Scope | Binding Level |
+|-------------|-------|-------|--------|---------|--------------|------------|------------|---------------|---------------|
+| **AUTHORITY** | | | | | | | | | |
+| EPIOS-DOC-001| [DOCUMENT_REGISTER.md](DOCUMENT_REGISTER.md) | @architect | accepted_contract | 0.4 | 2026-05-15 | Docs | - | v0.1.0-rc.1 | Mandatory |
+
+| EPIOS-DOC-002| [GOVERNANCE_PLAN.md](GOVERNANCE_PLAN.md) | @architect | accepted_contract | 1.4 | 2026-05-15 | Governance | - | v0.1.0-rc.1 | Mandatory |
+| EPIOS-DOC-003| [OPEN_DECISIONS_REGISTER.md](OPEN_DECISIONS_REGISTER.md) | @architect | accepted_contract | 0.2 | 2026-05-15 | Decisions | - | v0.1.0-rc.1 | Mandatory |
 | **FOUNDATION** | | | | | | |
-| EPIOS-00     | [Project Brief](../01_foundation/EPIOS-00-project-brief.md) | @architect | accepted | 0.1 | 2026-05-14 | Strategy |
-| EPIOS-01     | [Architecture Foundation](../01_foundation/EPIOS-01-architecture-foundation.md) | @architect | accepted | 0.1 | 2026-05-14 | Architecture |
-| EPIOS-02     | [Domain Model](../01_foundation/EPIOS-02-domain-model.md) | @architect | accepted | 0.1 | 2026-05-14 | Domain |
-| EPIOS-03     | [v1.0 MVP Scope](../01_foundation/EPIOS-03-v1_0-mvp-scope.md) | @architect | accepted | 1.0 | 2026-05-15 | Delivery |
-| EPIOS-03-R   | [v1.1 ADR Review Roadmap](../01_foundation/EPIOS-v1_1-adr-review-roadmap.md) | @architect | planning | 0.1 | 2026-05-15 | Roadmap |
-| EPIOS-04     | [Engineering Process](../01_foundation/EPIOS-04-engineering-process.md) | @architect | accepted | 0.1 | 2026-05-14 | Process |
-| EPIOS-05     | [PostgreSQL Data Model](../01_foundation/EPIOS-05-postgresql-data-model.md) | @architect | accepted | 0.1 | 2026-05-14 | Data |
-| EPIOS-06     | [MCP Apps and Security](../01_foundation/EPIOS-06-mcp-apps-security.md) | @architect | accepted | 0.1 | 2026-05-14 | Security |
-| EPIOS-07     | [Runtime and Observability](../01_foundation/EPIOS-07-runtime-observability.md) | @architect | accepted | 0.1 | 2026-05-14 | Ops |
-| EPIOS-08     | [ChatAVG Reuse Strategy](../01_foundation/EPIOS-08-chatavg-reuse.md) | @architect | accepted | 0.1 | 2026-05-14 | Legacy |
-| EPIOS-09     | [ADR Index](../01_foundation/EPIOS-09-adr-index.md) | @architect | accepted | 0.1 | 2026-05-14 | Decisions |
-| EPIOS-10     | [Bootstrap Checklist](../01_foundation/EPIOS-10-bootstrap-checklist.md) | @architect | accepted | 0.1 | 2026-05-14 | Execution |
+| EPIOS-00     | [Project Brief](../01_foundation/EPIOS-00-project-brief.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Strategy | - | v1.0 MVP | Advisory |
+| EPIOS-01     | [Architecture Foundation](../01_foundation/EPIOS-01-architecture-foundation.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Architecture | - | v1.0 MVP | Mandatory |
+| EPIOS-02     | [Domain Model](../01_foundation/EPIOS-02-domain-model.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Domain | - | v1.0 MVP | Mandatory |
+| EPIOS-03     | [v1.0 MVP Scope](../01_foundation/EPIOS-03-v1_0-mvp-scope.md) | @architect | accepted_contract | 1.1 | 2026-05-15 | Delivery | - | v1.0 MVP | Mandatory |
+| EPIOS-03-R   | [v1.1 ADR Review Roadmap](../01_foundation/EPIOS-v1_1-adr-review-roadmap.md) | @architect | planning | 0.1 | 2026-05-15 | Roadmap | - | v1.1 ADR Review | Advisory |
+| EPIOS-04     | [Engineering Process](../01_foundation/EPIOS-04-engineering-process.md) | @architect | accepted_contract | 0.1 | 2026-05-14 | Process | - | v0.1.0-rc.1 | Mandatory |
+| EPIOS-05     | [PostgreSQL Data Model](../01_foundation/EPIOS-05-postgresql-data-model.md) | @architect | accepted_contract | 0.1 | 2026-05-14 | Data | - | v1.0 MVP | Mandatory |
+| EPIOS-06     | [MCP Apps and Security](../01_foundation/EPIOS-06-mcp-apps-security.md) | @architect | accepted_contract | 0.1 | 2026-05-14 | Security | - | v1.0 MVP | Mandatory |
+| EPIOS-07     | [Runtime and Observability](../01_foundation/EPIOS-07-runtime-observability.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Ops | - | v1.0 MVP | Mandatory |
+| EPIOS-08     | [ChatAVG Reuse Strategy](../01_foundation/EPIOS-08-chatavg-reuse.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Legacy | - | v1.0 MVP | Advisory |
+| EPIOS-09     | [ADR Index](../01_foundation/EPIOS-09-adr-index.md) | @architect | accepted_contract | 0.1 | 2026-05-14 | Decisions | - | v0.1.0-rc.1 | Mandatory |
+| EPIOS-10     | [Bootstrap Checklist](../01_foundation/EPIOS-10-bootstrap-checklist.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Execution | - | v0.1.0-rc.1 | Mandatory |
 | **ADRs** | | | | | | |
 | EPIOS-ADR-001| [ADR-0001: Create Project](../02_adrs/ADR-0001-create-epistemic-os-project.md) | @architect | accepted | 0.1 | 2026-05-12 | Repository |
 | EPIOS-ADR-002| [ADR-0002: Close v2.3](../02_adrs/ADR-0002-close-chatavg-v2-3-development.md) | @architect | accepted | 0.1 | 2026-05-12 | Strategy |
@@ -48,12 +49,13 @@
 | EPIOS-ADR-026| [ADR-0026: License](../02_adrs/ADR-0026-license-choice.md) | @architect | accepted | 0.1 | 2026-05-12 | Legal |
 | EPIOS-ADR-099| [ADR-0099: Audit Directives](../02_adrs/ADR-0099-mvp-audit-directives.md) | @architect | accepted | 1.0 | 2026-05-15 | Audit |
 | **SPECS** | | | | | | |
-| EPIOS-SPC-001| [APPLICATION_USE_CASE_CONTRACTS.md](../03_specs/APPLICATION_USE_CASE_CONTRACTS.md) | @architect | accepted | 0.1 | 2026-05-14 | Specs |
-| EPIOS-SPC-002| [ERROR_CATALOG.md](../03_specs/ERROR_CATALOG.md) | @architect | accepted | 0.1 | 2026-05-14 | Specs |
-| EPIOS-SPC-003| [TRACE_EVENT_CATALOG.md](../03_specs/TRACE_EVENT_CATALOG.md) | @architect | accepted | 0.1 | 2026-05-14 | Specs |
-| EPIOS-SPC-004| [DATA_RETENTION_POLICY_MVP.md](../03_specs/DATA_RETENTION_AND_REDACTION_POLICY_MVP.md) | @architect | accepted | 0.1 | 2026-05-14 | Policy |
-| EPIOS-SPC-005| [ADR_REVIEW_WORKFLOW_MVP.md](../03_specs/ADR_REVIEW_WORKFLOW_MVP.md) | @architect | accepted | 0.1 | 2026-05-14 | Workflow |
-| EPIOS-SPC-006| [API_CONTRACTS_MVP.md](../03_specs/API_CONTRACTS_MVP.md) | @architect | accepted | 1.0 | 2026-05-15 | API |
+| EPIOS-SPC-001| [APPLICATION_USE_CASE_CONTRACTS.md](../03_specs/APPLICATION_USE_CASE_CONTRACTS.md) | @architect | accepted_concept | 0.2 | 2026-05-15 | Specs | - | v1.0 MVP | Mandatory |
+| EPIOS-SPC-002| [ERROR_CATALOG.md](../03_specs/ERROR_CATALOG.md) | @architect | accepted_contract | 0.2 | 2026-05-15 | Specs | - | v1.0 MVP | Mandatory |
+| EPIOS-SPC-003| [TRACE_EVENT_CATALOG.md](../03_specs/TRACE_EVENT_CATALOG.md) | @architect | accepted_contract | 0.2 | 2026-05-15 | Specs | - | v1.0 MVP | Mandatory |
+| EPIOS-SPC-004| [DATA_RETENTION_POLICY_MVP.md](../03_specs/DATA_RETENTION_AND_REDACTION_POLICY_MVP.md) | @architect | accepted_contract | 0.1 | 2026-05-14 | Policy | - | v1.0 MVP | Mandatory |
+| EPIOS-SPC-005| [ADR_REVIEW_WORKFLOW_MVP.md](../03_specs/ADR_REVIEW_WORKFLOW_MVP.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Workflow | - | v1.1 ADR Review | Advisory |
+| EPIOS-SPC-006| [API_CONTRACTS_MVP.md](../03_specs/API_CONTRACTS_MVP.md) | @architect | accepted_concept | 1.1 | 2026-05-15 | API | - | v1.0 MVP | Mandatory |
+
 | **DELIVERY** | | | | | | |
 | EPIOS-DEL-001| [SPRINT_DEVELOPMENT_PLAN_MVP.md](../04_delivery/SPRINT_DEVELOPMENT_PLAN_MVP.md) | @architect | accepted | 0.1 | 2026-05-14 | Execution |
 | EPIOS-DEL-002| [Week 1 Issues](../04_delivery/EPIOS-11-week-1-issues.md) | @architect | accepted | 0.1 | 2026-05-14 | Execution |

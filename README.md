@@ -1,7 +1,7 @@
 # Epistemic OS (epios)
 
-[![CI Status](https://img.shields.io/badge/CI-passing-success)](https://github.com/xlabkm-ux/epios/actions)
-[![Version](https://img.shields.io/badge/version-0.1.0--rc.1-blue)](https://github.com/xlabkm-ux/epios/releases)
+[![CI](https://github.com/xlabkm-ux/epios/actions/workflows/ci.yml/badge.svg)](https://github.com/xlabkm-ux/epios/actions)
+[![Version](https://img.shields.io/badge/version-0.1.0--rc.1-blue)](docs/04_delivery/RELEASE_STATE.md)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
 
 Epistemic Operating System (EPIOS) is an open-source operating layer designed for structured reasoning, evidence-backed knowledge artifacts, and safe AI-assisted actions.
@@ -10,15 +10,14 @@ Epistemic Operating System (EPIOS) is an open-source operating layer designed fo
 
 We are proud to announce the first release candidate of the EPIOS MVP. This release establishes the foundational "Universal Mission Room" where humans and AI agents collaborate on complex knowledge graphs.
 
-### Key Features
-- **Neural Graph Workspace**: Interactive 2D canvas for mapping hypotheses, evidence, and claims.
-- **Epistemic Governance**: Built-in approval workflows for integrating new knowledge into the mission state.
-- **MCP Integration**: Secure bridge for Model Context Protocol (MCP) applications.
-- **Hexagonal Architecture**: Clean separation between domain logic and infrastructure.
+### Current Status
+For detailed release status, known limitations, and evidence of testing, see:
+👉 **[RELEASE_STATE.md](docs/04_delivery/RELEASE_STATE.md)**
 
 ## 🗺️ Roadmap: Towards v0.2.0 (ADR Review Hardening)
-The current focus is on **ADR-0099 Architectural Hardening**. Details can be found in the [Master QA Plan](docs/04_delivery/v1_1_qa_plan/EPIOS_v1_1_Master_Sprint_QA_Plan.md).
-Current status and task tracking is available via [GitHub Issues](https://github.com/xlabkm-ux/epios/issues).
+The current focus is on **ADR-0099 Architectural Hardening**.
+Current execution truth is maintained via **[GitHub Issues](https://github.com/xlabkm-ux/epios/issues)**.
+
 
 ## 🛠 Quick Start
 

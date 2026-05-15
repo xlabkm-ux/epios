@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPIOS-06-MCP-APPS-SECURITY`  
 **Version:** Draft 0.1  
-**Status:** Accepted for MVP Bootstrap  
+**Status:** Accepted_contract for MVP Bootstrap  
 **Depends on:** `EPIOS-00`, `EPIOS-01`, `EPIOS-02`, `EPIOS-03`, `EPIOS-04`, `EPIOS-05`  
 **MVP Requirement:** MCP Apps are included in MVP v1.0  
 **Deployment target:** Internal dev only  

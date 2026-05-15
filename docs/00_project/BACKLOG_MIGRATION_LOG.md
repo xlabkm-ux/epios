@@ -1,9 +1,10 @@
 Owner: @architect
-Status: accepted
+Status: Archived
 
-# BACKLOG MIGRATION LOG: Epistemic OS (epios)
+# BACKLOG_MIGRATION_LOG (ARCHIVED)
+> This document is a historical record of the migration from `PROJECT_BACKLOG.md` to GitHub Issues.
+> **Live status is now exclusively managed via [GitHub Issues](https://github.com/xlabkm-ux/epios/issues).**
 
-**Status:** Active
 **Date:** 2026-05-14
 **Migration Source:** `PROJECT_BACKLOG.md` (root)
 **Migration Target:** GitHub Issues / Epics

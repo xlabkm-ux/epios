@@ -101,6 +101,7 @@ export type ServerDependencies = {
   mcpBridge?: MCPBridgePort;
   security?: SecurityPort;
   identityRepo?: IdentityRepositoryPort;
+  startWorkers?: boolean;
 };
 
 export function buildServer(deps: ServerDependencies = {}) {
@@ -240,15 +241,23 @@ export function buildServer(deps: ServerDependencies = {}) {
   const getMappingRunUseCase = new GetMappingRunUseCase(mappingRepo);
   const listMappingRunsUseCase = new ListMappingRunsUseCase(mappingRepo);
 
-  const mappingProcessor = new MappingProcessor(
-    mappingRepo,
-    outboxRepo,
-    graphRepo,
-  );
-  mappingProcessor.start();
+  if (deps.startWorkers !== false) {
+    const mappingProcessor = new MappingProcessor(
+      mappingRepo,
+      outboxRepo,
+      graphRepo,
+    );
+    mappingProcessor.start();
 
-  const outboxWorker = new OutboxWorker(outboxRepo);
-  outboxWorker.start();
+    const outboxWorker = new OutboxWorker(outboxRepo);
+    outboxWorker.start();
+
+    // Hook into close to stop workers
+    app.addHook("onClose", async () => {
+      mappingProcessor.stop();
+      outboxWorker.stop();
+    });
+  }
 
   // Register Routes
   app.register(workspaceRoutes, {

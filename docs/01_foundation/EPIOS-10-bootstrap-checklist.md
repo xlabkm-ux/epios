@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPIOS-10-IMPLEMENTATION-BOOTSTRAP-CHECKLIST`  
 **Version:** Draft 0.1  
-**Status:** Accepted for MVP Bootstrap  
+**Status:** Accepted_concept for MVP Bootstrap  
 **Depends on:** `EPIOS-00` through `EPIOS-09`  
 **Target:** Week 1 implementation bootstrap  
 **Repository:** `epistemic-os`  

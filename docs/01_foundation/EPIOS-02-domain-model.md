@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPIOS-02-DOMAIN-MODEL`  
 **Version:** Draft 0.1  
-**Status:** Accepted for MVP Bootstrap  
+**Status:** Accepted_concept for MVP Bootstrap  
 **Depends on:** `EPIOS-00-PROJECT-BRIEF`, `EPIOS-01-ARCHITECTURE-FOUNDATION`  
 **Target MVP horizon:** 6 weeks or faster  
 **Storage baseline:** PostgreSQL-first  

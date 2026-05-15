@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted
+Status: Accepted_contract
 
 # TRACE EVENT CATALOG
 

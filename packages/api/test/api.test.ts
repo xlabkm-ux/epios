@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { buildServer } from "../src/server.js";
 import {
   WorkspaceRepositoryPort,
@@ -65,8 +65,13 @@ describe("API E2E", () => {
       mcpRegistry: mockMCPRegistry as unknown as MCPAppRegistryPort,
       mcpBridge: mockMCPBridge as unknown as MCPBridgePort,
       identityRepo: mockIdentityRepo as unknown as IdentityRepositoryPort,
+      startWorkers: false,
     });
     await app.ready();
+  });
+
+  afterEach(async () => {
+    await app.close();
   });
 
   it("should return health status", async () => {

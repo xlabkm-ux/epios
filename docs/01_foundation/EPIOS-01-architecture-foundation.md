@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPIOS-01-ARCHITECTURE-FOUNDATION`  
 **Version:** Draft 0.1  
-**Status:** Accepted for MVP Bootstrap  
+**Status:** Accepted_concept for MVP Bootstrap  
 **Depends on:** `EPIOS-00-PROJECT-BRIEF`  
 **Repository model:** Open-source from day one  
 **Target MVP horizon:** 6 weeks or faster  

@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPIOS-09-ADR-PACK-DECISION-INDEX`  
 **Version:** Draft 0.1  
-**Status:** Accepted for MVP Bootstrap  
+**Status:** Accepted_contract for MVP Bootstrap  
 **Depends on:** `EPIOS-00` through `EPIOS-08`  
 **Purpose:** Convert accepted project, architecture, runtime, persistence, MCP and reuse decisions into an initial ADR index.  
 

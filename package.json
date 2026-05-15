@@ -17,7 +17,7 @@
     "test:domain": "pnpm --filter @epios/domain test",
     "test:contracts": "pnpm --filter @epios/api test",
     "test:postgres": "pnpm --filter @epios/infrastructure-postgres test",
-    "test:async": "echo 'Async tests not yet implemented' && exit 0",
+    "test:async": "pnpm --filter @epios/application vitest run test/async-runtime.test.ts",
     "test:e2e": "npx playwright test",
     "test:security": "tsx tools/security/run-security-tests.ts",
     "test:trace": "pnpm --filter @epios/observability test",

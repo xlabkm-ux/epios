@@ -16,6 +16,7 @@ export async function adrRoutes(
     "/adrs/:id",
     async (request, reply) => {
       const adr = await options.getADRUseCase.execute(request.params.id);
+
       if (!adr) {
         return reply.status(404).send({ error: "ADR_NOT_FOUND" });
       }

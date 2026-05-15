@@ -1,6 +1,6 @@
 # **Стратегия управления: Governance-as-Code**
 
-**Статус:** Active (Принято к исполнению)
+**Статус:** Accepted_contract (Принято к исполнению)
 
 **Владелец:** Core Team
 
@@ -223,9 +223,18 @@ type GovernanceFinding \= {
   * Все результаты (отчеты, findings, drafts) являются **untrusted recommendations** до прохождения человеческого триажа (Human triage).  
   * **ЗАПРЕЩЕНО:** Фоновый агент с write-доступом, авто-применение патчей, авто-закрытие Issues.
 
-## **📋 Immediate Checklist (Действия на сейчас)**
+## **📋 Governance Enforcement**
 
-**Ответственные: Core Team & PM**
+**Status tracking is explicitly excluded from this document to prevent documentation drift.**
+
+* **Live Execution Truth:** [GitHub Issues](https://github.com/xlabkm-ux/epios/issues)
+* **Release Status:** [RELEASE_STATE.md](../04_delivery/RELEASE_STATE.md)
+* **Compliance Checks:** Automated via `pnpm verify` (CI).
+
+Any changes to this governance policy must be proposed via an ADR and implemented through a Pull Request.
+
+
+
 
 * [x] **P0-1.** Заморозить создание новых концептов на 72 часа. (В силе до 2026-05-17).  
 * [x] **P0-2.** Создать DOCUMENT\_REGISTER.md и OPEN\_DECISIONS\_REGISTER.md. (Готово в `docs/00_project/`).  

@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted
+Status: Accepted_concept
 
 # APPLICATION USE CASE CONTRACTS
 

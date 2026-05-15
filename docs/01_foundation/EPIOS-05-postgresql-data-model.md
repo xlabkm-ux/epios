@@ -3,7 +3,7 @@
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPIOS-05-POSTGRESQL-DATA-MODEL`  
 **Version:** Draft 0.1  
-**Status:** Accepted for MVP Bootstrap
+**Status:** Accepted_contract for MVP Bootstrap
 **Depends on:** `EPIOS-00`, `EPIOS-01`, `EPIOS-02`, `EPIOS-03`, `EPIOS-04`  
 **Storage decision:** PostgreSQL-first alpha  
 **Target MVP horizon:** 6 weeks or faster  

@@ -1,9 +1,14 @@
 Owner: @architect
-Status: accepted
+Status: accepted_concept
 
-# API CONTRACTS: MVP v1.0
+# API Contracts (v1.0 MVP)
 
-This document defines the authoritative HTTP/BFF API surface for Epistemic OS v1.0.
+**Status:** `accepted_concept` (Hardening in progress)
+**Version:** 1.1
+**Source of Truth:** [packages/api/src/contracts/schemas.ts](../../packages/api/src/contracts/schemas.ts) (Zod)
+
+> [!NOTE]
+> This document is a human-readable view of the formal contracts. In case of discrepancy, the Zod schemas in the codebase are authoritative.
 
 ## 1. Protocol Standards
 - **Versioned API**: `/api/v1`

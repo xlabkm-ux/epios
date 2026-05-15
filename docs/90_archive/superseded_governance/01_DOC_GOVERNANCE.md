@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted
+Status: Superseded
 
 # Регламент управления документацией (Continuous Concept Evolution)
 
