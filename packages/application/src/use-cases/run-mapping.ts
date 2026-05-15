@@ -16,8 +16,10 @@ export class RunMappingUseCase {
       const mission = await uow.missionRepository.findById(request.missionId);
       if (!mission) throw new Error("MISSION_NOT_FOUND");
 
-      const existingRuns = await uow.missionRunRepository.findByMissionId(request.missionId);
-      const activeRun = existingRuns.find(r => r.status === "running");
+      const existingRuns = await uow.missionRunRepository.findByMissionId(
+        request.missionId,
+      );
+      const activeRun = existingRuns.find((r) => r.status === "running");
       if (activeRun) return activeRun;
 
       const run = new MissionRun({
@@ -45,17 +47,19 @@ export class RunMappingUseCase {
         timestamp: new Date(),
       });
 
-      // Emit outbox event for the background worker to actually perform mapping
+      // Emit outbox event for the background worker to actually perform mapping.
+      // workspaceId is required by the processor to create EpistemicNodes + EvidenceRefs.
       const message: OutboxMessage = {
         id: randomUUID(),
         aggregateType: "MissionRun",
         aggregateId: run.id,
         type: "mapping_started",
-        payload: { 
-          runId: run.id, 
-          missionId: mission.id, 
-          stage: "mapping", 
-          sourceIds: request.sourceIds 
+        payload: {
+          runId: run.id,
+          missionId: mission.id,
+          workspaceId: mission.workspaceId,
+          stage: "mapping",
+          sourceIds: request.sourceIds,
         },
         status: "pending",
         createdAt: new Date(),

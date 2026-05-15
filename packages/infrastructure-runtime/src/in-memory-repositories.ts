@@ -374,7 +374,7 @@ export class InMemoryArtifactRepository implements ArtifactRepositoryPort {
 
   async findPatchesByArtifactId(artifactId: string): Promise<ArtifactPatch[]> {
     return Array.from(this.patches.values()).filter(
-      (p) => p.artifactId === artifactId,
+      (p) => p.toProps().artifactId === artifactId,
     );
   }
 
@@ -410,7 +410,7 @@ export class InMemoryDecisionRepository implements DecisionRepositoryPort {
 
   async findByMissionId(missionId: string): Promise<DecisionRecord[]> {
     return Array.from(this.decisions.values()).filter(
-      (d) => d.missionId === missionId,
+      (d) => d.toProps().missionId === missionId,
     );
   }
 }
@@ -427,6 +427,8 @@ export class InMemoryApprovalRepository implements ApprovalRepositoryPort {
   }
 
   async findByRunId(runId: string): Promise<ApprovalRequest[]> {
-    return Array.from(this.approvals.values()).filter((a) => a.runId === runId);
+    return Array.from(this.approvals.values()).filter(
+      (a) => a.toProps().runId === runId,
+    );
   }
 }

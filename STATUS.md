@@ -1,72 +1,150 @@
 # 📊 PROJECT STATUS: Epistemic OS (epios)
-> **Последнее обновление:** 2026-05-15  
-> **Версия:** v0.1.0-alpha.1 (Skeleton)  
-> **Уровни планирования:**
-> 1. **Проектный план:** `docs/04_delivery/V1_1_PROJECT_PLAN_ADR_REVIEW.md` (ADR Review Milestone Roadmap).
-> 2. **Оперативный план:** Этот файл (согласованные этапы, разбитые на спринты). Все старые планы (Week X) архивированы.
+> **Последнее обновление:** 2026-05-16  
+> **Версия:** v0.1.0-alpha.2  
+> **Фаза:** v1.1 Sprint Delivery (ADR Review MVP)  
+> **Master QA Plan:** [`EPIOS_v1_1_Master_Sprint_QA_Plan.md`](docs/04_delivery/v1_1_qa_plan/EPIOS_v1_1_Master_Sprint_QA_Plan.md)  
+> **Архив предыдущего статуса:** [`STATUS_ARCHIVED_2026-05-15.md`](docs/90_archive/STATUS_ARCHIVED_2026-05-15.md)
+
+---
 
 ## 🎯 Текущий вердикт
-Проект находится в состоянии **"Handover Ready (Release Candidate)"**. Базовая структура и критические пути (ADR Review, MCP Security, Postgres Persistence) готовы на 100%. Документация по развертыванию и текущему состоянию подготовлена.
+
+Проект завершил **инфраструктурный цикл (Sprint A–F)** и переходит к **продуктовой разработке по v1.1 Sprint Map (S0–S7 + Pilot)**. Все базовые компоненты (Persistence, Domain, UI, MCP, QA) находятся в состоянии **✅ Ready**. Фокус — реализация сквозного ADR Review workflow от загрузки источника до финального артефакта.
 
 ---
 
 ## 🚦 Состояние компонентов
 
-| Компонент | Статус | Реализация | Ближайшая задача (P0) |
-| :--- | :--- | :--- | :--- |
-| **Persistence** | ✅ Ready | Postgres схемы готовы, репозитории (вкл. Mapping/Mission) реализованы и подключены. | - |
-| **Domain Logic** | ✅ Ready | Сущности (Node, Mission, Patch) реализованы с инвариантами. | - |
-| **Use Cases** | ✅ Ready | Use Cases переключены на Postgres-провайдер через `server.ts`. | - |
-| **UI (Demo Shell)**| ✅ Ready | Интерфейс интегрирован с API вызовами. | - |
-| **MCP Bridge** | ✅ Ready | Протокол защищен (Nonce/Zod) и проверен автоматическими `test:security`. | - |
-| **QA Gates** | ✅ Ready | Скрипты в `package.json` созданы, тесты async/security наполнены и проходят `pnpm verify`. | - |
+| Компонент | Статус | Краткое описание |
+| :--- | :--- | :--- |
+| **Persistence (Postgres)** | ✅ Ready | Все репозитории (Graph, Mission, Mapping, Governance) реализованы. InMemory-моки удалены. |
+| **Domain Logic** | ✅ Ready | Сущности с инвариантами, оптимистичная конкурентность, Rich Domain Model. |
+| **Application (Use Cases)** | ✅ Ready | Use cases подключены к Postgres-провайдеру через UoW. |
+| **UI (Demo Shell)** | ✅ Ready | React UI интегрирован с API (без моков). |
+| **MCP Bridge** | ✅ Ready | Nonce/Zod валидация, security-тесты. |
+| **QA & CI** | ✅ Ready | `pnpm verify` проходит. Testcontainers настроены. |
+| **Documentation** | ✅ Ready | Реестр нормализован, архив упорядочен. |
 
 ---
 
-## 📅 Оперативный план (Спринты)
+## 📅 Оперативный план: v1.1 Sprint Map
 
-Ниже представлены согласованные к выполнению этапы проектного плана, разделенные на **НЕЗАВИСИМЫЕ** спринты, которые можно выполнять параллельно. 
-*⚠️ Если спринт затрагивает критически важные части системы и создает риски при слиянии изменений, он помечается как `[🔒 УНИКАЛЬНЫЙ]` и **запрещает параллельную разработку**.*
+> **Источник:** `EPIOS_v1_1_Master_Sprint_QA_Plan.md`, раздел 3.  
+> Все задачи дублируются в **GitHub Issues**. STATUS.md — стратегический обзор.  
+> *⚠️ Спринты с пометкой `[🔒 УНИКАЛЬНЫЙ]` запрещают параллельную разработку.*
 
-### Спринт A: Интеграция Persistence слоя `[🔒 УНИКАЛЬНЫЙ]`
-**Статус:** ✅ Завершен
-- [x] **Backend Wiring:** Исправить `server.ts`, чтобы все репозитории в Postgres-режиме были реальными (убрать `undefined` и `InMemory`).
-- [x] **Persistent Mapping:** Реализовать сохранение результатов анализа графа в БД.
-- [x] **Integration Tests:** Добавить тесты интеграции репозиториев (Optimistic Concurrency & Idempotency).
+---
 
-### Спринт B: Валидация и безопасность MCP `[НЕЗАВИСИМЫЙ]`
-**Статус:** ✅ Завершен
-- [x] **Bridge Validation:** Реализовать пайплайн валидации nonce/capability для MCP сообщений.
-- [x] **Security QA:** Написать `run-security-tests.ts` для проверки изоляции MCP.
+### Sprint S0: Governance + Shell Skeleton `[🔒 УНИКАЛЬНЫЙ]`
+**Статус:** ✅ Завершен (в рамках Sprint A–F)
+- [x] **Repo Governance:** CI, branch protection, `pnpm verify` pipeline.
+- [x] **Demo Shell Init:** `apps/demo-shell` инициализирован, ADR Review Workspace skeleton виден.
+- [x] **Dependency Boundaries:** Архитектурные границы между пакетами настроены.
+- [x] **Smoke Tests:** Базовый `pnpm build` + `pnpm test` зелёный.
 
-### Спринт C: UI De-mocking и Demo Shell `[НЕЗАВИСИМЫЙ]`
-**Статус:** ✅ Завершен
-- [x] **UI De-mocking:** Интегрировать `ADRReviewWorkspace.tsx` с бэкендом (заменить `setTimeout` на вызовы API).
-- [x] **Demo Shell Init:** Инициализировать `apps/demo-shell` с выбранным фреймворком.
+### Sprint S1: Contracts + Clickable Flow `[НЕЗАВИСИМЫЙ]`
+**Статус:** ✅ Завершен (в рамках Sprint A–F)
+- [x] **API Contracts:** Zod-схемы для Mission, Source, MappingRun зафиксированы.
+- [x] **Mock ADR Flow:** UI показывает clickable mock end-to-end ADR Review.
+- [x] **Contract Tests:** Валидация DTO и типизированных ошибок.
 
-### Спринт D: Релизная документация и Handover `[НЕЗАВИСИМЫЙ]`
-**Статус:** ✅ Завершен
-- [x] **Deployment Docs:** Подготовить `DEPLOY.md` (инструкции по развертыванию).
-- [x] **Handover Docs:** Создать `CURRENT_STATE_V2_4.md` и заметки по стабилизации безопасности.
-- [x] **Sanitization:** Проверить репозиторий на утечки данных и очистить легаси-код.
+### Sprint S2: Core Domain + Persistence `[🔒 УНИКАЛЬНЫЙ]`
+**Статус:** ✅ Завершен (в рамках Sprint A–F)
+- [x] **Mission/Source/Rating Storage:** Postgres-репозитории реализованы и подключены.
+- [x] **Domain Entities:** Mission, Evidence, Node — Rich Domain Model с инвариантами.
+- [x] **Testcontainers:** Интеграционные тесты на эфемерной PostgreSQL.
+- [x] **UI Panels:** Mission + Source + Rating панели подключены к реальным данным.
 
-### Спринт E: Интеграция слоя Governance Persistence `[НЕЗАВИСИМЫЙ]`
-**Статус:** ✅ Завершен
-- [x] **Artifact Persistence:** Реализовать `PostgresArtifactRepository` для сущности `LivingArtifact`, версий и патчей.
-- [x] **Decision & Approval Persistence:** Реализовать репозитории для `DecisionRecord` и `ApprovalRequest`.
-- [x] **Backend Wiring:** Убрать моки (`null as unknown`) для этих репозиториев в `server.ts` и `unit-of-work.ts`.
+### Sprint S3: Async Mapping + Evidence `[🔒 УНИКАЛЬНЫЙ]`
+**Статус:** 🏃 В работе
+- [x] **Async Run:** `RunMappingUseCase` возвращает `{ runId }` (202 Accepted). `workspaceId` включён в outbox payload.
+- [x] **Outbox Worker:** Тип события унифицирован (`mapping_started`). `MappingProcessor` переведён на `UnitOfWorkPort`.
+- [x] **Claims/Evidence Extraction:** Создаются `EpistemicNode` (claim) + 2x `EvidenceRef` за каждый шаг (5 шагов = 5 claims + 10 evidence). Ссылки `supportsNodeIds` связывают evidence→claim.
+- [x] **SSE/Long-Polling:** Эндпоинт `GET /workspaces/:id/mapping/runs/:runId/stream` — стрим прогресса через SSE (1s интервал, 60s таймаут).
+- [x] **Mapping Progress Panel:** `MappingPanel` обновляется в реальном времени через `EventSource`. Animated live card при активном run.
+- [x] **PostgresEvidenceRepository:** Реализованы `saveRef`, `findRefById`, `findRefsByMissionId` (полный порт).
+- [ ] **QA:** `test:async`, outbox integration tests, SSE/polling tests.
 
-### Спринт F: Infrastructure QA Hardening `[НЕЗАВИСИМЫЙ]`
-**Статус:** ✅ Завершен
-- [x] **Testcontainers Integration:** Настроить автоматическое поднятие PostgreSQL в Docker при запуске `vitest` для честных интеграционных тестов.
-- [x] **Graph Concurrency Tests:** Написать сценарии конкурентного доступа и оптимистичных блокировок для `GraphRepository`.
-- [x] **Governance & Mission Tests:** Покрыть интеграционными тестами транзакционные изменения процессов голосования и статусов миссий.
+### Sprint S4: Patch + Approval `[НЕЗАВИСИМЫЙ]`
+**Статус:** ⬜ Planned
+- [ ] **ArtifactPatch Lifecycle:** Создание патча с обязательным `reason`, привязка к evidence/node/decision.
+- [ ] **Approval Flow:** `ApprovalRequest` → `DecisionRecord`. High-risk патчи требуют approval.
+- [ ] **Policy Enforcement:** `ApplyPatch` не обходит backend policy.
+- [ ] **UI Panels:** Patch Review + Approval панели в Demo Shell.
+- [ ] **QA:** Policy tests, idempotency tests, approval QA.
 
+### Sprint S5: Readiness + Artifact Version `[🔒 УНИКАЛЬНЫЙ]`
+**Статус:** ⬜ Planned
+- [ ] **ReadinessAssessment v0.1:** Три primary indicators. Numeric score НЕ является primary UI.
+- [ ] **Apply Patch → Artifact Version:** Применение патча создаёт версию артефакта.
+- [ ] **Trace Summary:** Полный trace от Source → Rating → Mapping → Patch → Approval → Version.
+- [ ] **Hard Block:** `blocked` статус при наличии hard block, независимо от score.
+- [ ] **Final ADR Output:** Markdown ADR с evidence и trace summary.
+- [ ] **QA:** Full E2E (ADR happy path), readiness assertions, trace assertions.
 
+### Sprint S6: Security + Retention `[НЕЗАВИСИМЫЙ]`
+**Статус:** ⬜ Planned
+- [ ] **Basic Roles:** viewer, contributor, approver — role-aware UI.
+- [ ] **Soft Delete & Redaction:** MVP для retention и удаления данных.
+- [ ] **Secret Scan:** Проверка репозитория на утечки секретов.
+- [ ] **UI:** Role-aware элементы и deletion states в Demo Shell.
+- [ ] **QA:** Security smoke, authorization tests, retention audit.
+
+### Sprint S7: RC + Pilot Pack `[🔒 УНИКАЛЬНЫЙ]`
+**Статус:** ⬜ Planned
+- [ ] **Docker Compose:** Production-ready `docker-compose.yml` (API + Postgres + Demo Shell).
+- [ ] **CI/CD Pipeline:** GitHub Actions: lint → build → test → deploy.
+- [ ] **Demo Fixture:** `fixtures/adr-review/` — каноническая fixture для event-sourcing ADR.
+- [ ] **Runbook:** Инструкции по развертыванию и демонстрации.
+- [ ] **Release Checklist:** Clean setup, seed/demo commands, known limitations.
+- [ ] **QA:** Release QA, usability metrics (happy path < 30 min, repeat < 15 min).
+
+### Pilot: Field Validation
+**Статус:** ⬜ Planned
+- [ ] **Design Partner Pilot:** Пилотный запуск с реальными пользователями.
+- [ ] **Feedback Collection:** Сбор обратной связи, usefulness rating ≥ 4/5.
+- [ ] **Bug Fixes:** Исправление критических багов по результатам пилота.
+- [ ] **Known Limitations Update:** Обновление документа ограничений.
+
+---
+
+## 🏁 Master Release Gates
+
+> Из `EPIOS_v1_1_Master_Sprint_QA_Plan.md`, раздел 8.
+
+| Gate | Описание | Спринт | Статус |
+| :--- | :--- | :--- | :--- |
+| **Gate 1** | Visible product from day one (Demo Shell + clickable flow) | S0–S1 | ✅ Passed |
+| **Gate 2** | Architecture-honest async foundation (runId, outbox, SSE) | S3 | ⬜ Pending |
+| **Gate 3** | Governed artifact mutation (patch + approval + policy) | S4 | ⬜ Pending |
+| **Gate 4** | Readiness is useful, not false authority (3 indicators, no auto-approve) | S5 | ⬜ Pending |
+| **Gate 5** | Traceability (source → rating → mapping → patch → approval → version) | S5 | ⬜ Pending |
+| **Gate 6** | Pilot readiness (clean setup, demo fixture, < 30 min happy path) | S7 | ⬜ Pending |
+
+---
+
+## ✅ Завершённые циклы
+
+<details>
+<summary><strong>Цикл 1: Инфраструктурный (Sprint A–F, v0.1.0-alpha.1)</strong> — завершён 2026-05-15</summary>
+
+**Полный архив:** [`docs/90_archive/STATUS_ARCHIVED_2026-05-15.md`](docs/90_archive/STATUS_ARCHIVED_2026-05-15.md)
+
+| Спринт | Название | Результат |
+| :--- | :--- | :--- |
+| A | Интеграция Persistence слоя | ✅ Завершен |
+| B | Валидация и безопасность MCP | ✅ Завершен |
+| C | UI De-mocking и Demo Shell | ✅ Завершен |
+| D | Релизная документация и Handover | ✅ Завершен |
+| E | Governance Persistence | ✅ Завершен |
+| F | Infrastructure QA Hardening | ✅ Завершен |
+
+</details>
 
 ---
 
 ## 📂 Навигация
-- **Проектный план (Project Plan):** [docs/04_delivery/PROJECT_FIX_PLAN.md](docs/04_delivery/PROJECT_FIX_PLAN.md)
-- **Реестр документов:** [docs/00_project/DOCUMENT_REGISTER.md](docs/00_project/DOCUMENT_REGISTER.md)
-- **Архив старых планов:** [docs/90_archive/delivery_legacy/](docs/90_archive/delivery_legacy/)
+- **Master QA Plan:** [`EPIOS_v1_1_Master_Sprint_QA_Plan.md`](docs/04_delivery/v1_1_qa_plan/EPIOS_v1_1_Master_Sprint_QA_Plan.md)
+- **Проектный план:** [`V1_1_PROJECT_PLAN_ADR_REVIEW.md`](docs/04_delivery/V1_1_PROJECT_PLAN_ADR_REVIEW.md)
+- **Реестр документов:** [`DOCUMENT_REGISTER.md`](docs/00_project/DOCUMENT_REGISTER.md)
+- **Архив:** [`docs/90_archive/`](docs/90_archive/)

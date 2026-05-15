@@ -224,9 +224,7 @@ export function buildServer(deps: ServerDependencies = {}) {
     // eslint-disable-next-line no-useless-assignment
     missionRunRepo = new PostgresMissionRunRepository(db);
     // eslint-disable-next-line no-useless-assignment
-    evidenceRepo = new PostgresEvidenceRepository(
-      db,
-    ) as unknown as EvidenceRepositoryPort;
+    evidenceRepo = new PostgresEvidenceRepository(db);
     // eslint-disable-next-line no-useless-assignment
     artifactRepo = new PostgresArtifactRepository(db);
     // eslint-disable-next-line no-useless-assignment
@@ -298,11 +296,7 @@ export function buildServer(deps: ServerDependencies = {}) {
   const listMappingRunsUseCase = new ListMappingRunsUseCase(mappingRepo);
 
   if (deps.startWorkers !== false) {
-    const mappingProcessor = new MappingProcessor(
-      mappingRepo,
-      outboxRepo,
-      graphRepo,
-    );
+    const mappingProcessor = new MappingProcessor(uowProvider);
     mappingProcessor.start();
 
     const outboxWorker = new OutboxWorker(outboxRepo);
