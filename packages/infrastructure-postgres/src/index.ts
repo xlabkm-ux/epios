@@ -13,4 +13,6 @@ export * from "./outbox.repository.js";
 export * from "./mapping.repository.js";
 export * from "./mission.repository.js";
 export * from "./evidence.repository.js";
+export * from "./artifact.repository.js";
+export * from "./decision.repository.js";
 export * from "./unit-of-work.js";

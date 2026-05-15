@@ -6,7 +6,7 @@
 > 2. **Оперативный план:** Этот файл (согласованные этапы, разбитые на спринты). Все старые планы (Week X) архивированы.
 
 ## 🎯 Текущий вердикт
-Проект находится в состоянии **"Архитектурного Скелета"**. Базовая структура (Hexagonal, Monorepo, CI/CD) готова на 100%, но доменный поток (End-to-End Flow) реализован через **Mocks/Timeouts** на 60%.
+Проект находится в состоянии **"Handover Ready (Release Candidate)"**. Базовая структура и критические пути (ADR Review, MCP Security, Postgres Persistence) готовы на 100%. Документация по развертыванию и текущему состоянию подготовлена.
 
 ---
 
@@ -45,16 +45,16 @@
 - [x] **Demo Shell Init:** Инициализировать `apps/demo-shell` с выбранным фреймворком.
 
 ### Спринт D: Релизная документация и Handover `[НЕЗАВИСИМЫЙ]`
-**Статус:** ⏳ Ожидает
-- [ ] **Deployment Docs:** Подготовить `DEPLOY.md` (инструкции по развертыванию).
-- [ ] **Handover Docs:** Создать `CURRENT_STATE_V2_4.md` и заметки по стабилизации безопасности.
-- [ ] **Sanitization:** Проверить репозиторий на утечки данных и очистить легаси-код.
+**Статус:** ✅ Завершен
+- [x] **Deployment Docs:** Подготовить `DEPLOY.md` (инструкции по развертыванию).
+- [x] **Handover Docs:** Создать `CURRENT_STATE_V2_4.md` и заметки по стабилизации безопасности.
+- [x] **Sanitization:** Проверить репозиторий на утечки данных и очистить легаси-код.
 
 ### Спринт E: Интеграция слоя Governance Persistence `[НЕЗАВИСИМЫЙ]`
-**Статус:** ⏳ Ожидает
-- [ ] **Artifact Persistence:** Реализовать `PostgresArtifactRepository` для сущности `LivingArtifact`, версий и патчей.
-- [ ] **Decision & Approval Persistence:** Реализовать репозитории для `DecisionRecord` и `ApprovalRequest`.
-- [ ] **Backend Wiring:** Убрать моки (`null as unknown`) для этих репозиториев в `server.ts` и `unit-of-work.ts`.
+**Статус:** ✅ Завершен
+- [x] **Artifact Persistence:** Реализовать `PostgresArtifactRepository` для сущности `LivingArtifact`, версий и патчей.
+- [x] **Decision & Approval Persistence:** Реализовать репозитории для `DecisionRecord` и `ApprovalRequest`.
+- [x] **Backend Wiring:** Убрать моки (`null as unknown`) для этих репозиториев в `server.ts` и `unit-of-work.ts`.
 
 ### Спринт F: Infrastructure QA Hardening `[НЕЗАВИСИМЫЙ]`
 **Статус:** ⏳ Ожидает

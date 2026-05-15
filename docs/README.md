@@ -39,4 +39,6 @@ Roadmap documents are not backlog. Backlog lives in GitHub Issues.
 - Project planning: [V1_1_PROJECT_PLAN_ADR_REVIEW.md](04_delivery/V1_1_PROJECT_PLAN_ADR_REVIEW.md).
 - v1.0 baseline: [EPIOS-03-v1_0-mvp-scope.md](01_foundation/EPIOS-03-v1_0-mvp-scope.md).
 - v1.1 roadmap: [EPIOS-v1_1-adr-review-roadmap.md](01_foundation/EPIOS-v1_1-adr-review-roadmap.md).
+- **Handover Report (V2.4): [CURRENT_STATE_V2_4.md](04_delivery/CURRENT_STATE_V2_4.md).**
+- **Deployment Guide: [DEPLOY.md](../DEPLOY.md).**
 

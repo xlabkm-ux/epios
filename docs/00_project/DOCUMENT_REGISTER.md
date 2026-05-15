@@ -71,6 +71,8 @@
 | EPIOS-DEL-009| [Phase B: Domain/Async](../04_delivery/v1_1_qa_plan/EPIOS_v1_1_Phase_B_S2_S3_Domain_Async_QA.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | QA | - | v1.1 Alpha | Mandatory |
 | EPIOS-DEL-010| [Phase C: Patch/Readiness](../04_delivery/v1_1_qa_plan/EPIOS_v1_1_Phase_C_S4_S5_Patch_Readiness_QA.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | QA | - | v1.1 Alpha | Mandatory |
 | EPIOS-DEL-011| [Phase D: Hardening/RC](../04_delivery/v1_1_qa_plan/EPIOS_v1_1_Phase_D_S6_S7_Hardening_RC_QA.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | QA | - | v1.1 Alpha | Mandatory |
+| EPIOS-DEL-012| [Handover Report V2.4](../04_delivery/CURRENT_STATE_V2_4.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | Delivery | - | v0.1.0-rc.1 | Mandatory |
+| EPIOS-DEL-013| [DEPLOY.md](../../DEPLOY.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | Ops | - | v0.1.0-rc.1 | Mandatory |
 | EPIOS-DEL-007| [PROJECT_FIX_PLAN_LEGACY](../90_archive/delivery_legacy/PROJECT_FIX_PLAN.md) | @architect | historical_delivery | 1.1 | 2026-05-15 | Execution | - | v0.1.0-rc.1 | Advisory |
 | **REFERENCE / ROADMAPS** | | | | | | |
 | EPIOS-REF-001| [UI Roadmap](../20_reference/ui_roadmap/) | @architect | deferred | 0.1 | 2026-05-14 | UI | - | v1.1 Alpha | Advisory |

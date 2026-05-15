@@ -15,6 +15,9 @@ import {
   PostgresMissionRepository,
   PostgresMissionRunRepository,
   PostgresEvidenceRepository,
+  PostgresArtifactRepository,
+  PostgresDecisionRepository,
+  PostgresApprovalRepository,
   PostgresUnitOfWorkProvider,
 } from "@epios/infrastructure-postgres";
 import {
@@ -68,6 +71,9 @@ import {
   InMemoryMissionRepository,
   InMemoryMissionRunRepository,
   InMemoryEvidenceRepository,
+  InMemoryArtifactRepository,
+  InMemoryDecisionRepository,
+  InMemoryApprovalRepository,
   MockSecurityService,
   MOCK_ADRS,
   OutboxWorker,
@@ -174,12 +180,18 @@ export function buildServer(deps: ServerDependencies = {}) {
     governanceRepo = deps.governanceRepo ?? new InMemoryGovernanceRepository();
     outboxRepo = deps.outboxRepo ?? new InMemoryOutboxRepository();
     mappingRepo = deps.mappingRepo ?? new InMemoryMappingRepository();
+
     missionRepo = new InMemoryMissionRepository();
+
     missionRunRepo = new InMemoryMissionRunRepository();
+
     evidenceRepo = new InMemoryEvidenceRepository();
-    artifactRepo = null as unknown as ArtifactRepositoryPort;
-    decisionRepo = null as unknown as DecisionRepositoryPort;
-    approvalRepo = null as unknown as ApprovalRepositoryPort;
+
+    artifactRepo = new InMemoryArtifactRepository();
+
+    decisionRepo = new InMemoryDecisionRepository();
+
+    approvalRepo = new InMemoryApprovalRepository();
     uowProvider = new InMemoryUnitOfWorkProvider(
       graphRepo,
       governanceRepo,
@@ -216,11 +228,11 @@ export function buildServer(deps: ServerDependencies = {}) {
       db,
     ) as unknown as EvidenceRepositoryPort;
     // eslint-disable-next-line no-useless-assignment
-    artifactRepo = null as unknown as ArtifactRepositoryPort;
+    artifactRepo = new PostgresArtifactRepository(db);
     // eslint-disable-next-line no-useless-assignment
-    decisionRepo = null as unknown as DecisionRepositoryPort;
+    decisionRepo = new PostgresDecisionRepository(db);
     // eslint-disable-next-line no-useless-assignment
-    approvalRepo = null as unknown as ApprovalRepositoryPort;
+    approvalRepo = new PostgresApprovalRepository(db);
     uowProvider = new PostgresUnitOfWorkProvider(db);
   }
 

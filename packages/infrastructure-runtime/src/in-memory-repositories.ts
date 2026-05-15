@@ -11,6 +11,11 @@ import {
   EvidenceSet,
   EvidenceRef,
   ConcurrencyError,
+  LivingArtifact,
+  ArtifactPatch,
+  ArtifactVersion,
+  DecisionRecord,
+  ApprovalRequest,
 } from "@epios/domain";
 import {
   WorkspaceRepositoryPort,
@@ -23,6 +28,9 @@ import {
   MissionRepositoryPort,
   MissionRunRepositoryPort,
   EvidenceRepositoryPort,
+  ArtifactRepositoryPort,
+  DecisionRepositoryPort,
+  ApprovalRepositoryPort,
 } from "@epios/ports";
 
 export class InMemoryADRRepository {
@@ -334,5 +342,91 @@ export class InMemoryEvidenceRepository implements EvidenceRepositoryPort {
     return Array.from(this.refs.values()).filter(
       (r) => r.missionId === missionId,
     );
+  }
+}
+
+export class InMemoryArtifactRepository implements ArtifactRepositoryPort {
+  private artifacts: Map<string, LivingArtifact> = new Map();
+  private patches: Map<string, ArtifactPatch> = new Map();
+  private versions: Map<string, ArtifactVersion[]> = new Map();
+
+  async saveArtifact(artifact: LivingArtifact): Promise<void> {
+    this.artifacts.set(artifact.id, artifact);
+  }
+
+  async findArtifactById(id: string): Promise<LivingArtifact | null> {
+    return this.artifacts.get(id) || null;
+  }
+
+  async findArtifactsByMissionId(missionId: string): Promise<LivingArtifact[]> {
+    return Array.from(this.artifacts.values()).filter(
+      (a) => a.missionId === missionId,
+    );
+  }
+
+  async savePatch(patch: ArtifactPatch): Promise<void> {
+    this.patches.set(patch.id, patch);
+  }
+
+  async findPatchById(id: string): Promise<ArtifactPatch | null> {
+    return this.patches.get(id) || null;
+  }
+
+  async findPatchesByArtifactId(artifactId: string): Promise<ArtifactPatch[]> {
+    return Array.from(this.patches.values()).filter(
+      (p) => p.artifactId === artifactId,
+    );
+  }
+
+  async saveVersion(version: ArtifactVersion): Promise<void> {
+    const artifactVersions = this.versions.get(version.artifactId) || [];
+    artifactVersions.push(version);
+    this.versions.set(version.artifactId, artifactVersions);
+  }
+
+  async findVersionsByArtifactId(
+    artifactId: string,
+  ): Promise<ArtifactVersion[]> {
+    return this.versions.get(artifactId) || [];
+  }
+
+  async getLatestVersion(artifactId: string): Promise<ArtifactVersion | null> {
+    const artifactVersions = this.versions.get(artifactId) || [];
+    if (artifactVersions.length === 0) return null;
+    return artifactVersions.sort((a, b) => b.version - a.version)[0];
+  }
+}
+
+export class InMemoryDecisionRepository implements DecisionRepositoryPort {
+  private decisions: Map<string, DecisionRecord> = new Map();
+
+  async save(decision: DecisionRecord): Promise<void> {
+    this.decisions.set(decision.id, decision);
+  }
+
+  async findById(id: string): Promise<DecisionRecord | null> {
+    return this.decisions.get(id) || null;
+  }
+
+  async findByMissionId(missionId: string): Promise<DecisionRecord[]> {
+    return Array.from(this.decisions.values()).filter(
+      (d) => d.missionId === missionId,
+    );
+  }
+}
+
+export class InMemoryApprovalRepository implements ApprovalRepositoryPort {
+  private approvals: Map<string, ApprovalRequest> = new Map();
+
+  async save(approval: ApprovalRequest): Promise<void> {
+    this.approvals.set(approval.id, approval);
+  }
+
+  async findById(id: string): Promise<ApprovalRequest | null> {
+    return this.approvals.get(id) || null;
+  }
+
+  async findByRunId(runId: string): Promise<ApprovalRequest[]> {
+    return Array.from(this.approvals.values()).filter((a) => a.runId === runId);
   }
 }

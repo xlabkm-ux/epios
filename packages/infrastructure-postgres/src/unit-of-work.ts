@@ -28,6 +28,11 @@ import {
   PostgresMissionRunRepository,
 } from "./mission.repository.js";
 import { PostgresEvidenceRepository } from "./evidence.repository.js";
+import { PostgresArtifactRepository } from "./artifact.repository.js";
+import {
+  PostgresDecisionRepository,
+  PostgresApprovalRepository,
+} from "./decision.repository.js";
 import { PostgresMappingRepository } from "./mapping.repository.js";
 
 /**
@@ -72,9 +77,9 @@ export class PostgresUnitOfWorkProvider implements UnitOfWorkPort {
         new PostgresEvidenceRepository(
           tx as any,
         ) as unknown as EvidenceRepositoryPort,
-        null as unknown as ArtifactRepositoryPort,
-        null as unknown as DecisionRepositoryPort,
-        null as unknown as ApprovalRepositoryPort,
+        new PostgresArtifactRepository(tx as any),
+        new PostgresDecisionRepository(tx as any),
+        new PostgresApprovalRepository(tx as any),
         new PostgresMappingRepository(tx as any),
       );
       return await work(uow);
