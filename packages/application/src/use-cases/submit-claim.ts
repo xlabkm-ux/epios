@@ -8,6 +8,7 @@ import { randomUUID } from "node:crypto";
 
 export interface SubmitClaimRequest {
   workspaceId: string;
+  missionId: string;
   content: string;
   requiredVotes?: number;
 }
@@ -23,10 +24,10 @@ export class SubmitClaimUseCase {
       const claim = new EpistemicNode({
         id: claimId,
         workspaceId: request.workspaceId,
+        missionId: request.missionId,
         type: "claim",
         content: request.content,
         strength: "none",
-        evidence: [],
         metadata: {},
         version: 1,
         createdAt: now,

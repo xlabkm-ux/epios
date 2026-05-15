@@ -59,10 +59,23 @@ function checkHardcodedSecrets() {
   console.log("No obvious secrets found.");
 }
 
+async function runUnitSecurityTests() {
+  console.log("[3/4] Running Vitest security unit tests...");
+  try {
+    // Run security tests in infrastructure-mcp and observability
+    execSync("pnpm --filter @epios/infrastructure-mcp vitest run test/security.test.ts", { stdio: "inherit" });
+    execSync("pnpm --filter @epios/observability vitest run test/redaction.test.ts", { stdio: "inherit" });
+  } catch (e) {
+    console.error("[ERROR] Security unit tests failed.");
+    process.exit(1);
+  }
+}
+
 async function main() {
   await runSecurityAudit();
   checkHardcodedSecrets();
-  console.log("[3/3] Security checks PASSED.");
+  await runUnitSecurityTests();
+  console.log("[4/4] Security checks PASSED.");
 }
 
 main().catch(() => process.exit(1));

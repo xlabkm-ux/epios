@@ -55,6 +55,7 @@
 | EPIOS-SPC-004| [DATA_RETENTION_POLICY_MVP.md](../03_specs/DATA_RETENTION_AND_REDACTION_POLICY_MVP.md) | @architect | accepted_contract | 0.1 | 2026-05-14 | Policy | - | v1.0 MVP | Mandatory |
 | EPIOS-SPC-005| [ADR_REVIEW_WORKFLOW_MVP.md](../03_specs/ADR_REVIEW_WORKFLOW_MVP.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Workflow | - | v1.1 ADR Review | Advisory |
 | EPIOS-SPC-006| [API_CONTRACTS_MVP.md](../03_specs/API_CONTRACTS_MVP.md) | @architect | accepted_concept | 1.1 | 2026-05-15 | API | - | v1.0 MVP | Mandatory |
+| EPIOS-SPC-007| [MCP_SECURITY_TEST_PLAN.md](../03_specs/MCP_SECURITY_TEST_PLAN.md) | @architect | accepted | 1.0 | 2026-05-15 | Security | - | v1.0 MVP | Mandatory |
 
 | **DELIVERY** | | | | | | |
 | EPIOS-DEL-001| [SPRINT_DEVELOPMENT_PLAN_MVP.md](../04_delivery/SPRINT_DEVELOPMENT_PLAN_MVP.md) | @architect | accepted | 0.1 | 2026-05-14 | Execution | - | v1.0 MVP | Advisory |
@@ -63,6 +64,7 @@
 | EPIOS-DEL-004| [GITHUB_SETUP_GUIDE.md](../04_delivery/GITHUB_SETUP_GUIDE.md) | @architect | reference | 0.1 | 2026-05-14 | DevEx | - | v0.1.0-rc.1 | Advisory |
 | EPIOS-DEL-005| [QA Plan Pack](../04_delivery/qa/) | @architect | accepted | 0.1 | 2026-05-14 | QA | - | v1.0 MVP | Mandatory |
 | EPIOS-DEL-006| [ADR-0099 Hardening Plan](../04_delivery/SPRINT_PLAN_ADR_0099_HARDENING.md) | @architect | completed | 1.0 | 2026-05-15 | Execution | - | v0.1.0-rc.1 | Mandatory |
+| EPIOS-DEL-007| [PROJECT_FIX_PLAN.md](../04_delivery/PROJECT_FIX_PLAN.md) | @architect | accepted | 1.1 | 2026-05-15 | Execution | - | v0.1.0-rc.1 | Mandatory |
 | **REFERENCE / ROADMAPS** | | | | | | |
 | EPIOS-REF-001| [UI Roadmap](../20_reference/ui_roadmap/) | @architect | deferred | 0.1 | 2026-05-14 | UI | - | v1.1 Alpha | Advisory |
 | EPIOS-REF-002| [User Management](../20_reference/user_management/) | @architect | deferred | 0.1 | 2026-05-14 | Security | - | v1.1 Alpha | Advisory |

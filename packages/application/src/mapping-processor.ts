@@ -20,9 +20,10 @@ export class MappingProcessor {
 
     if (!message) return false;
 
-    const { runId, workspaceId } = message.payload as {
+    const { runId, workspaceId, missionId } = message.payload as {
       runId: string;
       workspaceId: string;
+      missionId: string;
     };
     const run = await this.mappingRepo.findById(runId);
 
@@ -45,17 +46,10 @@ export class MappingProcessor {
         const node = new EpistemicNode({
           id: claimId,
           workspaceId,
+          missionId: run.missionId || missionId,
           type: "claim",
           content: `Automated Claim ${i} from run ${runId.slice(0, 8)}`,
           strength: "moderate",
-          evidence: [
-            {
-              id: `ev-${claimId}`,
-              sourceType: "auto",
-              sourceUri: "epios://mapping",
-              timestamp: new Date(),
-            },
-          ],
           metadata: { runId },
           version: 1,
           createdAt: new Date(),

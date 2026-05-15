@@ -146,6 +146,12 @@ export class InMemoryGraphRepository implements GraphRepositoryPort {
     );
   }
 
+  async findNodesByMissionId(missionId: string): Promise<EpistemicNode[]> {
+    return Array.from(this.nodes.values()).filter(
+      (n) => n.missionId === missionId,
+    );
+  }
+
   async findEdgesByWorkspaceId(workspaceId: string): Promise<EpistemicEdge[]> {
     return Array.from(this.edges.values()).filter(
       (e) => e.workspaceId === workspaceId,
@@ -184,6 +190,12 @@ export class InMemorySourceRepository implements SourceRepositoryPort {
     );
   }
 
+  async findByMissionId(missionId: string): Promise<Source[]> {
+    return Array.from(this.sources.values()).filter(
+      (s) => s.missionId === missionId,
+    );
+  }
+
   async findById(id: string): Promise<Source | null> {
     return this.sources.get(id) || null;
   }
@@ -217,19 +229,23 @@ export class InMemoryMappingRepository implements MappingRepositoryPort {
       (r) => r.workspaceId === workspaceId,
     );
   }
+
+  async findAll(): Promise<MappingRun[]> {
+    return Array.from(this.runs.values());
+  }
 }
 
 export class InMemoryOutboxRepository implements OutboxRepositoryPort {
   private messages: Map<string, OutboxMessage> = new Map();
 
   async save(message: OutboxMessage): Promise<void> {
-    this.messages.set(message.id, message);
+    this.messages.set(message.id, { ...message });
   }
 
   async findPending(): Promise<OutboxMessage[]> {
-    return Array.from(this.messages.values()).filter(
-      (m) => m.status === "pending",
-    );
+    return Array.from(this.messages.values())
+      .filter((m) => m.status === "pending")
+      .map((m) => ({ ...m }));
   }
 
   async markProcessed(id: string): Promise<void> {

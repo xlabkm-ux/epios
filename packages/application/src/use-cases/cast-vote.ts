@@ -65,7 +65,7 @@ export class CastVoteUseCase {
             await uow.graphRepository.saveNode(node);
 
             // Collect events from node
-            await this.persistEvents(uow, node.domainEvents);
+            await this.persistEvents(uow, node.domainEvents, "EpistemicNode", node.id);
             node.clearDomainEvents();
           }
         } else if (!patch) {
@@ -76,7 +76,7 @@ export class CastVoteUseCase {
             await uow.graphRepository.saveNode(node);
 
             // Collect events from node
-            await this.persistEvents(uow, node.domainEvents);
+            await this.persistEvents(uow, node.domainEvents, "EpistemicNode", node.id);
             node.clearDomainEvents();
           }
         }
@@ -123,15 +123,17 @@ export class CastVoteUseCase {
       await uow.governanceRepository.saveProcess(governanceProcess);
 
       // Collect and persist events from governance process
-      await this.persistEvents(uow, governanceProcess.domainEvents);
+      await this.persistEvents(uow, governanceProcess.domainEvents, "GovernanceProcess", governanceProcess.nodeId);
       governanceProcess.clearDomainEvents();
     });
   }
 
-  private async persistEvents(uow: any, events: DomainEvent[]): Promise<void> {
+  private async persistEvents(uow: any, events: DomainEvent[], aggregateType: string, aggregateId: string): Promise<void> {
     for (const event of events) {
       const message: OutboxMessage = {
         id: randomUUID(),
+        aggregateType,
+        aggregateId,
         type: event.type,
         payload: event.payload,
         status: "pending",

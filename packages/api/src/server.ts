@@ -25,7 +25,7 @@ import {
   CastVoteUseCase,
   ListADRsUseCase,
   GetADRUseCase,
-  AddSourceUseCase,
+  IngestSourceUseCase,
   ListSourcesUseCase,
   RateNodeUseCase,
   GetNodeRatingsUseCase,
@@ -37,7 +37,7 @@ import {
   GetTraceUseCase,
   RedactNodeUseCase,
   ApplyRetentionUseCase,
-  StartMappingRunUseCase,
+  RunMappingUseCase,
   GetMappingRunUseCase,
   ListMappingRunsUseCase,
   MappingProcessor,
@@ -185,7 +185,7 @@ export function buildServer(deps: ServerDependencies = {}) {
   const addEdgeUseCase = new AddEdgeUseCase(workspaceRepo, graphRepo);
   const patchNodeUseCase = new PatchNodeUseCase(graphRepo);
   const getWorkspaceGraphUseCase = new GetWorkspaceGraphUseCase(graphRepo);
-  const addSourceUseCase = new AddSourceUseCase(sourceRepo);
+  const ingestSourceUseCase = new IngestSourceUseCase(uowProvider);
   const listSourcesUseCase = new ListSourcesUseCase(sourceRepo);
   const rateNodeUseCase = new RateNodeUseCase(ratingRepo);
   const getNodeRatingsUseCase = new GetNodeRatingsUseCase(ratingRepo);
@@ -234,7 +234,7 @@ export function buildServer(deps: ServerDependencies = {}) {
     timestamp: new Date().toISOString(),
   }));
 
-  const startMappingRunUseCase = new StartMappingRunUseCase(
+  const runMappingUseCase = new RunMappingUseCase(
     mappingRepo,
     outboxRepo,
   );
@@ -270,7 +270,7 @@ export function buildServer(deps: ServerDependencies = {}) {
     addEdgeUseCase,
     patchNodeUseCase,
     getWorkspaceGraphUseCase,
-    startMappingRunUseCase,
+    runMappingUseCase,
     getMappingRunUseCase,
     listMappingRunsUseCase,
   });
@@ -287,7 +287,7 @@ export function buildServer(deps: ServerDependencies = {}) {
   });
   app.register(adrRoutes, { listADRsUseCase, getADRUseCase });
   app.register(mcpRoutes, { registry: mcpRegistry, bridge: mcpBridge });
-  app.register(sourceRoutes, { addSourceUseCase, listSourcesUseCase });
+  app.register(sourceRoutes, { ingestSourceUseCase, listSourcesUseCase });
   app.register(ratingRoutes, { rateNodeUseCase, getNodeRatingsUseCase });
   app.register(securityRoutes, {
     security,

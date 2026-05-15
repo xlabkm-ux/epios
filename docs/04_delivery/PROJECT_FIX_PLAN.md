@@ -47,9 +47,11 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 ### Sprint 3.1: Enforcement & Quality
 - [x] **Dependency Boundaries**: Implement **dependency-cruiser** to enforce `domain ← application ← infrastructure` constraints in CI.
 - [x] **Quality Gates**: Set **Vitest coverage thresholds** (min 80% for `packages/domain`).
-- [x] **GitHub Backlog**: Transfer issues from EPIOS-10/11 to **GitHub Projects & Issues**.
+- [x] **GitHub Backlog**: Initialize GitHub Issues for the remaining work (P0 Delivery).
+- [x] **Release Gate**: Publish `v0.1.0-rc.1` on GitHub.
+- [x] **Branch Protection**: Enforce protection on `main` (Required PRs/CI).
 - [x] **Planning**: Create `EPIOS-12-domain-and-persistence-issues-and-pr-bodies.md`.
-- [x] **Milestones**: Initialize GitHub Milestones for Release Gates.
+- [x] **Milestones**: Initialize GitHub Milestones for Phase 4/5.
 
 ---
 
@@ -57,8 +59,8 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 **Goal**: Implement the "System of Record" entities and database persistence.
 
 ### Sprint 4.1: Mission Core & DB
-- [ ] **Core Entities**: Implement `Mission`, `MissionRun`, `EpistemicNode`, and `ReasoningEdge` in `packages/domain`.
-- [ ] **Persistence**: 
+- [x] **Core Entities**: Implement `Mission`, `MissionRun`, `EpistemicNode`, and `ReasoningEdge` in `packages/domain`.
+- [x] **Persistence**: 
     - PostgreSQL migrations 0002–0006.
     - Implement Repository ports and adapters.
 - [ ] **Testing**: Domain invariant tests and Repository integration tests (Optimistic Concurrency & Idempotency).
@@ -69,9 +71,9 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 **Goal**: Define and implement the application-layer contracts and use cases.
 
 ### Sprint 5.1: Specs & Use Cases
-- [ ] **Contract Specs**: Create `API_CONTRACTS_MVP.md` and `APPLICATION_USE_CASE_CONTRACTS.md`.
-- [ ] **Error/Trace Catalogs**: Create `ERROR_CATALOG.md` and `TRACE_EVENT_CATALOG.md`.
-- [ ] **Logic**: Implement `CreateMission`, `UpdateMissionBrief`, and `IngestSource` use cases.
+- [x] **Contract Specs**: Create `API_CONTRACTS_MVP.md` and `APPLICATION_USE_CASE_CONTRACTS.md`.
+- [x] **Error/Trace Catalogs**: Create `ERROR_CATALOG.md` and `TRACE_EVENT_CATALOG.md`.
+- [x] **Logic**: Implement `CreateMission`, `UpdateMissionBrief`, and `IngestSource` use cases.
 
 ---
 
@@ -79,7 +81,7 @@ This plan is based on the comprehensive audits conducted by **DeepSeek**, **Open
 **Goal**: Secure the MCP bridge and initialize the UI.
 
 ### Sprint 6.1: MCP Security & Demo
-- [ ] **Security Specs**: Create `MCP_SECURITY_TEST_PLAN.md` and `DATA_RETENTION_AND_REDACTION_POLICY_MVP.md`.
+- [x] **Security Specs**: Create `MCP_SECURITY_TEST_PLAN.md` and `DATA_RETENTION_AND_REDACTION_POLICY_MVP.md`.
 - [ ] **Demo Shell**: Initialize `apps/demo-shell` (framework choice).
 - [ ] **Bridge Validation**: Implement the nonce/capability validation pipeline for MCP messages.
 

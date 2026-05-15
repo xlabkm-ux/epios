@@ -225,10 +225,14 @@ type GovernanceFinding \= {
 
 ## **📋 Governance Enforcement**
 
-**Status tracking is explicitly excluded from this document to prevent documentation drift.**
+### **Delivery Hard Rules (P0)**
+1. **No Direct Push**: All changes to `main` and `develop` MUST go through a Pull Request.
+2. **Issue Traceability**: Every PR MUST link to at least one GitHub Issue using the `Closes #ID` or `Related to #ID` syntax.
+3. **CI Dependency**: PRs cannot be merged without a green `pnpm verify` run in GitHub Actions.
+4. **Release Integrity**: No release candidate (RC) or stable release can be declared in documentation without a corresponding GitHub Release with a signed tag.
 
-* **Live Execution Truth:** [GitHub Issues](https://github.com/xlabkm-ux/epios/issues)
-* **Release Status:** [RELEASE_STATE.md](../04_delivery/RELEASE_STATE.md)
-* **Compliance Checks:** Automated via `pnpm verify` (CI).
+**Live Execution Truth:** [GitHub Issues](https://github.com/xlabkm-ux/epios/issues)
+**Release Status:** [RELEASE_STATE.md](../04_delivery/RELEASE_STATE.md)
+**Compliance Checks:** Automated via `pnpm verify` (CI).
 
-Any changes to this governance policy must be proposed via an ADR and implemented through a Pull Request.
+Any changes to this governance policy must be proposed via an ADR and implemented through a Pull Request.

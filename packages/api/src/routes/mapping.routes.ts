@@ -4,7 +4,7 @@ import {
   AddEdgeUseCase,
   PatchNodeUseCase,
   GetWorkspaceGraphUseCase,
-  StartMappingRunUseCase,
+  RunMappingUseCase,
   GetMappingRunUseCase,
   ListMappingRunsUseCase,
 } from "@epios/application";
@@ -17,7 +17,7 @@ export async function mappingRoutes(
     addEdgeUseCase: AddEdgeUseCase;
     patchNodeUseCase: PatchNodeUseCase;
     getWorkspaceGraphUseCase: GetWorkspaceGraphUseCase;
-    startMappingRunUseCase: StartMappingRunUseCase;
+    runMappingUseCase: RunMappingUseCase;
     getMappingRunUseCase: GetMappingRunUseCase;
     listMappingRunsUseCase: ListMappingRunsUseCase;
   },
@@ -64,11 +64,14 @@ export async function mappingRoutes(
     return reply.send(node);
   });
 
-  fastify.post<{ Params: { workspaceId: string } }>(
-    "/workspaces/:workspaceId/mapping/runs",
+  fastify.post<{ Params: { missionId: string }; Body: { sourceIds: string[] } }>(
+    "/missions/:missionId/mapping/runs",
     async (request, reply) => {
-      const run = await options.startMappingRunUseCase.execute({
-        workspaceId: request.params.workspaceId,
+      const user = (request.headers["x-user-id"] as string) || "user-1";
+      const run = await options.runMappingUseCase.execute({
+        missionId: request.params.missionId,
+        sourceIds: request.body.sourceIds || [],
+        actorId: user,
       });
       return reply.status(202).send(run);
     },

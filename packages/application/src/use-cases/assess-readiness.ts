@@ -21,7 +21,7 @@ export class AssessReadinessUseCase {
     // Simple heuristic for readiness v1.1
     // Evidence Coverage
     const nodesWithEvidence = nodes.filter(
-      (n) => n.evidence && n.evidence.length > 0,
+      (n) => n.evidenceSetId !== undefined,
     ).length;
     const coverageRatio =
       nodes.length > 0 ? nodesWithEvidence / nodes.length : 0;

@@ -21,10 +21,11 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       await this.db.insert(epistemicNodes).values({
         id: node.id,
         workspaceId: node.workspaceId,
+        missionId: node.missionId,
         type: node.type,
         content: node.content,
         strength: node.strength,
-        evidence: node.evidence,
+        evidenceSetId: node.evidenceSetId,
         metadata: node.metadata,
         createdAt: node.createdAt,
         updatedAt: node.updatedAt,
@@ -37,7 +38,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
           type: node.type,
           content: node.content,
           strength: node.strength,
-          evidence: node.evidence,
+          evidenceSetId: node.evidenceSetId,
           metadata: node.metadata,
           updatedAt: node.updatedAt,
           version: sql`${epistemicNodes.version} + 1`,
@@ -106,11 +107,11 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
         new EpistemicNode({
           id: record.id,
           workspaceId: record.workspaceId,
+          missionId: record.missionId,
           type: record.type as NodeType,
           content: record.content,
           strength: record.strength as NodeStrength,
-          evidence:
-            record.evidence as unknown as import("@epios/domain").EvidenceRef[],
+          evidenceSetId: record.evidenceSetId ?? undefined,
           metadata: record.metadata as Record<string, unknown>,
           createdAt: record.createdAt,
           updatedAt: record.updatedAt,
@@ -147,11 +148,11 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
     return new EpistemicNode({
       id: record.id,
       workspaceId: record.workspaceId,
+      missionId: record.missionId,
       type: record.type as NodeType,
       content: record.content,
       strength: record.strength as NodeStrength,
-      evidence:
-        record.evidence as unknown as import("@epios/domain").EvidenceRef[],
+      evidenceSetId: record.evidenceSetId ?? undefined,
       metadata: record.metadata as Record<string, unknown>,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
@@ -186,11 +187,11 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
         new EpistemicNode({
           id: record.id,
           workspaceId: record.workspaceId,
+          missionId: record.missionId,
           type: record.type as NodeType,
           content: record.content,
           strength: record.strength as NodeStrength,
-          evidence:
-            record.evidence as unknown as import("@epios/domain").EvidenceRef[],
+          evidenceSetId: record.evidenceSetId ?? undefined,
           metadata: record.metadata as Record<string, unknown>,
           createdAt: record.createdAt,
           updatedAt: record.updatedAt,
