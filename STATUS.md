@@ -57,10 +57,11 @@
 - [x] **Backend Wiring:** Убрать моки (`null as unknown`) для этих репозиториев в `server.ts` и `unit-of-work.ts`.
 
 ### Спринт F: Infrastructure QA Hardening `[НЕЗАВИСИМЫЙ]`
-**Статус:** ⏳ Ожидает
-- [ ] **Testcontainers Integration:** Настроить автоматическое поднятие PostgreSQL в Docker при запуске `vitest` для честных интеграционных тестов.
-- [ ] **Graph Concurrency Tests:** Написать сценарии конкурентного доступа и оптимистичных блокировок для `GraphRepository`.
-- [ ] **Governance & Mission Tests:** Покрыть интеграционными тестами транзакционные изменения процессов голосования и статусов миссий.
+**Статус:** ✅ Завершен
+- [x] **Testcontainers Integration:** Настроить автоматическое поднятие PostgreSQL в Docker при запуске `vitest` для честных интеграционных тестов.
+- [x] **Graph Concurrency Tests:** Написать сценарии конкурентного доступа и оптимистичных блокировок для `GraphRepository`.
+- [x] **Governance & Mission Tests:** Покрыть интеграционными тестами транзакционные изменения процессов голосования и статусов миссий.
+
 
 
 ---

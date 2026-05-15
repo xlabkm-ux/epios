@@ -1,46 +1,34 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { PostgresWorkspaceRepository } from "../src/workspace.repository.js";
-import postgres from "postgres";
-import { drizzle, PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { Workspace, ConcurrencyError } from "@epios/domain";
+import { setupTestContainer } from "./container-setup.js";
+import { StartedPostgreSqlContainer } from "@testcontainers/postgresql";
+import postgres from "postgres";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
-describe("Repository Integration Tests", () => {
-  let queryClient: postgres.Sql;
+describe("Workspace Repository Integration Tests (Testcontainers)", () => {
+  let container: StartedPostgreSqlContainer;
   let db: PostgresJsDatabase;
+  let sql: postgres.Sql;
   let workspaceRepo: PostgresWorkspaceRepository;
 
-  let isDbAvailable = true;
-
   beforeAll(async () => {
-    const connectionString =
-      process.env.DATABASE_URL ||
-      "postgres://postgres:postgres@localhost:5432/epios_test";
-    queryClient = postgres(connectionString, { max: 1, connect_timeout: 1 });
-    db = drizzle(queryClient);
+    const setup = await setupTestContainer();
+    container = setup.container;
+    db = setup.db;
+    sql = setup.sql;
     workspaceRepo = new PostgresWorkspaceRepository(db);
-
-    try {
-      await queryClient`SELECT 1`;
-    } catch (e) {
-      isDbAvailable = false;
-      console.warn(
-        "Postgres is not available. Integration tests will be skipped.",
-      );
-    }
-  });
+  }, 120000);
 
   afterAll(async () => {
-    if (queryClient) {
-      await queryClient.end();
-    }
+    if (sql) await sql.end();
+    if (container) await container.stop();
   });
 
   it("should handle optimistic concurrency on Workspace updates", async () => {
-    if (!isDbAvailable) return;
-
-    // Create a new workspace
+    const workspaceId = "test-workspace-concurrency-" + Date.now();
     const workspace = new Workspace({
-      id: "test-workspace-concurrency-" + Date.now(),
+      id: workspaceId,
       title: "Concurrency Test",
       status: "running",
       mode: "assisted",
@@ -57,49 +45,26 @@ describe("Repository Integration Tests", () => {
       version: 1,
     });
 
-    // We wrap in a try-catch to allow the test to pass if DB is not available
-    // (e.g. in environments without a running Postgres).
-    try {
-      await workspaceRepo.save(workspace);
+    await workspaceRepo.save(workspace);
 
-      // Fetch two instances of the same workspace to simulate concurrent processes
-      const instance1 = await workspaceRepo.findById(workspace.id);
-      const instance2 = await workspaceRepo.findById(workspace.id);
+    const instance1 = await workspaceRepo.findById(workspaceId);
+    const instance2 = await workspaceRepo.findById(workspaceId);
 
-      expect(instance1).not.toBeNull();
-      expect(instance2).not.toBeNull();
+    expect(instance1).not.toBeNull();
+    expect(instance2).not.toBeNull();
 
-      if (!instance1 || !instance2) return;
+    if (!instance1 || !instance2) return;
 
-      // Process 1 updates the workspace
-      instance1.updateTitle("Updated by Process 1");
-      await workspaceRepo.save(instance1);
+    instance1.updateTitle("Updated by Process 1");
+    await workspaceRepo.save(instance1);
 
-      // Process 2 tries to update the workspace with the old version
-      instance2.updateTitle("Updated by Process 2");
-
-      await expect(workspaceRepo.save(instance2)).rejects.toThrowError(
-        ConcurrencyError,
-      );
-    } catch (error: unknown) {
-      // If the error is a connection refused, we skip the test gracefully
-      const err = error as { code?: string; message?: string };
-      if (
-        err.code === "ECONNREFUSED" ||
-        (err.message && err.message.includes("connect"))
-      ) {
-        console.warn(
-          "Skipping DB integration test because Postgres is not available",
-        );
-        return;
-      }
-      throw error;
-    }
+    instance2.updateTitle("Updated by Process 2");
+    await expect(workspaceRepo.save(instance2)).rejects.toThrowError(
+      ConcurrencyError,
+    );
   });
 
   it("should handle idempotency (saving same state multiple times without failing)", async () => {
-    if (!isDbAvailable) return;
-
     const workspaceId = "test-workspace-idempotency-" + Date.now();
     const workspace = new Workspace({
       id: workspaceId,
@@ -119,34 +84,16 @@ describe("Repository Integration Tests", () => {
       version: 1,
     });
 
-    try {
-      // Initial save
-      await workspaceRepo.save(workspace);
+    await workspaceRepo.save(workspace);
 
-      // Save the exact same instance again without any updates (this won't update version because we didn't change it,
-      // but wait, save() usually updates version internally in our implementation, wait, no, the repository increments version).
-      // If we call save() with the SAME object, the version in the object is 1, but the DB expects version 1,
-      // so it updates and increments DB to 2.
-      // But the object itself in memory does NOT have version 2 unless we update it manually or fetch it again.
-      // Let's fetch it again to be safe.
-      const freshWorkspace = await workspaceRepo.findById(workspaceId);
-      expect(freshWorkspace).not.toBeNull();
+    const freshWorkspace = await workspaceRepo.findById(workspaceId);
+    expect(freshWorkspace).not.toBeNull();
 
-      if (freshWorkspace) {
-        freshWorkspace.updateTitle("New Title");
-        await workspaceRepo.save(freshWorkspace);
-        const finalWorkspace = await workspaceRepo.findById(workspaceId);
-        expect(finalWorkspace?.title).toBe("New Title");
-      }
-    } catch (error: unknown) {
-      const err = error as { code?: string; message?: string };
-      if (
-        err.code === "ECONNREFUSED" ||
-        (err.message && err.message.includes("connect"))
-      ) {
-        return;
-      }
-      throw error;
+    if (freshWorkspace) {
+      freshWorkspace.updateTitle("New Title");
+      await workspaceRepo.save(freshWorkspace);
+      const finalWorkspace = await workspaceRepo.findById(workspaceId);
+      expect(finalWorkspace?.title).toBe("New Title");
     }
   });
 });
