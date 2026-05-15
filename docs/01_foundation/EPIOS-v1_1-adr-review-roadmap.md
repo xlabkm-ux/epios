@@ -1,10 +1,10 @@
-Owner: @architect
+**Owner**: @architect
+**Status**: accepted_concept
 
 # EPIOS — v1.1 ADR Review Roadmap
 
 **Project:** Epistemic OS v1.1
 **Document ID:** `EPIOS-V1_1-ADR-REVIEW-ROADMAP`
-**Status:** Planning
 **Target Horizon:** 16 sprints
 
 ---

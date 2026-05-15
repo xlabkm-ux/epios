@@ -1,3 +1,6 @@
+**Owner**: @architect
+**Status**: accepted_contract
+
 # MCP ADR Review App Contracts
 
 Contracts for UI/MCP apps strictly bounded to the ADR Review Workspace.

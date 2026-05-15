@@ -2,6 +2,7 @@
 
 **Document ID**: `MCP-SEC-TEST-001`  
 **Status**: accepted  
+**Owner**: @architect  
 **Target**: `packages/api/src/mcp-bridge` & `apps/demo-shell`
 
 ## 1. Objective

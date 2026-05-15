@@ -1,3 +1,6 @@
+**Owner**: @architect
+**Status**: accepted_contract
+
 # ADR Review Artifact Patch Contract
 
 Contract for patching an ADR.

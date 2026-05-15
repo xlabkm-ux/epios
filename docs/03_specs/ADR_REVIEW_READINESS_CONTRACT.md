@@ -1,3 +1,6 @@
+**Owner**: @architect
+**Status**: accepted_contract
+
 # ADR Review Readiness Contract
 
 Explicit contract for readiness assessment.

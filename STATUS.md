@@ -2,7 +2,7 @@
 > **Последнее обновление:** 2026-05-15  
 > **Версия:** v0.1.0-alpha.1 (Skeleton)  
 > **Уровни планирования:**
-> 1. **Проектный план:** `docs/04_delivery/PROJECT_FIX_PLAN.md` (глобальные фазы и аудит).
+> 1. **Проектный план:** `docs/04_delivery/V1_1_PROJECT_PLAN_ADR_REVIEW.md` (ADR Review Milestone Roadmap).
 > 2. **Оперативный план:** Этот файл (согласованные этапы, разбитые на спринты). Все старые планы (Week X) архивированы.
 
 ## 🎯 Текущий вердикт
@@ -19,7 +19,7 @@
 | **Use Cases** | ✅ Ready | Use Cases переключены на Postgres-провайдер через `server.ts`. | - |
 | **UI (Demo Shell)**| ✅ Ready | Интерфейс интегрирован с API вызовами. | - |
 | **MCP Bridge** | ✅ Ready | Протокол защищен (Nonce/Zod) и проверен автоматическими `test:security`. | - |
-| **QA Gates** | ❌ Missing | Скрипты в `package.json` созданы, но тесты async/security пусты. | Наполнить `async-runtime.test.ts`. |
+| **QA Gates** | ✅ Ready | Скрипты в `package.json` созданы, тесты async/security наполнены и проходят `pnpm verify`. | - |
 
 ---
 

@@ -6,7 +6,9 @@
 Status: `accepted_contract` (после ревью)
 Binding Level: `Mandatory`
 
-> **Note**: This is the milestone/release roadmap. Active sprint execution lives in GitHub Issues.
+> **Note**: This is the milestone/release roadmap. 
+> **Canonical project plan** = [EPIOS_v1_1_Master_Sprint_QA_Plan.md](./v1_1_qa_plan/EPIOS_v1_1_Master_Sprint_QA_Plan.md)
+> Active sprint execution lives in GitHub Issues.
 
 ## Milestones
 - **S1-S4:** core/domain/API stabilization
