@@ -1,4 +1,5 @@
 import { ValidationError } from "./errors.js";
+import { DomainEvent } from "./events.js";
 
 export type NodeType =
   | "claim"
@@ -31,12 +32,14 @@ export interface EpistemicNodeProps {
   strength: NodeStrength;
   evidence: EvidenceRef[];
   metadata: Record<string, unknown>;
+  version: number;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export class EpistemicNode {
   private props: EpistemicNodeProps;
+  private _domainEvents: DomainEvent[] = [];
 
   constructor(props: EpistemicNodeProps) {
     this.props = { ...props };
@@ -72,6 +75,9 @@ export class EpistemicNode {
   get metadata() {
     return this.props.metadata;
   }
+  get version() {
+    return this.props.version;
+  }
   get createdAt() {
     return this.props.createdAt;
   }
@@ -79,38 +85,73 @@ export class EpistemicNode {
     return this.props.updatedAt;
   }
 
+  public toJSON() {
+    return this.toProps();
+  }
+
+  get domainEvents() {
+    return [...this._domainEvents];
+  }
+
+  public clearDomainEvents() {
+    this._domainEvents = [];
+  }
+
+  protected addEvent(type: string, payload: Record<string, unknown>) {
+    this._domainEvents.push({
+      type,
+      payload,
+      occurredAt: new Date(),
+    });
+  }
+
   public updateContent(content: string): void {
     if (!content.trim()) throw new ValidationError("NODE_CONTENT_REQUIRED");
+    const oldContent = this.props.content;
     this.props.content = content;
     this.props.updatedAt = new Date();
+    this.props.version++;
+
+    this.addEvent("node.content_updated", {
+      nodeId: this.id,
+      oldContent,
+      newContent: content,
+    });
   }
 
   public setStrength(strength: NodeStrength): void {
+    const oldStrength = this.props.strength;
     this.props.strength = strength;
     this.props.updatedAt = new Date();
+    this.props.version++;
+
+    this.addEvent("node.strength_updated", {
+      nodeId: this.id,
+      oldStrength,
+      newStrength: strength,
+    });
   }
 
   public addEvidence(evidence: EvidenceRef): void {
     this.props.evidence = [...this.props.evidence, evidence];
     this.props.updatedAt = new Date();
+    this.props.version++;
   }
 
   public updateMetadata(metadata: Record<string, unknown>): void {
     this.props.metadata = { ...this.props.metadata, ...metadata };
     this.props.updatedAt = new Date();
+    this.props.version++;
   }
 
   public replaceEvidence(evidence: EvidenceRef[]): void {
     this.props.evidence = [...evidence];
     this.props.updatedAt = new Date();
+    this.props.version++;
   }
 
   public toProps(): EpistemicNodeProps {
     return { ...this.props };
-  }
-
-  public toJSON() {
-    return this.toProps();
   }
 }
 

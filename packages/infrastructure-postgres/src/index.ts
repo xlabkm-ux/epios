@@ -8,3 +8,6 @@ export * from "./graph.repository.js";
 export * from "./source.repository.js";
 export * from "./rating.repository.js";
 export * from "./identity.repository.js";
+export * from "./governance.repository.js";
+export * from "./outbox.repository.js";
+export * from "./unit-of-work.js";

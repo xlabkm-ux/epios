@@ -29,7 +29,7 @@ function createWorkspaceEData(): {
   edges: EpistemicEdge[];
 } {
   const workspaceEId = "m5";
-  const nodes: EpistemicNode[] = Array.from({ length: 50 }, (_, i) => ({
+  const nodes: EpistemicNodeProps[] = Array.from({ length: 50 }, (_, i) => ({
     id: `ne${i + 1}`,
     workspaceId: workspaceEId,
     type: (i % 3 === 0
@@ -50,6 +50,7 @@ function createWorkspaceEData(): {
     strength: "moderate" as NodeStrength,
     evidence: [],
     metadata: {},
+    version: 1,
     createdAt: new Date(),
     updatedAt: new Date(),
   }));
@@ -85,7 +86,7 @@ function createRussianDemoData(): {
   nodes: EpistemicNode[];
   edges: EpistemicEdge[];
 } {
-  const nodes: EpistemicNode[] = [
+  const nodes: EpistemicNodeProps[] = [
     // m7: 10 nodes
     ...Array.from({ length: 10 }, (_, i) => ({
       id: `ws7-n${i}`,
@@ -106,6 +107,7 @@ function createRussianDemoData(): {
       strength: "moderate" as NodeStrength,
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     })),
@@ -130,6 +132,7 @@ function createRussianDemoData(): {
       strength: "moderate" as NodeStrength,
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     })),
@@ -154,6 +157,7 @@ function createRussianDemoData(): {
       strength: "strong" as NodeStrength,
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     })),
@@ -355,7 +359,7 @@ export function createMockData(): MockData {
     },
   ].map((p) => new Workspace(p as WorkspaceProps));
 
-  const baseNodes: EpistemicNode[] = [
+  const baseNodes: EpistemicNodeProps[] = [
     // Scenario A
     {
       id: "n1",
@@ -366,6 +370,7 @@ export function createMockData(): MockData {
       strength: "moderate",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -377,6 +382,7 @@ export function createMockData(): MockData {
       strength: "strong",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -388,6 +394,7 @@ export function createMockData(): MockData {
       strength: "strong",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -399,6 +406,7 @@ export function createMockData(): MockData {
       strength: "moderate",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -411,6 +419,7 @@ export function createMockData(): MockData {
       strength: "moderate",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -422,6 +431,7 @@ export function createMockData(): MockData {
       strength: "strong",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -433,6 +443,7 @@ export function createMockData(): MockData {
       strength: "moderate",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -445,6 +456,7 @@ export function createMockData(): MockData {
       strength: "strong",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -456,6 +468,7 @@ export function createMockData(): MockData {
       strength: "moderate",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -468,6 +481,7 @@ export function createMockData(): MockData {
       strength: "strong",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -479,6 +493,7 @@ export function createMockData(): MockData {
       strength: "moderate",
       evidence: [],
       metadata: {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },

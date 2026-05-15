@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { randomUUID } from "node:crypto";
-import { GovernanceRepositoryPort, GraphRepositoryPort } from "@epios/ports";
+import { UnitOfWorkPort, OutboxMessage } from "@epios/ports";
 import { auditLogger } from "@epios/observability";
-import { ApplyPatchUseCase } from "./apply-patch.js";
+import { DomainEvent } from "@epios/domain";
 
 export interface CastVoteRequest {
   nodeId: string;
@@ -11,103 +12,132 @@ export interface CastVoteRequest {
 }
 
 export class CastVoteUseCase {
-  private applyPatchUseCase: ApplyPatchUseCase;
-
-  constructor(
-    private governanceRepo: GovernanceRepositoryPort,
-    private graphRepo: GraphRepositoryPort,
-  ) {
-    this.applyPatchUseCase = new ApplyPatchUseCase(governanceRepo, graphRepo);
-  }
+  constructor(private readonly uowProvider: UnitOfWorkPort) {}
 
   async execute(request: CastVoteRequest): Promise<void> {
-    const governanceProcess = await this.governanceRepo.findProcessByNodeId(
-      request.nodeId,
-    );
-    if (!governanceProcess) {
-      throw new Error("GOVERNANCE_PROCESS_NOT_FOUND");
-    }
+    await this.uowProvider.runInTransaction(async (uow) => {
+      const governanceProcess =
+        await uow.governanceRepository.findProcessByNodeId(request.nodeId);
+      if (!governanceProcess) {
+        throw new Error("GOVERNANCE_PROCESS_NOT_FOUND");
+      }
 
-    governanceProcess.castVote({
-      actorId: request.actorId,
-      decision: request.decision,
-      rationale: request.rationale,
-      timestamp: new Date(),
-    });
+      governanceProcess.castVote({
+        actorId: request.actorId,
+        decision: request.decision,
+        rationale: request.rationale,
+        timestamp: new Date(),
+      });
 
-    auditLogger.log({
-      actorId: request.actorId,
-      action: "cast_vote",
-      targetId: request.nodeId,
-      metadata: { decision: request.decision, rationale: request.rationale },
-    });
+      auditLogger.log({
+        actorId: request.actorId,
+        action: "cast_vote",
+        targetId: request.nodeId,
+        metadata: { decision: request.decision, rationale: request.rationale },
+      });
 
-    // Log trace event for the vote
-    await this.governanceRepo.saveTraceEvent({
-      id: randomUUID(),
-      workspaceId: governanceProcess.workspaceId,
-      type: "vote_cast",
-      actorId: request.actorId,
-      targetId: request.nodeId,
-      metadata: { decision: request.decision, rationale: request.rationale },
-      timestamp: new Date(),
-    });
+      // Log trace event for the vote
+      await uow.governanceRepository.saveTraceEvent({
+        id: randomUUID(),
+        workspaceId: governanceProcess.workspaceId,
+        type: "vote_cast",
+        actorId: request.actorId,
+        targetId: request.nodeId,
+        metadata: { decision: request.decision, rationale: request.rationale },
+        timestamp: new Date(),
+      });
 
-    // Check if governanceProcess was finalized
-    if (governanceProcess.status === "approved") {
-      // Check if this is a Patch governance — delegate to ApplyPatchUseCase
-      const patch = await this.governanceRepo.findPatchById(request.nodeId);
-      if (patch && patch.status === "pending") {
-        await this.applyPatchUseCase.execute({
-          patchId: patch.id,
-          actorId: request.actorId,
-        });
-      } else if (!patch) {
-        // Regular node (Claim) — strengthen on approval
-        const node = await this.graphRepo.findNodeById(request.nodeId);
-        if (node) {
-          node.setStrength("strong");
-          await this.graphRepo.saveNode(node);
+      // Check if governanceProcess was finalized
+      if (governanceProcess.status === "approved") {
+        const patch = await uow.governanceRepository.findPatchById(
+          request.nodeId,
+        );
+        if (patch && patch.status === "pending") {
+          // Apply patch logic directly here to keep it within the same transaction
+          patch.apply();
+          await uow.governanceRepository.savePatch(patch);
+
+          const node = await uow.graphRepository.findNodeById(
+            patch.targetNodeId,
+          );
+          if (node) {
+            node.updateContent(patch.content);
+            await uow.graphRepository.saveNode(node);
+
+            // Collect events from node
+            await this.persistEvents(uow, node.domainEvents);
+            node.clearDomainEvents();
+          }
+        } else if (!patch) {
+          // Regular node (Claim) - strengthen on approval
+          const node = await uow.graphRepository.findNodeById(request.nodeId);
+          if (node) {
+            node.setStrength("strong");
+            await uow.graphRepository.saveNode(node);
+
+            // Collect events from node
+            await this.persistEvents(uow, node.domainEvents);
+            node.clearDomainEvents();
+          }
         }
+
+        // Log governance approved event
+        await uow.governanceRepository.saveTraceEvent({
+          id: randomUUID(),
+          workspaceId: governanceProcess.workspaceId,
+          type: "governance_approved",
+          actorId: "system",
+          targetId: request.nodeId,
+          metadata: {
+            approvals: governanceProcess.votes.filter(
+              (v) => v.decision === "approve",
+            ).length,
+          },
+          timestamp: new Date(),
+        });
+      } else if (governanceProcess.status === "rejected") {
+        const patch = await uow.governanceRepository.findPatchById(
+          request.nodeId,
+        );
+        if (patch) {
+          patch.reject();
+          await uow.governanceRepository.savePatch(patch);
+        }
+
+        // Log governance rejected event
+        await uow.governanceRepository.saveTraceEvent({
+          id: randomUUID(),
+          workspaceId: governanceProcess.workspaceId,
+          type: "governance_rejected",
+          actorId: "system",
+          targetId: request.nodeId,
+          metadata: {
+            rejections: governanceProcess.votes.filter(
+              (v) => v.decision === "reject",
+            ).length,
+          },
+          timestamp: new Date(),
+        });
       }
 
-      // Log governanceProcess approved event
-      await this.governanceRepo.saveTraceEvent({
-        id: randomUUID(),
-        workspaceId: governanceProcess.workspaceId,
-        type: "governance_approved",
-        actorId: "system",
-        targetId: request.nodeId,
-        metadata: {
-          approvals: governanceProcess.votes.filter(
-            (v) => v.decision === "approve",
-          ).length,
-        },
-        timestamp: new Date(),
-      });
-    } else if (governanceProcess.status === "rejected") {
-      const patch = await this.governanceRepo.findPatchById(request.nodeId);
-      if (patch) {
-        patch.reject();
-        await this.governanceRepo.savePatch(patch);
-      }
+      await uow.governanceRepository.saveProcess(governanceProcess);
 
-      // Log governanceProcess rejected event
-      await this.governanceRepo.saveTraceEvent({
+      // Collect and persist events from governance process
+      await this.persistEvents(uow, governanceProcess.domainEvents);
+      governanceProcess.clearDomainEvents();
+    });
+  }
+
+  private async persistEvents(uow: any, events: DomainEvent[]): Promise<void> {
+    for (const event of events) {
+      const message: OutboxMessage = {
         id: randomUUID(),
-        workspaceId: governanceProcess.workspaceId,
-        type: "governance_rejected",
-        actorId: "system",
-        targetId: request.nodeId,
-        metadata: {
-          rejections: governanceProcess.votes.filter(
-            (v) => v.decision === "reject",
-          ).length,
-        },
-        timestamp: new Date(),
-      });
+        type: event.type,
+        payload: event.payload,
+        status: "pending",
+        createdAt: event.occurredAt,
+      };
+      await uow.outboxRepository.save(message);
     }
-
-    await this.governanceRepo.saveProcess(governanceProcess);
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { CreateWorkspaceUseCase } from "../src/use-cases/create-workspace.js";
 import { AddNodeUseCase } from "../src/use-cases/add-node.js";
@@ -40,6 +41,20 @@ const mockGovernanceRepo = {
   getLatestVersion: vi.fn(),
   saveReadiness: vi.fn(),
 } as unknown as GovernanceRepositoryPort;
+const mockOutboxRepo = {
+  save: vi.fn(),
+} as any;
+
+const mockUnitOfWork = {
+  workspaceRepository: mockWorkspaceRepo,
+  graphRepository: mockGraphRepo,
+  governanceRepository: mockGovernanceRepo,
+  outboxRepository: mockOutboxRepo,
+} as any;
+
+const mockUowProvider = {
+  runInTransaction: vi.fn((fn) => fn(mockUnitOfWork)),
+} as unknown as UnitOfWorkPort;
 
 describe("Use Cases", () => {
   beforeEach(() => {
@@ -186,7 +201,7 @@ describe("Use Cases", () => {
 
   describe("SubmitClaimUseCase", () => {
     it("should submit a claim and create a governance process", async () => {
-      const useCase = new SubmitClaimUseCase(mockGraphRepo, mockGovernanceRepo);
+      const useCase = new SubmitClaimUseCase(mockUowProvider);
       const request = {
         workspaceId: "workspace-1",
         content: "New Claim Content",
@@ -203,7 +218,7 @@ describe("Use Cases", () => {
 
   describe("CastVoteUseCase", () => {
     it("should cast a vote and keep status as pending if threshold not met", async () => {
-      const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
+      const useCase = new CastVoteUseCase(mockUowProvider);
       const mockProcess = new GovernanceProcess({
         nodeId: "node-1",
         workspaceId: "workspace-1",
@@ -231,7 +246,7 @@ describe("Use Cases", () => {
     });
 
     it("should finalize process as approved if threshold met", async () => {
-      const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
+      const useCase = new CastVoteUseCase(mockUowProvider);
       const mockProcess = new GovernanceProcess({
         nodeId: "node-1",
         workspaceId: "workspace-1",
@@ -277,7 +292,7 @@ describe("Use Cases", () => {
     });
 
     it("should finalize process as rejected if rejection threshold met", async () => {
-      const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
+      const useCase = new CastVoteUseCase(mockUowProvider);
       const mockProcess = new GovernanceProcess({
         nodeId: "node-1",
         workspaceId: "workspace-1",
@@ -307,7 +322,7 @@ describe("Use Cases", () => {
     });
 
     it("should throw if process not found", async () => {
-      const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
+      const useCase = new CastVoteUseCase(mockUowProvider);
       vi.mocked(mockGovernanceRepo.findProcessByNodeId).mockResolvedValue(null);
 
       const request = {
@@ -322,7 +337,7 @@ describe("Use Cases", () => {
     });
 
     it("should throw if process already finalized", async () => {
-      const useCase = new CastVoteUseCase(mockGovernanceRepo, mockGraphRepo);
+      const useCase = new CastVoteUseCase(mockUowProvider);
       vi.mocked(mockGovernanceRepo.findProcessByNodeId).mockResolvedValue(
         new GovernanceProcess({
           nodeId: "node-1",

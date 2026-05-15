@@ -1,4 +1,5 @@
 import { ValidationError, InvalidTransitionError } from "./errors.js";
+import { DomainEvent } from "./events.js";
 import { EpistemicNode } from "./node.js";
 
 export type ApprovalStatus = "pending" | "approved" | "rejected";
@@ -16,6 +17,7 @@ export interface GovernanceProcessProps {
   status: ApprovalStatus;
   votes: Vote[];
   requiredVotes: number;
+  version: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -23,6 +25,7 @@ export interface GovernanceProcessProps {
 export class GovernanceProcess {
   protected props: GovernanceProcessProps;
   private _status: ApprovalStatus;
+  private _domainEvents: DomainEvent[] = [];
 
   constructor(props: GovernanceProcessProps) {
     this.props = { ...props, votes: [...props.votes] };
@@ -53,6 +56,9 @@ export class GovernanceProcess {
   get requiredVotes() {
     return this.props.requiredVotes;
   }
+  get version() {
+    return this.props.version;
+  }
   get createdAt() {
     return this.props.createdAt;
   }
@@ -60,12 +66,34 @@ export class GovernanceProcess {
     return this.props.updatedAt;
   }
 
+  public toJSON() {
+    return this.toProps();
+  }
+
+  get domainEvents() {
+    return [...this._domainEvents];
+  }
+
+  public clearDomainEvents() {
+    this._domainEvents = [];
+  }
+
+  protected addEvent(type: string, payload: Record<string, unknown>) {
+    this._domainEvents.push({
+      type,
+      payload,
+      occurredAt: new Date(),
+    });
+  }
+
   public castVote(vote: Vote): void {
     if (this._status !== "pending") {
       throw new InvalidTransitionError(this._status, "finalized");
     }
 
-    // Business rule: one vote per actor (can be enforced here or in use case)
+    const oldStatus = this._status;
+
+    // Business rule: one vote per actor
     const existingVoteIdx = this.props.votes.findIndex(
       (v) => v.actorId === vote.actorId,
     );
@@ -77,6 +105,21 @@ export class GovernanceProcess {
 
     this.updateStatus();
     this.props.updatedAt = new Date();
+    this.props.version++;
+
+    this.addEvent("governance.vote_cast", {
+      nodeId: this.nodeId,
+      actorId: vote.actorId,
+      decision: vote.decision,
+    });
+
+    if (this._status !== oldStatus) {
+      this.addEvent("governance.status_changed", {
+        nodeId: this.nodeId,
+        oldStatus,
+        newStatus: this._status,
+      });
+    }
   }
 
   private updateStatus(): void {
@@ -101,10 +144,6 @@ export class GovernanceProcess {
       votes: [...this.props.votes],
     };
   }
-
-  public toJSON() {
-    return this.toProps();
-  }
 }
 
 /**
@@ -121,6 +160,7 @@ export interface NodePatchProps {
   authorId: string;
   content: string;
   status: "pending" | "applied" | "rejected";
+  version: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -156,15 +196,20 @@ export class NodePatch {
   get updatedAt() {
     return this.props.updatedAt;
   }
+  get version() {
+    return this.props.version;
+  }
 
   public apply(): void {
     this.props.status = "applied";
     this.props.updatedAt = new Date();
+    this.props.version++;
   }
 
   public reject(): void {
     this.props.status = "rejected";
     this.props.updatedAt = new Date();
+    this.props.version++;
   }
 
   public toProps(): NodePatchProps {

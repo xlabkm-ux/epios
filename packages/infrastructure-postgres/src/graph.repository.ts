@@ -4,19 +4,21 @@ import {
   NodeType,
   NodeStrength,
   EpistemicEdgeType,
+  ConcurrencyError,
 } from "@epios/domain";
 import { GraphRepositoryPort } from "@epios/ports";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { epistemicNodes, epistemicEdges } from "./schema.js";
-import { eq } from "drizzle-orm";
+import { eq, sql, and } from "drizzle-orm";
 
 export class PostgresGraphRepository implements GraphRepositoryPort {
   constructor(private readonly db: PostgresJsDatabase) {}
 
   async saveNode(node: EpistemicNode): Promise<void> {
-    await this.db
-      .insert(epistemicNodes)
-      .values({
+    const existing = await this.findNodeById(node.id);
+
+    if (!existing) {
+      await this.db.insert(epistemicNodes).values({
         id: node.id,
         workspaceId: node.workspaceId,
         type: node.type,
@@ -26,18 +28,34 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
         metadata: node.metadata,
         createdAt: node.createdAt,
         updatedAt: node.updatedAt,
-      })
-      .onConflictDoUpdate({
-        target: epistemicNodes.id,
-        set: {
+        version: 1,
+      });
+    } else {
+      const result = await this.db
+        .update(epistemicNodes)
+        .set({
           type: node.type,
           content: node.content,
           strength: node.strength,
           evidence: node.evidence,
           metadata: node.metadata,
           updatedAt: node.updatedAt,
-        },
-      });
+          version: sql`${epistemicNodes.version} + 1`,
+        })
+        .where(
+          and(
+            eq(epistemicNodes.id, node.id),
+            eq(epistemicNodes.version, node.version),
+          ),
+        )
+        .returning();
+
+      if (result.length === 0) {
+        throw new ConcurrencyError(
+          `Node ${node.id} was modified by another process (expected version ${node.version})`,
+        );
+      }
+    }
   }
 
   async saveEdge(edge: EpistemicEdge): Promise<void> {
@@ -96,6 +114,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
           metadata: record.metadata as Record<string, unknown>,
           createdAt: record.createdAt,
           updatedAt: record.updatedAt,
+          version: record.version,
         }),
     );
   }
@@ -136,6 +155,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
       metadata: record.metadata as Record<string, unknown>,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
+      version: record.version,
     });
   }
 
@@ -174,6 +194,7 @@ export class PostgresGraphRepository implements GraphRepositoryPort {
           metadata: record.metadata as Record<string, unknown>,
           createdAt: record.createdAt,
           updatedAt: record.updatedAt,
+          version: record.version,
         }),
     );
   }

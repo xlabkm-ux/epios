@@ -32,6 +32,7 @@ export class ProposePatchUseCase {
       authorId: request.authorId,
       content: request.content,
       status: "pending",
+      version: 1,
       createdAt: now,
       updatedAt: now,
     });
@@ -41,7 +42,8 @@ export class ProposePatchUseCase {
       workspaceId: request.workspaceId,
       status: "pending",
       votes: [],
-      requiredVotes: request.requiredVotes || 2, // Default 2 votes for patches
+      requiredVotes: request.requiredVotes || 2,
+      version: 1,
       createdAt: now,
       updatedAt: now,
     });

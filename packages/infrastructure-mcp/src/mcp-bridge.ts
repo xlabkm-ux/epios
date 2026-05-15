@@ -1,5 +1,10 @@
 import { MCPBridgePort, MCPAppRegistryPort } from "@epios/ports";
+import { ExecuteToolSchema } from "./schemas.js";
 
+/**
+ * Hardened MCP Bridge implementation.
+ * Ensures all tool executions are validated against strict schemas.
+ */
 export class MockMCPBridge implements MCPBridgePort {
   constructor(private registry: MCPAppRegistryPort) {}
 
@@ -8,6 +13,14 @@ export class MockMCPBridge implements MCPBridgePort {
     toolName: string,
     args: Record<string, unknown>,
   ): Promise<unknown> {
+    // Directive 5.2: Strict validation of tool execution arguments
+    const validation = ExecuteToolSchema.safeParse({ appId, toolName, args });
+    if (!validation.success) {
+      throw new Error(
+        `Invalid MCP execution request: ${validation.error.message}`,
+      );
+    }
+
     const app = await this.registry.getApp(appId);
     if (!app) {
       throw new Error(`MCP Application ${appId} not found`);

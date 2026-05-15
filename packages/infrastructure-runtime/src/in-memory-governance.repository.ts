@@ -4,6 +4,7 @@ import {
   ReadinessAssessment,
   ArtifactVersion,
   TraceEvent,
+  ConcurrencyError,
 } from "@epios/domain";
 import { GovernanceRepositoryPort } from "@epios/ports";
 
@@ -15,6 +16,12 @@ export class InMemoryGovernanceRepository implements GovernanceRepositoryPort {
   private trace: TraceEvent[] = [];
 
   async saveProcess(process: GovernanceProcess): Promise<void> {
+    const existing = this.processes.get(process.nodeId);
+    if (existing && existing.version !== process.version) {
+      throw new ConcurrencyError(
+        `Process ${process.nodeId} concurrency conflict`,
+      );
+    }
     this.processes.set(process.nodeId, process);
   }
 
@@ -37,6 +44,10 @@ export class InMemoryGovernanceRepository implements GovernanceRepositoryPort {
   }
 
   async savePatch(patch: NodePatch): Promise<void> {
+    const existing = this.patches.get(patch.id);
+    if (existing && existing.version !== patch.version) {
+      throw new ConcurrencyError(`Patch ${patch.id} concurrency conflict`);
+    }
     this.patches.set(patch.id, patch);
   }
 

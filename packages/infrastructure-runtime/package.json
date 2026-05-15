@@ -7,6 +7,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@epios/ports": "workspace:*"
+    "@epios/ports": "workspace:*",
+    "@epios/domain": "workspace:*",
+    "@epios/observability": "workspace:*"
   }
 }

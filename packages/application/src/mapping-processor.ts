@@ -3,6 +3,7 @@ import {
   OutboxRepositoryPort,
   GraphRepositoryPort,
 } from "@epios/ports";
+import { EpistemicNode } from "@epios/domain";
 
 export class MappingProcessor {
   private intervalId: ReturnType<typeof setInterval> | null = null;
@@ -41,7 +42,7 @@ export class MappingProcessor {
 
         // Actually create a claim node
         const claimId = `claim-${runId}-${i}`;
-        await this.graphRepo.saveNode({
+        const node = new EpistemicNode({
           id: claimId,
           workspaceId,
           type: "claim",
@@ -56,9 +57,11 @@ export class MappingProcessor {
             },
           ],
           metadata: { runId },
+          version: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         });
+        await this.graphRepo.saveNode(node);
       }
 
       run.status = "completed";

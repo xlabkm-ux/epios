@@ -9,6 +9,9 @@ import {
   PostgresSourceRepository,
   PostgresRatingRepository,
   PostgresIdentityRepository,
+  PostgresGovernanceRepository,
+  PostgresOutboxRepository,
+  PostgresUnitOfWorkProvider,
 } from "@epios/infrastructure-postgres";
 import {
   CreateWorkspaceUseCase,
@@ -57,8 +60,10 @@ import {
   InMemoryMappingRepository,
   InMemoryOutboxRepository,
   InMemoryIdentityRepository,
+  InMemoryUnitOfWorkProvider,
   MockSecurityService,
   MOCK_ADRS,
+  OutboxWorker,
 } from "@epios/infrastructure-runtime";
 import {
   InMemoryMCPAppRegistry,
@@ -77,6 +82,7 @@ import {
   MCPBridgePort,
   SecurityPort,
   IdentityRepositoryPort,
+  UnitOfWorkPort,
 } from "@epios/ports";
 
 const envConfig = dotenv.config();
@@ -115,6 +121,11 @@ export function buildServer(deps: ServerDependencies = {}) {
     if (error.message === "NOT_FOUND" || error.message.includes("not found")) {
       return reply.status(404).send({ error: "Not Found", code: "NOT_FOUND" });
     }
+    if (error.name === "ConcurrencyError") {
+      return reply
+        .status(409)
+        .send({ error: error.message, code: "CONCURRENCY_CONFLICT" });
+    }
     return reply.status(500).send({ error: "Internal Server Error" });
   });
 
@@ -124,6 +135,8 @@ export function buildServer(deps: ServerDependencies = {}) {
   let ratingRepo: RatingRepositoryPort;
   let identityRepo: IdentityRepositoryPort;
   let governanceRepo: GovernanceRepositoryPort;
+  let outboxRepo: OutboxRepositoryPort;
+  let uowProvider: UnitOfWorkPort;
 
   const databaseUrl = process.env.DATABASE_URL;
   const isMockMode = process.env.EPIOS_DATABASE_MODE === "mock" || !databaseUrl;
@@ -138,6 +151,15 @@ export function buildServer(deps: ServerDependencies = {}) {
     ratingRepo = deps.ratingRepo ?? new InMemoryRatingRepository();
     identityRepo = deps.identityRepo ?? new InMemoryIdentityRepository();
     governanceRepo = deps.governanceRepo ?? new InMemoryGovernanceRepository();
+    outboxRepo = deps.outboxRepo ?? new InMemoryOutboxRepository();
+    uowProvider = new InMemoryUnitOfWorkProvider(
+      graphRepo,
+      governanceRepo,
+      workspaceRepo,
+      sourceRepo,
+      ratingRepo,
+      outboxRepo,
+    );
   } else {
     const queryClient = postgres(databaseUrl!);
     const db = drizzle(queryClient);
@@ -146,11 +168,13 @@ export function buildServer(deps: ServerDependencies = {}) {
     sourceRepo = deps.sourceRepo ?? new PostgresSourceRepository(db);
     ratingRepo = deps.ratingRepo ?? new PostgresRatingRepository(db);
     identityRepo = deps.identityRepo ?? new PostgresIdentityRepository(db);
-    governanceRepo = deps.governanceRepo ?? new InMemoryGovernanceRepository(); // Fallback for governance
+    governanceRepo =
+      deps.governanceRepo ?? new PostgresGovernanceRepository(db);
+    outboxRepo = deps.outboxRepo ?? new PostgresOutboxRepository(db);
+    uowProvider = new PostgresUnitOfWorkProvider(db);
   }
 
   const mappingRepo = deps.mappingRepo ?? new InMemoryMappingRepository();
-  const outboxRepo = deps.outboxRepo ?? new InMemoryOutboxRepository();
 
   // S2: Ensure non-null repositories (repos are now guaranteed defined)
   const createWorkspaceUseCase = new CreateWorkspaceUseCase(workspaceRepo);
@@ -169,19 +193,19 @@ export function buildServer(deps: ServerDependencies = {}) {
   const listADRsUseCase = new ListADRsUseCase(adrRepo);
   const getADRUseCase = new GetADRUseCase(adrRepo);
 
-  const submitClaimUseCase = new SubmitClaimUseCase(graphRepo, governanceRepo);
+  const submitClaimUseCase = new SubmitClaimUseCase(uowProvider);
   const proposePatchUseCase = new ProposePatchUseCase(
     governanceRepo,
     graphRepo,
   );
   const listPatchesUseCase = new ListPatchesUseCase(governanceRepo);
-  const castVoteUseCase = new CastVoteUseCase(governanceRepo, graphRepo);
+  const castVoteUseCase = new CastVoteUseCase(uowProvider);
   const assessReadinessUseCase = new AssessReadinessUseCase(
     governanceRepo,
     graphRepo,
   );
   const getReadinessUseCase = new GetReadinessUseCase(governanceRepo);
-  const applyPatchUseCase = new ApplyPatchUseCase(governanceRepo, graphRepo);
+  const applyPatchUseCase = new ApplyPatchUseCase(uowProvider);
   const getTraceUseCase = new GetTraceUseCase(governanceRepo);
 
   const mcpRegistry = deps.mcpRegistry ?? new InMemoryMCPAppRegistry();
@@ -222,6 +246,9 @@ export function buildServer(deps: ServerDependencies = {}) {
     graphRepo,
   );
   mappingProcessor.start();
+
+  const outboxWorker = new OutboxWorker(outboxRepo);
+  outboxWorker.start();
 
   // Register Routes
   app.register(workspaceRoutes, {

@@ -3,19 +3,21 @@ import {
   WorkspaceStatus,
   WorkspaceMode,
   WorkspaceSensitivity,
+  ConcurrencyError,
 } from "@epios/domain";
 import { WorkspaceRepositoryPort } from "@epios/ports";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { workspaces } from "./schema.js";
-import { eq } from "drizzle-orm";
+import { eq, sql, and } from "drizzle-orm";
 
 export class PostgresWorkspaceRepository implements WorkspaceRepositoryPort {
   constructor(private readonly db: PostgresJsDatabase) {}
 
   async save(workspace: Workspace): Promise<void> {
-    await this.db
-      .insert(workspaces)
-      .values({
+    const existing = await this.findById(workspace.id);
+
+    if (!existing) {
+      await this.db.insert(workspaces).values({
         id: workspace.id,
         title: workspace.title,
         status: workspace.status,
@@ -31,14 +33,15 @@ export class PostgresWorkspaceRepository implements WorkspaceRepositoryPort {
         createdById: workspace.createdBy.id,
         createdAt: workspace.createdAt,
         updatedAt: workspace.updatedAt,
-        version: workspace.version,
+        version: 1,
         isPinned: workspace.isPinned ?? false,
         archivedAt: workspace.archivedAt,
         archiveComment: workspace.archiveComment,
-      })
-      .onConflictDoUpdate({
-        target: workspaces.id,
-        set: {
+      });
+    } else {
+      const result = await this.db
+        .update(workspaces)
+        .set({
           title: workspace.title,
           status: workspace.status,
           mode: workspace.mode,
@@ -50,12 +53,25 @@ export class PostgresWorkspaceRepository implements WorkspaceRepositoryPort {
           unknowns: workspace.brief.unknowns,
           desiredArtifactType: workspace.desiredArtifactType,
           updatedAt: workspace.updatedAt,
-          version: workspace.version,
+          version: sql`${workspaces.version} + 1`,
           isPinned: workspace.isPinned ?? false,
           archivedAt: workspace.archivedAt,
           archiveComment: workspace.archiveComment,
-        },
-      });
+        })
+        .where(
+          and(
+            eq(workspaces.id, workspace.id),
+            eq(workspaces.version, workspace.version),
+          ),
+        )
+        .returning();
+
+      if (result.length === 0) {
+        throw new ConcurrencyError(
+          `Workspace ${workspace.id} was modified by another process (expected version ${workspace.version})`,
+        );
+      }
+    }
   }
 
   async findById(id: string): Promise<Workspace | null> {

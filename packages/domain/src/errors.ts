@@ -18,3 +18,10 @@ export class InvalidTransitionError extends DomainError {
     this.name = "InvalidTransitionError";
   }
 }
+
+export class ConcurrencyError extends DomainError {
+  constructor(message: string = "Entity was modified by another process") {
+    super(message);
+    this.name = "ConcurrencyError";
+  }
+}

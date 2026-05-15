@@ -51,6 +51,7 @@ export const epistemicNodes = pgTable("epistemic_nodes", {
   updatedAt: timestamp("updated_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
+  version: integer("version").notNull().default(1),
 });
 
 export const epistemicEdges = pgTable("epistemic_edges", {
@@ -106,4 +107,102 @@ export const identities = pgTable("identities", {
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
+});
+
+export const governanceProcesses = pgTable("governance_processes", {
+  nodeId: uuid("node_id")
+    .primaryKey()
+    .references(() => epistemicNodes.id, { onDelete: "cascade" }),
+  workspaceId: uuid("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
+  status: text("status").notNull(),
+  votes: jsonb("votes").notNull().default([]),
+  requiredVotes: integer("required_votes").notNull(),
+  patchId: uuid("patch_id").references(() => nodePatches.id, {
+    onDelete: "cascade",
+  }),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  version: integer("version").notNull().default(1),
+});
+
+export const nodePatches = pgTable("node_patches", {
+  id: uuid("id").primaryKey(),
+  targetNodeId: uuid("target_node_id")
+    .notNull()
+    .references(() => epistemicNodes.id, { onDelete: "cascade" }),
+  workspaceId: uuid("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
+  authorId: text("author_id").notNull(),
+  content: text("content").notNull(),
+  status: text("status").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  version: integer("version").notNull().default(1),
+});
+
+export const readinessAssessments = pgTable("readiness_assessments", {
+  id: uuid("id").primaryKey(),
+  workspaceId: uuid("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
+  profileId: text("profile_id").notNull(),
+  methodVersion: text("method_version").notNull(),
+  status: text("status").notNull(),
+  indicators: jsonb("indicators").notNull().default({}),
+  numericScore: integer("numeric_score"),
+  explanation: text("explanation").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const artifactVersions = pgTable("artifact_versions", {
+  id: uuid("id").primaryKey(),
+  artifactId: uuid("artifact_id").notNull(),
+  workspaceId: uuid("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
+  version: integer("version").notNull(),
+  content: text("content").notNull(),
+  authorId: text("author_id").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const traceEvents = pgTable("trace_events", {
+  id: uuid("id").primaryKey(),
+  workspaceId: uuid("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
+  type: text("type").notNull(),
+  actorId: text("actor_id").notNull(),
+  targetId: text("target_id").notNull(),
+  metadata: jsonb("metadata").notNull().default({}),
+  timestamp: timestamp("timestamp", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const outbox = pgTable("outbox", {
+  id: uuid("id").primaryKey(),
+  eventType: text("event_type").notNull(),
+  payload: jsonb("payload").notNull(),
+  status: text("status").notNull().default("pending"), // pending, processed, failed
+  error: text("error"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  processedAt: timestamp("processed_at", { withTimezone: true }),
 });

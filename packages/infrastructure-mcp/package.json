@@ -17,13 +17,14 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@epios/ports": "workspace:*",
     "@epios/domain": "workspace:*",
-    "@epios/observability": "workspace:*"
+    "@epios/observability": "workspace:*",
+    "@epios/ports": "workspace:*",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^1.6.1",
     "typescript": "^5.4.5",
-    "vitest": "^1.6.0",
-    "@vitest/coverage-v8": "^1.6.1"
+    "vitest": "^1.6.0"
   }
 }

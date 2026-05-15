@@ -6,6 +6,7 @@ import {
   Source,
   Rating,
   MappingRun,
+  ConcurrencyError,
 } from "@epios/domain";
 import {
   WorkspaceRepositoryPort,
@@ -120,6 +121,10 @@ export class InMemoryGraphRepository implements GraphRepositoryPort {
   }
 
   async saveNode(node: EpistemicNode): Promise<void> {
+    const existing = this.nodes.get(node.id);
+    if (existing && existing.version !== node.version) {
+      throw new ConcurrencyError(`Node ${node.id} concurrency conflict`);
+    }
     this.nodes.set(node.id, node);
   }
 

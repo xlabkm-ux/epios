@@ -14,6 +14,9 @@ import { Workspace, EpistemicNode, GovernanceProcess } from "@epios/domain";
 describe("API E2E", () => {
   let app: FastifyInstance;
 
+  // Directive 4.2/4.3: Ensure tests run in mock mode to avoid DB dependencies during CI
+  process.env.EPIOS_DATABASE_MODE = "mock";
+
   const mockWorkspaceRepo = {
     save: vi.fn(),
     findById: vi.fn(),
@@ -133,12 +136,16 @@ describe("API E2E", () => {
     const response = await app.inject({
       method: "POST",
       url: "/governance/claims",
+      headers: { "x-user-id": "admin-1" },
       payload: {
         workspaceId: "w1",
         content: "Governance Claim",
       },
     });
 
+    if (response.statusCode === 500) {
+      console.error("DEBUG SUBMIT CLAIM FAILURE:", response.payload);
+    }
     expect(response.statusCode).toBe(201);
     expect(mockGovernanceRepo.saveProcess).toHaveBeenCalled();
   });
@@ -156,9 +163,25 @@ describe("API E2E", () => {
       }),
     );
 
+    mockGraphRepo.findNodeById.mockResolvedValue(
+      new EpistemicNode({
+        id: "n1",
+        workspaceId: "w1",
+        type: "claim",
+        content: "Test",
+        strength: "none",
+        evidence: [],
+        metadata: {},
+        version: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    );
+
     const response = await app.inject({
       method: "POST",
       url: "/governance/votes",
+      headers: { "x-user-id": "admin-1" },
       payload: {
         nodeId: "n1",
         actorId: "v1",

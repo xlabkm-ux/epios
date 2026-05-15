@@ -141,7 +141,6 @@ export class Workspace {
     this.assertCanRun();
     this.props.status = "running";
     this.props.updatedAt = new Date();
-    this.props.version++;
   }
 
   public updateBrief(brief: Partial<WorkspaceBrief>): void {

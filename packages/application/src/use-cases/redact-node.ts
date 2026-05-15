@@ -41,17 +41,13 @@ export class RedactNodeUseCase {
       redactedContent = redactedContent.replace(regex, rule.replacement);
     }
 
-    const updatedNode: EpistemicNode = {
-      ...node,
-      content: redactedContent,
-      metadata: {
-        ...node.metadata,
-        redacted: true,
-        redactedAt: new Date().toISOString(),
-      },
-    };
+    node.updateContent(redactedContent);
+    node.updateMetadata({
+      redacted: true,
+      redactedAt: new Date().toISOString(),
+    });
 
-    await this.graphRepo.saveNode(updatedNode);
+    await this.graphRepo.saveNode(node);
 
     await this.security.logAudit({
       actorId: currentUser.id,
@@ -61,6 +57,6 @@ export class RedactNodeUseCase {
       details: { rulesApplied: rules.map((r) => r.id) },
     });
 
-    return updatedNode;
+    return node;
   }
 }

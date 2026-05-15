@@ -37,6 +37,7 @@ export class AddNodeUseCase {
       strength: request.strength ?? "none",
       evidence: request.evidence ?? [],
       metadata: request.metadata ?? {},
+      version: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     });

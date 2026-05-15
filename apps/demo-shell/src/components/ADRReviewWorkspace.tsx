@@ -13,6 +13,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useApi } from "../hooks/useApi";
 import { ReadinessPanel } from "./ReadinessPanel";
 import { GovernancePanel } from "./GovernancePanel";
+import { SecureMcpIframe } from "./SecureMcpIframe";
+import { API_BASE_URL } from "../api-config";
+import { useSecurity } from "../context/SecurityContext";
 
 interface ADR {
   id: string;
@@ -38,6 +41,8 @@ const ADRReviewWorkspace: React.FC = () => {
   const [flowStep, setFlowStep] = useState<FlowStep>("idle");
   const [localStatus, setLocalStatus] = useState<ADR["status"] | null>(null);
   const [showGovernance, setShowGovernance] = useState(false);
+  const [showExternalApproval, setShowExternalApproval] = useState(false);
+  const { currentUser } = useSecurity();
 
   useEffect(() => {
     if (adrs && adrs.length > 0 && !selectedAdrId) {
@@ -416,6 +421,32 @@ const ADRReviewWorkspace: React.FC = () => {
                   <ShieldCheck size={16} />
                   {showGovernance ? "View ADR" : "Governance"}
                 </button>
+
+                <button
+                  className="glass"
+                  onClick={() => setShowExternalApproval(!showExternalApproval)}
+                  style={{
+                    padding: "0.75rem 1.25rem",
+                    borderRadius: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    backgroundColor: showExternalApproval
+                      ? "var(--primary-alpha)"
+                      : "transparent",
+                    color: showExternalApproval
+                      ? "var(--primary)"
+                      : "var(--text-main)",
+                    border: showExternalApproval
+                      ? "1px solid var(--primary)"
+                      : "1px solid var(--border)",
+                  }}
+                >
+                  <Zap size={16} />
+                  {showExternalApproval ? "Close Bridge" : "External Approval"}
+                </button>
               </div>
             </div>
 
@@ -443,6 +474,90 @@ const ADRReviewWorkspace: React.FC = () => {
                     >
                       <ReadinessPanel workspaceId={selectedAdr.id} />
                       <GovernancePanel workspaceId={selectedAdr.id} minimal />
+                    </motion.div>
+                  ) : showExternalApproval ? (
+                    <motion.div
+                      key="external-approval"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      style={{
+                        height: "calc(100vh - 250px)",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "1.5rem",
+                      }}
+                    >
+                      <div
+                        className="premium-card"
+                        style={{ padding: "1.5rem", flex: 1 }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                            marginBottom: "1rem",
+                          }}
+                        >
+                          <ShieldCheck size={20} color="var(--primary)" />
+                          <h3 style={{ margin: 0, fontSize: "1rem" }}>
+                            Secure MCP Bridge: Approval App
+                          </h3>
+                        </div>
+                        <SecureMcpIframe
+                          appUrl="/approval-app.html"
+                          allowedOrigin={window.location.origin}
+                          onCommand={async (method, payload) => {
+                            console.log(
+                              `[Host] Received MCP command: ${method}`,
+                              payload,
+                            );
+
+                            if (method === "cast_vote") {
+                              const res = await fetch(
+                                `${API_BASE_URL}/governance/votes`,
+                                {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                    "x-user-id":
+                                      currentUser?.id || "observer-1",
+                                  },
+                                  body: JSON.stringify({
+                                    nodeId: selectedAdr.id,
+                                    actorId: currentUser?.id || "observer-1",
+                                    decision: payload.decision,
+                                    rationale: payload.rationale,
+                                  }),
+                                },
+                              );
+
+                              if (!res.ok) throw new Error("API_REJECTION");
+
+                              // Trigger UI update if needed
+                              if (payload.decision === "approve") {
+                                setLocalStatus("Accepted");
+                              }
+
+                              return { success: true };
+                            }
+
+                            throw new Error("METHOD_NOT_SUPPORTED");
+                          }}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "0.75rem",
+                          color: "var(--text-dim)",
+                          textAlign: "center",
+                          opacity: 0.5,
+                        }}
+                      >
+                        PROTOCOL: MCP v1.0 // SECURITY: SANDBOXED_IFRAME //
+                        ORIGIN: {window.location.origin}
+                      </div>
                     </motion.div>
                   ) : flowStep === "analyzing" ? (
                     <motion.div

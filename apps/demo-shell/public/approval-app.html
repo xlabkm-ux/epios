@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MCP Approval App</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #1a1a1a;
+            color: #eee;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .card {
+            background: #2a2a2a;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover { background: #2563eb; }
+        .status { font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h3>Approval App (Isolated)</h3>
+        <p>This app runs in a sandboxed iframe and communicates via MCP Bridge.</p>
+        <button id="submitVote">Cast Approval Vote</button>
+        <div id="status" class="status">Ready</div>
+    </div>
+
+    <script>
+        const targetOrigin = window.location.origin; // In real life, this would be the shell origin
+        
+        function uuidv4() {
+            return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+        }
+
+        document.getElementById('submitVote').addEventListener('click', () => {
+            const requestId = uuidv4();
+            document.getElementById('status').innerText = 'Sending request...';
+            
+            window.parent.postMessage({
+                type: 'MCP_REQUEST',
+                id: requestId,
+                method: 'cast_vote',
+                payload: {
+                    decision: 'approve',
+                    rationale: 'Verified via Isolated Approval App'
+                }
+            }, targetOrigin);
+        });
+
+        window.addEventListener('message', (event) => {
+            if (event.origin !== targetOrigin) return;
+            
+            const { type, id, status, data, error } = event.data;
+            if (type === 'MCP_RESPONSE') {
+                if (status === 'success') {
+                    document.getElementById('status').innerText = 'Success! Vote recorded.';
+                    document.getElementById('status').style.color = '#10b981';
+                } else {
+                    document.getElementById('status').innerText = 'Error: ' + error;
+                    document.getElementById('status').style.color = '#ef4444';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
