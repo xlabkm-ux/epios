@@ -12,6 +12,7 @@ export type SourceSpan = {
 
 export interface EvidenceRefProps {
   id: string;
+  workspaceId: string;
   missionId: string;
   sourceId: string;
   span?: SourceSpan;
@@ -33,21 +34,39 @@ export class EvidenceRef {
 
   private validate(): void {
     if (!this.props.id) throw new ValidationError("EVIDENCE_REF_ID_REQUIRED");
+    if (!this.props.workspaceId)
+      throw new ValidationError("WORKSPACE_ID_REQUIRED");
     if (!this.props.missionId) throw new ValidationError("MISSION_ID_REQUIRED");
     if (!this.props.sourceId) throw new ValidationError("SOURCE_ID_REQUIRED");
   }
 
-  get id() { return this.props.id; }
-  get missionId() { return this.props.missionId; }
-  get sourceId() { return this.props.sourceId; }
-  get citationStatus() { return this.props.citationStatus; }
-  get supportsNodeIds() { return [...this.props.supportsNodeIds]; }
+  get id() {
+    return this.props.id;
+  }
+  get workspaceId() {
+    return this.props.workspaceId;
+  }
+  get missionId() {
+    return this.props.missionId;
+  }
+  get sourceId() {
+    return this.props.sourceId;
+  }
+  get citationStatus() {
+    return this.props.citationStatus;
+  }
+  get supportsNodeIds() {
+    return [...this.props.supportsNodeIds];
+  }
 
-  public toProps(): EvidenceRefProps { return { ...this.props }; }
+  public toProps(): EvidenceRefProps {
+    return { ...this.props };
+  }
 }
 
 export interface EvidenceSetProps {
   id: string;
+  workspaceId: string;
   missionId: string;
   evidenceIds: string[];
   version: number;
@@ -60,13 +79,26 @@ export class EvidenceSet {
   constructor(props: EvidenceSetProps) {
     this.props = { ...props };
     if (!this.props.id) throw new ValidationError("EVIDENCE_SET_ID_REQUIRED");
+    if (!this.props.workspaceId)
+      throw new ValidationError("WORKSPACE_ID_REQUIRED");
     if (!this.props.missionId) throw new ValidationError("MISSION_ID_REQUIRED");
   }
 
-  get id() { return this.props.id; }
-  get missionId() { return this.props.missionId; }
-  get evidenceIds() { return [...this.props.evidenceIds]; }
-  get version() { return this.props.version; }
+  get id() {
+    return this.props.id;
+  }
+  get workspaceId() {
+    return this.props.workspaceId;
+  }
+  get missionId() {
+    return this.props.missionId;
+  }
+  get evidenceIds() {
+    return [...this.props.evidenceIds];
+  }
+  get version() {
+    return this.props.version;
+  }
 
   public addEvidence(evidenceId: string): void {
     if (this.props.evidenceIds.includes(evidenceId)) return;
@@ -75,5 +107,7 @@ export class EvidenceSet {
     this.props.version++;
   }
 
-  public toProps(): EvidenceSetProps { return { ...this.props }; }
+  public toProps(): EvidenceSetProps {
+    return { ...this.props };
+  }
 }

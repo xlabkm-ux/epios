@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   GovernanceProcess,
+  GovernanceStatus,
   NodePatch,
   ReadinessAssessment,
   ArtifactVersion,
@@ -76,7 +77,7 @@ export class PostgresGovernanceRepository implements GovernanceRepositoryPort {
     return new GovernanceProcess({
       nodeId: record.nodeId,
       workspaceId: record.workspaceId,
-      status: record.status as ApprovalStatus,
+      status: record.status as GovernanceStatus,
       votes: record.votes as any[],
       requiredVotes: record.requiredVotes,
       createdAt: record.createdAt,
@@ -98,7 +99,7 @@ export class PostgresGovernanceRepository implements GovernanceRepositoryPort {
         new GovernanceProcess({
           nodeId: record.nodeId,
           workspaceId: record.workspaceId,
-          status: record.status as ApprovalStatus,
+          status: record.status as GovernanceStatus,
           votes: record.votes as any[],
           requiredVotes: record.requiredVotes,
           createdAt: record.createdAt,
@@ -119,7 +120,7 @@ export class PostgresGovernanceRepository implements GovernanceRepositoryPort {
         new GovernanceProcess({
           nodeId: record.nodeId,
           workspaceId: record.workspaceId,
-          status: record.status as ApprovalStatus,
+          status: record.status as GovernanceStatus,
           votes: record.votes as any[],
           requiredVotes: record.requiredVotes,
           createdAt: record.createdAt,
@@ -289,7 +290,10 @@ export class PostgresGovernanceRepository implements GovernanceRepositoryPort {
       workspaceId: version.workspaceId,
       version: version.version,
       content: version.content,
+      contentHash: "",
       authorId: version.authorId,
+      createdByType: "user",
+      createdById: version.authorId,
       createdAt: version.createdAt,
     });
   }

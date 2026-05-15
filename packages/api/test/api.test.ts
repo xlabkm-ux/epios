@@ -139,6 +139,7 @@ describe("API E2E", () => {
       method: "POST",
       url: "/workspaces/workspace-1/nodes",
       payload: {
+        missionId: "mission-1",
         type: "claim",
         content: "Test Claim",
       },
@@ -155,6 +156,7 @@ describe("API E2E", () => {
       headers: { "x-user-id": "admin-1" },
       payload: {
         workspaceId: "w1",
+        missionId: "m1",
         content: "Governance Claim",
       },
     });
@@ -180,6 +182,7 @@ describe("API E2E", () => {
       new EpistemicNode({
         id: "n1",
         workspaceId: "w1",
+        missionId: "m1",
         type: "claim",
         content: "Test",
         strength: "none",
@@ -209,6 +212,7 @@ describe("API E2E", () => {
       new EpistemicNode({
         id: "node-1",
         workspaceId: "workspace-1",
+        missionId: "m1",
         type: "claim",
         content: "Old Content",
         strength: "none",

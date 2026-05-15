@@ -23,7 +23,10 @@ import { PostgresSourceRepository } from "./source.repository.js";
 import { PostgresRatingRepository } from "./rating.repository.js";
 import { PostgresGovernanceRepository } from "./governance.repository.js";
 import { PostgresOutboxRepository } from "./outbox.repository.js";
-import { PostgresMissionRepository, PostgresMissionRunRepository } from "./mission.repository.js";
+import {
+  PostgresMissionRepository,
+  PostgresMissionRunRepository,
+} from "./mission.repository.js";
 import { PostgresEvidenceRepository } from "./evidence.repository.js";
 
 /**
@@ -65,11 +68,13 @@ export class PostgresUnitOfWorkProvider implements UnitOfWorkPort {
         new PostgresOutboxRepository(tx as any),
         new PostgresMissionRepository(tx as any),
         new PostgresMissionRunRepository(tx as any),
-        new PostgresEvidenceRepository(tx as any) as any,
-        null as any, // artifactRepository
-        null as any, // decisionRepository
-        null as any, // approvalRepository
-        null as any, // mappingRepository
+        new PostgresEvidenceRepository(
+          tx as any,
+        ) as unknown as EvidenceRepositoryPort,
+        null as unknown as ArtifactRepositoryPort,
+        null as unknown as DecisionRepositoryPort,
+        null as unknown as ApprovalRepositoryPort,
+        null as unknown as MappingRepositoryPort,
       );
       return await work(uow);
     });

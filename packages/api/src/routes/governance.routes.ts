@@ -46,9 +46,10 @@ export async function governanceRoutes(
       schema: {
         body: {
           type: "object",
-          required: ["workspaceId", "content"],
+          required: ["workspaceId", "missionId", "content"],
           properties: {
             workspaceId: { type: "string" },
+            missionId: { type: "string" },
             content: { type: "string" },
             requiredVotes: { type: "number" },
           },
@@ -60,6 +61,7 @@ export async function governanceRoutes(
       const claim = await options.submitClaimUseCase.execute(
         request.body as {
           workspaceId: string;
+          missionId: string;
           content: string;
           requiredVotes?: number;
         },

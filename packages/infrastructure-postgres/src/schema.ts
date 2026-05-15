@@ -226,26 +226,23 @@ export const livingArtifacts = pgTable("living_artifacts", {
   version: integer("version").notNull().default(1),
 });
 
-export const artifactVersions = pgTable(
-  "artifact_versions",
-  {
-    artifactId: uuid("artifact_id")
-      .notNull()
-      .references(() => livingArtifacts.id, { onDelete: "cascade" }),
-    version: integer("version").notNull(),
-    content: text("content").notNull(),
-    contentHash: text("content_hash").notNull(),
-    patchId: uuid("patch_id"), // FK added later or application-validated
-    createdByType: text("created_by_type").notNull(),
-    createdById: text("created_by_id").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (t) => ({
-    pk: [t.artifactId, t.version],
-  })
-);
+export const artifactVersions = pgTable("artifact_versions", {
+  id: uuid("id").primaryKey(),
+  artifactId: uuid("artifact_id")
+    .notNull()
+    .references(() => livingArtifacts.id, { onDelete: "cascade" }),
+  workspaceId: uuid("workspace_id").notNull(),
+  version: integer("version").notNull(),
+  content: text("content").notNull(),
+  contentHash: text("content_hash").notNull(),
+  patchId: uuid("patch_id"),
+  authorId: text("author_id").notNull(),
+  createdByType: text("created_by_type").notNull(),
+  createdById: text("created_by_id").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
 
 export const artifactPatches = pgTable("artifact_patches", {
   id: uuid("id").primaryKey(),
@@ -285,7 +282,7 @@ export const artifactPatchNodeRefs = pgTable(
   },
   (t) => ({
     pk: [t.patchId, t.nodeId],
-  })
+  }),
 );
 
 export const decisionRecords = pgTable("decision_records", {
@@ -446,6 +443,9 @@ export const missionRuns = pgTable("mission_runs", {
 
 export const evidenceRefs = pgTable("evidence_refs", {
   id: uuid("id").primaryKey(),
+  workspaceId: uuid("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
   missionId: uuid("mission_id")
     .notNull()
     .references(() => missions.id, { onDelete: "cascade" }),
@@ -482,11 +482,14 @@ export const epistemicNodeEvidenceRefs = pgTable(
   },
   (t) => ({
     pk: [t.nodeId, t.evidenceId],
-  })
+  }),
 );
 
 export const evidenceSets = pgTable("evidence_sets", {
   id: uuid("id").primaryKey(),
+  workspaceId: uuid("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
   missionId: uuid("mission_id")
     .notNull()
     .references(() => missions.id, { onDelete: "cascade" }),

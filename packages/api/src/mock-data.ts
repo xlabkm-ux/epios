@@ -32,6 +32,7 @@ function createWorkspaceEData(): {
   const nodes: EpistemicNodeProps[] = Array.from({ length: 50 }, (_, i) => ({
     id: `ne${i + 1}`,
     workspaceId: workspaceEId,
+    missionId: "mission-e",
     type: (i % 3 === 0
       ? "hypothesis"
       : i % 2 === 0
@@ -48,7 +49,6 @@ function createWorkspaceEData(): {
         " reveals critical vulnerability",
     ][i % 6],
     strength: "moderate" as NodeStrength,
-    evidence: [],
     metadata: {},
     version: 1,
     createdAt: new Date(),
@@ -91,6 +91,7 @@ function createRussianDemoData(): {
     ...Array.from({ length: 10 }, (_, i) => ({
       id: `ws7-n${i}`,
       workspaceId: "m7",
+      missionId: "mission-7",
       type: (i % 2 === 0 ? "claim" : "hypothesis") as NodeType,
       content: [
         "Микросервисы повышают масштабируемость системы",
@@ -105,7 +106,6 @@ function createRussianDemoData(): {
         "Мониторинг через Prometheus и Grafana для контроля SLA",
       ][i],
       strength: "moderate" as NodeStrength,
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -115,6 +115,7 @@ function createRussianDemoData(): {
     ...Array.from({ length: 20 }, (_, i) => ({
       id: `ws8-n${i}`,
       workspaceId: "m8",
+      missionId: "mission-8",
       type: (i % 4 === 0 ? "risk" : "claim") as NodeType,
       content:
         [
@@ -130,7 +131,6 @@ function createRussianDemoData(): {
           "Serverless (Lambda/Cloud Functions) для событийных задач",
         ][i % 10] + ` (Аргумент #${i + 1})`,
       strength: "moderate" as NodeStrength,
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -140,14 +140,15 @@ function createRussianDemoData(): {
     ...Array.from({ length: 50 }, (_, i) => ({
       id: `ws9-n${i}`,
       workspaceId: "m9",
+      missionId: "mission-9",
       type: (i % 5 === 0 ? "observation" : "claim") as NodeType,
       content:
         [
           "Бонусные баллы должны сгорать через 12 месяцев",
-          "Интеграция с кассовым ПО (POS) — критическая точка отказа",
+          "Интеграция with кассовым ПО (POS) — критическая точка отказа",
           "Мобильное приложение как основной канал взаимодействия",
           "Персонализация предложений на основе ML-моделей",
-          "Риск фрода (мошенничества) с начислением баллов",
+          "Риск фрода (мошенничества) with начислением баллов",
           "Высокая нагрузка в периоды распродаж (Черная пятница)",
           "Соответствие ФЗ-152 о персональных данных",
           "Омниканальность: единый баланс в онлайне и офлайне",
@@ -155,7 +156,6 @@ function createRussianDemoData(): {
           "Партнерская сеть: возможность тратить баллы у партнеров",
         ][i % 10] + ` (Деталь #${i + 1})`,
       strength: "strong" as NodeStrength,
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -364,11 +364,11 @@ export function createMockData(): MockData {
     {
       id: "n1",
       workspaceId: "m1",
+      missionId: "mission-1",
       type: "hypothesis",
       content:
         "Arctic ice melt accelerates global sea level rise by 20% by 2050",
       strength: "moderate",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -377,10 +377,10 @@ export function createMockData(): MockData {
     {
       id: "n2",
       workspaceId: "m1",
+      missionId: "mission-1",
       type: "observation",
       content: "NOAA 2024 Report on Arctic Melt Rates",
       strength: "strong",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -389,10 +389,10 @@ export function createMockData(): MockData {
     {
       id: "n3",
       workspaceId: "m1",
+      missionId: "mission-1",
       type: "observation",
       content: "Sentinel-6 Satellite Altimetry Data",
       strength: "strong",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -401,10 +401,10 @@ export function createMockData(): MockData {
     {
       id: "n4",
       workspaceId: "m1",
+      missionId: "mission-1",
       type: "claim",
       content: "Melting rate exceeds previous IPPC models",
       strength: "moderate",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -414,10 +414,10 @@ export function createMockData(): MockData {
     {
       id: "n5",
       workspaceId: "m2",
+      missionId: "mission-2",
       type: "hypothesis",
       content: "Suez blockage causes 2-week semiconductor delay",
       strength: "moderate",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -426,10 +426,10 @@ export function createMockData(): MockData {
     {
       id: "n6",
       workspaceId: "m2",
+      missionId: "mission-2",
       type: "observation",
       content: "Port authority live congestion report",
       strength: "strong",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -438,10 +438,10 @@ export function createMockData(): MockData {
     {
       id: "n7",
       workspaceId: "m2",
+      missionId: "mission-2",
       type: "claim",
       content: "Reroute via Cape of Good Hope reduces delay risk",
       strength: "moderate",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -451,10 +451,10 @@ export function createMockData(): MockData {
     {
       id: "n8",
       workspaceId: "m3",
+      missionId: "mission-3",
       type: "hypothesis",
       content: "Mandatory human approval prevents runaway loops",
       strength: "strong",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -463,10 +463,10 @@ export function createMockData(): MockData {
     {
       id: "n9",
       workspaceId: "m3",
+      missionId: "mission-3",
       type: "claim",
       content: "Adaptive thresholds minimize latency impact",
       strength: "moderate",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -476,10 +476,10 @@ export function createMockData(): MockData {
     {
       id: "n10",
       workspaceId: "m4",
+      missionId: "mission-4",
       type: "observation",
       content: "Transformer vs SSM Comparative Study 2025",
       strength: "strong",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -488,10 +488,10 @@ export function createMockData(): MockData {
     {
       id: "n11",
       workspaceId: "m4",
+      missionId: "mission-4",
       type: "claim",
       content: "Hybrid SSM-Transformer block is optimal for edge devices",
       strength: "moderate",
-      evidence: [],
       metadata: {},
       version: 1,
       createdAt: new Date(),
@@ -548,20 +548,21 @@ export function createMockData(): MockData {
   ];
 
   const sources: Source[] = [
-    {
+    new Source({
       id: "s1",
       workspaceId: "m6",
-      type: "file",
+      missionId: "mission-6",
+      sourceType: "repo_file",
+      title: "Event Sourcing Draft ADR",
+      sourceQuality: "high",
       content:
         "Proposed decision to adopt Event Sourcing for all mission history.",
       metadata: {
-        title: "Event Sourcing Draft ADR",
         url: "fixtures/adr-review/event-sourcing-draft.md",
-        reliability: "unrated",
         author: "architect",
       },
       createdAt: new Date(),
-    },
+    }),
   ];
 
   return {

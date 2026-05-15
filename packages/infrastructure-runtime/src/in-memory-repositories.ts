@@ -6,6 +6,10 @@ import {
   Source,
   Rating,
   MappingRun,
+  Mission,
+  MissionRun,
+  EvidenceSet,
+  EvidenceRef,
   ConcurrencyError,
 } from "@epios/domain";
 import {
@@ -16,6 +20,9 @@ import {
   MappingRepositoryPort,
   OutboxRepositoryPort,
   OutboxMessage,
+  MissionRepositoryPort,
+  MissionRunRepositoryPort,
+  EvidenceRepositoryPort,
 } from "@epios/ports";
 
 export class InMemoryADRRepository {
@@ -253,5 +260,79 @@ export class InMemoryOutboxRepository implements OutboxRepositoryPort {
     if (message) {
       message.status = "processed";
     }
+  }
+}
+
+export class InMemoryMissionRepository implements MissionRepositoryPort {
+  private missions: Map<string, Mission> = new Map();
+
+  async save(mission: Mission): Promise<void> {
+    this.missions.set(mission.id, mission);
+  }
+
+  async findById(id: string): Promise<Mission | null> {
+    return this.missions.get(id) || null;
+  }
+
+  async findAll(): Promise<Mission[]> {
+    return Array.from(this.missions.values());
+  }
+
+  async findByWorkspaceId(workspaceId: string): Promise<Mission[]> {
+    return Array.from(this.missions.values()).filter(
+      (m) => m.workspaceId === workspaceId,
+    );
+  }
+}
+
+export class InMemoryMissionRunRepository implements MissionRunRepositoryPort {
+  private runs: Map<string, MissionRun> = new Map();
+
+  async save(run: MissionRun): Promise<void> {
+    this.runs.set(run.id, run);
+  }
+
+  async findById(id: string): Promise<MissionRun | null> {
+    return this.runs.get(id) || null;
+  }
+
+  async findByMissionId(missionId: string): Promise<MissionRun[]> {
+    return Array.from(this.runs.values()).filter(
+      (r) => r.missionId === missionId,
+    );
+  }
+}
+
+export class InMemoryEvidenceRepository implements EvidenceRepositoryPort {
+  private sets: Map<string, EvidenceSet> = new Map();
+  private refs: Map<string, EvidenceRef> = new Map();
+
+  async saveSet(set: EvidenceSet): Promise<void> {
+    this.sets.set(set.id, set);
+  }
+
+  async findSetById(id: string): Promise<EvidenceSet | null> {
+    return this.sets.get(id) || null;
+  }
+
+  async findSetByMissionId(missionId: string): Promise<EvidenceSet | null> {
+    return (
+      Array.from(this.sets.values()).find((s) => s.missionId === missionId) ||
+      null
+    );
+  }
+
+  async saveRef(ref: EvidenceRef): Promise<void> {
+    this.refs.set(ref.id, ref);
+  }
+
+  async findRefById(id: string): Promise<EvidenceRef | null> {
+    return this.refs.get(id) || null;
+  }
+
+  async findRefsByMissionId(missionId: string): Promise<EvidenceRef[]> {
+    return Array.from(this.refs.values()).filter(
+      (r) => r.missionId === missionId,
+    );
   }
 }

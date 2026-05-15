@@ -61,6 +61,9 @@ import {
   InMemoryOutboxRepository,
   InMemoryIdentityRepository,
   InMemoryUnitOfWorkProvider,
+  InMemoryMissionRepository,
+  InMemoryMissionRunRepository,
+  InMemoryEvidenceRepository,
   MockSecurityService,
   MOCK_ADRS,
   OutboxWorker,
@@ -82,6 +85,12 @@ import {
   MCPBridgePort,
   SecurityPort,
   IdentityRepositoryPort,
+  MissionRepositoryPort,
+  MissionRunRepositoryPort,
+  EvidenceRepositoryPort,
+  ArtifactRepositoryPort,
+  DecisionRepositoryPort,
+  ApprovalRepositoryPort,
   UnitOfWorkPort,
 } from "@epios/ports";
 
@@ -137,6 +146,13 @@ export function buildServer(deps: ServerDependencies = {}) {
   let identityRepo: IdentityRepositoryPort;
   let governanceRepo: GovernanceRepositoryPort;
   let outboxRepo: OutboxRepositoryPort;
+  let mappingRepo: MappingRepositoryPort;
+  let missionRepo: MissionRepositoryPort;
+  let missionRunRepo: MissionRunRepositoryPort;
+  let evidenceRepo: EvidenceRepositoryPort;
+  let artifactRepo: ArtifactRepositoryPort;
+  let decisionRepo: DecisionRepositoryPort;
+  let approvalRepo: ApprovalRepositoryPort;
   let uowProvider: UnitOfWorkPort;
 
   const databaseUrl = process.env.DATABASE_URL;
@@ -153,6 +169,13 @@ export function buildServer(deps: ServerDependencies = {}) {
     identityRepo = deps.identityRepo ?? new InMemoryIdentityRepository();
     governanceRepo = deps.governanceRepo ?? new InMemoryGovernanceRepository();
     outboxRepo = deps.outboxRepo ?? new InMemoryOutboxRepository();
+    mappingRepo = deps.mappingRepo ?? new InMemoryMappingRepository();
+    missionRepo = new InMemoryMissionRepository();
+    missionRunRepo = new InMemoryMissionRunRepository();
+    evidenceRepo = new InMemoryEvidenceRepository();
+    artifactRepo = null as unknown as ArtifactRepositoryPort;
+    decisionRepo = null as unknown as DecisionRepositoryPort;
+    approvalRepo = null as unknown as ApprovalRepositoryPort;
     uowProvider = new InMemoryUnitOfWorkProvider(
       graphRepo,
       governanceRepo,
@@ -160,6 +183,13 @@ export function buildServer(deps: ServerDependencies = {}) {
       sourceRepo,
       ratingRepo,
       outboxRepo,
+      missionRepo,
+      missionRunRepo,
+      evidenceRepo,
+      artifactRepo,
+      decisionRepo,
+      approvalRepo,
+      mappingRepo,
     );
   } else {
     const queryClient = postgres(databaseUrl!);
@@ -172,10 +202,9 @@ export function buildServer(deps: ServerDependencies = {}) {
     governanceRepo =
       deps.governanceRepo ?? new PostgresGovernanceRepository(db);
     outboxRepo = deps.outboxRepo ?? new PostgresOutboxRepository(db);
+    mappingRepo = deps.mappingRepo ?? new InMemoryMappingRepository(); // TODO: implement PostgresMappingRepository
     uowProvider = new PostgresUnitOfWorkProvider(db);
   }
-
-  const mappingRepo = deps.mappingRepo ?? new InMemoryMappingRepository();
 
   // S2: Ensure non-null repositories (repos are now guaranteed defined)
   const createWorkspaceUseCase = new CreateWorkspaceUseCase(workspaceRepo);
@@ -234,10 +263,7 @@ export function buildServer(deps: ServerDependencies = {}) {
     timestamp: new Date().toISOString(),
   }));
 
-  const runMappingUseCase = new RunMappingUseCase(
-    mappingRepo,
-    outboxRepo,
-  );
+  const runMappingUseCase = new RunMappingUseCase(uowProvider);
   const getMappingRunUseCase = new GetMappingRunUseCase(mappingRepo);
   const listMappingRunsUseCase = new ListMappingRunsUseCase(mappingRepo);
 

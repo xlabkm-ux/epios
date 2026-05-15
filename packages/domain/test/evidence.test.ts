@@ -5,6 +5,7 @@ describe("Evidence Domain Entities", () => {
   it("should create a valid evidence ref", () => {
     const ref = new EvidenceRef({
       id: "ev-1",
+      workspaceId: "w1",
       missionId: "mission-1",
       sourceId: "source-1",
       quote: "Direct evidence content",
@@ -19,6 +20,7 @@ describe("Evidence Domain Entities", () => {
   it("should create and update evidence set", () => {
     const set = new EvidenceSet({
       id: "set-1",
+      workspaceId: "w1",
       missionId: "mission-1",
       evidenceIds: [],
       version: 1,

@@ -92,6 +92,7 @@ describe("Use Cases", () => {
 
       const request = {
         workspaceId: "workspace-1",
+        missionId: "mission-1",
         type: "claim" as const,
         content: "Test Claim",
       };
@@ -109,6 +110,7 @@ describe("Use Cases", () => {
 
       const request = {
         workspaceId: "invalid",
+        missionId: "mission-1",
         type: "claim" as const,
         content: "Test",
       };
@@ -163,11 +165,12 @@ describe("Use Cases", () => {
         new EpistemicNode({
           id: "node-1",
           workspaceId: "workspace-1",
+          missionId: "mission-1",
           type: "claim",
           content: "Old Content",
           strength: "none",
-          evidence: [],
           metadata: { key: "old" },
+          version: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         }),
@@ -204,6 +207,7 @@ describe("Use Cases", () => {
       const useCase = new SubmitClaimUseCase(mockUowProvider);
       const request = {
         workspaceId: "workspace-1",
+        missionId: "mission-1",
         content: "New Claim Content",
       };
 
@@ -265,11 +269,12 @@ describe("Use Cases", () => {
         new EpistemicNode({
           id: "node-1",
           workspaceId: "workspace-1",
+          missionId: "mission-1",
           type: "claim",
           content: "Test",
           strength: "none",
-          evidence: [],
           metadata: {},
+          version: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         }),
