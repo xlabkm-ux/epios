@@ -1,62 +1,50 @@
 import { z } from "zod";
 
-/**
- * EPIOS API Core Schemas (Source of Truth)
- */
-
-export const NodeTypeSchema = z.enum([
-  "claim",
-  "observation",
-  "hypothesis",
-  "risk",
-  "decision",
+export const MissionStatusSchema = z.enum([
+  "draft",
+  "running",
+  "completed",
+  "archived",
 ]);
 
-export const NodeStrengthSchema = z.number().min(0).max(1);
-
-export const EvidenceRefSchema = z.object({
-  sourceId: z.string(),
-  excerpt: z.string().optional(),
-  relevance: z.number().min(0).max(1).optional(),
+export const MissionBriefSchema = z.object({
+  goal: z.string(),
+  successCriteria: z.array(z.string()),
+  constraints: z.array(z.string()),
+  unknowns: z.array(z.string()),
 });
 
-export const CreateWorkspaceSchema = z.object({
+export const MissionReadModelSchema = z.object({
+  id: z.string().uuid(),
+  title: z.string(),
+  brief: MissionBriefSchema,
+  status: MissionStatusSchema,
+  version: z.number(),
+  createdAt: z.string().datetime(),
+  updatedAt: z.string().datetime(),
+});
+
+export const CreateMissionSchema = z.object({
   title: z.string().min(1),
-  brief: z.string().optional(),
-  mode: z.enum(["autonomous", "assisted", "manual"]).default("manual"),
-  sensitivity: z
-    .enum(["public", "internal", "confidential", "restricted"])
-    .default("internal"),
+  context: z.string().optional(),
 });
 
-export const AddNodeSchema = z.object({
-  type: NodeTypeSchema,
+export const UpdateMissionBriefSchema = z.object({
+  briefPatch: z.string(),
+});
+
+export const IngestSourceSchema = z.object({
+  sourceType: z.enum(["text", "url"]),
   content: z.string().min(1),
-  strength: NodeStrengthSchema.optional(),
-  evidence: z.array(EvidenceRefSchema).optional(),
-  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
-export const EpistemicEdgeTypeSchema = z.enum([
-  "supports",
-  "contradicts",
-  "refines",
-  "addresses",
-]);
-
-export const AddEdgeSchema = z.object({
-  sourceNodeId: z.string().uuid(),
-  targetNodeId: z.string().uuid(),
-  type: EpistemicEdgeTypeSchema,
-  metadata: z.record(z.string(), z.unknown()).optional(),
+export const StartRunSchema = z.object({
+  runType: z.enum(["mapping", "refinement"]),
 });
 
-export const PatchNodeSchema = z.object({
-  type: NodeTypeSchema.optional(),
-  content: z.string().optional(),
-  strength: NodeStrengthSchema.optional(),
-  evidence: z.array(EvidenceRefSchema).optional(),
-  metadata: z.record(z.string(), z.unknown()).optional(),
+export const ResolveApprovalSchema = z.object({
+  decision: z.enum(["approved", "rejected"]),
+  comment: z.string().optional(),
 });
 
 export const ErrorResponseSchema = z.object({

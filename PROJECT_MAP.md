@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-15 05:20:44`
+> Автоматически сгенерировано: `2026-05-15 05:38:07`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `136` | Только JS/TS/TSX исходники |
-| **Total Lines** | `14421` | Суммарно по проекту |
-| **Project Weight** | `~114 545 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `89.5%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Lines** | `14450` | Суммарно по проекту |
+| **Project Weight** | `~114 767 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `89.7%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
 ---
@@ -2794,7 +2794,7 @@ flowchart TD
 | `api/coverage/sorter.js` | 211 | 6.6 KB | — |
 | `api/src/bin.ts` | 13 | 0.3 KB | — |
 | `api/src/contracts/openapi.ts` | 30 | 0.6 KB | OpenAPI Definition for EPIOS (Derived from Schemas) |
-| `api/src/contracts/schemas.ts` | 69 | 1.7 KB | EPIOS API Core Schemas (Source of Truth) |
+| `api/src/contracts/schemas.ts` | 57 | 1.3 KB | — |
 | `api/src/dto/index.ts` | 57 | 1.1 KB | — |
 | `api/src/index.ts` | 3 | 0.0 KB | — |
 | `api/src/mock-data.ts` | 578 | 17.6 KB | Mock data factory for demo/development mode. |
@@ -2837,7 +2837,7 @@ flowchart TD
 | `application/src/use-cases/redact-node.ts` | 63 | 1.6 KB | — |
 | `application/src/use-cases/start-mapping-run.ts` | 53 | 1.4 KB | — |
 | `application/src/use-cases/submit-claim.ts` | 54 | 1.3 KB | — |
-| `application/test/async-runtime.test.ts` | 47 | 1.4 KB | — |
+| `application/test/async-runtime.test.ts` | 88 | 2.7 KB | — |
 | `application/test/create-workspace.test.ts` | 63 | 1.6 KB | — |
 | `application/test/use-cases.test.ts` | 390 | 11.7 KB | — |
 | `application/vitest.config.ts` | 28 | 0.6 KB | — |
@@ -2906,7 +2906,7 @@ flowchart TD
 - **Экспорт**: `OpenAPIConfig`
 
 ### `api/src/contracts/schemas.ts`
-- **Экспорт**: `NodeTypeSchema`, `NodeStrengthSchema`, `EvidenceRefSchema`, `CreateWorkspaceSchema`, `AddNodeSchema`, `EpistemicEdgeTypeSchema`, `AddEdgeSchema`, `PatchNodeSchema`, `ErrorResponseSchema`
+- **Экспорт**: `MissionStatusSchema`, `MissionBriefSchema`, `MissionReadModelSchema`, `CreateMissionSchema`, `UpdateMissionBriefSchema`, `IngestSourceSchema`, `StartRunSchema`, `ResolveApprovalSchema`, `ErrorResponseSchema`
 - **Зависимости**:
 
 ### `api/src/dto/index.ts`

@@ -17,8 +17,12 @@ function checkHardcodedSecrets() {
   console.log("[2/3] Checking for hardcoded secrets...");
   const forbiddenPatterns = [
     /sk-[a-zA-Z0-9]{48}/, // OpenAI
-    /AIza[0-9A-Za-z-_]{35}/, // Google
+    /AIza[0-9A-Za-z-_]{35}/, // Google Cloud
+    /AKIA[0-9A-Z]{16}/, // AWS Access Key
+    /[0-9a-f]{40}/, // Generic Hex Secret (Git/AWS)
     /"password":\s*"[^"]+"/,
+    /SECRET_KEY\s*=\s*"[^"]+"/,
+    /DATABASE_URL\s*=\s*"postgresql:\/\/[^:]+:[^@]+@/,
   ];
 
   const skipDirs = [

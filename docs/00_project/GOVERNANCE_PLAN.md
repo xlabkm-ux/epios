@@ -231,18 +231,4 @@ type GovernanceFinding \= {
 * **Release Status:** [RELEASE_STATE.md](../04_delivery/RELEASE_STATE.md)
 * **Compliance Checks:** Automated via `pnpm verify` (CI).
 
-Any changes to this governance policy must be proposed via an ADR and implemented through a Pull Request.
-
-
-
-
-* [x] **P0-1.** Заморозить создание новых концептов на 72 часа. (В силе до 2026-05-17).  
-* [x] **P0-2.** Создать DOCUMENT\_REGISTER.md и OPEN\_DECISIONS\_REGISTER.md. (Готово в `docs/00_project/`).  
-* [x] **P0-3.** Принять EPIOS-09 как авторитетный индекс для нумерации ADR (разрешить конфликты). (Сверено с `docs/02_adrs`).  
-* [x] **P0-4.** Создать физические файлы для ADR-0001...ADR-0010 и ADR-0026. (Существуют и проверены).  
-* [x] **P0-5.** Мигрировать PROJECT\_BACKLOG.md в GitHub Issues; сохранить BACKLOG\_MIGRATION\_LOG.md. (Лог создан, локальный файл архивирован. Issues созданы).  
-* [x] **P0-6.** Включить защиту ветки main: PR required, CI required, squash merge. (Ветка main синхронизирована с workflows. Требуется ручное подтверждение default branch в UI).  
-* [x] **P0-7.** Добавить PR Template с обязательными секциями: Traceability (Closes \#ID или No-Issue-Reason) / Tests / Risk / Rollback. (Готово).  
-* [x] **P0-8.** Добавить правило dependency-cruiser: domain не может импортировать infrastructure. (Готово).  
-* [x] **P0-9.** Добавить базовую CI-проверку docs-governance (read-only checks). (Подключено к `pnpm verify` и CI).  
-* [x] **P0-10.** Создать **единственный Product Epic** для MVP: *ADR Review MVP*. (Epic Issue создан на GitHub).
+Any changes to this governance policy must be proposed via an ADR and implemented through a Pull Request.

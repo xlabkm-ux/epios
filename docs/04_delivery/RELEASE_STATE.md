@@ -22,7 +22,7 @@
 - **Next Milestone:** v0.2.0 (Stable ADR Review Shell)
 
 ## 4. Previous Release Evidence
-- **CI Run:** [Actions #123](https://github.com/xlabkm-ux/epios/actions) (Example)
+- **CI Run:** [GitHub Actions CI](https://github.com/xlabkm-ux/epios/actions/workflows/ci.yml)
 - **QA Report:** [docs/04_delivery/qa/V1.0_QA_FINAL_REPORT.md](qa/V1.0_QA_FINAL_REPORT.md)
 - **Known Limitations:** [docs/04_delivery/KNOWN_LIMITATIONS_V1_1_ALPHA.md](KNOWN_LIMITATIONS_V1_1_ALPHA.md)
 - **Release Notes:** [CHANGELOG.md](../../CHANGELOG.md)
