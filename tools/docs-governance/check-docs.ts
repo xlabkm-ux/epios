@@ -6,39 +6,29 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DOCS_DIR = path.join(__dirname, "../../docs");
-const ADR_DIR = path.join(DOCS_DIR, "02_adrs");
-const ADR_INDEX_FILE = path.join(
-  DOCS_DIR,
-  "01_foundation/EPIOS-09-adr-index.md",
-);
+const REGISTER_FILE = path.join(DOCS_DIR, "00_project/DOCUMENT_REGISTER.md");
 
-function checkAdrFiles() {
-  console.log("--- Checking ADR Files ---");
-  const indexContent = fs.readFileSync(ADR_INDEX_FILE, "utf-8");
-  const adrRegex = /ADR-(\d{4})/g;
-  let match;
-  const adrIds = new Set<string>();
+function parseRegister() {
+  const content = fs.readFileSync(REGISTER_FILE, "utf-8");
+  const lines = content.split("\n");
+  const register: Record<string, string> = {};
 
-  while ((match = adrRegex.exec(indexContent)) !== null) {
-    adrIds.add(match[0]);
-  }
+  for (const line of lines) {
+    const fileMatch = line.match(/\[([^\]]+)\]\(([^)]+\.md)\)/);
+    const parts = line.split("|").map((p) => p.trim());
 
-  const files = fs.readdirSync(ADR_DIR);
-  let missingCount = 0;
-
-  adrIds.forEach((id) => {
-    const found = files.find((f) => f.startsWith(id));
-    if (!found) {
-      console.error(`[ERROR] Missing physical file for ADR: ${id}`);
-      missingCount++;
+    if (fileMatch && parts.length >= 5) {
+      const fileName = path.basename(fileMatch[2]);
+      const status = parts[4].toLowerCase();
+      register[fileName] = status;
     }
-  });
-
-  return missingCount === 0;
+  }
+  return register;
 }
 
-function checkDocMetadata() {
-  console.log("--- Checking Document Metadata (Owner/Status) ---");
+function checkDocConsistency() {
+  console.log("--- Checking Document Consistency (File vs Register) ---");
+  const register = parseRegister();
   let errorCount = 0;
 
   const walk = (dir: string) => {
@@ -48,33 +38,60 @@ function checkDocMetadata() {
       if (fs.statSync(fullPath).isDirectory()) {
         if (
           file !== "90_archive" &&
+          file !== "node_modules" &&
           file !== "20_reference" &&
-          file !== "04_delivery" &&
-          file !== "node_modules"
+          file !== "04_delivery"
         ) {
           walk(fullPath);
         }
       } else if (file.endsWith(".md") && file !== "README.md") {
         const content = fs.readFileSync(fullPath, "utf-8");
-        const hasOwner =
-          /owner/i.test(content) ||
-          /владелец/i.test(content) ||
-          /@architect|@pm|@dev|@architect/i.test(content);
-        const hasStatus = /status|статус/i.test(content);
 
-        if (!hasOwner || !hasStatus) {
-          // Special case for ADRs which might have status but owner in register
-          if (fullPath.includes("02_adrs")) {
-            if (!hasStatus) {
-              console.error(`[ERROR] Missing Status in ADR: ${file}`);
-              errorCount++;
-            }
-          } else {
+        if (file === "DOCUMENT_REGISTER.md") return;
+
+        const hasOwner =
+          /owner|владелец/i.test(content) ||
+          /@architect|@pm|@dev/i.test(content);
+
+        const statusMatch = content.match(
+          /^\s*(?:\*\*|#)*\s*(?:status|статус)[:*]*\s*([a-z_]+)/im,
+        );
+        let fileStatus = statusMatch ? statusMatch[1].toLowerCase() : null;
+
+        if (fileStatus === "active") fileStatus = "accepted";
+
+        if (!hasOwner) {
+          console.error(
+            `[ERROR] Missing Owner in: ${path.relative(DOCS_DIR, fullPath)}`,
+          );
+          errorCount++;
+        }
+
+        if (!fileStatus) {
+          console.error(
+            `[ERROR] Missing Status in: ${path.relative(DOCS_DIR, fullPath)}`,
+          );
+          errorCount++;
+        }
+
+        const registerStatus = register[file];
+        if (registerStatus && fileStatus && registerStatus !== fileStatus) {
+          const normalizedFileStatus =
+            fileStatus === "proposed" ? "planning" : fileStatus;
+          const normalizedRegStatus =
+            registerStatus === "proposed" ? "planning" : registerStatus;
+
+          if (normalizedFileStatus !== normalizedRegStatus) {
             console.error(
-              `[ERROR] Missing Owner or Status in: ${path.relative(DOCS_DIR, fullPath)}`,
+              `[ERROR] Status mismatch for ${file}: File=${fileStatus}, Register=${registerStatus}`,
             );
             errorCount++;
           }
+        } else if (!registerStatus && dir.includes("01_foundation")) {
+          console.error(
+            `[ERROR] Foundation Document ${file} is not in DOCUMENT_REGISTER.md`,
+          );
+          errorCount++;
         }
       }
     });
@@ -85,10 +102,9 @@ function checkDocMetadata() {
 }
 
 function main() {
-  const adrOk = checkAdrFiles();
-  const metaOk = checkDocMetadata();
+  const consistencyOk = checkDocConsistency();
 
-  if (!adrOk || !metaOk) {
+  if (!consistencyOk) {
     console.error("\n[GOVERNANCE] Documentation checks FAILED.");
     process.exit(1);
   } else {

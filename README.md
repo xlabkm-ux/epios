@@ -13,7 +13,6 @@ We are proud to announce the first release candidate of the EPIOS MVP. This rele
 - **Hexagonal Architecture**: Clean separation between domain logic and infrastructure.
 
 ## 🗺️ Roadmap v1.1: ADR Review Readiness
-We have shifted our focus for v1.1 to delivering a high-integrity **ADR Review Workspace**. 
 Details can be found in the [Master QA Plan](docs/04_delivery/v1_1_qa_plan/EPIOS_v1_1_Master_Sprint_QA_Plan.md).
 Current status and task tracking is available via [GitHub Issues](https://github.com/xlabkm-ux/epios/issues).
 
@@ -48,10 +47,10 @@ The **API** will be available at `http://localhost:3000`.
 ## 📖 Demo Scenarios
 
 Explore the power of EPIOS through our documented use-case scenarios:
-- [Scenario A: Collaborative Research](docs/03_specs/scenarios/SCENARIO_A_COLLABORATIVE_RESEARCH.md)
-- [Scenario B: Crisis Management](docs/03_specs/scenarios/SCENARIO_B_CRISIS_MANAGEMENT.md)
-- [Scenario C: Governance & Consensus](docs/03_specs/scenarios/SCENARIO_C_GOVERNANCE_CONSENSUS.md)
-- [Scenario D: Knowledge Synthesis](docs/03_specs/scenarios/SCENARIO_D_KNOWLEDGE_SYNTHESIS.md)
+- [Scenario A: Architecture Document](docs/03_specs/scenarios/SCENARIO_A_ARCH_DOC.md)
+- [Scenario B: Project Planning](docs/03_specs/scenarios/SCENARIO_B_PROJECT_PLANNING.md)
+- [Scenario C: Research Review](docs/03_specs/scenarios/SCENARIO_C_RESEARCH_REVIEW.md)
+- [Scenario D: Decision Support](docs/03_specs/scenarios/SCENARIO_D_DECISION_SUPPORT.md)
 
 ## 🏗 Architecture
 

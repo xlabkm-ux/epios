@@ -1,7 +1,7 @@
 # ADR-0099 — MVP Audit Directives for Architectural Integrity
 
-## Status
-Accepted
+Owner: @architect
+Status: accepted
 
 ## Context
 As Epistemic OS v1.0 MVP development moves from bootstrap to active delivery, there is a high risk of "architectural drift" where speed of feature development compromises the core hexagonal integrity, DDD principles, and security invariants established in the foundation documents (EPIOS-00 through EPIOS-10). 

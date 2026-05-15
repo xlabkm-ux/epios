@@ -37,14 +37,14 @@ All tasks from `PROJECT_BACKLOG.md` have been reviewed. Since the project has re
 | GOV-P0-1 | #10 | Open | Freeze new concepts |
 | GOV-P0-2 | #11 | Closed | Create Registers |
 | GOV-P0-3 | #12 | Closed | ADR Index |
-| GOV-P0-4 | #13 | Closed | ADR Physical Files |
-| GOV-P0-5 | #14 | Closed | Migrate Backlog (Self-ref) |
-| GOV-P0-6 | #15 | Closed | Branch Protection |
-| GOV-P0-7 | #16 | Closed | PR Template |
-| GOV-P0-8 | #17 | Closed | Dependency Cruiser Rule |
-| GOV-P0-9 | #18 | Closed | Docs Governance CI |
-| GOV-P0-10| #19 | Closed | Product Epic Creation |
+| GOV-P0-4 | - | Pending | ADR Physical Files |
+| GOV-P0-5 | - | Pending | Migrate Backlog (Prepared in GITHUB_ISSUES_BACKLOG.md) |
+| GOV-P0-6 | - | Pending | Branch Protection |
+| GOV-P0-7 | - | Pending | PR Template |
+| GOV-P0-8 | - | Pending | Dependency Cruiser Rule |
+| GOV-P0-9 | - | Pending | Docs Governance CI |
+| GOV-P0-10| - | Pending | Product Epic Creation |
 
 ---
-*This log will be updated as the migration to GitHub Project completes.*
+*This log will be updated as the migration to GitHub Project completes. See [GITHUB_ISSUES_BACKLOG.md](GITHUB_ISSUES_BACKLOG.md) for data.*
 

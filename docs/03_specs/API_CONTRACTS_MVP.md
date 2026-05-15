@@ -3,74 +3,64 @@ Status: accepted
 
 # API CONTRACTS: MVP v1.0
 
-This document defines the primary HTTP/BFF API surface for the Epistemic OS Demo Shell.
+This document defines the authoritative HTTP/BFF API surface for Epistemic OS v1.0.
 
-## Base URL
-`/api/v1`
+## 1. Protocol Standards
+- **Versioned API**: `/api/v1`
+- **Format**: JSON only.
+- **Idempotency**: `X-Idempotency-Key` (UUID v4) required for all state-changing requests.
+- **Traceability**: `X-Trace-ID` and `X-Actor-ID` headers recommended.
 
-## Mission Management
+## 2. Resource Schemas (Zod-ready)
 
-### POST /missions
-**Purpose**: Create a new Epistemic Mission.
-- **Request**: `{ "title": string, "context": string }`
-- **Response**: `201 Created` with `MissionReadModel`
-- **Trace Event**: `mission.created`
+### MissionReadModel
+```typescript
+{
+  id: string (uuid),
+  title: string,
+  brief: {
+    goal: string,
+    successCriteria: string[],
+    constraints: string[],
+    unknowns: string[]
+  },
+  status: "draft" | "running" | "completed" | "archived",
+  version: number,
+  createdAt: string (iso8601),
+  updatedAt: string (iso8601)
+}
+```
 
-### GET /missions/:missionId
-**Purpose**: Retrieve full mission state for the room.
-- **Response**: `200 OK` with `MissionReadModel` (includes nodes, edges, artifacts)
+## 3. Endpoints
 
-### PATCH /missions/:missionId/brief
-**Purpose**: Update the Mission Brief (strategic intent).
-- **Request**: `{ "briefPatch": string }`
-- **Response**: `200 OK`
-- **Trace Event**: `mission.brief.updated`
+### 3.1. Mission Lifecycle
 
-## Epistemic Actions
+| Method | Path | Request Schema | Response | Trace Event |
+|--------|------|----------------|----------|-------------|
+| `POST` | `/missions` | `{ title: string, context?: string }` | `201: MissionReadModel` | `mission.created` |
+| `GET` | `/missions/:id` | `n/a` | `200: MissionReadModel` | `n/a` |
+| `PATCH` | `/missions/:id/brief` | `{ briefPatch: string }` | `200: OK` | `mission.brief.updated` |
 
-### POST /missions/:missionId/sources
-**Purpose**: Ingest new source material for evidence extraction.
-- **Request**: `{ "sourceType": "text|url|file", "content": string }`
-- **Response**: `202 Accepted`
-- **Trace Event**: `source.ingested`
+### 3.2. Epistemic Actions
 
-### POST /missions/:missionId/runs
-**Purpose**: Trigger an epistemic mapping run (extraction/refinement).
-- **Request**: `{ "runType": "mapping|refinement|conflict-check" }`
-- **Response**: `202 Accepted` with `runId`
-- **Trace Event**: `run.started`
+| Method | Path | Request Schema | Response | Trace Event |
+|--------|------|----------------|----------|-------------|
+| `POST` | `/missions/:id/sources` | `{ sourceType: "text" | "url", content: string }` | `202: Accepted` | `source.ingested` |
+| `POST` | `/missions/:id/runs` | `{ runType: "mapping" | "refinement" }` | `202: Accepted { runId: string }` | `run.started` |
 
-### POST /missions/:missionId/artifact-patches
-**Purpose**: Propose a change to the Living Artifact.
-- **Request**: `{ "patchType": "content|structure", "diff": string, "rationale": string }`
-- **Response**: `201 Created` with `patchId` (may require approval)
-- **Trace Event**: `artifact.patch.proposed`
+### 3.3. Governance
 
-## Approvals and Decisions
+| Method | Path | Request Schema | Response | Trace Event |
+|--------|------|----------------|----------|-------------|
+| `POST` | `/approvals/:id/resolve` | `{ decision: "approved" | "rejected", comment?: string }` | `200: OK` | `approval.resolved` |
+| `POST` | `/artifact-patches/:id/apply` | `n/a` | `200: OK` | `artifact.patch.applied` |
 
-### POST /approvals/:approvalId/resolve
-**Purpose**: Resolve a pending approval request.
-- **Request**: `{ "decision": "approved|rejected", "comment": string, "idempotencyKey": string }`
-- **Response**: `200 OK`
-- **Trace Event**: `approval.resolved`
+## 4. Error Mapping
 
-### POST /artifact-patches/:patchId/apply
-**Purpose**: Apply an approved patch to the artifact.
-- **Request**: `{ "idempotencyKey": string }`
-- **Response**: `200 OK`
-- **Trace Event**: `artifact.patch.applied`
-
-## Observability
-
-### GET /missions/:missionId/trace
-**Purpose**: Retrieve the event trace for the mission.
-- **Response**: `200 OK` with `TraceEvent[]`
-
-### GET /health
-**Purpose**: System health check.
-- **Response**: `200 OK { "status": "ok", "version": "1.0.0" }`
-
-## Common Headers
-- `X-Idempotency-Key`: Required for all POST/PATCH/DELETE actions.
-- `X-Actor-ID`: Identity of the user/agent performing the action.
-
+| Domain Code | HTTP Status | Description |
+|-------------|-------------|-------------|
+| `VALIDATION_ERROR` | `400 Bad Request` | Malformed JSON or schema violation. |
+| `FORBIDDEN` | `403 Forbidden` | Insufficient permissions for the actor. |
+| `NOT_FOUND` | `404 Not Found` | Resource does not exist. |
+| `CONCURRENCY_ERROR` | `409 Conflict` | Version mismatch detected (Optimistic Concurrency). |
+| `INTERNAL_ERROR` | `500 Server Error` | Unexpected failure. |

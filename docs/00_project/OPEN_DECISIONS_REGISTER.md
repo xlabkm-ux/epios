@@ -1,3 +1,6 @@
+Owner: @architect
+Status: accepted
+
 # OPEN DECISIONS REGISTER: Epistemic OS (epios)
 
 This register tracks key technical and project decisions that are either currently being discussed or have reached a temporary consensus but may need further formalization via ADR/RFC.
