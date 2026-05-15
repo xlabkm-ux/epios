@@ -13,7 +13,7 @@
 | EPIOS-01     | [Architecture Foundation](../01_foundation/EPIOS-01-architecture-foundation.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Architecture | - | v1.0 MVP | Mandatory |
 | EPIOS-02     | [Domain Model](../01_foundation/EPIOS-02-domain-model.md) | @architect | accepted_concept | 0.1 | 2026-05-14 | Domain | - | v1.0 MVP | Mandatory |
 | EPIOS-03     | [v1.0 MVP Scope](../01_foundation/EPIOS-03-v1_0-mvp-scope.md) | @architect | accepted_contract | 1.1 | 2026-05-15 | Delivery | - | v1.0 MVP | Mandatory |
-| EPIOS-03-R   | [v1.1 ADR Review Roadmap](../01_foundation/EPIOS-v1_1-adr-review-roadmap.md) | @architect | accepted_concept | 0.1 | 2026-05-15 | Roadmap | - | v1.1 ADR Review | Advisory |
+| EPIOS-03-R   | [v1.1 ADR Review Roadmap](../01_foundation/EPIOS-v1_1-adr-review-roadmap.md) | @architect | accepted_contract | 0.1 | 2026-05-15 | Roadmap | - | v1.1 ADR Review | Advisory |
 | EPIOS-04     | [Engineering Process](../01_foundation/EPIOS-04-engineering-process.md) | @architect | accepted_contract | 0.1 | 2026-05-14 | Process | - | v0.1.0-rc.1 | Mandatory |
 | EPIOS-05     | [PostgreSQL Data Model](../01_foundation/EPIOS-05-postgresql-data-model.md) | @architect | accepted_contract | 0.1 | 2026-05-14 | Data | - | v1.0 MVP | Mandatory |
 | EPIOS-06     | [MCP Apps and Security](../01_foundation/EPIOS-06-mcp-apps-security.md) | @architect | accepted_contract | 0.1 | 2026-05-14 | Security | - | v1.0 MVP | Mandatory |
@@ -66,6 +66,8 @@
 | **DELIVERY** | | | | | | |
 | EPIOS-DEL-001| [V1_1_PROJECT_PLAN_ADR_REVIEW.md](../04_delivery/V1_1_PROJECT_PLAN_ADR_REVIEW.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | Delivery | - | v1.1 ADR Review | Mandatory |
 | EPIOS-DEL-004| [GITHUB_SETUP_GUIDE.md](../04_delivery/GITHUB_SETUP_GUIDE.md) | @architect | reference | 0.1 | 2026-05-14 | DevEx | - | v0.1.0-rc.1 | Advisory |
+| EPIOS-DEL-002| [Week 1 Issues](../90_archive/delivery_legacy/EPIOS-11-week-1-issues.md) | @architect | historical_delivery | 0.1 | 2026-05-15 | Issues | - | - | Advisory |
+| EPIOS-DEL-003| [Week 2 Issues](../90_archive/delivery_legacy/EPIOS-12-week-2-issues.md) | @architect | historical_delivery | 0.1 | 2026-05-15 | Issues | - | - | Advisory |
 | EPIOS-DEL-005| [v1.1 Master Sprint QA Plan](../04_delivery/v1_1_qa_plan/EPIOS_v1_1_Master_Sprint_QA_Plan.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | QA | - | v1.1 Alpha | Mandatory |
 | EPIOS-DEL-008| [Phase A: Governance](../04_delivery/v1_1_qa_plan/EPIOS_v1_1_Phase_A_S0_S1_Governance_Contracts_QA.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | QA | - | v1.1 Alpha | Mandatory |
 | EPIOS-DEL-009| [Phase B: Domain/Async](../04_delivery/v1_1_qa_plan/EPIOS_v1_1_Phase_B_S2_S3_Domain_Async_QA.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | QA | - | v1.1 Alpha | Mandatory |
@@ -87,7 +89,5 @@
 | EPIOS-ARC-004| [Old Sprint Plans](../90_archive/delivery_legacy/) | @architect | archived | 0.1 | 2026-05-15 | Delivery | - | - | Advisory |
 | EPIOS-ARC-005| [Old QA Reports](../90_archive/delivery_legacy/) | @architect | archived | 0.1 | 2026-05-15 | QA | - | - | Advisory |
 | EPIOS-ARC-006| [Old Demo & Pilot Docs](../90_archive/delivery_legacy/) | @architect | archived | 0.1 | 2026-05-15 | Demo | - | - | Advisory |
-| EPIOS-ARC-011| [Week 1 Issues](../90_archive/delivery_legacy/EPIOS-11-week-1-issues.md) | @architect | historical_delivery | 0.1 | 2026-05-15 | Issues | - | - | Advisory |
-| EPIOS-ARC-012| [Week 2 Issues](../90_archive/delivery_legacy/EPIOS-12-week-2-issues.md) | @architect | historical_delivery | 0.1 | 2026-05-15 | Issues | - | - | Advisory |
 | EPIOS-ARC-013| [Sprint Plan Snapshot](../90_archive/delivery_legacy/SPRINT_DEVELOPMENT_PLAN_MVP.md) | @architect | advisory_snapshot | 0.1 | 2026-05-15 | Planning | - | - | Advisory |
 | EPIOS-ARC-014| [Week 6 Plan Snapshot](../90_archive/delivery_legacy/WEEK_6_PLAN.md) | @architect | historical_delivery | 0.1 | 2026-05-15 | Delivery | - | - | Advisory |

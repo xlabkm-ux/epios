@@ -1,12 +1,12 @@
 Owner: @architect
-Status: accepted_concept / historical_delivery
+Status: archived / historical_delivery
 Binding Level: Advisory
 
 # EPIOS-12 — Week 2: Domain & Persistence (Issues & PR Bodies)
 
 **Project:** Epistemic OS v1.0  
 **Document ID:** `EPIOS-12-WEEK-2-DOMAIN-AND-PERSISTENCE`  
-**Status:** accepted_concept / historical_delivery  
+**Status:** archived / historical_delivery  
 **Sprint:** 4.1 (Phase 4)
 
 ## 1. Goal

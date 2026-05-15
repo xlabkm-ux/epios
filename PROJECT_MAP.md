@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-15 16:28:03`
+> Автоматически сгенерировано: `2026-05-15 19:41:20`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
-| **Total Files** | `154` | Только JS/TS/TSX исходники |
-| **Total Lines** | `16528` | Суммарно по проекту |
-| **Project Weight** | `~131 441 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `102.7%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Files** | `161` | Только JS/TS/TSX исходники |
+| **Total Lines** | `17674` | Суммарно по проекту |
+| **Project Weight** | `~140 376 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `109.7%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
 ---
@@ -22,197 +22,55 @@ flowchart LR
 subgraph 0["apps"]
 subgraph 1["demo-shell"]
 subgraph 2["dist"]
-subgraph 3["apps"]
-subgraph 4["demo-shell"]
-subgraph 5["src"]
-6["App.d.ts"]
-D["App.js"]
+subgraph 3["assets"]
+4["index-MCK84GHV.js"]
+end
+end
+subgraph 7["src"]
+8["App.tsx"]
 subgraph F["components"]
-G["ADRReviewWorkspace.js"]
-Y["GovernancePanel.js"]
-Z["ReadinessPanel.js"]
-10["SecureMcpIframe.js"]
-29["ArchiveView.js"]
-2H["CommandPalette.js"]
-2I["Sidebar.js"]
-2J["Modal.js"]
-2K["SidebarItem.js"]
-2L["WorkspaceRoom.js"]
-2M["GraphCanvas.js"]
-2U["CustomNode.js"]
-2V["MissionPanel.js"]
-2W["MappingPanel.js"]
-2X["SourcePanel.js"]
-2Y["RatingPanel.js"]
-30["ADRReviewWorkspace.d.ts"]
-31["ArchiveView.d.ts"]
-32["CommandPalette.d.ts"]
-33["CustomNode.d.ts"]
-34["GovernancePanel.d.ts"]
-35["GraphCanvas.d.ts"]
-36["MappingPanel.d.ts"]
-37["MissionPanel.d.ts"]
-38["Modal.d.ts"]
-39["RatingPanel.d.ts"]
-3A["ReadinessPanel.d.ts"]
-3B["SecureMcpIframe.d.ts"]
-3C["Sidebar.d.ts"]
-3D["SidebarItem.d.ts"]
-3E["SourcePanel.d.ts"]
-3F["WorkspaceRoom.d.ts"]
+G["ADRReviewWorkspace.tsx"]
+1H["GovernancePanel.tsx"]
+1I["ReadinessPanel.tsx"]
+1J["SecureMcpIframe.tsx"]
+29["ArchiveView.tsx"]
+2N["CommandPalette.tsx"]
+2O["Sidebar.tsx"]
+2P["Modal.tsx"]
+2Q["SidebarItem.tsx"]
+2R["WorkspaceRoom.tsx"]
+2S["GraphCanvas.tsx"]
+2U["CustomNode.tsx"]
+2V["MissionPanel.tsx"]
+2W["MappingPanel.tsx"]
+2X["SourcePanel.tsx"]
+2Y["RatingPanel.tsx"]
 end
-T["api-config.js"]
+T["api-config.ts"]
 subgraph U["context"]
-V["SecurityContext.js"]
-2G["WorkspaceContext.js"]
-3G["SecurityContext.d.ts"]
-3H["WorkspaceContext.d.ts"]
+V["SecurityContext.tsx"]
+2G["WorkspaceContext.tsx"]
 end
-subgraph W["hooks"]
-X["useApi.js"]
-3I["useApi.d.ts"]
+subgraph 1F["hooks"]
+1G["useApi.ts"]
 end
-2Z["api-config.d.ts"]
-3J["i18n.d.ts"]
-3Q["i18n.js"]
-3X["main.d.ts"]
-40["main.js"]
-subgraph 45["mcp"]
-46["schemas.d.ts"]
-47["schemas.js"]
+2Z["i18n.ts"]
+3C["main.tsx"]
+3D["index.css"]
+subgraph 3I["mcp"]
+3J["schemas.ts"]
 end
 end
 end
 end
-subgraph 48["assets"]
-49["index-COAmHwb-.js"]
+subgraph 5["@emotion"]
+6["is-prop-valid"]
 end
-subgraph 4C["packages"]
-subgraph 4D["domain"]
-subgraph 4E["src"]
-4F["adr.d.ts"]
-4G["adr.js"]
-4H["approval.d.ts"]
-4I["approval.js"]
-4J["artifact.d.ts"]
-4K["mission.js"]
-4L["errors.js"]
-4M["artifact.js"]
-4N["decision.d.ts"]
-4O["decision.js"]
-4P["errors.d.ts"]
-4Q["events.d.ts"]
-4R["events.js"]
-4S["evidence.d.ts"]
-4T["evidence.js"]
-4U["governance.d.ts"]
-4V["node.js"]
-4W["governance.js"]
-4X["index.d.ts"]
-4Y["mapping.js"]
-4Z["rating.js"]
-50["security.js"]
-51["source.js"]
-52["workspace.js"]
-53["index.js"]
-54["mapping.d.ts"]
-55["mission.d.ts"]
-56["node.d.ts"]
-57["rating.d.ts"]
-58["security.d.ts"]
-59["source.d.ts"]
-5A["workspace.d.ts"]
-end
-end
-subgraph 5B["infrastructure-mcp"]
-subgraph 5C["src"]
-5D["index.d.ts"]
-5E["mcp-app.registry.js"]
-5F["mcp-bridge.js"]
-5G["schemas.js"]
-5H["index.js"]
-5I["mcp-app.registry.d.ts"]
-5J["mcp-bridge.d.ts"]
-5K["schemas.d.ts"]
-end
-end
-subgraph 5L["ports"]
-subgraph 5M["src"]
-5N["adr.repository.port.d.ts"]
-5O["adr.repository.port.js"]
-5P["artifact.repository.port.d.ts"]
-5Q["artifact.repository.port.js"]
-5R["decision.repository.port.d.ts"]
-5S["decision.repository.port.js"]
-5T["domain.repository.port.d.ts"]
-5U["domain.repository.port.js"]
-5V["evidence.repository.port.d.ts"]
-5W["evidence.repository.port.js"]
-5X["governance.port.d.ts"]
-5Y["governance.port.js"]
-5Z["graph.repository.port.d.ts"]
-60["graph.repository.port.js"]
-61["index.d.ts"]
-62["mcp.port.js"]
-63["mission.repository.port.js"]
-64["outbox.repository.port.js"]
-65["security.port.js"]
-66["unit-of-work.port.js"]
-67["index.js"]
-68["mapping.repository.port.d.ts"]
-69["mapping.repository.port.js"]
-6A["mcp.port.d.ts"]
-6B["mission.repository.port.d.ts"]
-6C["outbox.repository.port.d.ts"]
-6D["security.port.d.ts"]
-6E["unit-of-work.port.d.ts"]
-end
-end
-end
-end
-subgraph 6F["src"]
-6G["App.tsx"]
-subgraph 6H["components"]
-6I["ADRReviewWorkspace.tsx"]
-6O["GovernancePanel.tsx"]
-6P["ReadinessPanel.tsx"]
-6Q["SecureMcpIframe.tsx"]
-6R["ArchiveView.tsx"]
-6T["CommandPalette.tsx"]
-6U["Sidebar.tsx"]
-6V["Modal.tsx"]
-6W["SidebarItem.tsx"]
-6X["WorkspaceRoom.tsx"]
-6Y["GraphCanvas.tsx"]
-6Z["CustomNode.tsx"]
-70["MissionPanel.tsx"]
-71["MappingPanel.tsx"]
-72["SourcePanel.tsx"]
-73["RatingPanel.tsx"]
-end
-6J["api-config.ts"]
-subgraph 6K["context"]
-6L["SecurityContext.tsx"]
-6S["WorkspaceContext.tsx"]
-end
-subgraph 6M["hooks"]
-6N["useApi.ts"]
-end
-74["i18n.ts"]
-75["main.tsx"]
-76["index.css"]
-subgraph 77["mcp"]
-78["schemas.ts"]
-end
-end
-end
-end
-subgraph 7["node_modules"]
-subgraph 8[".pnpm"]
-subgraph 9["react@18.3.1"]
-subgraph A["node_modules"]
-subgraph B["react"]
-C["jsx-runtime.js"]
+subgraph 9["node_modules"]
+subgraph A[".pnpm"]
+subgraph B["react@18.3.1"]
+subgraph C["node_modules"]
+subgraph D["react"]
 E["index.js"]
 end
 end
@@ -257,228 +115,274 @@ end
 end
 end
 end
-subgraph 2N["reactflow@11.11.4_@types+react@18.3.28_react-dom@18.3.1_react@18.3.1__react@18.3.1"]
-subgraph 2O["node_modules"]
-subgraph 2P["reactflow"]
-subgraph 2Q["dist"]
-subgraph 2R["esm"]
-2S["index.mjs"]
+subgraph 2H["reactflow@11.11.4_@types+react@18.3.28_react-dom@18.3.1_react@18.3.1__react@18.3.1"]
+subgraph 2I["node_modules"]
+subgraph 2J["reactflow"]
+subgraph 2K["dist"]
+subgraph 2L["esm"]
+2M["index.mjs"]
 end
 2T["style.css"]
 end
 end
 end
 end
-subgraph 3K["i18next@26.1.0_typescript@5.9.3"]
-subgraph 3L["node_modules"]
-subgraph 3M["i18next"]
-subgraph 3N["dist"]
-subgraph 3O["esm"]
-3P["i18next.js"]
+subgraph 30["i18next@26.1.0_typescript@5.9.3"]
+subgraph 31["node_modules"]
+subgraph 32["i18next"]
+subgraph 33["dist"]
+subgraph 34["esm"]
+35["i18next.js"]
 end
 end
 end
 end
 end
-subgraph 3R["i18next-browser-languagedetector@8.2.1"]
-subgraph 3S["node_modules"]
-subgraph 3T["i18next-browser-languagedetector"]
-subgraph 3U["dist"]
-subgraph 3V["esm"]
-3W["i18nextBrowserLanguageDetector.js"]
+subgraph 36["i18next-browser-languagedetector@8.2.1"]
+subgraph 37["node_modules"]
+subgraph 38["i18next-browser-languagedetector"]
+subgraph 39["dist"]
+subgraph 3A["esm"]
+3B["i18nextBrowserLanguageDetector.js"]
 end
 end
 end
 end
 end
-subgraph 41["react-dom@18.3.1_react@18.3.1"]
-subgraph 42["node_modules"]
-subgraph 43["react-dom"]
-44["client.js"]
+subgraph 3E["react-dom@18.3.1_react@18.3.1"]
+subgraph 3F["node_modules"]
+subgraph 3G["react-dom"]
+3H["client.js"]
 end
 end
 end
-subgraph 7H["@fastify+cors@8.5.0"]
-subgraph 7I["node_modules"]
-subgraph 7J["@fastify"]
-subgraph 7K["cors"]
-7L["index.js"]
-end
-end
-end
-end
-subgraph 7M["dotenv@16.6.1"]
-subgraph 7N["node_modules"]
-subgraph 7O["dotenv"]
-subgraph 7P["lib"]
-7Q["main.js"]
+subgraph 3S["@fastify+cors@8.5.0"]
+subgraph 3T["node_modules"]
+subgraph 3U["@fastify"]
+subgraph 3V["cors"]
+3W["index.js"]
 end
 end
 end
 end
-subgraph 7R["dotenv-expand@11.0.7"]
-subgraph 7S["node_modules"]
-subgraph 7T["dotenv-expand"]
-subgraph 7U["lib"]
-7V["main.js"]
+subgraph 3X["dotenv@16.6.1"]
+subgraph 3Y["node_modules"]
+subgraph 3Z["dotenv"]
+subgraph 40["lib"]
+41["main.js"]
 end
 end
 end
 end
-subgraph 7W["drizzle-orm@0.45.2_postgres@3.4.9"]
-subgraph 7X["node_modules"]
-subgraph 7Y["drizzle-orm"]
-subgraph 7Z["postgres-js"]
-80["index.js"]
-end
-9S["index.js"]
-subgraph 9U["pg-core"]
-9V["index.js"]
+subgraph 42["dotenv-expand@11.0.7"]
+subgraph 43["node_modules"]
+subgraph 44["dotenv-expand"]
+subgraph 45["lib"]
+46["main.js"]
 end
 end
 end
 end
-subgraph 81["fastify@4.29.1"]
-subgraph 82["node_modules"]
-subgraph 83["fastify"]
-84["fastify.js"]
+subgraph 47["drizzle-orm@0.45.2_postgres@3.4.9"]
+subgraph 48["node_modules"]
+subgraph 49["drizzle-orm"]
+subgraph 4A["postgres-js"]
+4B["index.js"]
+AL["migrator.js"]
 end
-end
-end
-subgraph 85["postgres@3.4.9"]
-subgraph 86["node_modules"]
-subgraph 87["postgres"]
-subgraph 88["src"]
-89["index.js"]
-end
-end
-end
-end
-subgraph AJ["vitest@1.6.1_@types+node@25.7.0"]
-subgraph AK["node_modules"]
-subgraph AL["vitest"]
-subgraph AM["dist"]
-AN["index.js"]
-AR["config.cjs"]
+63["index.js"]
+subgraph 65["pg-core"]
+66["index.js"]
 end
 end
 end
 end
-subgraph DT["drizzle-kit@0.31.10"]
-subgraph DU["node_modules"]
-subgraph DV["drizzle-kit"]
-DW["index.mjs"]
+subgraph 4C["fastify@4.29.1"]
+subgraph 4D["node_modules"]
+subgraph 4E["fastify"]
+4F["fastify.js"]
+end
+end
+end
+subgraph 4G["postgres@3.4.9"]
+subgraph 4H["node_modules"]
+subgraph 4I["postgres"]
+subgraph 4J["src"]
+4K["index.js"]
+end
+end
+end
+end
+subgraph 6X["vitest@1.6.1_@types+node@25.7.0"]
+subgraph 6Y["node_modules"]
+subgraph 6Z["vitest"]
+subgraph 70["dist"]
+71["index.js"]
+75["config.cjs"]
+end
+end
+end
+end
+subgraph A7["drizzle-kit@0.31.10"]
+subgraph A8["node_modules"]
+subgraph A9["drizzle-kit"]
+AA["index.mjs"]
+end
+end
+end
+subgraph AF["@testcontainers+postgresql@10.28.0"]
+subgraph AG["node_modules"]
+subgraph AH["@testcontainers"]
+subgraph AI["postgresql"]
+subgraph AJ["build"]
+AK["index.js"]
 end
 end
 end
 end
 end
-subgraph 11["packages"]
-subgraph 12["infrastructure-mcp"]
-subgraph 13["src"]
-14["index.ts"]
-15["mcp-app.registry.ts"]
+end
+end
+subgraph W["packages"]
+subgraph X["domain"]
+subgraph Y["src"]
+Z["index.ts"]
+10["adr.ts"]
+11["approval.ts"]
+12["mission.ts"]
+13["errors.ts"]
+14["events.ts"]
+15["artifact.ts"]
+16["decision.ts"]
+17["evidence.ts"]
+18["governance.ts"]
+19["node.ts"]
+1A["mapping.ts"]
+1B["rating.ts"]
+1C["security.ts"]
+1D["source.ts"]
+1E["workspace.ts"]
+end
+subgraph 7C["coverage"]
+7D["block-navigation.js"]
+7E["prettify.js"]
+7F["sorter.js"]
+end
+subgraph 7G["test"]
+7H["domain-smoke.test.ts"]
+7I["evidence.test.ts"]
+7J["mission.test.ts"]
+7K["node-invariants.test.ts"]
+7L["source-rating.test.ts"]
+7M["workspace.test.ts"]
+end
+7N["vitest.config.ts"]
+end
+subgraph 1K["infrastructure-mcp"]
+subgraph 1L["src"]
+1M["index.ts"]
+1N["mcp-app.registry.ts"]
 23["mcp-bridge.ts"]
 24["schemas.ts"]
 end
-subgraph BA["dist"]
-subgraph BB["domain"]
-subgraph BC["src"]
-BD["adr.d.ts"]
-BE["adr.js"]
-BF["approval.d.ts"]
-BG["approval.js"]
-BH["artifact.d.ts"]
-BI["mission.js"]
-BJ["errors.js"]
-BK["artifact.js"]
-BL["decision.d.ts"]
-BM["decision.js"]
-BN["errors.d.ts"]
-BO["events.d.ts"]
-BP["events.js"]
-BQ["evidence.d.ts"]
-BR["evidence.js"]
-BS["governance.d.ts"]
-BT["node.js"]
-BU["governance.js"]
-BV["index.d.ts"]
-BW["mapping.js"]
-BX["rating.js"]
-BY["security.js"]
-BZ["source.js"]
-C0["workspace.js"]
-C1["index.js"]
-C2["mapping.d.ts"]
-C3["mission.d.ts"]
-C4["node.d.ts"]
-C5["rating.d.ts"]
-C6["security.d.ts"]
-C7["source.d.ts"]
-C8["workspace.d.ts"]
+subgraph 7O["dist"]
+subgraph 7P["domain"]
+subgraph 7Q["src"]
+7R["adr.d.ts"]
+7S["adr.js"]
+7T["approval.d.ts"]
+7U["approval.js"]
+7V["artifact.d.ts"]
+7W["mission.js"]
+7X["errors.js"]
+7Y["artifact.js"]
+7Z["decision.d.ts"]
+80["decision.js"]
+81["errors.d.ts"]
+82["events.d.ts"]
+83["events.js"]
+84["evidence.d.ts"]
+85["evidence.js"]
+86["governance.d.ts"]
+87["node.js"]
+88["governance.js"]
+89["index.d.ts"]
+8A["mapping.js"]
+8B["rating.js"]
+8C["security.js"]
+8D["source.js"]
+8E["workspace.js"]
+8F["index.js"]
+8G["mapping.d.ts"]
+8H["mission.d.ts"]
+8I["node.d.ts"]
+8J["rating.d.ts"]
+8K["security.d.ts"]
+8L["source.d.ts"]
+8M["workspace.d.ts"]
 end
 end
-C9["index.d.ts"]
-CA["mcp-app.registry.js"]
-CB["mcp-bridge.js"]
-CC["index.js"]
-subgraph CD["infrastructure-mcp"]
-subgraph CE["src"]
-CF["index.d.ts"]
-CG["mcp-app.registry.js"]
-CH["mcp-bridge.js"]
-CI["schemas.js"]
-CJ["index.js"]
-CK["mcp-app.registry.d.ts"]
-CL["mcp-bridge.d.ts"]
-CM["schemas.d.ts"]
+8N["index.d.ts"]
+8O["mcp-app.registry.js"]
+8P["mcp-bridge.js"]
+8Q["index.js"]
+subgraph 8R["infrastructure-mcp"]
+subgraph 8S["src"]
+8T["index.d.ts"]
+8U["mcp-app.registry.js"]
+8V["mcp-bridge.js"]
+8W["schemas.js"]
+8X["index.js"]
+8Y["mcp-app.registry.d.ts"]
+8Z["mcp-bridge.d.ts"]
+90["schemas.d.ts"]
 end
 end
-CN["mcp-app.registry.d.ts"]
-CQ["mcp-bridge.d.ts"]
-subgraph CR["ports"]
-subgraph CS["src"]
-CT["adr.repository.port.d.ts"]
-CU["adr.repository.port.js"]
-CV["artifact.repository.port.d.ts"]
-CW["artifact.repository.port.js"]
-CX["decision.repository.port.d.ts"]
-CY["decision.repository.port.js"]
-CZ["domain.repository.port.d.ts"]
-D0["domain.repository.port.js"]
-D1["evidence.repository.port.d.ts"]
-D2["evidence.repository.port.js"]
-D3["governance.port.d.ts"]
-D4["governance.port.js"]
-D5["graph.repository.port.d.ts"]
-D6["graph.repository.port.js"]
-D7["index.d.ts"]
-D8["mcp.port.js"]
-D9["mission.repository.port.js"]
-DA["outbox.repository.port.js"]
-DB["security.port.js"]
-DC["unit-of-work.port.js"]
-DD["index.js"]
-DE["mapping.repository.port.d.ts"]
-DF["mapping.repository.port.js"]
-DG["mcp.port.d.ts"]
-DH["mission.repository.port.d.ts"]
-DI["outbox.repository.port.d.ts"]
-DJ["security.port.d.ts"]
-DK["unit-of-work.port.d.ts"]
+91["mcp-app.registry.d.ts"]
+94["mcp-bridge.d.ts"]
+subgraph 95["ports"]
+subgraph 96["src"]
+97["adr.repository.port.d.ts"]
+98["adr.repository.port.js"]
+99["artifact.repository.port.d.ts"]
+9A["artifact.repository.port.js"]
+9B["decision.repository.port.d.ts"]
+9C["decision.repository.port.js"]
+9D["domain.repository.port.d.ts"]
+9E["domain.repository.port.js"]
+9F["evidence.repository.port.d.ts"]
+9G["evidence.repository.port.js"]
+9H["governance.port.d.ts"]
+9I["governance.port.js"]
+9J["graph.repository.port.d.ts"]
+9K["graph.repository.port.js"]
+9L["index.d.ts"]
+9M["mcp.port.js"]
+9N["mission.repository.port.js"]
+9O["outbox.repository.port.js"]
+9P["security.port.js"]
+9Q["unit-of-work.port.js"]
+9R["index.js"]
+9S["mapping.repository.port.d.ts"]
+9T["mapping.repository.port.js"]
+9U["mcp.port.d.ts"]
+9V["mission.repository.port.d.ts"]
+9W["outbox.repository.port.d.ts"]
+9X["security.port.d.ts"]
+9Y["unit-of-work.port.d.ts"]
 end
 end
 end
-subgraph DL["test"]
-DM["mcp-bridge.test.ts"]
-DN["security.test.ts"]
-DO["smoke.test.ts"]
+subgraph 9Z["test"]
+A0["mcp-bridge.test.ts"]
+A1["security.test.ts"]
+A2["smoke.test.ts"]
 end
 end
-subgraph 16["ports"]
-subgraph 17["src"]
-18["index.ts"]
-19["adr.repository.port.ts"]
+subgraph 1O["ports"]
+subgraph 1P["src"]
+1Q["index.ts"]
+1R["adr.repository.port.ts"]
 1S["artifact.repository.port.ts"]
 1T["decision.repository.port.ts"]
 1U["domain.repository.port.ts"]
@@ -490,274 +394,239 @@ subgraph 17["src"]
 20["outbox.repository.port.ts"]
 21["security.port.ts"]
 22["unit-of-work.port.ts"]
-E1["mapping.repository.port.ts"]
+AS["mapping.repository.port.ts"]
 end
 end
-subgraph 1A["domain"]
-subgraph 1B["src"]
-1C["index.ts"]
-1D["adr.ts"]
-1E["approval.ts"]
-1F["mission.ts"]
-1G["errors.ts"]
-1H["events.ts"]
-1I["artifact.ts"]
-1J["decision.ts"]
-1K["evidence.ts"]
-1L["governance.ts"]
-1M["node.ts"]
-1N["mapping.ts"]
-1O["rating.ts"]
-1P["security.ts"]
-1Q["source.ts"]
-1R["workspace.ts"]
+subgraph 3K["api"]
+subgraph 3L["coverage"]
+3M["block-navigation.js"]
+3N["prettify.js"]
+3O["sorter.js"]
 end
-subgraph AY["coverage"]
-AZ["block-navigation.js"]
-B0["prettify.js"]
-B1["sorter.js"]
+subgraph 3P["src"]
+3Q["bin.ts"]
+3R["server.ts"]
+4L["mock-data.ts"]
+subgraph 4M["routes"]
+4N["adr.routes.ts"]
+5Q["governance.routes.ts"]
+5R["mapping.routes.ts"]
+5U["mcp.routes.ts"]
+5V["rating.routes.ts"]
+5W["security.routes.ts"]
+5X["source.routes.ts"]
+5Y["workspace.routes.ts"]
 end
-subgraph B2["test"]
-B3["domain-smoke.test.ts"]
-B4["evidence.test.ts"]
-B5["mission.test.ts"]
-B6["node-invariants.test.ts"]
-B7["source-rating.test.ts"]
-B8["workspace.test.ts"]
+subgraph 5S["dto"]
+5T["index.ts"]
 end
-B9["vitest.config.ts"]
+subgraph 6R["contracts"]
+6S["openapi.ts"]
+6T["schemas.ts"]
 end
-subgraph 79["api"]
-subgraph 7A["coverage"]
-7B["block-navigation.js"]
-7C["prettify.js"]
-7D["sorter.js"]
+6U["index.ts"]
 end
-subgraph 7E["src"]
-7F["bin.ts"]
-7G["server.ts"]
-8A["mock-data.ts"]
-subgraph 8B["routes"]
-8C["adr.routes.ts"]
-9F["governance.routes.ts"]
-9G["mapping.routes.ts"]
-9J["mcp.routes.ts"]
-9K["rating.routes.ts"]
-9L["security.routes.ts"]
-9M["source.routes.ts"]
-9N["workspace.routes.ts"]
+subgraph 6V["test"]
+6W["adr.test.ts"]
+72["api.test.ts"]
 end
-subgraph 9H["dto"]
-9I["index.ts"]
+73["vitest.config.ts"]
 end
-subgraph AD["contracts"]
-AE["openapi.ts"]
-AF["schemas.ts"]
-end
-AG["index.ts"]
-end
-subgraph AH["test"]
-AI["adr.test.ts"]
-AO["api.test.ts"]
-end
-AP["vitest.config.ts"]
-end
-subgraph 8D["application"]
-subgraph 8E["src"]
-8F["index.ts"]
-8G["mapping-processor.ts"]
-subgraph 8H["use-cases"]
-8I["add-edge.ts"]
-8P["add-node.ts"]
-8Q["adr-use-cases.ts"]
-8R["apply-patch.ts"]
-8S["apply-retention.ts"]
-8T["assess-readiness.ts"]
-8U["cast-vote.ts"]
-8V["create-mission.ts"]
-8W["create-workspace.ts"]
-8X["get-mapping-run.ts"]
-8Y["get-node-ratings.ts"]
-8Z["get-readiness.ts"]
-90["get-trace.ts"]
-91["get-workspace-graph.ts"]
-92["ingest-source.ts"]
-93["list-mapping-runs.ts"]
-94["list-patches.ts"]
-95["list-sources.ts"]
-96["list-workspaces.ts"]
-97["patch-node.ts"]
-98["patch-workspace.ts"]
-99["propose-patch.ts"]
-9A["rate-node.ts"]
-9B["redact-node.ts"]
-9C["run-mapping.ts"]
-9D["submit-claim.ts"]
-9E["update-mission-brief.ts"]
+subgraph 4O["application"]
+subgraph 4P["src"]
+4Q["index.ts"]
+4R["mapping-processor.ts"]
+subgraph 4S["use-cases"]
+4T["add-edge.ts"]
+50["add-node.ts"]
+51["adr-use-cases.ts"]
+52["apply-patch.ts"]
+53["apply-retention.ts"]
+54["assess-readiness.ts"]
+55["cast-vote.ts"]
+56["create-mission.ts"]
+57["create-workspace.ts"]
+58["get-mapping-run.ts"]
+59["get-node-ratings.ts"]
+5A["get-readiness.ts"]
+5B["get-trace.ts"]
+5C["get-workspace-graph.ts"]
+5D["ingest-source.ts"]
+5E["list-mapping-runs.ts"]
+5F["list-patches.ts"]
+5G["list-sources.ts"]
+5H["list-workspaces.ts"]
+5I["patch-node.ts"]
+5J["patch-workspace.ts"]
+5K["propose-patch.ts"]
+5L["rate-node.ts"]
+5M["redact-node.ts"]
+5N["run-mapping.ts"]
+5O["submit-claim.ts"]
+5P["update-mission-brief.ts"]
 end
 end
-subgraph AS["test"]
-AT["async-runtime.test.ts"]
-AU["create-workspace.test.ts"]
-AV["mission.use-cases.test.ts"]
-AW["use-cases.test.ts"]
+subgraph 76["test"]
+77["async-runtime.test.ts"]
+78["create-workspace.test.ts"]
+79["mission.use-cases.test.ts"]
+7A["use-cases.test.ts"]
 end
-AX["vitest.config.ts"]
+7B["vitest.config.ts"]
 end
-subgraph 8K["observability"]
-subgraph 8L["src"]
-8M["index.ts"]
-8N["audit.ts"]
-8O["tracer.ts"]
+subgraph 4V["observability"]
+subgraph 4W["src"]
+4X["index.ts"]
+4Y["audit.ts"]
+4Z["tracer.ts"]
 end
-subgraph DZ["test"]
-E0["redaction.test.ts"]
-end
-end
-subgraph 9O["infrastructure-postgres"]
-subgraph 9P["src"]
-9Q["index.ts"]
-9R["governance.repository.ts"]
-9T["schema.ts"]
-9W["graph.repository.ts"]
-9X["identity.repository.ts"]
-9Y["outbox.repository.ts"]
-9Z["rating.repository.ts"]
-A0["source.repository.ts"]
-A1["unit-of-work.ts"]
-A2["evidence.repository.ts"]
-A3["mission.repository.ts"]
-A4["workspace.repository.ts"]
-DX["manual_migrate.ts"]
-DY["seed.ts"]
-end
-DS["drizzle.config.ts"]
-end
-subgraph A5["infrastructure-runtime"]
-subgraph A6["src"]
-A7["index.ts"]
-A8["in-memory-governance.repository.ts"]
-A9["in-memory-repositories.ts"]
-AA["in-memory-unit-of-work.ts"]
-AB["outbox-worker.ts"]
-AC["security-mocks.ts"]
+subgraph AQ["test"]
+AR["redaction.test.ts"]
 end
 end
-subgraph DP["infrastructure-models"]
-subgraph DQ["src"]
-DR["index.ts"]
+subgraph 5Z["infrastructure-postgres"]
+subgraph 60["src"]
+61["index.ts"]
+62["artifact.repository.ts"]
+64["schema.ts"]
+67["decision.repository.ts"]
+68["evidence.repository.ts"]
+69["governance.repository.ts"]
+6A["graph.repository.ts"]
+6B["identity.repository.ts"]
+6C["mapping.repository.ts"]
+6D["mission.repository.ts"]
+6E["outbox.repository.ts"]
+6F["rating.repository.ts"]
+6G["source.repository.ts"]
+6H["unit-of-work.ts"]
+6I["workspace.repository.ts"]
+AB["manual_migrate.ts"]
+AC["seed.ts"]
+end
+A6["drizzle.config.ts"]
+subgraph AD["test"]
+AE["container-setup.ts"]
+AN["graph-concurrency.test.ts"]
+AO["repository-integration.test.ts"]
+AP["transactional-integrity.test.ts"]
 end
 end
-subgraph E2["testing"]
-subgraph E3["src"]
-E4["fixtures.ts"]
-E5["index.ts"]
+subgraph 6J["infrastructure-runtime"]
+subgraph 6K["src"]
+6L["index.ts"]
+6M["in-memory-governance.repository.ts"]
+6N["in-memory-repositories.ts"]
+6O["in-memory-unit-of-work.ts"]
+6P["outbox-worker.ts"]
+6Q["security-mocks.ts"]
+end
+end
+subgraph A3["infrastructure-models"]
+subgraph A4["src"]
+A5["index.ts"]
+end
+end
+subgraph AT["testing"]
+subgraph AU["src"]
+AV["fixtures.ts"]
+AW["index.ts"]
 end
 end
 end
-subgraph 3Y["."]
-3Z["index.css"]
+4U["crypto"]
+74["path"]
+subgraph 92["@epos"]
+93["ports"]
 end
-subgraph 4A["@emotion"]
-4B["is-prop-valid"]
-end
-8J["crypto"]
-AQ["path"]
-subgraph CO["@epos"]
-CP["ports"]
-end
-6-->C
-D-->G
-D-->29
-D-->2H
-D-->2I
-D-->2L
-D-->2G
-D-->E
-D-->C
+AM["url"]
+4-->6
+8-->G
+8-->29
+8-->2N
+8-->2O
+8-->2R
+8-->2G
+8-->E
 G-->T
 G-->V
-G-->X
-G-->Y
-G-->Z
-G-->10
+G-->1G
+G-->1H
+G-->1I
+G-->1J
 G-->M
 G-->S
 G-->E
-G-->C
 V-->T
+V-->Z
 V-->E
-V-->C
-X-->T
-X-->E
-Y-->T
-Y-->V
-Y-->M
-Y-->S
-Y-->E
-Y-->C
-Z-->T
-Z-->M
-Z-->S
-Z-->E
-Z-->C
-10-->14
-10-->E
-10-->C
-14-->15
-14-->23
-14-->24
-15-->18
+Z-->10
+Z-->11
+Z-->15
+Z-->16
+Z-->13
+Z-->14
+Z-->17
+Z-->18
+Z-->1A
+Z-->12
+Z-->19
+Z-->1B
+Z-->1C
+Z-->1D
+Z-->1E
+11-->12
+12-->13
+12-->14
+15-->13
+15-->12
+16-->12
+17-->13
+18-->13
+18-->14
 18-->19
-18-->1S
-18-->1T
-18-->1U
-18-->1V
-18-->1W
-18-->1X
-18-->1Y
-18-->1Z
-18-->20
-18-->21
-18-->22
-19-->1C
-1C-->1D
-1C-->1E
-1C-->1I
-1C-->1J
-1C-->1G
-1C-->1H
-1C-->1K
-1C-->1L
-1C-->1N
-1C-->1F
-1C-->1M
-1C-->1O
-1C-->1P
-1C-->1Q
-1C-->1R
-1E-->1F
-1F-->1G
-1F-->1H
-1I-->1G
-1I-->1F
-1J-->1F
-1K-->1G
-1L-->1G
-1L-->1H
-1L-->1M
-1M-->1G
-1M-->1H
-1Q-->1G
-1R-->1G
-1S-->1C
-1T-->1C
-1U-->1C
-1V-->1C
-1W-->1C
-1X-->1C
-1Z-->1C
-21-->1C
+19-->13
+19-->14
+1D-->13
+1E-->13
+1G-->T
+1G-->E
+1H-->T
+1H-->V
+1H-->M
+1H-->S
+1H-->E
+1I-->T
+1I-->M
+1I-->S
+1I-->E
+1J-->1M
+1J-->E
+1M-->1N
+1M-->23
+1M-->24
+1N-->1Q
+1Q-->1R
+1Q-->1S
+1Q-->1T
+1Q-->1U
+1Q-->1V
+1Q-->1W
+1Q-->1X
+1Q-->1Y
+1Q-->1Z
+1Q-->20
+1Q-->21
+1Q-->22
+1R-->Z
+1S-->Z
+1T-->Z
+1U-->Z
+1V-->Z
+1W-->Z
+1X-->Z
+1Z-->Z
+21-->Z
 22-->1S
 22-->1T
 22-->1U
@@ -767,747 +636,551 @@ Z-->C
 22-->1Z
 22-->20
 23-->24
-23-->1C
-23-->18
+23-->Z
+23-->1Q
 24-->28
 29-->2G
 29-->M
 29-->S
+29-->E
 29-->2F
-29-->C
+2G-->Z
 2G-->E
-2G-->C
-2H-->2G
-2H-->M
-2H-->S
-2H-->E
-2H-->C
-2I-->T
-2I-->V
-2I-->2G
-2I-->X
-2I-->2J
-2I-->2K
-2I-->M
-2I-->S
-2I-->E
-2I-->2F
-2I-->C
-2J-->M
-2J-->S
-2J-->E
-2J-->C
-2K-->M
-2K-->S
-2K-->E
-2K-->2F
-2K-->C
-2L-->T
-2L-->V
-2L-->2G
-2L-->2M
-2L-->2V
-2L-->2Y
-2L-->M
-2L-->S
-2L-->E
-2L-->C
-2M-->2G
-2M-->X
-2M-->2U
-2M-->S
-2M-->E
-2M-->C
-2M-->2S
-2M-->2T
+2G-->2M
+2N-->2G
+2N-->M
+2N-->S
+2N-->E
+2O-->T
+2O-->V
+2O-->2G
+2O-->1G
+2O-->2P
+2O-->2Q
+2O-->Z
+2O-->M
+2O-->S
+2O-->E
+2O-->2F
+2P-->M
+2P-->S
+2P-->E
+2Q-->M
+2Q-->S
+2Q-->E
+2Q-->2F
+2R-->T
+2R-->V
+2R-->2G
+2R-->2S
+2R-->2V
+2R-->2Y
+2R-->Z
+2R-->M
+2R-->S
+2R-->E
+2S-->2G
+2S-->1G
+2S-->2U
+2S-->S
+2S-->E
+2S-->2M
+2S-->2T
 2U-->S
 2U-->E
-2U-->C
-2U-->2S
-2V-->Y
+2U-->2M
+2V-->1H
 2V-->2W
 2V-->2X
+2V-->Z
 2V-->M
 2V-->S
 2V-->E
-2V-->C
 2W-->T
+2W-->Z
 2W-->M
 2W-->S
 2W-->E
-2W-->C
 2X-->T
 2X-->M
 2X-->S
 2X-->E
-2X-->C
 2Y-->T
 2Y-->S
 2Y-->E
-2Y-->C
-30-->E
-31-->E
-32-->E
-33-->E
-33-->C
-33-->2S
-34-->E
-35-->E
-35-->2T
-36-->E
-37-->1C
-37-->E
-38-->E
-39-->E
-3A-->E
-3B-->E
+2Z-->35
+2Z-->3B
+2Z-->2F
+3C-->8
+3C-->V
+3C-->2G
+3C-->2Z
+3C-->3D
 3C-->E
-3D-->E
-3E-->E
-3F-->E
-3G-->1C
-3G-->E
-3H-->1C
-3H-->E
-3H-->2S
-3J-->3P
-3Q-->3P
-3Q-->3W
-3Q-->2F
-3X-->3Q
-3X-->3Z
-3X-->2T
-40-->D
-40-->V
-40-->2G
-40-->3Q
-40-->3Z
-40-->E
-40-->44
-40-->C
-40-->2T
-46-->28
-47-->28
-49-->4B
-4J-->4K
-4K-->4L
-4M-->4L
-4N-->4K
-4T-->4L
-4U-->4R
-4U-->4V
-4V-->4L
-4W-->4L
-4X-->4G
-4X-->4I
-4X-->4M
-4X-->4O
-4X-->4L
-4X-->4R
-4X-->4T
-4X-->4W
+3C-->3H
+3C-->2T
+3J-->28
+3Q-->3R
+3R-->4L
+3R-->4N
+3R-->5Q
+3R-->5R
+3R-->5U
+3R-->5V
+3R-->5W
+3R-->5X
+3R-->5Y
+3R-->4Q
+3R-->1M
+3R-->61
+3R-->6L
+3R-->1Q
+3R-->3W
+3R-->41
+3R-->46
+3R-->4B
+3R-->4F
+3R-->4K
+4L-->Z
+4N-->4Q
+4N-->4F
+4Q-->4R
+4Q-->4T
+4Q-->50
+4Q-->51
+4Q-->52
+4Q-->53
+4Q-->54
+4Q-->55
+4Q-->56
+4Q-->57
+4Q-->58
+4Q-->59
+4Q-->5A
+4Q-->5B
+4Q-->5C
+4Q-->5D
+4Q-->5E
+4Q-->5F
+4Q-->5G
+4Q-->5H
+4Q-->5I
+4Q-->5J
+4Q-->5K
+4Q-->5L
+4Q-->5M
+4Q-->5N
+4Q-->5O
+4Q-->5P
+4R-->Z
+4R-->1Q
+4T-->Z
+4T-->4X
+4T-->1Q
+4T-->4U
 4X-->4Y
-4X-->4K
-4X-->4V
 4X-->4Z
-4X-->50
-4X-->51
-4X-->52
-51-->4L
-52-->4L
-53-->4G
-53-->4I
-53-->4M
-53-->4O
-53-->4L
-53-->4R
-53-->4T
-53-->4W
-53-->4Y
-53-->4K
-53-->4V
-53-->4Z
-53-->50
-53-->51
-53-->52
-55-->4R
-56-->4R
-5D-->5E
-5D-->5F
-5D-->5G
-5F-->5G
-5F-->1C
-5G-->28
-5H-->5E
-5H-->5F
-5H-->5G
-5I-->18
-5J-->18
-5K-->28
-5N-->1C
-5P-->1C
-5R-->1C
-5T-->1C
-5V-->1C
-5X-->1C
-5Z-->1C
-61-->5O
-61-->5Q
-61-->5S
-61-->5U
-61-->5W
-61-->5Y
-61-->60
+50-->Z
+50-->4X
+50-->1Q
+50-->4U
+51-->Z
+51-->1Q
+52-->Z
+52-->1Q
+52-->4U
+53-->Z
+53-->1Q
+54-->Z
+54-->1Q
+54-->4U
+55-->Z
+55-->4X
+55-->1Q
+55-->4U
+56-->Z
+56-->1Q
+56-->4U
+57-->Z
+57-->4X
+57-->1Q
+57-->4U
+58-->Z
+58-->1Q
+59-->Z
+59-->1Q
+5A-->Z
+5A-->1Q
+5B-->Z
+5B-->1Q
+5C-->Z
+5C-->1Q
+5D-->Z
+5D-->1Q
+5D-->4U
+5E-->Z
+5E-->1Q
+5F-->Z
+5F-->1Q
+5G-->Z
+5G-->1Q
+5H-->Z
+5H-->1Q
+5I-->Z
+5I-->1Q
+5J-->Z
+5J-->1Q
+5K-->Z
+5K-->1Q
+5K-->4U
+5L-->Z
+5L-->1Q
+5L-->4U
+5M-->Z
+5M-->1Q
+5N-->Z
+5N-->1Q
+5N-->4U
+5O-->Z
+5O-->1Q
+5O-->4U
+5P-->Z
+5P-->1Q
+5P-->4U
+5Q-->4Q
+5Q-->1Q
+5Q-->4F
+5R-->5T
+5R-->4Q
+5R-->4F
+5T-->Z
+5U-->1M
+5U-->1Q
+5U-->4F
+5V-->4Q
+5V-->Z
+5V-->4F
+5W-->4Q
+5W-->Z
+5W-->1Q
+5W-->4F
+5X-->4Q
+5X-->Z
+5X-->4F
+5Y-->5T
+5Y-->4Q
+5Y-->4F
 61-->62
-61-->63
+61-->67
+61-->68
+61-->69
+61-->6A
+61-->6B
+61-->6C
+61-->6D
+61-->6E
+61-->6F
 61-->64
-61-->65
-61-->66
-67-->5O
-67-->5Q
-67-->5S
-67-->5U
-67-->5W
-67-->5Y
-67-->60
-67-->62
-67-->63
+61-->6G
+61-->6H
+61-->6I
+62-->64
+62-->Z
+62-->1Q
+62-->63
+62-->4B
+64-->66
 67-->64
-67-->65
-67-->66
-68-->1C
-6B-->1C
-6D-->1C
-6E-->5Q
-6E-->5S
-6E-->5U
-6E-->5W
-6E-->5Y
-6E-->60
-6E-->63
+67-->Z
+67-->1Q
+67-->63
+67-->4B
+68-->64
+68-->Z
+68-->63
+68-->4B
+69-->64
+69-->Z
+69-->1Q
+69-->63
+69-->4B
+6A-->64
+6A-->Z
+6A-->1Q
+6A-->63
+6A-->4B
+6B-->64
+6B-->Z
+6B-->1Q
+6B-->63
+6B-->4B
+6C-->64
+6C-->Z
+6C-->1Q
+6C-->63
+6C-->4B
+6D-->64
+6D-->Z
+6D-->1Q
+6D-->63
+6D-->4B
 6E-->64
-6G-->6I
-6G-->6R
-6G-->6T
-6G-->6U
-6G-->6X
-6G-->6S
-6G-->E
-6I-->6J
-6I-->6L
-6I-->6N
-6I-->6O
-6I-->6P
-6I-->6Q
-6I-->M
-6I-->S
-6I-->E
-6L-->6J
-6L-->1C
-6L-->E
-6N-->6J
-6N-->E
-6O-->6J
-6O-->6L
-6O-->M
-6O-->S
-6O-->E
-6P-->6J
-6P-->M
-6P-->S
-6P-->E
-6Q-->14
-6Q-->E
-6R-->6S
-6R-->M
-6R-->S
-6R-->E
-6R-->2F
-6S-->1C
-6S-->E
-6S-->2S
-6T-->6S
-6T-->M
-6T-->S
-6T-->E
-6U-->6J
-6U-->6L
-6U-->6S
-6U-->6N
-6U-->6V
-6U-->6W
-6U-->1C
-6U-->M
-6U-->S
-6U-->E
-6U-->2F
-6V-->M
-6V-->S
-6V-->E
-6W-->M
-6W-->S
-6W-->E
-6W-->2F
-6X-->6J
-6X-->6L
-6X-->6S
-6X-->6Y
-6X-->70
-6X-->73
-6X-->1C
-6X-->M
-6X-->S
-6X-->E
-6Y-->6S
-6Y-->6N
-6Y-->6Z
-6Y-->S
-6Y-->E
-6Y-->2S
-6Y-->2T
-6Z-->S
-6Z-->E
-6Z-->2S
-70-->6O
-70-->71
-70-->72
-70-->1C
-70-->M
-70-->S
-70-->E
-71-->6J
-71-->1C
-71-->M
-71-->S
-71-->E
-72-->6J
-72-->M
-72-->S
-72-->E
-73-->6J
-73-->S
-73-->E
-74-->3P
-74-->3W
-74-->2F
-75-->6G
-75-->6L
-75-->6S
-75-->74
-75-->76
-75-->E
-75-->44
-75-->2T
-78-->28
-7F-->7G
-7G-->8A
-7G-->8C
-7G-->9F
-7G-->9G
-7G-->9J
-7G-->9K
-7G-->9L
-7G-->9M
-7G-->9N
-7G-->8F
-7G-->14
-7G-->9Q
-7G-->A7
-7G-->18
-7G-->7L
-7G-->7Q
-7G-->7V
-7G-->80
-7G-->84
-7G-->89
-8A-->1C
-8C-->8F
-8C-->84
-8F-->8G
-8F-->8I
-8F-->8P
-8F-->8Q
-8F-->8R
-8F-->8S
-8F-->8T
-8F-->8U
-8F-->8V
-8F-->8W
-8F-->8X
-8F-->8Y
-8F-->8Z
-8F-->90
-8F-->91
-8F-->92
-8F-->93
-8F-->94
-8F-->95
-8F-->96
-8F-->97
-8F-->98
-8F-->99
-8F-->9A
-8F-->9B
-8F-->9C
-8F-->9D
-8F-->9E
-8G-->1C
-8G-->18
-8I-->1C
-8I-->8M
-8I-->18
-8I-->8J
-8M-->8N
-8M-->8O
-8P-->1C
-8P-->8M
-8P-->18
-8P-->8J
-8Q-->1C
-8Q-->18
-8R-->1C
-8R-->18
-8R-->8J
-8S-->1C
-8S-->18
-8T-->1C
-8T-->18
-8T-->8J
-8U-->1C
-8U-->8M
-8U-->18
-8U-->8J
-8V-->1C
-8V-->18
-8V-->8J
-8W-->1C
-8W-->8M
-8W-->18
-8W-->8J
-8X-->1C
-8X-->18
-8Y-->1C
-8Y-->18
-8Z-->1C
-8Z-->18
-90-->1C
-90-->18
-91-->1C
-91-->18
-92-->1C
-92-->18
-92-->8J
-93-->1C
-93-->18
-94-->1C
-94-->18
-95-->1C
-95-->18
-96-->1C
-96-->18
-97-->1C
-97-->18
-98-->1C
-98-->18
-99-->1C
-99-->18
-99-->8J
-9A-->1C
-9A-->18
-9A-->8J
-9B-->1C
-9B-->18
-9C-->1C
-9C-->18
-9C-->8J
-9D-->1C
-9D-->18
-9D-->8J
-9E-->1C
-9E-->18
-9E-->8J
-9F-->8F
-9F-->18
-9F-->84
-9G-->9I
-9G-->8F
-9G-->84
-9I-->1C
-9J-->14
-9J-->18
-9J-->84
-9K-->8F
-9K-->1C
-9K-->84
-9L-->8F
-9L-->1C
-9L-->18
-9L-->84
-9M-->8F
-9M-->1C
-9M-->84
-9N-->9I
-9N-->8F
-9N-->84
-9Q-->9R
-9Q-->9W
-9Q-->9X
-9Q-->9Y
-9Q-->9Z
-9Q-->9T
-9Q-->A0
-9Q-->A1
-9Q-->A4
-9R-->9T
-9R-->1C
-9R-->18
-9R-->9S
-9R-->80
-9T-->9V
-9W-->9T
-9W-->1C
-9W-->18
-9W-->9S
-9W-->80
-9X-->9T
-9X-->1C
-9X-->18
-9X-->9S
-9X-->80
-9Y-->9T
-9Y-->18
-9Y-->9S
-9Y-->80
-9Z-->9T
-9Z-->1C
-9Z-->18
-9Z-->9S
-9Z-->80
-A0-->9T
-A0-->1C
-A0-->18
-A0-->8J
-A0-->9S
-A0-->80
-A1-->A2
-A1-->9R
-A1-->9W
-A1-->A3
-A1-->9Y
-A1-->9Z
-A1-->A0
-A1-->A4
-A1-->18
-A1-->80
-A2-->9T
-A2-->1C
-A2-->9S
-A2-->80
-A3-->9T
-A3-->1C
-A3-->18
-A3-->9S
-A3-->80
-A4-->9T
-A4-->1C
-A4-->18
-A4-->9S
-A4-->80
-A7-->A8
-A7-->A9
-A7-->AA
-A7-->AB
-A7-->AC
-A8-->1C
-A8-->18
-A9-->1C
-A9-->18
-AA-->18
-AB-->8M
-AB-->18
-AC-->1C
-AC-->18
-AC-->8J
-AF-->28
-AG-->7G
-AI-->7G
-AI-->84
-AI-->AN
-AO-->7G
-AO-->1C
-AO-->18
-AO-->84
-AO-->AN
-AP-->AQ
-AP-->AR
-AT-->9C
-AT-->18
-AT-->8J
-AT-->AN
-AU-->8W
-AU-->18
-AU-->AN
-AV-->8V
-AV-->92
-AV-->9C
-AV-->9E
-AV-->1C
-AV-->18
-AV-->AN
-AW-->8I
-AW-->8P
-AW-->8U
-AW-->8W
-AW-->91
-AW-->96
-AW-->97
-AW-->9D
-AW-->1C
-AW-->18
-AW-->AN
-AX-->AQ
-AX-->AR
-B3-->1C
-B3-->AN
-B4-->1K
-B4-->AN
-B5-->1F
-B5-->AN
-B6-->1C
-B6-->AN
-B7-->1C
-B7-->AN
-B8-->1G
-B8-->1R
-B8-->AN
-B9-->AR
-BH-->BI
-BI-->BJ
-BK-->BJ
-BL-->BI
-BR-->BJ
-BS-->BP
-BS-->BT
-BT-->BJ
-BU-->BJ
-BV-->BE
-BV-->BG
-BV-->BK
-BV-->BM
-BV-->BJ
-BV-->BP
-BV-->BR
-BV-->BU
-BV-->BW
-BV-->BI
-BV-->BT
-BV-->BX
-BV-->BY
-BV-->BZ
-BV-->C0
-BZ-->BJ
-C0-->BJ
-C1-->BE
-C1-->BG
-C1-->BK
-C1-->BM
-C1-->BJ
-C1-->BP
-C1-->BR
-C1-->BU
-C1-->BW
-C1-->BI
-C1-->BT
-C1-->BX
-C1-->BY
-C1-->BZ
-C1-->C0
-C3-->BP
-C4-->BP
-C9-->CA
-C9-->CB
-CC-->CA
-CC-->CB
-CF-->CG
-CF-->CH
-CF-->CI
-CH-->CI
-CH-->1C
-CI-->28
-CJ-->CG
-CJ-->CH
-CJ-->CI
-CK-->18
-CL-->18
-CM-->28
-CN-->CP
-CQ-->CP
-CT-->1C
-CV-->1C
-CX-->1C
-CZ-->1C
-D1-->1C
-D3-->1C
-D5-->1C
-D7-->CU
-D7-->CW
-D7-->CY
-D7-->D0
-D7-->D2
-D7-->D4
-D7-->D6
-D7-->D8
-D7-->D9
-D7-->DA
-D7-->DB
-D7-->DC
-DD-->CU
-DD-->CW
-DD-->CY
-DD-->D0
-DD-->D2
-DD-->D4
-DD-->D6
-DD-->D8
-DD-->D9
-DD-->DA
-DD-->DB
-DD-->DC
-DE-->1C
-DH-->1C
-DJ-->1C
-DK-->CW
-DK-->CY
-DK-->D0
-DK-->D2
-DK-->D4
-DK-->D6
-DK-->D9
-DK-->DA
-DM-->23
-DM-->18
-DM-->AN
-DN-->23
-DN-->1C
-DN-->18
-DN-->AN
-DO-->AN
-DS-->7Q
-DS-->7V
-DS-->DW
-DX-->7Q
-DX-->7V
-DX-->89
-DY-->9T
-DY-->7Q
-DY-->7V
-DY-->80
-DY-->89
-E0-->8O
-E0-->AN
-E1-->1C
-E4-->1C
-E5-->E4
+6E-->1Q
+6E-->63
+6E-->4B
+6F-->64
+6F-->Z
+6F-->1Q
+6F-->63
+6F-->4B
+6G-->64
+6G-->Z
+6G-->1Q
+6G-->4U
+6G-->63
+6G-->4B
+6H-->62
+6H-->67
+6H-->68
+6H-->69
+6H-->6A
+6H-->6C
+6H-->6D
+6H-->6E
+6H-->6F
+6H-->6G
+6H-->6I
+6H-->1Q
+6H-->4B
+6I-->64
+6I-->Z
+6I-->1Q
+6I-->63
+6I-->4B
+6L-->6M
+6L-->6N
+6L-->6O
+6L-->6P
+6L-->6Q
+6M-->Z
+6M-->1Q
+6N-->Z
+6N-->1Q
+6O-->1Q
+6P-->4X
+6P-->1Q
+6Q-->Z
+6Q-->1Q
+6Q-->4U
+6T-->28
+6U-->3R
+6W-->3R
+6W-->4F
+6W-->71
+72-->3R
+72-->Z
+72-->1Q
+72-->4F
+72-->71
+73-->74
+73-->75
+77-->5N
+77-->1Q
+77-->4U
+77-->71
+78-->57
+78-->1Q
+78-->71
+79-->56
+79-->5D
+79-->5N
+79-->5P
+79-->Z
+79-->1Q
+79-->71
+7A-->4T
+7A-->50
+7A-->55
+7A-->57
+7A-->5C
+7A-->5H
+7A-->5I
+7A-->5O
+7A-->Z
+7A-->1Q
+7A-->71
+7B-->74
+7B-->75
+7H-->Z
+7H-->71
+7I-->17
+7I-->71
+7J-->12
+7J-->71
+7K-->Z
+7K-->71
+7L-->Z
+7L-->71
+7M-->13
+7M-->1E
+7M-->71
+7N-->75
+7V-->7W
+7W-->7X
+7Y-->7X
+7Z-->7W
+85-->7X
+86-->83
+86-->87
+87-->7X
+88-->7X
+89-->7S
+89-->7U
+89-->7Y
+89-->80
+89-->7X
+89-->83
+89-->85
+89-->88
+89-->8A
+89-->7W
+89-->87
+89-->8B
+89-->8C
+89-->8D
+89-->8E
+8D-->7X
+8E-->7X
+8F-->7S
+8F-->7U
+8F-->7Y
+8F-->80
+8F-->7X
+8F-->83
+8F-->85
+8F-->88
+8F-->8A
+8F-->7W
+8F-->87
+8F-->8B
+8F-->8C
+8F-->8D
+8F-->8E
+8H-->83
+8I-->83
+8N-->8O
+8N-->8P
+8Q-->8O
+8Q-->8P
+8T-->8U
+8T-->8V
+8T-->8W
+8V-->8W
+8V-->Z
+8W-->28
+8X-->8U
+8X-->8V
+8X-->8W
+8Y-->1Q
+8Z-->1Q
+90-->28
+91-->93
+94-->93
+97-->Z
+99-->Z
+9B-->Z
+9D-->Z
+9F-->Z
+9H-->Z
+9J-->Z
+9L-->98
+9L-->9A
+9L-->9C
+9L-->9E
+9L-->9G
+9L-->9I
+9L-->9K
+9L-->9M
+9L-->9N
+9L-->9O
+9L-->9P
+9L-->9Q
+9R-->98
+9R-->9A
+9R-->9C
+9R-->9E
+9R-->9G
+9R-->9I
+9R-->9K
+9R-->9M
+9R-->9N
+9R-->9O
+9R-->9P
+9R-->9Q
+9S-->Z
+9V-->Z
+9X-->Z
+9Y-->9A
+9Y-->9C
+9Y-->9E
+9Y-->9G
+9Y-->9I
+9Y-->9K
+9Y-->9N
+9Y-->9O
+A0-->23
+A0-->1Q
+A0-->71
+A1-->23
+A1-->Z
+A1-->1Q
+A1-->71
+A2-->71
+A6-->41
+A6-->46
+A6-->AA
+AB-->41
+AB-->46
+AB-->4K
+AC-->64
+AC-->41
+AC-->46
+AC-->4B
+AC-->4K
+AE-->AK
+AE-->4B
+AE-->AL
+AE-->74
+AE-->4K
+AE-->AM
+AN-->6A
+AN-->AE
+AN-->Z
+AN-->AK
+AN-->4B
+AN-->4K
+AN-->71
+AO-->6I
+AO-->AE
+AO-->Z
+AO-->AK
+AO-->4B
+AO-->4K
+AO-->71
+AP-->6D
+AP-->6H
+AP-->6I
+AP-->AE
+AP-->Z
+AP-->AK
+AP-->4B
+AP-->4K
+AP-->71
+AR-->4Z
+AR-->71
+AS-->Z
+AV-->Z
+AW-->AV
 ```
 
 ## Детальная карта компонентов
@@ -1519,197 +1192,55 @@ flowchart LR
 subgraph 0["apps"]
 subgraph 1["demo-shell"]
 subgraph 2["dist"]
-subgraph 3["apps"]
-subgraph 4["demo-shell"]
-subgraph 5["src"]
-6["App.d.ts"]
-D["App.js"]
+subgraph 3["assets"]
+4["index-MCK84GHV.js"]
+end
+end
+subgraph 7["src"]
+8["App.tsx"]
 subgraph F["components"]
-G["ADRReviewWorkspace.js"]
-Y["GovernancePanel.js"]
-Z["ReadinessPanel.js"]
-10["SecureMcpIframe.js"]
-29["ArchiveView.js"]
-2H["CommandPalette.js"]
-2I["Sidebar.js"]
-2J["Modal.js"]
-2K["SidebarItem.js"]
-2L["WorkspaceRoom.js"]
-2M["GraphCanvas.js"]
-2U["CustomNode.js"]
-2V["MissionPanel.js"]
-2W["MappingPanel.js"]
-2X["SourcePanel.js"]
-2Y["RatingPanel.js"]
-30["ADRReviewWorkspace.d.ts"]
-31["ArchiveView.d.ts"]
-32["CommandPalette.d.ts"]
-33["CustomNode.d.ts"]
-34["GovernancePanel.d.ts"]
-35["GraphCanvas.d.ts"]
-36["MappingPanel.d.ts"]
-37["MissionPanel.d.ts"]
-38["Modal.d.ts"]
-39["RatingPanel.d.ts"]
-3A["ReadinessPanel.d.ts"]
-3B["SecureMcpIframe.d.ts"]
-3C["Sidebar.d.ts"]
-3D["SidebarItem.d.ts"]
-3E["SourcePanel.d.ts"]
-3F["WorkspaceRoom.d.ts"]
+G["ADRReviewWorkspace.tsx"]
+1H["GovernancePanel.tsx"]
+1I["ReadinessPanel.tsx"]
+1J["SecureMcpIframe.tsx"]
+29["ArchiveView.tsx"]
+2N["CommandPalette.tsx"]
+2O["Sidebar.tsx"]
+2P["Modal.tsx"]
+2Q["SidebarItem.tsx"]
+2R["WorkspaceRoom.tsx"]
+2S["GraphCanvas.tsx"]
+2U["CustomNode.tsx"]
+2V["MissionPanel.tsx"]
+2W["MappingPanel.tsx"]
+2X["SourcePanel.tsx"]
+2Y["RatingPanel.tsx"]
 end
-T["api-config.js"]
+T["api-config.ts"]
 subgraph U["context"]
-V["SecurityContext.js"]
-2G["WorkspaceContext.js"]
-3G["SecurityContext.d.ts"]
-3H["WorkspaceContext.d.ts"]
+V["SecurityContext.tsx"]
+2G["WorkspaceContext.tsx"]
 end
-subgraph W["hooks"]
-X["useApi.js"]
-3I["useApi.d.ts"]
+subgraph 1F["hooks"]
+1G["useApi.ts"]
 end
-2Z["api-config.d.ts"]
-3J["i18n.d.ts"]
-3Q["i18n.js"]
-3X["main.d.ts"]
-40["main.js"]
-subgraph 45["mcp"]
-46["schemas.d.ts"]
-47["schemas.js"]
+2Z["i18n.ts"]
+3C["main.tsx"]
+3D["index.css"]
+subgraph 3I["mcp"]
+3J["schemas.ts"]
 end
 end
 end
 end
-subgraph 48["assets"]
-49["index-COAmHwb-.js"]
+subgraph 5["@emotion"]
+6["is-prop-valid"]
 end
-subgraph 4C["packages"]
-subgraph 4D["domain"]
-subgraph 4E["src"]
-4F["adr.d.ts"]
-4G["adr.js"]
-4H["approval.d.ts"]
-4I["approval.js"]
-4J["artifact.d.ts"]
-4K["mission.js"]
-4L["errors.js"]
-4M["artifact.js"]
-4N["decision.d.ts"]
-4O["decision.js"]
-4P["errors.d.ts"]
-4Q["events.d.ts"]
-4R["events.js"]
-4S["evidence.d.ts"]
-4T["evidence.js"]
-4U["governance.d.ts"]
-4V["node.js"]
-4W["governance.js"]
-4X["index.d.ts"]
-4Y["mapping.js"]
-4Z["rating.js"]
-50["security.js"]
-51["source.js"]
-52["workspace.js"]
-53["index.js"]
-54["mapping.d.ts"]
-55["mission.d.ts"]
-56["node.d.ts"]
-57["rating.d.ts"]
-58["security.d.ts"]
-59["source.d.ts"]
-5A["workspace.d.ts"]
-end
-end
-subgraph 5B["infrastructure-mcp"]
-subgraph 5C["src"]
-5D["index.d.ts"]
-5E["mcp-app.registry.js"]
-5F["mcp-bridge.js"]
-5G["schemas.js"]
-5H["index.js"]
-5I["mcp-app.registry.d.ts"]
-5J["mcp-bridge.d.ts"]
-5K["schemas.d.ts"]
-end
-end
-subgraph 5L["ports"]
-subgraph 5M["src"]
-5N["adr.repository.port.d.ts"]
-5O["adr.repository.port.js"]
-5P["artifact.repository.port.d.ts"]
-5Q["artifact.repository.port.js"]
-5R["decision.repository.port.d.ts"]
-5S["decision.repository.port.js"]
-5T["domain.repository.port.d.ts"]
-5U["domain.repository.port.js"]
-5V["evidence.repository.port.d.ts"]
-5W["evidence.repository.port.js"]
-5X["governance.port.d.ts"]
-5Y["governance.port.js"]
-5Z["graph.repository.port.d.ts"]
-60["graph.repository.port.js"]
-61["index.d.ts"]
-62["mcp.port.js"]
-63["mission.repository.port.js"]
-64["outbox.repository.port.js"]
-65["security.port.js"]
-66["unit-of-work.port.js"]
-67["index.js"]
-68["mapping.repository.port.d.ts"]
-69["mapping.repository.port.js"]
-6A["mcp.port.d.ts"]
-6B["mission.repository.port.d.ts"]
-6C["outbox.repository.port.d.ts"]
-6D["security.port.d.ts"]
-6E["unit-of-work.port.d.ts"]
-end
-end
-end
-end
-subgraph 6F["src"]
-6G["App.tsx"]
-subgraph 6H["components"]
-6I["ADRReviewWorkspace.tsx"]
-6O["GovernancePanel.tsx"]
-6P["ReadinessPanel.tsx"]
-6Q["SecureMcpIframe.tsx"]
-6R["ArchiveView.tsx"]
-6T["CommandPalette.tsx"]
-6U["Sidebar.tsx"]
-6V["Modal.tsx"]
-6W["SidebarItem.tsx"]
-6X["WorkspaceRoom.tsx"]
-6Y["GraphCanvas.tsx"]
-6Z["CustomNode.tsx"]
-70["MissionPanel.tsx"]
-71["MappingPanel.tsx"]
-72["SourcePanel.tsx"]
-73["RatingPanel.tsx"]
-end
-6J["api-config.ts"]
-subgraph 6K["context"]
-6L["SecurityContext.tsx"]
-6S["WorkspaceContext.tsx"]
-end
-subgraph 6M["hooks"]
-6N["useApi.ts"]
-end
-74["i18n.ts"]
-75["main.tsx"]
-76["index.css"]
-subgraph 77["mcp"]
-78["schemas.ts"]
-end
-end
-end
-end
-subgraph 7["node_modules"]
-subgraph 8[".pnpm"]
-subgraph 9["react@18.3.1"]
-subgraph A["node_modules"]
-subgraph B["react"]
-C["jsx-runtime.js"]
+subgraph 9["node_modules"]
+subgraph A[".pnpm"]
+subgraph B["react@18.3.1"]
+subgraph C["node_modules"]
+subgraph D["react"]
 E["index.js"]
 end
 end
@@ -1754,228 +1285,274 @@ end
 end
 end
 end
-subgraph 2N["reactflow@11.11.4_@types+react@18.3.28_react-dom@18.3.1_react@18.3.1__react@18.3.1"]
-subgraph 2O["node_modules"]
-subgraph 2P["reactflow"]
-subgraph 2Q["dist"]
-subgraph 2R["esm"]
-2S["index.mjs"]
+subgraph 2H["reactflow@11.11.4_@types+react@18.3.28_react-dom@18.3.1_react@18.3.1__react@18.3.1"]
+subgraph 2I["node_modules"]
+subgraph 2J["reactflow"]
+subgraph 2K["dist"]
+subgraph 2L["esm"]
+2M["index.mjs"]
 end
 2T["style.css"]
 end
 end
 end
 end
-subgraph 3K["i18next@26.1.0_typescript@5.9.3"]
-subgraph 3L["node_modules"]
-subgraph 3M["i18next"]
-subgraph 3N["dist"]
-subgraph 3O["esm"]
-3P["i18next.js"]
+subgraph 30["i18next@26.1.0_typescript@5.9.3"]
+subgraph 31["node_modules"]
+subgraph 32["i18next"]
+subgraph 33["dist"]
+subgraph 34["esm"]
+35["i18next.js"]
 end
 end
 end
 end
 end
-subgraph 3R["i18next-browser-languagedetector@8.2.1"]
-subgraph 3S["node_modules"]
-subgraph 3T["i18next-browser-languagedetector"]
-subgraph 3U["dist"]
-subgraph 3V["esm"]
-3W["i18nextBrowserLanguageDetector.js"]
+subgraph 36["i18next-browser-languagedetector@8.2.1"]
+subgraph 37["node_modules"]
+subgraph 38["i18next-browser-languagedetector"]
+subgraph 39["dist"]
+subgraph 3A["esm"]
+3B["i18nextBrowserLanguageDetector.js"]
 end
 end
 end
 end
 end
-subgraph 41["react-dom@18.3.1_react@18.3.1"]
-subgraph 42["node_modules"]
-subgraph 43["react-dom"]
-44["client.js"]
+subgraph 3E["react-dom@18.3.1_react@18.3.1"]
+subgraph 3F["node_modules"]
+subgraph 3G["react-dom"]
+3H["client.js"]
 end
 end
 end
-subgraph 7H["@fastify+cors@8.5.0"]
-subgraph 7I["node_modules"]
-subgraph 7J["@fastify"]
-subgraph 7K["cors"]
-7L["index.js"]
-end
-end
-end
-end
-subgraph 7M["dotenv@16.6.1"]
-subgraph 7N["node_modules"]
-subgraph 7O["dotenv"]
-subgraph 7P["lib"]
-7Q["main.js"]
+subgraph 3S["@fastify+cors@8.5.0"]
+subgraph 3T["node_modules"]
+subgraph 3U["@fastify"]
+subgraph 3V["cors"]
+3W["index.js"]
 end
 end
 end
 end
-subgraph 7R["dotenv-expand@11.0.7"]
-subgraph 7S["node_modules"]
-subgraph 7T["dotenv-expand"]
-subgraph 7U["lib"]
-7V["main.js"]
+subgraph 3X["dotenv@16.6.1"]
+subgraph 3Y["node_modules"]
+subgraph 3Z["dotenv"]
+subgraph 40["lib"]
+41["main.js"]
 end
 end
 end
 end
-subgraph 7W["drizzle-orm@0.45.2_postgres@3.4.9"]
-subgraph 7X["node_modules"]
-subgraph 7Y["drizzle-orm"]
-subgraph 7Z["postgres-js"]
-80["index.js"]
-end
-9S["index.js"]
-subgraph 9U["pg-core"]
-9V["index.js"]
+subgraph 42["dotenv-expand@11.0.7"]
+subgraph 43["node_modules"]
+subgraph 44["dotenv-expand"]
+subgraph 45["lib"]
+46["main.js"]
 end
 end
 end
 end
-subgraph 81["fastify@4.29.1"]
-subgraph 82["node_modules"]
-subgraph 83["fastify"]
-84["fastify.js"]
+subgraph 47["drizzle-orm@0.45.2_postgres@3.4.9"]
+subgraph 48["node_modules"]
+subgraph 49["drizzle-orm"]
+subgraph 4A["postgres-js"]
+4B["index.js"]
+AL["migrator.js"]
 end
-end
-end
-subgraph 85["postgres@3.4.9"]
-subgraph 86["node_modules"]
-subgraph 87["postgres"]
-subgraph 88["src"]
-89["index.js"]
-end
-end
-end
-end
-subgraph AJ["vitest@1.6.1_@types+node@25.7.0"]
-subgraph AK["node_modules"]
-subgraph AL["vitest"]
-subgraph AM["dist"]
-AN["index.js"]
-AR["config.cjs"]
+63["index.js"]
+subgraph 65["pg-core"]
+66["index.js"]
 end
 end
 end
 end
-subgraph DT["drizzle-kit@0.31.10"]
-subgraph DU["node_modules"]
-subgraph DV["drizzle-kit"]
-DW["index.mjs"]
+subgraph 4C["fastify@4.29.1"]
+subgraph 4D["node_modules"]
+subgraph 4E["fastify"]
+4F["fastify.js"]
+end
+end
+end
+subgraph 4G["postgres@3.4.9"]
+subgraph 4H["node_modules"]
+subgraph 4I["postgres"]
+subgraph 4J["src"]
+4K["index.js"]
+end
+end
+end
+end
+subgraph 6X["vitest@1.6.1_@types+node@25.7.0"]
+subgraph 6Y["node_modules"]
+subgraph 6Z["vitest"]
+subgraph 70["dist"]
+71["index.js"]
+75["config.cjs"]
+end
+end
+end
+end
+subgraph A7["drizzle-kit@0.31.10"]
+subgraph A8["node_modules"]
+subgraph A9["drizzle-kit"]
+AA["index.mjs"]
+end
+end
+end
+subgraph AF["@testcontainers+postgresql@10.28.0"]
+subgraph AG["node_modules"]
+subgraph AH["@testcontainers"]
+subgraph AI["postgresql"]
+subgraph AJ["build"]
+AK["index.js"]
 end
 end
 end
 end
 end
-subgraph 11["packages"]
-subgraph 12["infrastructure-mcp"]
-subgraph 13["src"]
-14["index.ts"]
-15["mcp-app.registry.ts"]
+end
+end
+subgraph W["packages"]
+subgraph X["domain"]
+subgraph Y["src"]
+Z["index.ts"]
+10["adr.ts"]
+11["approval.ts"]
+12["mission.ts"]
+13["errors.ts"]
+14["events.ts"]
+15["artifact.ts"]
+16["decision.ts"]
+17["evidence.ts"]
+18["governance.ts"]
+19["node.ts"]
+1A["mapping.ts"]
+1B["rating.ts"]
+1C["security.ts"]
+1D["source.ts"]
+1E["workspace.ts"]
+end
+subgraph 7C["coverage"]
+7D["block-navigation.js"]
+7E["prettify.js"]
+7F["sorter.js"]
+end
+subgraph 7G["test"]
+7H["domain-smoke.test.ts"]
+7I["evidence.test.ts"]
+7J["mission.test.ts"]
+7K["node-invariants.test.ts"]
+7L["source-rating.test.ts"]
+7M["workspace.test.ts"]
+end
+7N["vitest.config.ts"]
+end
+subgraph 1K["infrastructure-mcp"]
+subgraph 1L["src"]
+1M["index.ts"]
+1N["mcp-app.registry.ts"]
 23["mcp-bridge.ts"]
 24["schemas.ts"]
 end
-subgraph BA["dist"]
-subgraph BB["domain"]
-subgraph BC["src"]
-BD["adr.d.ts"]
-BE["adr.js"]
-BF["approval.d.ts"]
-BG["approval.js"]
-BH["artifact.d.ts"]
-BI["mission.js"]
-BJ["errors.js"]
-BK["artifact.js"]
-BL["decision.d.ts"]
-BM["decision.js"]
-BN["errors.d.ts"]
-BO["events.d.ts"]
-BP["events.js"]
-BQ["evidence.d.ts"]
-BR["evidence.js"]
-BS["governance.d.ts"]
-BT["node.js"]
-BU["governance.js"]
-BV["index.d.ts"]
-BW["mapping.js"]
-BX["rating.js"]
-BY["security.js"]
-BZ["source.js"]
-C0["workspace.js"]
-C1["index.js"]
-C2["mapping.d.ts"]
-C3["mission.d.ts"]
-C4["node.d.ts"]
-C5["rating.d.ts"]
-C6["security.d.ts"]
-C7["source.d.ts"]
-C8["workspace.d.ts"]
+subgraph 7O["dist"]
+subgraph 7P["domain"]
+subgraph 7Q["src"]
+7R["adr.d.ts"]
+7S["adr.js"]
+7T["approval.d.ts"]
+7U["approval.js"]
+7V["artifact.d.ts"]
+7W["mission.js"]
+7X["errors.js"]
+7Y["artifact.js"]
+7Z["decision.d.ts"]
+80["decision.js"]
+81["errors.d.ts"]
+82["events.d.ts"]
+83["events.js"]
+84["evidence.d.ts"]
+85["evidence.js"]
+86["governance.d.ts"]
+87["node.js"]
+88["governance.js"]
+89["index.d.ts"]
+8A["mapping.js"]
+8B["rating.js"]
+8C["security.js"]
+8D["source.js"]
+8E["workspace.js"]
+8F["index.js"]
+8G["mapping.d.ts"]
+8H["mission.d.ts"]
+8I["node.d.ts"]
+8J["rating.d.ts"]
+8K["security.d.ts"]
+8L["source.d.ts"]
+8M["workspace.d.ts"]
 end
 end
-C9["index.d.ts"]
-CA["mcp-app.registry.js"]
-CB["mcp-bridge.js"]
-CC["index.js"]
-subgraph CD["infrastructure-mcp"]
-subgraph CE["src"]
-CF["index.d.ts"]
-CG["mcp-app.registry.js"]
-CH["mcp-bridge.js"]
-CI["schemas.js"]
-CJ["index.js"]
-CK["mcp-app.registry.d.ts"]
-CL["mcp-bridge.d.ts"]
-CM["schemas.d.ts"]
+8N["index.d.ts"]
+8O["mcp-app.registry.js"]
+8P["mcp-bridge.js"]
+8Q["index.js"]
+subgraph 8R["infrastructure-mcp"]
+subgraph 8S["src"]
+8T["index.d.ts"]
+8U["mcp-app.registry.js"]
+8V["mcp-bridge.js"]
+8W["schemas.js"]
+8X["index.js"]
+8Y["mcp-app.registry.d.ts"]
+8Z["mcp-bridge.d.ts"]
+90["schemas.d.ts"]
 end
 end
-CN["mcp-app.registry.d.ts"]
-CQ["mcp-bridge.d.ts"]
-subgraph CR["ports"]
-subgraph CS["src"]
-CT["adr.repository.port.d.ts"]
-CU["adr.repository.port.js"]
-CV["artifact.repository.port.d.ts"]
-CW["artifact.repository.port.js"]
-CX["decision.repository.port.d.ts"]
-CY["decision.repository.port.js"]
-CZ["domain.repository.port.d.ts"]
-D0["domain.repository.port.js"]
-D1["evidence.repository.port.d.ts"]
-D2["evidence.repository.port.js"]
-D3["governance.port.d.ts"]
-D4["governance.port.js"]
-D5["graph.repository.port.d.ts"]
-D6["graph.repository.port.js"]
-D7["index.d.ts"]
-D8["mcp.port.js"]
-D9["mission.repository.port.js"]
-DA["outbox.repository.port.js"]
-DB["security.port.js"]
-DC["unit-of-work.port.js"]
-DD["index.js"]
-DE["mapping.repository.port.d.ts"]
-DF["mapping.repository.port.js"]
-DG["mcp.port.d.ts"]
-DH["mission.repository.port.d.ts"]
-DI["outbox.repository.port.d.ts"]
-DJ["security.port.d.ts"]
-DK["unit-of-work.port.d.ts"]
+91["mcp-app.registry.d.ts"]
+94["mcp-bridge.d.ts"]
+subgraph 95["ports"]
+subgraph 96["src"]
+97["adr.repository.port.d.ts"]
+98["adr.repository.port.js"]
+99["artifact.repository.port.d.ts"]
+9A["artifact.repository.port.js"]
+9B["decision.repository.port.d.ts"]
+9C["decision.repository.port.js"]
+9D["domain.repository.port.d.ts"]
+9E["domain.repository.port.js"]
+9F["evidence.repository.port.d.ts"]
+9G["evidence.repository.port.js"]
+9H["governance.port.d.ts"]
+9I["governance.port.js"]
+9J["graph.repository.port.d.ts"]
+9K["graph.repository.port.js"]
+9L["index.d.ts"]
+9M["mcp.port.js"]
+9N["mission.repository.port.js"]
+9O["outbox.repository.port.js"]
+9P["security.port.js"]
+9Q["unit-of-work.port.js"]
+9R["index.js"]
+9S["mapping.repository.port.d.ts"]
+9T["mapping.repository.port.js"]
+9U["mcp.port.d.ts"]
+9V["mission.repository.port.d.ts"]
+9W["outbox.repository.port.d.ts"]
+9X["security.port.d.ts"]
+9Y["unit-of-work.port.d.ts"]
 end
 end
 end
-subgraph DL["test"]
-DM["mcp-bridge.test.ts"]
-DN["security.test.ts"]
-DO["smoke.test.ts"]
+subgraph 9Z["test"]
+A0["mcp-bridge.test.ts"]
+A1["security.test.ts"]
+A2["smoke.test.ts"]
 end
 end
-subgraph 16["ports"]
-subgraph 17["src"]
-18["index.ts"]
-19["adr.repository.port.ts"]
+subgraph 1O["ports"]
+subgraph 1P["src"]
+1Q["index.ts"]
+1R["adr.repository.port.ts"]
 1S["artifact.repository.port.ts"]
 1T["decision.repository.port.ts"]
 1U["domain.repository.port.ts"]
@@ -1987,274 +1564,239 @@ subgraph 17["src"]
 20["outbox.repository.port.ts"]
 21["security.port.ts"]
 22["unit-of-work.port.ts"]
-E1["mapping.repository.port.ts"]
+AS["mapping.repository.port.ts"]
 end
 end
-subgraph 1A["domain"]
-subgraph 1B["src"]
-1C["index.ts"]
-1D["adr.ts"]
-1E["approval.ts"]
-1F["mission.ts"]
-1G["errors.ts"]
-1H["events.ts"]
-1I["artifact.ts"]
-1J["decision.ts"]
-1K["evidence.ts"]
-1L["governance.ts"]
-1M["node.ts"]
-1N["mapping.ts"]
-1O["rating.ts"]
-1P["security.ts"]
-1Q["source.ts"]
-1R["workspace.ts"]
+subgraph 3K["api"]
+subgraph 3L["coverage"]
+3M["block-navigation.js"]
+3N["prettify.js"]
+3O["sorter.js"]
 end
-subgraph AY["coverage"]
-AZ["block-navigation.js"]
-B0["prettify.js"]
-B1["sorter.js"]
+subgraph 3P["src"]
+3Q["bin.ts"]
+3R["server.ts"]
+4L["mock-data.ts"]
+subgraph 4M["routes"]
+4N["adr.routes.ts"]
+5Q["governance.routes.ts"]
+5R["mapping.routes.ts"]
+5U["mcp.routes.ts"]
+5V["rating.routes.ts"]
+5W["security.routes.ts"]
+5X["source.routes.ts"]
+5Y["workspace.routes.ts"]
 end
-subgraph B2["test"]
-B3["domain-smoke.test.ts"]
-B4["evidence.test.ts"]
-B5["mission.test.ts"]
-B6["node-invariants.test.ts"]
-B7["source-rating.test.ts"]
-B8["workspace.test.ts"]
+subgraph 5S["dto"]
+5T["index.ts"]
 end
-B9["vitest.config.ts"]
+subgraph 6R["contracts"]
+6S["openapi.ts"]
+6T["schemas.ts"]
 end
-subgraph 79["api"]
-subgraph 7A["coverage"]
-7B["block-navigation.js"]
-7C["prettify.js"]
-7D["sorter.js"]
+6U["index.ts"]
 end
-subgraph 7E["src"]
-7F["bin.ts"]
-7G["server.ts"]
-8A["mock-data.ts"]
-subgraph 8B["routes"]
-8C["adr.routes.ts"]
-9F["governance.routes.ts"]
-9G["mapping.routes.ts"]
-9J["mcp.routes.ts"]
-9K["rating.routes.ts"]
-9L["security.routes.ts"]
-9M["source.routes.ts"]
-9N["workspace.routes.ts"]
+subgraph 6V["test"]
+6W["adr.test.ts"]
+72["api.test.ts"]
 end
-subgraph 9H["dto"]
-9I["index.ts"]
+73["vitest.config.ts"]
 end
-subgraph AD["contracts"]
-AE["openapi.ts"]
-AF["schemas.ts"]
-end
-AG["index.ts"]
-end
-subgraph AH["test"]
-AI["adr.test.ts"]
-AO["api.test.ts"]
-end
-AP["vitest.config.ts"]
-end
-subgraph 8D["application"]
-subgraph 8E["src"]
-8F["index.ts"]
-8G["mapping-processor.ts"]
-subgraph 8H["use-cases"]
-8I["add-edge.ts"]
-8P["add-node.ts"]
-8Q["adr-use-cases.ts"]
-8R["apply-patch.ts"]
-8S["apply-retention.ts"]
-8T["assess-readiness.ts"]
-8U["cast-vote.ts"]
-8V["create-mission.ts"]
-8W["create-workspace.ts"]
-8X["get-mapping-run.ts"]
-8Y["get-node-ratings.ts"]
-8Z["get-readiness.ts"]
-90["get-trace.ts"]
-91["get-workspace-graph.ts"]
-92["ingest-source.ts"]
-93["list-mapping-runs.ts"]
-94["list-patches.ts"]
-95["list-sources.ts"]
-96["list-workspaces.ts"]
-97["patch-node.ts"]
-98["patch-workspace.ts"]
-99["propose-patch.ts"]
-9A["rate-node.ts"]
-9B["redact-node.ts"]
-9C["run-mapping.ts"]
-9D["submit-claim.ts"]
-9E["update-mission-brief.ts"]
+subgraph 4O["application"]
+subgraph 4P["src"]
+4Q["index.ts"]
+4R["mapping-processor.ts"]
+subgraph 4S["use-cases"]
+4T["add-edge.ts"]
+50["add-node.ts"]
+51["adr-use-cases.ts"]
+52["apply-patch.ts"]
+53["apply-retention.ts"]
+54["assess-readiness.ts"]
+55["cast-vote.ts"]
+56["create-mission.ts"]
+57["create-workspace.ts"]
+58["get-mapping-run.ts"]
+59["get-node-ratings.ts"]
+5A["get-readiness.ts"]
+5B["get-trace.ts"]
+5C["get-workspace-graph.ts"]
+5D["ingest-source.ts"]
+5E["list-mapping-runs.ts"]
+5F["list-patches.ts"]
+5G["list-sources.ts"]
+5H["list-workspaces.ts"]
+5I["patch-node.ts"]
+5J["patch-workspace.ts"]
+5K["propose-patch.ts"]
+5L["rate-node.ts"]
+5M["redact-node.ts"]
+5N["run-mapping.ts"]
+5O["submit-claim.ts"]
+5P["update-mission-brief.ts"]
 end
 end
-subgraph AS["test"]
-AT["async-runtime.test.ts"]
-AU["create-workspace.test.ts"]
-AV["mission.use-cases.test.ts"]
-AW["use-cases.test.ts"]
+subgraph 76["test"]
+77["async-runtime.test.ts"]
+78["create-workspace.test.ts"]
+79["mission.use-cases.test.ts"]
+7A["use-cases.test.ts"]
 end
-AX["vitest.config.ts"]
+7B["vitest.config.ts"]
 end
-subgraph 8K["observability"]
-subgraph 8L["src"]
-8M["index.ts"]
-8N["audit.ts"]
-8O["tracer.ts"]
+subgraph 4V["observability"]
+subgraph 4W["src"]
+4X["index.ts"]
+4Y["audit.ts"]
+4Z["tracer.ts"]
 end
-subgraph DZ["test"]
-E0["redaction.test.ts"]
-end
-end
-subgraph 9O["infrastructure-postgres"]
-subgraph 9P["src"]
-9Q["index.ts"]
-9R["governance.repository.ts"]
-9T["schema.ts"]
-9W["graph.repository.ts"]
-9X["identity.repository.ts"]
-9Y["outbox.repository.ts"]
-9Z["rating.repository.ts"]
-A0["source.repository.ts"]
-A1["unit-of-work.ts"]
-A2["evidence.repository.ts"]
-A3["mission.repository.ts"]
-A4["workspace.repository.ts"]
-DX["manual_migrate.ts"]
-DY["seed.ts"]
-end
-DS["drizzle.config.ts"]
-end
-subgraph A5["infrastructure-runtime"]
-subgraph A6["src"]
-A7["index.ts"]
-A8["in-memory-governance.repository.ts"]
-A9["in-memory-repositories.ts"]
-AA["in-memory-unit-of-work.ts"]
-AB["outbox-worker.ts"]
-AC["security-mocks.ts"]
+subgraph AQ["test"]
+AR["redaction.test.ts"]
 end
 end
-subgraph DP["infrastructure-models"]
-subgraph DQ["src"]
-DR["index.ts"]
+subgraph 5Z["infrastructure-postgres"]
+subgraph 60["src"]
+61["index.ts"]
+62["artifact.repository.ts"]
+64["schema.ts"]
+67["decision.repository.ts"]
+68["evidence.repository.ts"]
+69["governance.repository.ts"]
+6A["graph.repository.ts"]
+6B["identity.repository.ts"]
+6C["mapping.repository.ts"]
+6D["mission.repository.ts"]
+6E["outbox.repository.ts"]
+6F["rating.repository.ts"]
+6G["source.repository.ts"]
+6H["unit-of-work.ts"]
+6I["workspace.repository.ts"]
+AB["manual_migrate.ts"]
+AC["seed.ts"]
+end
+A6["drizzle.config.ts"]
+subgraph AD["test"]
+AE["container-setup.ts"]
+AN["graph-concurrency.test.ts"]
+AO["repository-integration.test.ts"]
+AP["transactional-integrity.test.ts"]
 end
 end
-subgraph E2["testing"]
-subgraph E3["src"]
-E4["fixtures.ts"]
-E5["index.ts"]
+subgraph 6J["infrastructure-runtime"]
+subgraph 6K["src"]
+6L["index.ts"]
+6M["in-memory-governance.repository.ts"]
+6N["in-memory-repositories.ts"]
+6O["in-memory-unit-of-work.ts"]
+6P["outbox-worker.ts"]
+6Q["security-mocks.ts"]
+end
+end
+subgraph A3["infrastructure-models"]
+subgraph A4["src"]
+A5["index.ts"]
+end
+end
+subgraph AT["testing"]
+subgraph AU["src"]
+AV["fixtures.ts"]
+AW["index.ts"]
 end
 end
 end
-subgraph 3Y["."]
-3Z["index.css"]
+4U["crypto"]
+74["path"]
+subgraph 92["@epos"]
+93["ports"]
 end
-subgraph 4A["@emotion"]
-4B["is-prop-valid"]
-end
-8J["crypto"]
-AQ["path"]
-subgraph CO["@epos"]
-CP["ports"]
-end
-6-->C
-D-->G
-D-->29
-D-->2H
-D-->2I
-D-->2L
-D-->2G
-D-->E
-D-->C
+AM["url"]
+4-->6
+8-->G
+8-->29
+8-->2N
+8-->2O
+8-->2R
+8-->2G
+8-->E
 G-->T
 G-->V
-G-->X
-G-->Y
-G-->Z
-G-->10
+G-->1G
+G-->1H
+G-->1I
+G-->1J
 G-->M
 G-->S
 G-->E
-G-->C
 V-->T
+V-->Z
 V-->E
-V-->C
-X-->T
-X-->E
-Y-->T
-Y-->V
-Y-->M
-Y-->S
-Y-->E
-Y-->C
-Z-->T
-Z-->M
-Z-->S
-Z-->E
-Z-->C
-10-->14
-10-->E
-10-->C
-14-->15
-14-->23
-14-->24
-15-->18
+Z-->10
+Z-->11
+Z-->15
+Z-->16
+Z-->13
+Z-->14
+Z-->17
+Z-->18
+Z-->1A
+Z-->12
+Z-->19
+Z-->1B
+Z-->1C
+Z-->1D
+Z-->1E
+11-->12
+12-->13
+12-->14
+15-->13
+15-->12
+16-->12
+17-->13
+18-->13
+18-->14
 18-->19
-18-->1S
-18-->1T
-18-->1U
-18-->1V
-18-->1W
-18-->1X
-18-->1Y
-18-->1Z
-18-->20
-18-->21
-18-->22
-19-->1C
-1C-->1D
-1C-->1E
-1C-->1I
-1C-->1J
-1C-->1G
-1C-->1H
-1C-->1K
-1C-->1L
-1C-->1N
-1C-->1F
-1C-->1M
-1C-->1O
-1C-->1P
-1C-->1Q
-1C-->1R
-1E-->1F
-1F-->1G
-1F-->1H
-1I-->1G
-1I-->1F
-1J-->1F
-1K-->1G
-1L-->1G
-1L-->1H
-1L-->1M
-1M-->1G
-1M-->1H
-1Q-->1G
-1R-->1G
-1S-->1C
-1T-->1C
-1U-->1C
-1V-->1C
-1W-->1C
-1X-->1C
-1Z-->1C
-21-->1C
+19-->13
+19-->14
+1D-->13
+1E-->13
+1G-->T
+1G-->E
+1H-->T
+1H-->V
+1H-->M
+1H-->S
+1H-->E
+1I-->T
+1I-->M
+1I-->S
+1I-->E
+1J-->1M
+1J-->E
+1M-->1N
+1M-->23
+1M-->24
+1N-->1Q
+1Q-->1R
+1Q-->1S
+1Q-->1T
+1Q-->1U
+1Q-->1V
+1Q-->1W
+1Q-->1X
+1Q-->1Y
+1Q-->1Z
+1Q-->20
+1Q-->21
+1Q-->22
+1R-->Z
+1S-->Z
+1T-->Z
+1U-->Z
+1V-->Z
+1W-->Z
+1X-->Z
+1Z-->Z
+21-->Z
 22-->1S
 22-->1T
 22-->1U
@@ -2264,747 +1806,551 @@ Z-->C
 22-->1Z
 22-->20
 23-->24
-23-->1C
-23-->18
+23-->Z
+23-->1Q
 24-->28
 29-->2G
 29-->M
 29-->S
+29-->E
 29-->2F
-29-->C
+2G-->Z
 2G-->E
-2G-->C
-2H-->2G
-2H-->M
-2H-->S
-2H-->E
-2H-->C
-2I-->T
-2I-->V
-2I-->2G
-2I-->X
-2I-->2J
-2I-->2K
-2I-->M
-2I-->S
-2I-->E
-2I-->2F
-2I-->C
-2J-->M
-2J-->S
-2J-->E
-2J-->C
-2K-->M
-2K-->S
-2K-->E
-2K-->2F
-2K-->C
-2L-->T
-2L-->V
-2L-->2G
-2L-->2M
-2L-->2V
-2L-->2Y
-2L-->M
-2L-->S
-2L-->E
-2L-->C
-2M-->2G
-2M-->X
-2M-->2U
-2M-->S
-2M-->E
-2M-->C
-2M-->2S
-2M-->2T
+2G-->2M
+2N-->2G
+2N-->M
+2N-->S
+2N-->E
+2O-->T
+2O-->V
+2O-->2G
+2O-->1G
+2O-->2P
+2O-->2Q
+2O-->Z
+2O-->M
+2O-->S
+2O-->E
+2O-->2F
+2P-->M
+2P-->S
+2P-->E
+2Q-->M
+2Q-->S
+2Q-->E
+2Q-->2F
+2R-->T
+2R-->V
+2R-->2G
+2R-->2S
+2R-->2V
+2R-->2Y
+2R-->Z
+2R-->M
+2R-->S
+2R-->E
+2S-->2G
+2S-->1G
+2S-->2U
+2S-->S
+2S-->E
+2S-->2M
+2S-->2T
 2U-->S
 2U-->E
-2U-->C
-2U-->2S
-2V-->Y
+2U-->2M
+2V-->1H
 2V-->2W
 2V-->2X
+2V-->Z
 2V-->M
 2V-->S
 2V-->E
-2V-->C
 2W-->T
+2W-->Z
 2W-->M
 2W-->S
 2W-->E
-2W-->C
 2X-->T
 2X-->M
 2X-->S
 2X-->E
-2X-->C
 2Y-->T
 2Y-->S
 2Y-->E
-2Y-->C
-30-->E
-31-->E
-32-->E
-33-->E
-33-->C
-33-->2S
-34-->E
-35-->E
-35-->2T
-36-->E
-37-->1C
-37-->E
-38-->E
-39-->E
-3A-->E
-3B-->E
+2Z-->35
+2Z-->3B
+2Z-->2F
+3C-->8
+3C-->V
+3C-->2G
+3C-->2Z
+3C-->3D
 3C-->E
-3D-->E
-3E-->E
-3F-->E
-3G-->1C
-3G-->E
-3H-->1C
-3H-->E
-3H-->2S
-3J-->3P
-3Q-->3P
-3Q-->3W
-3Q-->2F
-3X-->3Q
-3X-->3Z
-3X-->2T
-40-->D
-40-->V
-40-->2G
-40-->3Q
-40-->3Z
-40-->E
-40-->44
-40-->C
-40-->2T
-46-->28
-47-->28
-49-->4B
-4J-->4K
-4K-->4L
-4M-->4L
-4N-->4K
-4T-->4L
-4U-->4R
-4U-->4V
-4V-->4L
-4W-->4L
-4X-->4G
-4X-->4I
-4X-->4M
-4X-->4O
-4X-->4L
-4X-->4R
-4X-->4T
-4X-->4W
+3C-->3H
+3C-->2T
+3J-->28
+3Q-->3R
+3R-->4L
+3R-->4N
+3R-->5Q
+3R-->5R
+3R-->5U
+3R-->5V
+3R-->5W
+3R-->5X
+3R-->5Y
+3R-->4Q
+3R-->1M
+3R-->61
+3R-->6L
+3R-->1Q
+3R-->3W
+3R-->41
+3R-->46
+3R-->4B
+3R-->4F
+3R-->4K
+4L-->Z
+4N-->4Q
+4N-->4F
+4Q-->4R
+4Q-->4T
+4Q-->50
+4Q-->51
+4Q-->52
+4Q-->53
+4Q-->54
+4Q-->55
+4Q-->56
+4Q-->57
+4Q-->58
+4Q-->59
+4Q-->5A
+4Q-->5B
+4Q-->5C
+4Q-->5D
+4Q-->5E
+4Q-->5F
+4Q-->5G
+4Q-->5H
+4Q-->5I
+4Q-->5J
+4Q-->5K
+4Q-->5L
+4Q-->5M
+4Q-->5N
+4Q-->5O
+4Q-->5P
+4R-->Z
+4R-->1Q
+4T-->Z
+4T-->4X
+4T-->1Q
+4T-->4U
 4X-->4Y
-4X-->4K
-4X-->4V
 4X-->4Z
-4X-->50
-4X-->51
-4X-->52
-51-->4L
-52-->4L
-53-->4G
-53-->4I
-53-->4M
-53-->4O
-53-->4L
-53-->4R
-53-->4T
-53-->4W
-53-->4Y
-53-->4K
-53-->4V
-53-->4Z
-53-->50
-53-->51
-53-->52
-55-->4R
-56-->4R
-5D-->5E
-5D-->5F
-5D-->5G
-5F-->5G
-5F-->1C
-5G-->28
-5H-->5E
-5H-->5F
-5H-->5G
-5I-->18
-5J-->18
-5K-->28
-5N-->1C
-5P-->1C
-5R-->1C
-5T-->1C
-5V-->1C
-5X-->1C
-5Z-->1C
-61-->5O
-61-->5Q
-61-->5S
-61-->5U
-61-->5W
-61-->5Y
-61-->60
+50-->Z
+50-->4X
+50-->1Q
+50-->4U
+51-->Z
+51-->1Q
+52-->Z
+52-->1Q
+52-->4U
+53-->Z
+53-->1Q
+54-->Z
+54-->1Q
+54-->4U
+55-->Z
+55-->4X
+55-->1Q
+55-->4U
+56-->Z
+56-->1Q
+56-->4U
+57-->Z
+57-->4X
+57-->1Q
+57-->4U
+58-->Z
+58-->1Q
+59-->Z
+59-->1Q
+5A-->Z
+5A-->1Q
+5B-->Z
+5B-->1Q
+5C-->Z
+5C-->1Q
+5D-->Z
+5D-->1Q
+5D-->4U
+5E-->Z
+5E-->1Q
+5F-->Z
+5F-->1Q
+5G-->Z
+5G-->1Q
+5H-->Z
+5H-->1Q
+5I-->Z
+5I-->1Q
+5J-->Z
+5J-->1Q
+5K-->Z
+5K-->1Q
+5K-->4U
+5L-->Z
+5L-->1Q
+5L-->4U
+5M-->Z
+5M-->1Q
+5N-->Z
+5N-->1Q
+5N-->4U
+5O-->Z
+5O-->1Q
+5O-->4U
+5P-->Z
+5P-->1Q
+5P-->4U
+5Q-->4Q
+5Q-->1Q
+5Q-->4F
+5R-->5T
+5R-->4Q
+5R-->4F
+5T-->Z
+5U-->1M
+5U-->1Q
+5U-->4F
+5V-->4Q
+5V-->Z
+5V-->4F
+5W-->4Q
+5W-->Z
+5W-->1Q
+5W-->4F
+5X-->4Q
+5X-->Z
+5X-->4F
+5Y-->5T
+5Y-->4Q
+5Y-->4F
 61-->62
-61-->63
+61-->67
+61-->68
+61-->69
+61-->6A
+61-->6B
+61-->6C
+61-->6D
+61-->6E
+61-->6F
 61-->64
-61-->65
-61-->66
-67-->5O
-67-->5Q
-67-->5S
-67-->5U
-67-->5W
-67-->5Y
-67-->60
-67-->62
-67-->63
+61-->6G
+61-->6H
+61-->6I
+62-->64
+62-->Z
+62-->1Q
+62-->63
+62-->4B
+64-->66
 67-->64
-67-->65
-67-->66
-68-->1C
-6B-->1C
-6D-->1C
-6E-->5Q
-6E-->5S
-6E-->5U
-6E-->5W
-6E-->5Y
-6E-->60
-6E-->63
+67-->Z
+67-->1Q
+67-->63
+67-->4B
+68-->64
+68-->Z
+68-->63
+68-->4B
+69-->64
+69-->Z
+69-->1Q
+69-->63
+69-->4B
+6A-->64
+6A-->Z
+6A-->1Q
+6A-->63
+6A-->4B
+6B-->64
+6B-->Z
+6B-->1Q
+6B-->63
+6B-->4B
+6C-->64
+6C-->Z
+6C-->1Q
+6C-->63
+6C-->4B
+6D-->64
+6D-->Z
+6D-->1Q
+6D-->63
+6D-->4B
 6E-->64
-6G-->6I
-6G-->6R
-6G-->6T
-6G-->6U
-6G-->6X
-6G-->6S
-6G-->E
-6I-->6J
-6I-->6L
-6I-->6N
-6I-->6O
-6I-->6P
-6I-->6Q
-6I-->M
-6I-->S
-6I-->E
-6L-->6J
-6L-->1C
-6L-->E
-6N-->6J
-6N-->E
-6O-->6J
-6O-->6L
-6O-->M
-6O-->S
-6O-->E
-6P-->6J
-6P-->M
-6P-->S
-6P-->E
-6Q-->14
-6Q-->E
-6R-->6S
-6R-->M
-6R-->S
-6R-->E
-6R-->2F
-6S-->1C
-6S-->E
-6S-->2S
-6T-->6S
-6T-->M
-6T-->S
-6T-->E
-6U-->6J
-6U-->6L
-6U-->6S
-6U-->6N
-6U-->6V
-6U-->6W
-6U-->1C
-6U-->M
-6U-->S
-6U-->E
-6U-->2F
-6V-->M
-6V-->S
-6V-->E
-6W-->M
-6W-->S
-6W-->E
-6W-->2F
-6X-->6J
-6X-->6L
-6X-->6S
-6X-->6Y
-6X-->70
-6X-->73
-6X-->1C
-6X-->M
-6X-->S
-6X-->E
-6Y-->6S
-6Y-->6N
-6Y-->6Z
-6Y-->S
-6Y-->E
-6Y-->2S
-6Y-->2T
-6Z-->S
-6Z-->E
-6Z-->2S
-70-->6O
-70-->71
-70-->72
-70-->1C
-70-->M
-70-->S
-70-->E
-71-->6J
-71-->1C
-71-->M
-71-->S
-71-->E
-72-->6J
-72-->M
-72-->S
-72-->E
-73-->6J
-73-->S
-73-->E
-74-->3P
-74-->3W
-74-->2F
-75-->6G
-75-->6L
-75-->6S
-75-->74
-75-->76
-75-->E
-75-->44
-75-->2T
-78-->28
-7F-->7G
-7G-->8A
-7G-->8C
-7G-->9F
-7G-->9G
-7G-->9J
-7G-->9K
-7G-->9L
-7G-->9M
-7G-->9N
-7G-->8F
-7G-->14
-7G-->9Q
-7G-->A7
-7G-->18
-7G-->7L
-7G-->7Q
-7G-->7V
-7G-->80
-7G-->84
-7G-->89
-8A-->1C
-8C-->8F
-8C-->84
-8F-->8G
-8F-->8I
-8F-->8P
-8F-->8Q
-8F-->8R
-8F-->8S
-8F-->8T
-8F-->8U
-8F-->8V
-8F-->8W
-8F-->8X
-8F-->8Y
-8F-->8Z
-8F-->90
-8F-->91
-8F-->92
-8F-->93
-8F-->94
-8F-->95
-8F-->96
-8F-->97
-8F-->98
-8F-->99
-8F-->9A
-8F-->9B
-8F-->9C
-8F-->9D
-8F-->9E
-8G-->1C
-8G-->18
-8I-->1C
-8I-->8M
-8I-->18
-8I-->8J
-8M-->8N
-8M-->8O
-8P-->1C
-8P-->8M
-8P-->18
-8P-->8J
-8Q-->1C
-8Q-->18
-8R-->1C
-8R-->18
-8R-->8J
-8S-->1C
-8S-->18
-8T-->1C
-8T-->18
-8T-->8J
-8U-->1C
-8U-->8M
-8U-->18
-8U-->8J
-8V-->1C
-8V-->18
-8V-->8J
-8W-->1C
-8W-->8M
-8W-->18
-8W-->8J
-8X-->1C
-8X-->18
-8Y-->1C
-8Y-->18
-8Z-->1C
-8Z-->18
-90-->1C
-90-->18
-91-->1C
-91-->18
-92-->1C
-92-->18
-92-->8J
-93-->1C
-93-->18
-94-->1C
-94-->18
-95-->1C
-95-->18
-96-->1C
-96-->18
-97-->1C
-97-->18
-98-->1C
-98-->18
-99-->1C
-99-->18
-99-->8J
-9A-->1C
-9A-->18
-9A-->8J
-9B-->1C
-9B-->18
-9C-->1C
-9C-->18
-9C-->8J
-9D-->1C
-9D-->18
-9D-->8J
-9E-->1C
-9E-->18
-9E-->8J
-9F-->8F
-9F-->18
-9F-->84
-9G-->9I
-9G-->8F
-9G-->84
-9I-->1C
-9J-->14
-9J-->18
-9J-->84
-9K-->8F
-9K-->1C
-9K-->84
-9L-->8F
-9L-->1C
-9L-->18
-9L-->84
-9M-->8F
-9M-->1C
-9M-->84
-9N-->9I
-9N-->8F
-9N-->84
-9Q-->9R
-9Q-->9W
-9Q-->9X
-9Q-->9Y
-9Q-->9Z
-9Q-->9T
-9Q-->A0
-9Q-->A1
-9Q-->A4
-9R-->9T
-9R-->1C
-9R-->18
-9R-->9S
-9R-->80
-9T-->9V
-9W-->9T
-9W-->1C
-9W-->18
-9W-->9S
-9W-->80
-9X-->9T
-9X-->1C
-9X-->18
-9X-->9S
-9X-->80
-9Y-->9T
-9Y-->18
-9Y-->9S
-9Y-->80
-9Z-->9T
-9Z-->1C
-9Z-->18
-9Z-->9S
-9Z-->80
-A0-->9T
-A0-->1C
-A0-->18
-A0-->8J
-A0-->9S
-A0-->80
-A1-->A2
-A1-->9R
-A1-->9W
-A1-->A3
-A1-->9Y
-A1-->9Z
-A1-->A0
-A1-->A4
-A1-->18
-A1-->80
-A2-->9T
-A2-->1C
-A2-->9S
-A2-->80
-A3-->9T
-A3-->1C
-A3-->18
-A3-->9S
-A3-->80
-A4-->9T
-A4-->1C
-A4-->18
-A4-->9S
-A4-->80
-A7-->A8
-A7-->A9
-A7-->AA
-A7-->AB
-A7-->AC
-A8-->1C
-A8-->18
-A9-->1C
-A9-->18
-AA-->18
-AB-->8M
-AB-->18
-AC-->1C
-AC-->18
-AC-->8J
-AF-->28
-AG-->7G
-AI-->7G
-AI-->84
-AI-->AN
-AO-->7G
-AO-->1C
-AO-->18
-AO-->84
-AO-->AN
-AP-->AQ
-AP-->AR
-AT-->9C
-AT-->18
-AT-->8J
-AT-->AN
-AU-->8W
-AU-->18
-AU-->AN
-AV-->8V
-AV-->92
-AV-->9C
-AV-->9E
-AV-->1C
-AV-->18
-AV-->AN
-AW-->8I
-AW-->8P
-AW-->8U
-AW-->8W
-AW-->91
-AW-->96
-AW-->97
-AW-->9D
-AW-->1C
-AW-->18
-AW-->AN
-AX-->AQ
-AX-->AR
-B3-->1C
-B3-->AN
-B4-->1K
-B4-->AN
-B5-->1F
-B5-->AN
-B6-->1C
-B6-->AN
-B7-->1C
-B7-->AN
-B8-->1G
-B8-->1R
-B8-->AN
-B9-->AR
-BH-->BI
-BI-->BJ
-BK-->BJ
-BL-->BI
-BR-->BJ
-BS-->BP
-BS-->BT
-BT-->BJ
-BU-->BJ
-BV-->BE
-BV-->BG
-BV-->BK
-BV-->BM
-BV-->BJ
-BV-->BP
-BV-->BR
-BV-->BU
-BV-->BW
-BV-->BI
-BV-->BT
-BV-->BX
-BV-->BY
-BV-->BZ
-BV-->C0
-BZ-->BJ
-C0-->BJ
-C1-->BE
-C1-->BG
-C1-->BK
-C1-->BM
-C1-->BJ
-C1-->BP
-C1-->BR
-C1-->BU
-C1-->BW
-C1-->BI
-C1-->BT
-C1-->BX
-C1-->BY
-C1-->BZ
-C1-->C0
-C3-->BP
-C4-->BP
-C9-->CA
-C9-->CB
-CC-->CA
-CC-->CB
-CF-->CG
-CF-->CH
-CF-->CI
-CH-->CI
-CH-->1C
-CI-->28
-CJ-->CG
-CJ-->CH
-CJ-->CI
-CK-->18
-CL-->18
-CM-->28
-CN-->CP
-CQ-->CP
-CT-->1C
-CV-->1C
-CX-->1C
-CZ-->1C
-D1-->1C
-D3-->1C
-D5-->1C
-D7-->CU
-D7-->CW
-D7-->CY
-D7-->D0
-D7-->D2
-D7-->D4
-D7-->D6
-D7-->D8
-D7-->D9
-D7-->DA
-D7-->DB
-D7-->DC
-DD-->CU
-DD-->CW
-DD-->CY
-DD-->D0
-DD-->D2
-DD-->D4
-DD-->D6
-DD-->D8
-DD-->D9
-DD-->DA
-DD-->DB
-DD-->DC
-DE-->1C
-DH-->1C
-DJ-->1C
-DK-->CW
-DK-->CY
-DK-->D0
-DK-->D2
-DK-->D4
-DK-->D6
-DK-->D9
-DK-->DA
-DM-->23
-DM-->18
-DM-->AN
-DN-->23
-DN-->1C
-DN-->18
-DN-->AN
-DO-->AN
-DS-->7Q
-DS-->7V
-DS-->DW
-DX-->7Q
-DX-->7V
-DX-->89
-DY-->9T
-DY-->7Q
-DY-->7V
-DY-->80
-DY-->89
-E0-->8O
-E0-->AN
-E1-->1C
-E4-->1C
-E5-->E4
+6E-->1Q
+6E-->63
+6E-->4B
+6F-->64
+6F-->Z
+6F-->1Q
+6F-->63
+6F-->4B
+6G-->64
+6G-->Z
+6G-->1Q
+6G-->4U
+6G-->63
+6G-->4B
+6H-->62
+6H-->67
+6H-->68
+6H-->69
+6H-->6A
+6H-->6C
+6H-->6D
+6H-->6E
+6H-->6F
+6H-->6G
+6H-->6I
+6H-->1Q
+6H-->4B
+6I-->64
+6I-->Z
+6I-->1Q
+6I-->63
+6I-->4B
+6L-->6M
+6L-->6N
+6L-->6O
+6L-->6P
+6L-->6Q
+6M-->Z
+6M-->1Q
+6N-->Z
+6N-->1Q
+6O-->1Q
+6P-->4X
+6P-->1Q
+6Q-->Z
+6Q-->1Q
+6Q-->4U
+6T-->28
+6U-->3R
+6W-->3R
+6W-->4F
+6W-->71
+72-->3R
+72-->Z
+72-->1Q
+72-->4F
+72-->71
+73-->74
+73-->75
+77-->5N
+77-->1Q
+77-->4U
+77-->71
+78-->57
+78-->1Q
+78-->71
+79-->56
+79-->5D
+79-->5N
+79-->5P
+79-->Z
+79-->1Q
+79-->71
+7A-->4T
+7A-->50
+7A-->55
+7A-->57
+7A-->5C
+7A-->5H
+7A-->5I
+7A-->5O
+7A-->Z
+7A-->1Q
+7A-->71
+7B-->74
+7B-->75
+7H-->Z
+7H-->71
+7I-->17
+7I-->71
+7J-->12
+7J-->71
+7K-->Z
+7K-->71
+7L-->Z
+7L-->71
+7M-->13
+7M-->1E
+7M-->71
+7N-->75
+7V-->7W
+7W-->7X
+7Y-->7X
+7Z-->7W
+85-->7X
+86-->83
+86-->87
+87-->7X
+88-->7X
+89-->7S
+89-->7U
+89-->7Y
+89-->80
+89-->7X
+89-->83
+89-->85
+89-->88
+89-->8A
+89-->7W
+89-->87
+89-->8B
+89-->8C
+89-->8D
+89-->8E
+8D-->7X
+8E-->7X
+8F-->7S
+8F-->7U
+8F-->7Y
+8F-->80
+8F-->7X
+8F-->83
+8F-->85
+8F-->88
+8F-->8A
+8F-->7W
+8F-->87
+8F-->8B
+8F-->8C
+8F-->8D
+8F-->8E
+8H-->83
+8I-->83
+8N-->8O
+8N-->8P
+8Q-->8O
+8Q-->8P
+8T-->8U
+8T-->8V
+8T-->8W
+8V-->8W
+8V-->Z
+8W-->28
+8X-->8U
+8X-->8V
+8X-->8W
+8Y-->1Q
+8Z-->1Q
+90-->28
+91-->93
+94-->93
+97-->Z
+99-->Z
+9B-->Z
+9D-->Z
+9F-->Z
+9H-->Z
+9J-->Z
+9L-->98
+9L-->9A
+9L-->9C
+9L-->9E
+9L-->9G
+9L-->9I
+9L-->9K
+9L-->9M
+9L-->9N
+9L-->9O
+9L-->9P
+9L-->9Q
+9R-->98
+9R-->9A
+9R-->9C
+9R-->9E
+9R-->9G
+9R-->9I
+9R-->9K
+9R-->9M
+9R-->9N
+9R-->9O
+9R-->9P
+9R-->9Q
+9S-->Z
+9V-->Z
+9X-->Z
+9Y-->9A
+9Y-->9C
+9Y-->9E
+9Y-->9G
+9Y-->9I
+9Y-->9K
+9Y-->9N
+9Y-->9O
+A0-->23
+A0-->1Q
+A0-->71
+A1-->23
+A1-->Z
+A1-->1Q
+A1-->71
+A2-->71
+A6-->41
+A6-->46
+A6-->AA
+AB-->41
+AB-->46
+AB-->4K
+AC-->64
+AC-->41
+AC-->46
+AC-->4B
+AC-->4K
+AE-->AK
+AE-->4B
+AE-->AL
+AE-->74
+AE-->4K
+AE-->AM
+AN-->6A
+AN-->AE
+AN-->Z
+AN-->AK
+AN-->4B
+AN-->4K
+AN-->71
+AO-->6I
+AO-->AE
+AO-->Z
+AO-->AK
+AO-->4B
+AO-->4K
+AO-->71
+AP-->6D
+AP-->6H
+AP-->6I
+AP-->AE
+AP-->Z
+AP-->AK
+AP-->4B
+AP-->4K
+AP-->71
+AR-->4Z
+AR-->71
+AS-->Z
+AV-->Z
+AW-->AV
 ```
 
 ## 🎨 Архитектура UI Интерфейсов (demo-shell)
@@ -3046,7 +2392,7 @@ flowchart TD
 |---|---|---|---|
 | `demo-shell/src/api-config.ts` | 7 | 0.3 KB | Централизованная конфигурация API URL. |
 | `demo-shell/src/App.tsx` | 73 | 1.9 KB | — |
-| `demo-shell/src/components/ADRReviewWorkspace.tsx` | 853 | 27.9 KB | — |
+| `demo-shell/src/components/ADRReviewWorkspace.tsx` | 893 | 29.2 KB | — |
 | `demo-shell/src/components/ArchiveView.tsx` | 247 | 7.4 KB | — |
 | `demo-shell/src/components/CommandPalette.tsx` | 341 | 9.1 KB | — |
 | `demo-shell/src/components/CustomNode.tsx` | 169 | 4.4 KB | — |
@@ -3063,7 +2409,7 @@ flowchart TD
 | `demo-shell/src/components/SourcePanel.tsx` | 232 | 6.9 KB | — |
 | `demo-shell/src/components/WorkspaceRoom.tsx` | 665 | 21.5 KB | — |
 | `demo-shell/src/context/SecurityContext.tsx` | 68 | 1.6 KB | — |
-| `demo-shell/src/context/WorkspaceContext.tsx` | 145 | 3.8 KB | — |
+| `demo-shell/src/context/WorkspaceContext.tsx` | 147 | 3.8 KB | — |
 | `demo-shell/src/hooks/useApi.ts` | 43 | 1.1 KB | — |
 | `demo-shell/src/i18n.ts` | 99 | 3.4 KB | — |
 | `demo-shell/src/main.tsx` | 20 | 0.5 KB | — |
@@ -3166,7 +2512,7 @@ flowchart TD
 | `api/src/routes/security.routes.ts` | 66 | 2.0 KB | — |
 | `api/src/routes/source.routes.ts` | 38 | 1.1 KB | — |
 | `api/src/routes/workspace.routes.ts` | 52 | 1.4 KB | — |
-| `api/src/server.ts` | 326 | 10.8 KB | — |
+| `api/src/server.ts` | 356 | 11.8 KB | — |
 | `api/test/adr.test.ts` | 55 | 1.4 KB | — |
 | `api/test/api.test.ts` | 238 | 6.0 KB | — |
 | `api/vitest.config.ts` | 42 | 1.1 KB | — |
@@ -3239,22 +2585,29 @@ flowchart TD
 | `infrastructure-mcp/test/smoke.test.ts` | 8 | 0.2 KB | — |
 | `infrastructure-models/src/index.ts` | 3 | 0.1 KB | — |
 | `infrastructure-postgres/drizzle.config.ts` | 17 | 0.4 KB | — |
+| `infrastructure-postgres/src/artifact.repository.ts` | 299 | 8.6 KB | — |
+| `infrastructure-postgres/src/decision.repository.ts` | 202 | 6.2 KB | — |
 | `infrastructure-postgres/src/evidence.repository.ts` | 60 | 1.6 KB | — |
 | `infrastructure-postgres/src/governance.repository.ts` | 361 | 10.3 KB | — |
 | `infrastructure-postgres/src/graph.repository.ts` | 203 | 6.0 KB | — |
 | `infrastructure-postgres/src/identity.repository.ts` | 68 | 1.7 KB | — |
-| `infrastructure-postgres/src/index.ts` | 14 | 0.5 KB | — |
+| `infrastructure-postgres/src/index.ts` | 19 | 0.7 KB | — |
 | `infrastructure-postgres/src/manual_migrate.ts` | 30 | 0.9 KB | — |
+| `infrastructure-postgres/src/mapping.repository.ts` | 84 | 2.5 KB | — |
 | `infrastructure-postgres/src/mission.repository.ts` | 211 | 6.8 KB | — |
 | `infrastructure-postgres/src/outbox.repository.ts` | 57 | 1.7 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
-| `infrastructure-postgres/src/schema.ts` | 519 | 17.9 KB | — |
+| `infrastructure-postgres/src/schema.ts` | 541 | 18.7 KB | — |
 | `infrastructure-postgres/src/seed.ts` | 378 | 13.2 KB | — |
 | `infrastructure-postgres/src/source.repository.ts` | 124 | 3.8 KB | — |
-| `infrastructure-postgres/src/unit-of-work.ts` | 83 | 3.3 KB | PostgresUnitOfWork provides access to all repositories within a single Drizzle transaction. |
+| `infrastructure-postgres/src/unit-of-work.ts` | 89 | 3.6 KB | PostgresUnitOfWork provides access to all repositories within a single Drizzle transaction. |
 | `infrastructure-postgres/src/workspace.repository.ts` | 126 | 4.1 KB | — |
+| `infrastructure-postgres/test/container-setup.ts` | 37 | 0.9 KB | — |
+| `infrastructure-postgres/test/graph-concurrency.test.ts` | 70 | 2.2 KB | — |
+| `infrastructure-postgres/test/repository-integration.test.ts` | 100 | 3.1 KB | — |
+| `infrastructure-postgres/test/transactional-integrity.test.ts` | 151 | 4.7 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 108 | 3.3 KB | — |
-| `infrastructure-runtime/src/in-memory-repositories.ts` | 339 | 8.9 KB | — |
+| `infrastructure-runtime/src/in-memory-repositories.ts` | 433 | 11.8 KB | — |
 | `infrastructure-runtime/src/in-memory-unit-of-work.ts` | 80 | 2.9 KB | — |
 | `infrastructure-runtime/src/index.ts` | 9 | 0.3 KB | — |
 | `infrastructure-runtime/src/outbox-worker.ts` | 75 | 2.0 KB | — |
@@ -3264,7 +2617,7 @@ flowchart TD
 | `observability/src/tracer.ts` | 60 | 1.4 KB | — |
 | `observability/test/redaction.test.ts` | 47 | 1.5 KB | — |
 | `ports/src/adr.repository.port.ts` | 8 | 0.2 KB | — |
-| `ports/src/artifact.repository.port.ts` | 12 | 0.5 KB | — |
+| `ports/src/artifact.repository.port.ts` | 16 | 0.7 KB | — |
 | `ports/src/decision.repository.port.ts` | 14 | 0.5 KB | — |
 | `ports/src/domain.repository.port.ts` | 27 | 0.9 KB | — |
 | `ports/src/evidence.repository.port.ts` | 12 | 0.4 KB | — |
@@ -3565,6 +2918,17 @@ flowchart TD
 ### `infrastructure-models/src/index.ts`
 - **Экспорт**: `DEFAULT_PROVIDER`
 
+### `infrastructure-postgres/src/artifact.repository.ts`
+- **Экспорт**: `PostgresArtifactRepository`
+- **Зависимости**:
+  - `@epios/ports` → ArtifactRepositoryPort
+
+### `infrastructure-postgres/src/decision.repository.ts`
+- **Экспорт**: `PostgresDecisionRepository`, `PostgresApprovalRepository`
+- **Зависимости**:
+  - `@epios/ports` → DecisionRepositoryPort, ApprovalRepositoryPort
+  - `./schema.js` → decisionRecords, approvalRequests
+
 ### `infrastructure-postgres/src/evidence.repository.ts`
 - **Экспорт**: `PostgresEvidenceRepository`
 - **Зависимости**:
@@ -3592,6 +2956,13 @@ flowchart TD
 ### `infrastructure-postgres/src/index.ts`
 - **Экспорт**: `DB_ENGINE`, `DB_VERSION`
 
+### `infrastructure-postgres/src/mapping.repository.ts`
+- **Экспорт**: `PostgresMappingRepository`
+- **Зависимости**:
+  - `@epios/domain` → MappingRun, MappingRunStatus
+  - `@epios/ports` → MappingRepositoryPort
+  - `./schema.js` → mappingRuns
+
 ### `infrastructure-postgres/src/mission.repository.ts`
 - **Экспорт**: `PostgresMissionRepository`, `PostgresMissionRunRepository`
 - **Зависимости**:
@@ -3612,7 +2983,7 @@ flowchart TD
   - `./schema.js` → ratings
 
 ### `infrastructure-postgres/src/schema.ts`
-- **Экспорт**: `workspaces`, `epistemicNodes`, `epistemicEdges`, `sources`, `sourceChunks`, `ratings`, `identities`, `governanceProcesses`, `nodePatches`, `readinessAssessments`, `livingArtifacts`, `artifactVersions`, `artifactPatches`, `artifactPatchNodeRefs`, `decisionRecords`, `approvalRequests`, `conflictCards`, `traceEvents`, `outboxEvents`, `missions`, `missionRuns`, `evidenceRefs`, `epistemicNodeEvidenceRefs`, `evidenceSets`, `domainBoundaries`
+- **Экспорт**: `workspaces`, `epistemicNodes`, `epistemicEdges`, `sources`, `sourceChunks`, `ratings`, `identities`, `governanceProcesses`, `nodePatches`, `readinessAssessments`, `livingArtifacts`, `artifactVersions`, `artifactPatches`, `artifactPatchNodeRefs`, `decisionRecords`, `approvalRequests`, `conflictCards`, `traceEvents`, `outboxEvents`, `missions`, `missionRuns`, `evidenceRefs`, `epistemicNodeEvidenceRefs`, `evidenceSets`, `domainBoundaries`, `mappingRuns`
 
 ### `infrastructure-postgres/src/source.repository.ts`
 - **Экспорт**: `PostgresSourceRepository`
@@ -3631,6 +3002,8 @@ flowchart TD
   - `./governance.repository.js` → PostgresGovernanceRepository
   - `./outbox.repository.js` → PostgresOutboxRepository
   - `./evidence.repository.js` → PostgresEvidenceRepository
+  - `./artifact.repository.js` → PostgresArtifactRepository
+  - `./mapping.repository.js` → PostgresMappingRepository
 
 ### `infrastructure-postgres/src/workspace.repository.ts`
 - **Экспорт**: `PostgresWorkspaceRepository`
@@ -3644,7 +3017,7 @@ flowchart TD
   - `@epios/ports` → GovernanceRepositoryPort
 
 ### `infrastructure-runtime/src/in-memory-repositories.ts`
-- **Экспорт**: `InMemoryADRRepository`, `MOCK_ADRS`, `InMemoryWorkspaceRepository`, `InMemoryGraphRepository`, `InMemorySourceRepository`, `InMemoryRatingRepository`, `InMemoryMappingRepository`, `InMemoryOutboxRepository`, `InMemoryMissionRepository`, `InMemoryMissionRunRepository`, `InMemoryEvidenceRepository`
+- **Экспорт**: `InMemoryADRRepository`, `MOCK_ADRS`, `InMemoryWorkspaceRepository`, `InMemoryGraphRepository`, `InMemorySourceRepository`, `InMemoryRatingRepository`, `InMemoryMappingRepository`, `InMemoryOutboxRepository`, `InMemoryMissionRepository`, `InMemoryMissionRunRepository`, `InMemoryEvidenceRepository`, `InMemoryArtifactRepository`, `InMemoryDecisionRepository`, `InMemoryApprovalRepository`
 
 ### `infrastructure-runtime/src/in-memory-unit-of-work.ts`
 - **Экспорт**: `InMemoryUnitOfWork`, `InMemoryUnitOfWorkProvider`
@@ -3678,7 +3051,7 @@ flowchart TD
 ### `ports/src/artifact.repository.port.ts`
 - **Экспорт**: `ArtifactRepositoryPort`
 - **Зависимости**:
-  - `@epios/domain` → LivingArtifact, ArtifactPatch
+  - `@epios/domain` → LivingArtifact, ArtifactPatch, ArtifactVersion
 
 ### `ports/src/decision.repository.port.ts`
 - **Экспорт**: `DecisionRepositoryPort`, `ApprovalRepositoryPort`

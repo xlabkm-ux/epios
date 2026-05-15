@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted_concept / historical_delivery
+Status: archived / historical_delivery
 Binding Level: Advisory
 
 
