@@ -1,6 +1,6 @@
 # SPRINT PLAN: ADR-0099 Architectural Hardening (S1)
 
-**Status:** accepted
+**Status:** completed
 **Owner:** @architect
 **Date:** 2026-05-15
 **Traceability:** Implements [ADR-0099](../02_adrs/ADR-0099-mvp-audit-directives.md) (Directives 3.3, 4.2, 4.3, 5.2)

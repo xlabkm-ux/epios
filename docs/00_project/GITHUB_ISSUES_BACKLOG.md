@@ -2,6 +2,10 @@
 
 This document contains the source content for GitHub Issues to be created in the repository.
 
+**Status:** accepted
+**Owner:** @architect
+
+
 ## Milestone: v0.1.0-rc.1 Stabilization
 
 ### Issue: [P0] Implement test:security gate
