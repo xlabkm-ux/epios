@@ -1,5 +1,5 @@
 Owner: @architect
-Status: accepted
+Status: archived
 
 # Implementation Plan: Week 4 - Demo Shell & Mission Room
 

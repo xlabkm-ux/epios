@@ -34,3 +34,9 @@ Roadmap documents are not backlog. Backlog lives in GitHub Issues.
 3. **[OPEN_DECISIONS_REGISTER.md](00_project/OPEN_DECISIONS_REGISTER.md)**: Current pending decisions.
 4. **[ADR_REVIEW_WORKFLOW_MVP.md](03_specs/ADR_REVIEW_WORKFLOW_MVP.md)**: Core MVP workflow.
 
+## Current planning model:
+- Operational planning: GitHub Issues / sprints.
+- Project planning: [V1_1_PROJECT_PLAN_ADR_REVIEW.md](04_delivery/V1_1_PROJECT_PLAN_ADR_REVIEW.md).
+- v1.0 baseline: [EPIOS-03-v1_0-mvp-scope.md](01_foundation/EPIOS-03-v1_0-mvp-scope.md).
+- v1.1 roadmap: [EPIOS-v1_1-adr-review-roadmap.md](01_foundation/EPIOS-v1_1-adr-review-roadmap.md).
+

@@ -4,6 +4,7 @@
 |-------------|-------|-------|--------|---------|--------------|------------|------------|---------------|---------------|
 | **AUTHORITY** | | | | | | | | | |
 | EPIOS-DOC-001| [DOCUMENT_REGISTER.md](DOCUMENT_REGISTER.md) | @architect | accepted_contract | 0.4 | 2026-05-15 | Docs | - | v0.1.0-rc.1 | Mandatory |
+| **STATUS** | [**STATUS.md**](../../STATUS.md) | @architect | **active_dashboard** | 1.0 | 2026-05-15 | **Project Health** | - | **v0.1.0-alpha.1**| **Mandatory** |
 
 | EPIOS-DOC-002| [GOVERNANCE_PLAN.md](GOVERNANCE_PLAN.md) | @architect | accepted_contract | 1.4 | 2026-05-15 | Governance | - | v0.1.0-rc.1 | Mandatory |
 | EPIOS-DOC-003| [OPEN_DECISIONS_REGISTER.md](OPEN_DECISIONS_REGISTER.md) | @architect | accepted_contract | 0.2 | 2026-05-15 | Decisions | - | v0.1.0-rc.1 | Mandatory |
@@ -58,12 +59,9 @@
 | EPIOS-SPC-007| [MCP_SECURITY_TEST_PLAN.md](../03_specs/MCP_SECURITY_TEST_PLAN.md) | @architect | accepted | 1.0 | 2026-05-15 | Security | - | v1.0 MVP | Mandatory |
 
 | **DELIVERY** | | | | | | |
-| EPIOS-DEL-001| [SPRINT_DEVELOPMENT_PLAN_MVP.md](../04_delivery/SPRINT_DEVELOPMENT_PLAN_MVP.md) | @architect | accepted | 0.1 | 2026-05-14 | Execution | - | v1.0 MVP | Advisory |
-| EPIOS-DEL-002| [Week 1 Issues](../04_delivery/EPIOS-11-week-1-issues.md) | @architect | accepted | 0.1 | 2026-05-14 | Execution | - | v0.1.0-rc.1 | Mandatory |
-| EPIOS-DEL-003| [Week 2 Issues](../04_delivery/EPIOS-12-week-2-issues.md) | @architect | accepted | 0.1 | 2026-05-14 | Execution | - | v1.0 MVP | Mandatory |
+| EPIOS-DEL-001| [V1_1_PROJECT_PLAN_ADR_REVIEW.md](../04_delivery/V1_1_PROJECT_PLAN_ADR_REVIEW.md) | @architect | accepted_contract | 1.0 | 2026-05-15 | Delivery | - | v1.1 ADR Review | Mandatory |
 | EPIOS-DEL-004| [GITHUB_SETUP_GUIDE.md](../04_delivery/GITHUB_SETUP_GUIDE.md) | @architect | reference | 0.1 | 2026-05-14 | DevEx | - | v0.1.0-rc.1 | Advisory |
-| EPIOS-DEL-005| [QA Plan Pack](../04_delivery/qa/) | @architect | accepted | 0.1 | 2026-05-14 | QA | - | v1.0 MVP | Mandatory |
-| EPIOS-DEL-006| [ADR-0099 Hardening Plan](../04_delivery/SPRINT_PLAN_ADR_0099_HARDENING.md) | @architect | completed | 1.0 | 2026-05-15 | Execution | - | v0.1.0-rc.1 | Mandatory |
+| EPIOS-DEL-005| [QA Master & Matrix](../04_delivery/qa/) | @architect | accepted | 0.1 | 2026-05-14 | QA | - | v1.0 MVP | Mandatory |
 | EPIOS-DEL-007| [PROJECT_FIX_PLAN.md](../04_delivery/PROJECT_FIX_PLAN.md) | @architect | accepted | 1.1 | 2026-05-15 | Execution | - | v0.1.0-rc.1 | Mandatory |
 | **REFERENCE / ROADMAPS** | | | | | | |
 | EPIOS-REF-001| [UI Roadmap](../20_reference/ui_roadmap/) | @architect | deferred | 0.1 | 2026-05-14 | UI | - | v1.1 Alpha | Advisory |
@@ -75,3 +73,6 @@
 | EPIOS-ARC-001| [ChatAVG v2.4 Handover](../90_archive/chatavg_v2_4/CHATAVG_DOCUMENT_HANDOVER_REGISTER.md) | @architect | archived | 0.1 | 2026-05-12 | Legacy | - | - | Advisory |
 | EPIOS-ARC-002| [Superseded Doc Governance](../90_archive/superseded_governance/01_DOC_GOVERNANCE.md) | @architect | superseded | 0.1 | 2026-05-14 | Governance | EPIOS-DOC-002 | - | Advisory |
 | EPIOS-ARC-003| [Audit Verdict 05-14](../90_archive/audit_0514/Перестроить%20документацию.md) | @architect | archived | 0.1 | 2026-05-14 | Audit | - | - | Advisory |
+| EPIOS-ARC-004| [Old Sprint Plans](../90_archive/delivery_legacy/) | @architect | archived | 0.1 | 2026-05-15 | Delivery | - | - | Advisory |
+| EPIOS-ARC-005| [Old QA Reports](../90_archive/delivery_legacy/) | @architect | archived | 0.1 | 2026-05-15 | QA | - | - | Advisory |
+| EPIOS-ARC-006| [Old Demo & Pilot Docs](../90_archive/delivery_legacy/) | @architect | archived | 0.1 | 2026-05-15 | Demo | - | - | Advisory |

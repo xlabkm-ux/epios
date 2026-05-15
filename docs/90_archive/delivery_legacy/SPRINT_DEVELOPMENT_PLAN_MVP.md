@@ -1,6 +1,13 @@
 # EPIOS v1.1 — развернутый поэтапный план спринтов разработки
 
 **Документ:** `EPIOS-v1.1-SPRINT-DEVELOPMENT-PLAN`  
+**Статус:** historical_delivery
+**Binding Level:** Advisory
+**Причина:** This plan contains outdated S0-S7 sprint structures that do not match the current technical reality (Skeleton vs Product). Superseded by [STATUS.md](../../STATUS.md).
+
+> [!WARNING]
+> This document is not the active backlog.
+> Active sprint execution lives in GitHub Issues.
 **Версия:** Draft 0.1  
 **Дата:** 2026-05-13  
 **Репозиторий:** `https://github.com/xlabkm-ux/epios`  
