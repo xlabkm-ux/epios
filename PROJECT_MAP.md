@@ -1,5 +1,5 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-15 04:23:29`
+> Автоматически сгенерировано: `2026-05-15 04:31:11`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
