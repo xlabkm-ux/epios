@@ -28,6 +28,7 @@ import {
   PostgresMissionRunRepository,
 } from "./mission.repository.js";
 import { PostgresEvidenceRepository } from "./evidence.repository.js";
+import { PostgresMappingRepository } from "./mapping.repository.js";
 
 /**
  * PostgresUnitOfWork provides access to all repositories within a single Drizzle transaction.
@@ -74,7 +75,7 @@ export class PostgresUnitOfWorkProvider implements UnitOfWorkPort {
         null as unknown as ArtifactRepositoryPort,
         null as unknown as DecisionRepositoryPort,
         null as unknown as ApprovalRepositoryPort,
-        null as unknown as MappingRepositoryPort,
+        new PostgresMappingRepository(tx as any),
       );
       return await work(uow);
     });

@@ -1,14 +1,14 @@
 # 🗺️ PROJECT MAP — epios
-> Автоматически сгенерировано: `2026-05-15 15:29:01`
+> Автоматически сгенерировано: `2026-05-15 16:28:03`
 > Скрипт: `node dev_studio/refresh.js`
 
 ## 📊 Telemetry / Context Health
 | Metric | Value | Note |
 |---|---|---|
 | **Total Files** | `154` | Только JS/TS/TSX исходники |
-| **Total Lines** | `16497` | Суммарно по проекту |
-| **Project Weight** | `~132 214 tokens` | Оценка (4 символа/токен) |
-| **Context Pressure** | `103.3%` | Нагрузка на окно 128k (Full Scan) |
+| **Total Lines** | `16528` | Суммарно по проекту |
+| **Project Weight** | `~131 441 tokens` | Оценка (4 символа/токен) |
+| **Context Pressure** | `102.7%` | Нагрузка на окно 128k (Full Scan) |
 | **Map Efficiency** | `~87%` | Экономия контекста через карту |
 
 ---
@@ -3155,20 +3155,20 @@ flowchart TD
 | `api/src/bin.ts` | 13 | 0.3 KB | — |
 | `api/src/contracts/openapi.ts` | 30 | 0.6 KB | OpenAPI Definition for EPIOS (Derived from Schemas) |
 | `api/src/contracts/schemas.ts` | 57 | 1.3 KB | — |
-| `api/src/dto/index.ts` | 58 | 1.2 KB | — |
+| `api/src/dto/index.ts` | 58 | 1.1 KB | — |
 | `api/src/index.ts` | 3 | 0.0 KB | — |
-| `api/src/mock-data.ts` | 579 | 18.3 KB | — |
+| `api/src/mock-data.ts` | 579 | 17.8 KB | Mock data factory for demo/development mode. |
 | `api/src/routes/adr.routes.ts` | 27 | 0.6 KB | — |
-| `api/src/routes/governance.routes.ts` | 128 | 3.9 KB | — |
+| `api/src/routes/governance.routes.ts` | 128 | 3.8 KB | — |
 | `api/src/routes/mapping.routes.ts` | 98 | 3.0 KB | — |
 | `api/src/routes/mcp.routes.ts` | 45 | 1.3 KB | — |
 | `api/src/routes/rating.routes.ts` | 30 | 0.9 KB | — |
 | `api/src/routes/security.routes.ts` | 66 | 2.0 KB | — |
 | `api/src/routes/source.routes.ts` | 38 | 1.1 KB | — |
 | `api/src/routes/workspace.routes.ts` | 52 | 1.4 KB | — |
-| `api/src/server.ts` | 326 | 11.1 KB | — |
+| `api/src/server.ts` | 326 | 10.8 KB | — |
 | `api/test/adr.test.ts` | 55 | 1.4 KB | — |
-| `api/test/api.test.ts` | 238 | 6.2 KB | — |
+| `api/test/api.test.ts` | 238 | 6.0 KB | — |
 | `api/vitest.config.ts` | 42 | 1.1 KB | — |
 | `application/src/index.ts` | 29 | 1.3 KB | — |
 | `application/src/mapping-processor.ts` | 90 | 2.4 KB | — |
@@ -3202,7 +3202,7 @@ flowchart TD
 | `application/test/async-runtime.test.ts` | 98 | 3.1 KB | — |
 | `application/test/create-workspace.test.ts` | 63 | 1.6 KB | — |
 | `application/test/mission.use-cases.test.ts` | 191 | 5.7 KB | — |
-| `application/test/use-cases.test.ts` | 395 | 12.2 KB | — |
+| `application/test/use-cases.test.ts` | 395 | 11.8 KB | — |
 | `application/vitest.config.ts` | 28 | 0.6 KB | — |
 | `domain/coverage/block-navigation.js` | 88 | 2.6 KB | — |
 | `domain/coverage/prettify.js` | 3 | 17.2 KB | — |
@@ -3213,7 +3213,7 @@ flowchart TD
 | `domain/src/decision.ts` | 46 | 1.1 KB | — |
 | `domain/src/errors.ts` | 35 | 0.9 KB | — |
 | `domain/src/events.ts` | 6 | 0.1 KB | — |
-| `domain/src/evidence.ts` | 86 | 2.6 KB | — |
+| `domain/src/evidence.ts` | 114 | 2.6 KB | — |
 | `domain/src/governance.ts` | 282 | 6.3 KB | — |
 | `domain/src/index.ts` | 16 | 0.5 KB | — |
 | `domain/src/mapping.ts` | 16 | 0.4 KB | — |
@@ -3239,8 +3239,8 @@ flowchart TD
 | `infrastructure-mcp/test/smoke.test.ts` | 8 | 0.2 KB | — |
 | `infrastructure-models/src/index.ts` | 3 | 0.1 KB | — |
 | `infrastructure-postgres/drizzle.config.ts` | 17 | 0.4 KB | — |
-| `infrastructure-postgres/src/evidence.repository.ts` | 59 | 1.6 KB | — |
-| `infrastructure-postgres/src/governance.repository.ts` | 361 | 10.7 KB | — |
+| `infrastructure-postgres/src/evidence.repository.ts` | 60 | 1.6 KB | — |
+| `infrastructure-postgres/src/governance.repository.ts` | 361 | 10.3 KB | — |
 | `infrastructure-postgres/src/graph.repository.ts` | 203 | 6.0 KB | — |
 | `infrastructure-postgres/src/identity.repository.ts` | 68 | 1.7 KB | — |
 | `infrastructure-postgres/src/index.ts` | 14 | 0.5 KB | — |
@@ -3248,13 +3248,13 @@ flowchart TD
 | `infrastructure-postgres/src/mission.repository.ts` | 211 | 6.8 KB | — |
 | `infrastructure-postgres/src/outbox.repository.ts` | 57 | 1.7 KB | — |
 | `infrastructure-postgres/src/rating.repository.ts` | 50 | 1.4 KB | — |
-| `infrastructure-postgres/src/schema.ts` | 522 | 18.4 KB | — |
+| `infrastructure-postgres/src/schema.ts` | 519 | 17.9 KB | — |
 | `infrastructure-postgres/src/seed.ts` | 378 | 13.2 KB | — |
 | `infrastructure-postgres/src/source.repository.ts` | 124 | 3.8 KB | — |
-| `infrastructure-postgres/src/unit-of-work.ts` | 78 | 3.4 KB | — |
+| `infrastructure-postgres/src/unit-of-work.ts` | 83 | 3.3 KB | PostgresUnitOfWork provides access to all repositories within a single Drizzle transaction. |
 | `infrastructure-postgres/src/workspace.repository.ts` | 126 | 4.1 KB | — |
 | `infrastructure-runtime/src/in-memory-governance.repository.ts` | 108 | 3.3 KB | — |
-| `infrastructure-runtime/src/in-memory-repositories.ts` | 339 | 9.3 KB | — |
+| `infrastructure-runtime/src/in-memory-repositories.ts` | 339 | 8.9 KB | — |
 | `infrastructure-runtime/src/in-memory-unit-of-work.ts` | 80 | 2.9 KB | — |
 | `infrastructure-runtime/src/index.ts` | 9 | 0.3 KB | — |
 | `infrastructure-runtime/src/outbox-worker.ts` | 75 | 2.0 KB | — |
@@ -3568,6 +3568,7 @@ flowchart TD
 ### `infrastructure-postgres/src/evidence.repository.ts`
 - **Экспорт**: `PostgresEvidenceRepository`
 - **Зависимости**:
+  - `@epios/domain` → EvidenceSet
   - `./schema.js` → evidenceSets
 
 ### `infrastructure-postgres/src/governance.repository.ts`
@@ -3629,7 +3630,6 @@ flowchart TD
   - `./rating.repository.js` → PostgresRatingRepository
   - `./governance.repository.js` → PostgresGovernanceRepository
   - `./outbox.repository.js` → PostgresOutboxRepository
-  - `./mission.repository.js` → PostgresMissionRepository, PostgresMissionRunRepository
   - `./evidence.repository.js` → PostgresEvidenceRepository
 
 ### `infrastructure-postgres/src/workspace.repository.ts`

@@ -219,6 +219,9 @@ importers:
 
   packages/infrastructure-postgres:
     dependencies:
+      '@epios/domain':
+        specifier: workspace:*
+        version: link:../domain
       '@epios/ports':
         specifier: workspace:*
         version: link:../ports
@@ -238,6 +241,9 @@ importers:
       drizzle-kit:
         specifier: ^0.31.10
         version: 0.31.10
+      vitest:
+        specifier: ^1.6.0
+        version: 1.6.1(@types/node@25.7.0)
 
   packages/infrastructure-runtime:
     dependencies:
@@ -251,7 +257,11 @@ importers:
         specifier: workspace:*
         version: link:../ports
 
-  packages/observability: {}
+  packages/observability:
+    devDependencies:
+      vitest:
+        specifier: ^1.6.0
+        version: 1.6.1(@types/node@25.7.0)
 
   packages/ports:
     dependencies:

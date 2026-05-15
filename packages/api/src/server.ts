@@ -11,6 +11,10 @@ import {
   PostgresIdentityRepository,
   PostgresGovernanceRepository,
   PostgresOutboxRepository,
+  PostgresMappingRepository,
+  PostgresMissionRepository,
+  PostgresMissionRunRepository,
+  PostgresEvidenceRepository,
   PostgresUnitOfWorkProvider,
 } from "@epios/infrastructure-postgres";
 import {
@@ -202,7 +206,21 @@ export function buildServer(deps: ServerDependencies = {}) {
     governanceRepo =
       deps.governanceRepo ?? new PostgresGovernanceRepository(db);
     outboxRepo = deps.outboxRepo ?? new PostgresOutboxRepository(db);
-    mappingRepo = deps.mappingRepo ?? new InMemoryMappingRepository(); // TODO: implement PostgresMappingRepository
+    mappingRepo = deps.mappingRepo ?? new PostgresMappingRepository(db);
+    // eslint-disable-next-line no-useless-assignment
+    missionRepo = new PostgresMissionRepository(db);
+    // eslint-disable-next-line no-useless-assignment
+    missionRunRepo = new PostgresMissionRunRepository(db);
+    // eslint-disable-next-line no-useless-assignment
+    evidenceRepo = new PostgresEvidenceRepository(
+      db,
+    ) as unknown as EvidenceRepositoryPort;
+    // eslint-disable-next-line no-useless-assignment
+    artifactRepo = null as unknown as ArtifactRepositoryPort;
+    // eslint-disable-next-line no-useless-assignment
+    decisionRepo = null as unknown as DecisionRepositoryPort;
+    // eslint-disable-next-line no-useless-assignment
+    approvalRepo = null as unknown as ApprovalRepositoryPort;
     uowProvider = new PostgresUnitOfWorkProvider(db);
   }
 

@@ -95,7 +95,7 @@ const Sidebar: React.FC = () => {
       const workspacesWithOverrides = fetchedWorkspaces.map((ws) => ({
         ...ws,
         status: savedStatuses[ws.id] || ws.status,
-      }));
+      })) as Workspace[];
 
       setWorkspaces(workspacesWithOverrides);
 

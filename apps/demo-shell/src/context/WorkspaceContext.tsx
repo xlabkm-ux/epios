@@ -105,7 +105,9 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
   const restoreWorkspace = (id: string) => {
     setWorkspaces(
       workspaces.map((w) =>
-        w.id === id ? { ...w, status: "running" as WorkspaceStatus } : w,
+        w.id === id
+          ? ({ ...w, status: "running" as WorkspaceStatus } as Workspace)
+          : w,
       ),
     );
     setSelectedWorkspaceId(id);

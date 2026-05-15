@@ -52,19 +52,53 @@ const ADRReviewWorkspace: React.FC = () => {
 
   const selectedAdr = adrs?.find((a) => a.id === selectedAdrId);
 
-  const startAnalysis = () => {
+  const startAnalysis = async () => {
+    if (!selectedAdrId) return;
     setFlowStep("analyzing");
-    setTimeout(() => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/governance/readiness`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": currentUser?.id || "admin-1",
+        },
+        body: JSON.stringify({
+          workspaceId: selectedAdrId,
+          profileId: "epistemic-profile-1",
+        }),
+      });
+      if (!res.ok) throw new Error("Analysis failed");
       setFlowStep("reviewing");
-    }, 2000);
+    } catch (err) {
+      console.error(err);
+      setFlowStep("idle");
+    }
   };
 
-  const approveDecision = () => {
+  const approveDecision = async () => {
+    if (!selectedAdrId) return;
     setFlowStep("finalizing");
-    setTimeout(() => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/governance/votes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": currentUser?.id || "admin-1",
+        },
+        body: JSON.stringify({
+          nodeId: selectedAdrId,
+          actorId: currentUser?.id || "admin-1",
+          decision: "approve",
+          rationale: "Approved via ADR Workspace",
+        }),
+      });
+      if (!res.ok) throw new Error("Approval failed");
       setFlowStep("completed");
       setLocalStatus("Accepted");
-    }, 1500);
+    } catch (err) {
+      console.error(err);
+      setFlowStep("reviewing");
+    }
   };
 
   if (loading) {
@@ -508,7 +542,7 @@ const ADRReviewWorkspace: React.FC = () => {
                         <SecureMcpIframe
                           appUrl="/approval-app.html"
                           allowedOrigin={window.location.origin}
-                          onCommand={async (method, payload) => {
+                          onCommand={async (method, payload: unknown) => {
                             console.log(
                               `[Host] Received MCP command: ${method}`,
                               payload,
@@ -527,8 +561,11 @@ const ADRReviewWorkspace: React.FC = () => {
                                   body: JSON.stringify({
                                     nodeId: selectedAdr.id,
                                     actorId: currentUser?.id || "observer-1",
-                                    decision: payload.decision,
-                                    rationale: payload.rationale,
+                                    decision: (payload as { decision: string })
+                                      .decision,
+                                    rationale: (
+                                      payload as { rationale: string }
+                                    ).rationale,
                                   }),
                                 },
                               );
@@ -536,7 +573,10 @@ const ADRReviewWorkspace: React.FC = () => {
                               if (!res.ok) throw new Error("API_REJECTION");
 
                               // Trigger UI update if needed
-                              if (payload.decision === "approve") {
+                              if (
+                                (payload as { decision?: string }).decision ===
+                                "approve"
+                              ) {
                                 setLocalStatus("Accepted");
                               }
 

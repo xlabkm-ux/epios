@@ -516,3 +516,25 @@ export const domainBoundaries = pgTable("domain_boundaries", {
     .notNull()
     .defaultNow(),
 });
+
+export const mappingRuns = pgTable("mapping_runs", {
+  id: uuid("id").primaryKey(),
+  workspaceId: uuid("workspace_id")
+    .notNull()
+    .references(() => workspaces.id, { onDelete: "cascade" }),
+  missionId: uuid("mission_id")
+    .notNull()
+    .references(() => missions.id, { onDelete: "cascade" }),
+  status: text("status").notNull(),
+  progress: integer("progress").notNull().default(0),
+  claimsFound: integer("claims_found").notNull().default(0),
+  evidenceFound: integer("evidence_found").notNull().default(0),
+  error: text("error"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  completedAt: timestamp("completed_at", { withTimezone: true }),
+});
