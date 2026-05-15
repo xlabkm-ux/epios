@@ -8,12 +8,17 @@ import {
   Zap,
   Check,
   Loader2,
+  FileText,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApi } from "../hooks/useApi";
 import { ReadinessPanel } from "./ReadinessPanel";
 import { GovernancePanel } from "./GovernancePanel";
+import { FinalADRPanel } from "./FinalADRPanel";
 import { SecureMcpIframe } from "./SecureMcpIframe";
+import { ArtifactPatchPanel } from "./ArtifactPatchPanel";
+import { ApprovalPanel } from "./ApprovalPanel";
+
 import { API_BASE_URL } from "../api-config";
 import { useSecurity } from "../context/SecurityContext";
 
@@ -41,6 +46,7 @@ const ADRReviewWorkspace: React.FC = () => {
   const [flowStep, setFlowStep] = useState<FlowStep>("idle");
   const [localStatus, setLocalStatus] = useState<ADR["status"] | null>(null);
   const [showGovernance, setShowGovernance] = useState(false);
+  const [showFinalADR, setShowFinalADR] = useState(false);
   const [showExternalApproval, setShowExternalApproval] = useState(false);
   const { currentUser } = useSecurity();
 
@@ -219,6 +225,8 @@ const ADRReviewWorkspace: React.FC = () => {
                     setSelectedAdrId(adr.id);
                     setFlowStep("idle");
                     setLocalStatus(null);
+                    setShowFinalADR(false);
+                    setShowGovernance(false);
                   }}
                   style={{
                     display: "flex",
@@ -458,6 +466,33 @@ const ADRReviewWorkspace: React.FC = () => {
 
                 <button
                   className="glass"
+                  onClick={() => {
+                    setShowFinalADR(!showFinalADR);
+                    setShowGovernance(false);
+                  }}
+                  style={{
+                    padding: "0.75rem 1.25rem",
+                    borderRadius: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    backgroundColor: showFinalADR
+                      ? "var(--primary-alpha)"
+                      : "transparent",
+                    color: showFinalADR ? "var(--primary)" : "var(--text-main)",
+                    border: showFinalADR
+                      ? "1px solid var(--primary)"
+                      : "1px solid var(--border)",
+                  }}
+                >
+                  <FileText size={16} />
+                  Artifact
+                </button>
+
+                <button
+                  className="glass"
                   onClick={() => setShowExternalApproval(!showExternalApproval)}
                   style={{
                     padding: "0.75rem 1.25rem",
@@ -507,7 +542,34 @@ const ADRReviewWorkspace: React.FC = () => {
                       }}
                     >
                       <ReadinessPanel workspaceId={selectedAdr.id} />
-                      <GovernancePanel workspaceId={selectedAdr.id} minimal />
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "1.5rem",
+                          overflowY: "auto",
+                        }}
+                      >
+                        <ApprovalPanel missionId={selectedAdr.id} minimal />
+                        <ArtifactPatchPanel
+                          missionId={selectedAdr.id}
+                          artifactId={selectedAdr.id}
+                          minimal
+                        />
+                        <GovernancePanel workspaceId={selectedAdr.id} minimal />
+                      </div>
+                    </motion.div>
+                  ) : showFinalADR ? (
+                    <motion.div
+                      key="final-adr"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      style={{
+                        height: "calc(100vh - 250px)",
+                      }}
+                    >
+                      <FinalADRPanel workspaceId={selectedAdr.id} />
                     </motion.div>
                   ) : showExternalApproval ? (
                     <motion.div

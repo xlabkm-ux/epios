@@ -431,4 +431,17 @@ export class InMemoryApprovalRepository implements ApprovalRepositoryPort {
       (a) => a.toProps().runId === runId,
     );
   }
+
+  async findBySubjectRef(ref: string): Promise<ApprovalRequest | null> {
+    return (
+      Array.from(this.approvals.values()).find((a) => a.subjectRef === ref) ||
+      null
+    );
+  }
+
+  async findPendingByMissionId(missionId: string): Promise<ApprovalRequest[]> {
+    return Array.from(this.approvals.values()).filter(
+      (a) => a.missionId === missionId && a.status === "pending",
+    );
+  }
 }

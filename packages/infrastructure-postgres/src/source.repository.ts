@@ -2,7 +2,7 @@ import { Source, SourceType, SourceQuality } from "@epios/domain";
 import { SourceRepositoryPort } from "@epios/ports";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { sources, sourceChunks } from "./schema.js";
-import { eq, and } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
 
 export class PostgresSourceRepository implements SourceRepositoryPort {
@@ -23,6 +23,7 @@ export class PostgresSourceRepository implements SourceRepositoryPort {
         contentHash: props.contentHash,
         freshness: props.freshness,
         sourceQuality: props.sourceQuality,
+        deletedAt: props.deletedAt,
         createdAt: props.createdAt,
       });
     } else {
@@ -36,14 +37,17 @@ export class PostgresSourceRepository implements SourceRepositoryPort {
           contentHash: props.contentHash,
           freshness: props.freshness,
           sourceQuality: props.sourceQuality,
+          deletedAt: props.deletedAt,
         })
         .where(eq(sources.id, props.id));
     }
 
     // Handle content as a single chunk for now (MVP)
     // Delete old chunks first
-    await this.db.delete(sourceChunks).where(eq(sourceChunks.sourceId, props.id));
-    
+    await this.db
+      .delete(sourceChunks)
+      .where(eq(sourceChunks.sourceId, props.id));
+
     await this.db.insert(sourceChunks).values({
       id: randomUUID(),
       sourceId: props.id,
@@ -84,6 +88,44 @@ export class PostgresSourceRepository implements SourceRepositoryPort {
     return results;
   }
 
+  async findActiveByMissionId(missionId: string): Promise<Source[]> {
+    const records = await this.db
+      .select()
+      .from(sources)
+      .where(
+        and(
+          eq(sources.missionId, missionId),
+          sql`${sources.deletedAt} IS NULL`,
+        ),
+      );
+
+    const results: Source[] = [];
+    for (const record of records) {
+      const source = await this.mapToDomain(record);
+      results.push(source);
+    }
+    return results;
+  }
+
+  async findActiveByWorkspaceId(workspaceId: string): Promise<Source[]> {
+    const records = await this.db
+      .select()
+      .from(sources)
+      .where(
+        and(
+          eq(sources.workspaceId, workspaceId),
+          sql`${sources.deletedAt} IS NULL`,
+        ),
+      );
+
+    const results: Source[] = [];
+    for (const record of records) {
+      const source = await this.mapToDomain(record);
+      results.push(source);
+    }
+    return results;
+  }
+
   async findById(id: string): Promise<Source | null> {
     const [record] = await this.db
       .select()
@@ -94,7 +136,9 @@ export class PostgresSourceRepository implements SourceRepositoryPort {
     return this.mapToDomain(record);
   }
 
-  private async mapToDomain(record: typeof sources.$inferSelect): Promise<Source> {
+  private async mapToDomain(
+    record: typeof sources.$inferSelect,
+  ): Promise<Source> {
     // Fetch content from chunks
     const chunks = await this.db
       .select()
@@ -102,8 +146,8 @@ export class PostgresSourceRepository implements SourceRepositoryPort {
       .where(eq(sourceChunks.sourceId, record.id))
       .orderBy(sourceChunks.ordinal);
 
-    const content = chunks.map(c => c.content).join("");
-    const metadata = chunks[0]?.metadata as Record<string, unknown> || {};
+    const content = chunks.map((c) => c.content).join("");
+    const metadata = (chunks[0]?.metadata as Record<string, unknown>) || {};
 
     return new Source({
       id: record.id,
@@ -117,6 +161,7 @@ export class PostgresSourceRepository implements SourceRepositoryPort {
       sourceQuality: record.sourceQuality as SourceQuality,
       content,
       metadata,
+      deletedAt: record.deletedAt ?? undefined,
       createdAt: record.createdAt,
     });
   }

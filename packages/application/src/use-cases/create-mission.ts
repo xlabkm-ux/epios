@@ -1,5 +1,5 @@
-import { Mission, MissionBrief, ActorRef } from "@epios/domain";
-import { UnitOfWorkPort, OutboxMessage } from "@epios/ports";
+import { Mission, MissionBrief, ActorRef, DomainEvent } from "@epios/domain";
+import { UnitOfWorkPort } from "@epios/ports";
 import { randomUUID } from "node:crypto";
 
 export interface CreateMissionRequest {
@@ -12,9 +12,21 @@ export interface CreateMissionRequest {
 }
 
 export class CreateMissionUseCase {
-  constructor(private readonly uowProvider: UnitOfWorkPort) {}
+  constructor(
+    private readonly uowProvider: UnitOfWorkPort,
+    private readonly security: SecurityPort,
+  ) {}
 
   async execute(request: CreateMissionRequest): Promise<Mission> {
+    const isAuthorized = await this.security.authorize(
+      "contributor",
+      "create",
+      "mission",
+    );
+    if (!isAuthorized) {
+      throw new Error("FORBIDDEN: Only contributors can create missions");
+    }
+
     return await this.uowProvider.runInTransaction(async (uow) => {
       const mission = new Mission({
         id: randomUUID(),

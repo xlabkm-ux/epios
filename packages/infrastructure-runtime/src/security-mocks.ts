@@ -43,15 +43,16 @@ export class MockSecurityService implements SecurityPort {
   ): Promise<boolean> {
     if (!this.currentUser) return false;
 
-    // Simple hierarchy: admin > reviewer > observer
-    const rolePower = {
-      admin: 3,
-      reviewer: 2,
-      observer: 1,
+    // Simple hierarchy: system > approver > contributor > viewer
+    const rolePower: Record<UserRole, number> = {
+      system: 4,
+      approver: 3,
+      contributor: 2,
+      viewer: 1,
     };
 
-    const userPower = rolePower[this.currentUser.role];
-    const requiredPower = rolePower[role];
+    const userPower = rolePower[this.currentUser.role] || 0;
+    const requiredPower = rolePower[role] || 0;
 
     return userPower >= requiredPower;
   }

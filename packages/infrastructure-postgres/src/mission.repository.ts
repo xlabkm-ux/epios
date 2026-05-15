@@ -35,6 +35,7 @@ export class PostgresMissionRepository implements MissionRepositoryPort {
         desiredArtifactType: mission.brief.desiredArtifactType,
         createdByType: mission.createdBy.actorType,
         createdById: mission.createdBy.actorId,
+        deletedAt: mission.deletedAt,
         createdAt: mission.createdAt,
         updatedAt: mission.updatedAt,
         version: 1,
@@ -53,6 +54,7 @@ export class PostgresMissionRepository implements MissionRepositoryPort {
           constraints: mission.brief.constraints,
           unknowns: mission.brief.unknowns,
           desiredArtifactType: mission.brief.desiredArtifactType,
+          deletedAt: mission.deletedAt,
           updatedAt: mission.updatedAt,
           version: sql`${missions.version} + 1`,
         })
@@ -88,6 +90,19 @@ export class PostgresMissionRepository implements MissionRepositoryPort {
     return records.map((record) => this.mapToDomain(record));
   }
 
+  async findActiveByWorkspaceId(workspaceId: string): Promise<Mission[]> {
+    const records = await this.db
+      .select()
+      .from(missions)
+      .where(
+        and(
+          eq(missions.workspaceId, workspaceId),
+          sql`${missions.deletedAt} IS NULL`,
+        ),
+      );
+    return records.map((record) => this.mapToDomain(record));
+  }
+
   private mapToDomain(record: typeof missions.$inferSelect): Mission {
     return new Mission({
       id: record.id,
@@ -110,6 +125,7 @@ export class PostgresMissionRepository implements MissionRepositoryPort {
         actorType: record.createdByType as any,
         actorId: record.createdById,
       },
+      deletedAt: record.deletedAt ?? undefined,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
       version: record.version,

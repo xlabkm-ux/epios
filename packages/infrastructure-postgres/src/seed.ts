@@ -154,19 +154,31 @@ async function seed() {
       id: "admin-1",
       username: "admin",
       email: "admin@epios.local",
-      role: "admin",
+      role: "approver",
     },
     {
-      id: "reviewer-1",
-      username: "reviewer",
-      email: "reviewer@epios.local",
-      role: "reviewer",
+      id: "approver-1",
+      username: "approver",
+      email: "approver@epios.local",
+      role: "approver",
+    },
+    {
+      id: "contributor-1",
+      username: "contributor",
+      email: "contributor@epios.local",
+      role: "contributor",
+    },
+    {
+      id: "viewer-1",
+      username: "viewer",
+      email: "viewer@epios.local",
+      role: "viewer",
     },
     {
       id: "observer-1",
       username: "observer",
       email: "observer@epios.local",
-      role: "observer",
+      role: "viewer",
     },
   ];
 

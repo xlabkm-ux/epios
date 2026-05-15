@@ -66,21 +66,23 @@
 - [ ] **QA:** `test:async`, outbox integration tests, SSE/polling tests.
 
 ### Sprint S4: Patch + Approval `[НЕЗАВИСИМЫЙ]`
-**Статус:** ⬜ Planned
-- [ ] **ArtifactPatch Lifecycle:** Создание патча с обязательным `reason`, привязка к evidence/node/decision.
-- [ ] **Approval Flow:** `ApprovalRequest` → `DecisionRecord`. High-risk патчи требуют approval.
-- [ ] **Policy Enforcement:** `ApplyPatch` не обходит backend policy.
-- [ ] **UI Panels:** Patch Review + Approval панели в Demo Shell.
-- [ ] **QA:** Policy tests, idempotency tests, approval QA.
+**Статус:** ✅ Completed
+- [x] **ArtifactPatch Lifecycle:** Релизованы rich-модели `ArtifactPatch` и `LivingArtifact`, обязательный `reason`, привязка к контексту.
+- [x] **Approval Flow:** `ApprovalRequest` → `DecisionRecord`. Реализованы `ProposeArtifactPatch` и `ResolveApproval`.
+- [x] **Policy Enforcement:** `PatchPolicyService` внедрён в `ApplyArtifactPatchUseCase`.
+- [x] **UI Panels:** Patch Review + Approval панели в Demo Shell.
+- [x] **QA:** Domain policy tests (`patch-policy.test.ts`), flow integration tests (`artifact-patch-flow.test.ts`).
+
 
 ### Sprint S5: Readiness + Artifact Version `[🔒 УНИКАЛЬНЫЙ]`
-**Статус:** ⬜ Planned
-- [ ] **ReadinessAssessment v0.1:** Три primary indicators. Numeric score НЕ является primary UI.
-- [ ] **Apply Patch → Artifact Version:** Применение патча создаёт версию артефакта.
-- [ ] **Trace Summary:** Полный trace от Source → Rating → Mapping → Patch → Approval → Version.
-- [ ] **Hard Block:** `blocked` статус при наличии hard block, независимо от score.
-- [ ] **Final ADR Output:** Markdown ADR с evidence и trace summary.
-- [ ] **QA:** Full E2E (ADR happy path), readiness assertions, trace assertions.
+**Статус:** ✅ Completed
+- [x] **ReadinessAssessment v0.1:** Три primary indicators. Numeric score де-эмфазирован (Gate 4).
+- [x] **Apply Patch → Artifact Version:** Применение патча создаёт `ArtifactVersion` и фиксирует trace.
+- [x] **Trace Summary:** Реализован `GetTraceSummaryUseCase` с человекочитаемым чейном событий.
+- [x] **Hard Block:** Статус `blocked` при низком покрытии или отсутствии рисков/traceability (Gate 4).
+- [x] **Final ADR Output:** Реализована генерация Markdown ADR с интеграцией в UI (Gate 5).
+- [x] **QA:** Domain tests (`readiness.test.ts`), E2E full loop test (`adr_full_loop.spec.ts`).
+
 
 ### Sprint S6: Security + Retention `[НЕЗАВИСИМЫЙ]`
 **Статус:** ⬜ Planned

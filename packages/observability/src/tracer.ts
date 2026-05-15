@@ -18,14 +18,16 @@ const REDACTION_PATTERNS = [
   /sk-[a-zA-Z0-9]{48}/, // OpenAI
 ];
 
-function redact(obj: any): any {
+export function redact(obj: unknown): unknown {
   if (typeof obj !== "object" || obj === null) return obj;
   if (Array.isArray(obj)) return obj.map(redact);
 
-  const redacted: Record<string, any> = {};
-  for (const [key, value] of Object.entries(obj)) {
-    let shouldRedact = REDACTION_PATTERNS.some((p) =>
-      typeof p === "string" ? key.includes(p) : p.test(key),
+  const redacted: Record<string, unknown> = {};
+  const entries = Object.entries(obj as Record<string, unknown>);
+
+  for (const [key, value] of entries) {
+    const shouldRedact = REDACTION_PATTERNS.some((p) =>
+      p instanceof RegExp ? p.test(key) : key.includes(p),
     );
 
     // Also check value for known secret patterns

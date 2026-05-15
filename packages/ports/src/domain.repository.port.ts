@@ -10,12 +10,14 @@ export interface SourceRepositoryPort {
   save(source: Source): Promise<void>;
   findByMissionId(missionId: string): Promise<Source[]>;
   findByWorkspaceId(workspaceId: string): Promise<Source[]>;
+  findActiveByMissionId(missionId: string): Promise<Source[]>;
+  findActiveByWorkspaceId(workspaceId: string): Promise<Source[]>;
   findById(id: string): Promise<Source | null>;
 }
 
 export interface RatingRepositoryPort {
   save(rating: Rating): Promise<void>;
-  findByNodeId(nodeId: string): Promise<Rating[]>;
+  findBySubjectId(subjectId: string): Promise<Rating[]>;
 }
 
 export interface MappingRepositoryPort {

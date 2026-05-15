@@ -15,6 +15,7 @@ export type MissionMode = "fast" | "studio" | "lab" | "forge";
 export type ActorRef = {
   actorType: "user" | "system" | "policy" | "tool" | "role_pass";
   actorId: string;
+  role?: string;
 };
 
 export type MissionBrief = {
@@ -37,6 +38,7 @@ export interface MissionProps {
   artifactIds: string[];
   runIds: string[];
   createdBy: ActorRef;
+  deletedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
   version: number;
@@ -135,6 +137,17 @@ export class Mission {
     this.props.updatedAt = new Date();
     this.props.version++;
     this.addEvent("mission.archived", { missionId: this.id });
+  }
+
+  public delete(): void {
+    this.props.deletedAt = new Date();
+    this.props.updatedAt = new Date();
+    this.props.version++;
+    this.addEvent("mission.deleted", { missionId: this.id });
+  }
+
+  get deletedAt() {
+    return this.props.deletedAt;
   }
 
   private addEvent(type: string, payload: Record<string, unknown>) {
@@ -246,4 +259,3 @@ export class MissionRun {
     return { ...this.props };
   }
 }
-

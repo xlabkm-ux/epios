@@ -1,5 +1,5 @@
 import { Source, SourceType } from "@epios/domain";
-import { UnitOfWorkPort } from "@epios/ports";
+import { UnitOfWorkPort, SecurityPort } from "@epios/ports";
 import { randomUUID } from "node:crypto";
 
 export interface IngestSourceRequest {
@@ -13,9 +13,21 @@ export interface IngestSourceRequest {
 }
 
 export class IngestSourceUseCase {
-  constructor(private readonly uowProvider: UnitOfWorkPort) {}
+  constructor(
+    private readonly uowProvider: UnitOfWorkPort,
+    private readonly security: SecurityPort,
+  ) {}
 
   async execute(request: IngestSourceRequest): Promise<Source> {
+    const isAuthorized = await this.security.authorize(
+      "contributor",
+      "create",
+      "source",
+    );
+    if (!isAuthorized) {
+      throw new Error("FORBIDDEN: Only contributors can ingest sources");
+    }
+
     return await this.uowProvider.runInTransaction(async (uow) => {
       const mission = await uow.missionRepository.findById(request.missionId);
       if (!mission) throw new Error("MISSION_NOT_FOUND");

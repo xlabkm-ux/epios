@@ -23,6 +23,7 @@ import { API_BASE_URL } from "../api-config";
 // Refactored Components
 import { Modal } from "./Modal";
 import { SidebarItem } from "./SidebarItem";
+import { RoleSwitcher } from "./RoleSwitcher";
 
 const Sidebar: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -395,62 +396,8 @@ const Sidebar: React.FC = () => {
             gap: "0.25rem",
           }}
         >
-          {/* User Info Block */}
-          {!isCollapsed && (
-            <div
-              style={{
-                padding: "0.75rem 1rem",
-                marginBottom: "0.25rem",
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
-              <div
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: "50%",
-                  backgroundColor: "var(--primary-alpha)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--primary)",
-                }}
-              >
-                <UserIcon size={16} />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  minWidth: 0,
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "0.85rem",
-                    fontWeight: 600,
-                    color: "var(--text-main)",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {currentUser?.username}
-                </span>
-                <span
-                  style={{
-                    fontSize: "0.7rem",
-                    color: "var(--text-dim)",
-                    opacity: 0.8,
-                  }}
-                >
-                  {currentUser?.username}
-                </span>
-              </div>
-            </div>
-          )}
+          {/* Role Switcher Block */}
+          {!isCollapsed && <RoleSwitcher />}
 
           <SidebarItem
             icon={<Settings size={18} />}
@@ -536,114 +483,6 @@ const Sidebar: React.FC = () => {
             <div
               style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
             >
-              <section>
-                <h3
-                  style={{
-                    fontSize: "0.9rem",
-                    color: "var(--text-dim)",
-                    marginBottom: "1rem",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {t("sidebar.identity")}
-                </h3>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.75rem",
-                    backgroundColor: "rgba(255,255,255,0.03)",
-                    padding: "1rem",
-                    borderRadius: "12px",
-                    border: "1px solid var(--border)",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "12px",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: "50%",
-                        backgroundColor: "var(--primary-alpha)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "var(--primary)",
-                      }}
-                    >
-                      {currentUser?.role === "admin" ? (
-                        <Shield size={20} />
-                      ) : (
-                        <UserIcon size={20} />
-                      )}
-                    </div>
-                    <div>
-                      <div
-                        style={{
-                          fontSize: "1rem",
-                          fontWeight: 600,
-                          color: "var(--text-main)",
-                        }}
-                      >
-                        {currentUser?.username}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "0.75rem",
-                          color: "var(--text-dim)",
-                        }}
-                      >
-                        {currentUser?.role}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
-                    {[
-                      { id: "admin-1", label: "Admin" },
-                      { id: "reviewer-1", label: "Reviewer" },
-                      { id: "observer-1", label: "Observer" },
-                    ].map((role) => {
-                      const isActive = currentUser?.id === role.id;
-                      return (
-                        <button
-                          key={role.id}
-                          onClick={() => setCurrentUserId(role.id)}
-                          style={{
-                            flex: 1,
-                            padding: "10px 8px",
-                            borderRadius: "10px",
-                            border: isActive
-                              ? "1px solid var(--primary)"
-                              : "1px solid var(--border)",
-                            textAlign: "center",
-                            fontSize: "0.75rem",
-                            color: isActive
-                              ? "var(--text-main)"
-                              : "var(--text-dim)",
-                            backgroundColor: isActive
-                              ? "var(--surface-active)"
-                              : "transparent",
-                            cursor: "pointer",
-                            fontWeight: isActive ? 600 : 400,
-                            transition: "all 0.2s",
-                          }}
-                        >
-                          {role.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </section>
-
               <section>
                 <h3
                   style={{

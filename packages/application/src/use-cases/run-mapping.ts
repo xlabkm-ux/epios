@@ -1,5 +1,5 @@
 import { MissionRun, ActorRef } from "@epios/domain";
-import { UnitOfWorkPort, OutboxMessage } from "@epios/ports";
+import { UnitOfWorkPort, OutboxMessage, SecurityPort } from "@epios/ports";
 import { randomUUID } from "node:crypto";
 
 export interface RunMappingRequest {
@@ -9,9 +9,21 @@ export interface RunMappingRequest {
 }
 
 export class RunMappingUseCase {
-  constructor(private readonly uowProvider: UnitOfWorkPort) {}
+  constructor(
+    private readonly uowProvider: UnitOfWorkPort,
+    private readonly security: SecurityPort,
+  ) {}
 
   async execute(request: RunMappingRequest): Promise<MissionRun> {
+    const isAuthorized = await this.security.authorize(
+      "contributor",
+      "run",
+      "mapping",
+    );
+    if (!isAuthorized) {
+      throw new Error("FORBIDDEN: Only contributors can start mapping runs");
+    }
+
     return await this.uowProvider.runInTransaction(async (uow) => {
       const mission = await uow.missionRepository.findById(request.missionId);
       if (!mission) throw new Error("MISSION_NOT_FOUND");

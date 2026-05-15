@@ -42,8 +42,9 @@ export const GovernancePanel: React.FC<{
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser } = useSecurity();
 
-  const canVote = currentUser?.role === "admin" || currentUser?.role === "reviewer";
-  const canPropose = currentUser?.role !== "observer";
+  const canVote = currentUser?.role === "approver";
+  const canPropose =
+    currentUser?.role === "contributor" || currentUser?.role === "approver";
 
   useEffect(() => {
     fetchClaims();
@@ -494,4 +495,3 @@ export const GovernancePanel: React.FC<{
 
   return <div className="premium-card animate-slide-in">{content}</div>;
 };
-

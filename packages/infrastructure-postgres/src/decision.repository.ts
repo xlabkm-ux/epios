@@ -119,6 +119,8 @@ export class PostgresApprovalRepository implements ApprovalRepositoryPort {
         createdAt: props.createdAt,
         expiresAt: props.expiresAt,
         resolvedAt: props.resolvedAt,
+        resolvedByType: props.resolvedBy?.actorType,
+        resolvedById: props.resolvedBy?.actorId,
         version: 1,
       });
     } else {
@@ -128,6 +130,8 @@ export class PostgresApprovalRepository implements ApprovalRepositoryPort {
           status: props.status,
           decisionId: props.decisionId,
           resolvedAt: props.resolvedAt,
+          resolvedByType: props.resolvedBy?.actorType,
+          resolvedById: props.resolvedBy?.actorId,
           version: sql`${approvalRequests.version} + 1`,
         })
         .where(
@@ -154,6 +158,44 @@ export class PostgresApprovalRepository implements ApprovalRepositoryPort {
 
     if (!record) return null;
 
+    return this.mapToDomain(record);
+  }
+
+  async findByRunId(runId: string): Promise<ApprovalRequest[]> {
+    const records = await this.db
+      .select()
+      .from(approvalRequests)
+      .where(eq(approvalRequests.runId, runId));
+
+    return records.map((r) => this.mapToDomain(r));
+  }
+
+  async findBySubjectRef(ref: string): Promise<ApprovalRequest | null> {
+    const [record] = await this.db
+      .select()
+      .from(approvalRequests)
+      .where(eq(approvalRequests.subjectRef, ref));
+
+    if (!record) return null;
+
+    return this.mapToDomain(record);
+  }
+
+  async findPendingByMissionId(missionId: string): Promise<ApprovalRequest[]> {
+    const records = await this.db
+      .select()
+      .from(approvalRequests)
+      .where(
+        and(
+          eq(approvalRequests.missionId, missionId),
+          eq(approvalRequests.status, "pending"),
+        ),
+      );
+
+    return records.map((r) => this.mapToDomain(r));
+  }
+
+  private mapToDomain(record: any): ApprovalRequest {
     return new ApprovalRequest({
       id: record.id,
       missionId: record.missionId,
@@ -168,34 +210,14 @@ export class PostgresApprovalRepository implements ApprovalRepositoryPort {
       createdAt: record.createdAt,
       expiresAt: record.expiresAt ?? undefined,
       resolvedAt: record.resolvedAt ?? undefined,
+      resolvedBy:
+        record.resolvedByType && record.resolvedById
+          ? {
+              actorType: record.resolvedByType as any,
+              actorId: record.resolvedById,
+            }
+          : undefined,
       version: record.version,
     });
-  }
-
-  async findByRunId(runId: string): Promise<ApprovalRequest[]> {
-    const records = await this.db
-      .select()
-      .from(approvalRequests)
-      .where(eq(approvalRequests.runId, runId));
-
-    return records.map(
-      (record) =>
-        new ApprovalRequest({
-          id: record.id,
-          missionId: record.missionId,
-          runId: record.runId,
-          subjectType: record.subjectType as any,
-          subjectRef: record.subjectRef,
-          preview: record.preview as any,
-          riskClass: record.riskClass as any,
-          status: record.status as any,
-          idempotencyKey: record.idempotencyKey,
-          decisionId: record.decisionId ?? undefined,
-          createdAt: record.createdAt,
-          expiresAt: record.expiresAt ?? undefined,
-          resolvedAt: record.resolvedAt ?? undefined,
-          version: record.version,
-        }),
-    );
   }
 }

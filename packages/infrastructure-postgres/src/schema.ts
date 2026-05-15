@@ -104,6 +104,7 @@ export const sources = pgTable("sources", {
   contentHash: text("content_hash"),
   freshness: timestamp("freshness", { withTimezone: true }),
   sourceQuality: text("source_quality").notNull().default("unknown"),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
@@ -128,9 +129,8 @@ export const sourceChunks = pgTable("source_chunks", {
 
 export const ratings = pgTable("ratings", {
   id: uuid("id").primaryKey(),
-  nodeId: uuid("node_id")
-    .notNull()
-    .references(() => epistemicNodes.id, { onDelete: "cascade" }),
+  subjectId: uuid("subject_id").notNull(),
+  subjectType: text("subject_type").notNull(),
   actorId: text("actor_id").notNull(),
   value: integer("value").notNull(),
   comment: text("comment"),
@@ -328,6 +328,8 @@ export const approvalRequests = pgTable("approval_requests", {
     .defaultNow(),
   expiresAt: timestamp("expires_at", { withTimezone: true }),
   resolvedAt: timestamp("resolved_at", { withTimezone: true }),
+  resolvedByType: text("resolved_by_type"),
+  resolvedById: text("resolved_by_id"),
   version: integer("version").notNull().default(1),
 });
 
@@ -404,6 +406,7 @@ export const missions = pgTable("missions", {
   desiredArtifactType: text("desired_artifact_type"),
   createdByType: text("created_by_type").notNull(),
   createdById: text("created_by_id").notNull(),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),

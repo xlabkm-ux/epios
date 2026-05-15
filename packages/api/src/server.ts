@@ -48,6 +48,13 @@ import {
   GetMappingRunUseCase,
   ListMappingRunsUseCase,
   MappingProcessor,
+  GenerateFinalADRUseCase,
+  GetTraceSummaryUseCase,
+  ProposeArtifactPatchUseCase,
+  ResolveApprovalUseCase,
+  ApplyArtifactPatchUseCase,
+  ListArtifactPatchesUseCase,
+  ListApprovalsUseCase,
 } from "@epios/application";
 import { workspaceRoutes } from "./routes/workspace.routes.js";
 import { mappingRoutes } from "./routes/mapping.routes.js";
@@ -223,13 +230,13 @@ export function buildServer(deps: ServerDependencies = {}) {
     missionRepo = new PostgresMissionRepository(db);
     // eslint-disable-next-line no-useless-assignment
     missionRunRepo = new PostgresMissionRunRepository(db);
-    // eslint-disable-next-line no-useless-assignment
+
     evidenceRepo = new PostgresEvidenceRepository(db);
-    // eslint-disable-next-line no-useless-assignment
+
     artifactRepo = new PostgresArtifactRepository(db);
     // eslint-disable-next-line no-useless-assignment
     decisionRepo = new PostgresDecisionRepository(db);
-    // eslint-disable-next-line no-useless-assignment
+
     approvalRepo = new PostgresApprovalRepository(db);
     uowProvider = new PostgresUnitOfWorkProvider(db);
   }
@@ -251,13 +258,14 @@ export function buildServer(deps: ServerDependencies = {}) {
   const listADRsUseCase = new ListADRsUseCase(adrRepo);
   const getADRUseCase = new GetADRUseCase(adrRepo);
 
-  const submitClaimUseCase = new SubmitClaimUseCase(uowProvider);
+  const submitClaimUseCase = new SubmitClaimUseCase(uowProvider, security);
   const proposePatchUseCase = new ProposePatchUseCase(
     governanceRepo,
     graphRepo,
+    security,
   );
   const listPatchesUseCase = new ListPatchesUseCase(governanceRepo);
-  const castVoteUseCase = new CastVoteUseCase(uowProvider);
+  const castVoteUseCase = new CastVoteUseCase(uowProvider, security);
   const assessReadinessUseCase = new AssessReadinessUseCase(
     governanceRepo,
     graphRepo,
@@ -265,6 +273,24 @@ export function buildServer(deps: ServerDependencies = {}) {
   const getReadinessUseCase = new GetReadinessUseCase(governanceRepo);
   const applyPatchUseCase = new ApplyPatchUseCase(uowProvider);
   const getTraceUseCase = new GetTraceUseCase(governanceRepo);
+
+  const proposeArtifactPatchUseCase = new ProposeArtifactPatchUseCase(
+    uowProvider,
+  );
+  const resolveApprovalUseCase = new ResolveApprovalUseCase(uowProvider);
+  const applyArtifactPatchUseCase = new ApplyArtifactPatchUseCase(uowProvider);
+  const listArtifactPatchesUseCase = new ListArtifactPatchesUseCase(
+    artifactRepo,
+  );
+  const listApprovalsUseCase = new ListApprovalsUseCase(approvalRepo);
+
+  const generateFinalADRUseCase = new GenerateFinalADRUseCase(
+    governanceRepo,
+    graphRepo,
+    workspaceRepo,
+    evidenceRepo,
+  );
+  const getTraceSummaryUseCase = new GetTraceSummaryUseCase(governanceRepo);
 
   const mcpRegistry = deps.mcpRegistry ?? new InMemoryMCPAppRegistry();
   const mcpBridge = deps.mcpBridge ?? new MockMCPBridge(mcpRegistry);
@@ -333,8 +359,16 @@ export function buildServer(deps: ServerDependencies = {}) {
     getReadinessUseCase,
     applyPatchUseCase,
     getTraceUseCase,
+    proposeArtifactPatchUseCase,
+    resolveApprovalUseCase,
+    applyArtifactPatchUseCase,
+    generateFinalADRUseCase,
+    getTraceSummaryUseCase,
+    listArtifactPatchesUseCase,
+    listApprovalsUseCase,
     security,
   });
+
   app.register(adrRoutes, { listADRsUseCase, getADRUseCase });
   app.register(mcpRoutes, { registry: mcpRegistry, bridge: mcpBridge });
   app.register(sourceRoutes, { ingestSourceUseCase, listSourcesUseCase });

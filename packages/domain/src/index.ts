@@ -4,6 +4,7 @@ export * from "./source.js";
 export * from "./artifact.js";
 export * from "./decision.js";
 export * from "./approval.js";
+export * from "./policy.js";
 export * from "./node.js";
 export * from "./governance.js";
 export * from "./workspace.js";

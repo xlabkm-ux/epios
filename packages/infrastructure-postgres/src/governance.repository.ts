@@ -20,7 +20,8 @@ import {
   artifactVersions,
   traceEvents,
 } from "./schema.js";
-import { eq, sql, and } from "drizzle-orm";
+import { eq, sql, and, desc } from "drizzle-orm";
+import { redact } from "@epios/observability";
 
 export class PostgresGovernanceRepository implements GovernanceRepositoryPort {
   constructor(private readonly db: PostgresJsDatabase) {}
@@ -322,21 +323,30 @@ export class PostgresGovernanceRepository implements GovernanceRepositoryPort {
       .select()
       .from(artifactVersions)
       .where(eq(artifactVersions.artifactId, artifactId))
-      .orderBy(artifactVersions.version); // Need to order by version desc
+      .orderBy(desc(artifactVersions.version))
+      .limit(1);
 
-    // Wait, Drizzle orderBy needs desc()
-    // Let me fix that.
-    return null; // Placeholder for now, I'll fix it in the next step or use a better query.
+    if (!record) return null;
+
+    return {
+      id: record.id,
+      artifactId: record.artifactId,
+      version: record.version,
+      content: record.content,
+      patchId: record.patchId || undefined,
+      createdAt: record.createdAt,
+    };
   }
 
   async saveTraceEvent(event: TraceEvent): Promise<void> {
+    const redactedMetadata = redact(event.metadata);
     await this.db.insert(traceEvents).values({
       id: event.id,
       workspaceId: event.workspaceId,
       type: event.type,
       actorId: event.actorId,
       targetId: event.targetId,
-      metadata: event.metadata,
+      metadata: redactedMetadata,
       timestamp: event.timestamp,
     });
   }

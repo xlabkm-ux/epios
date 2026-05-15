@@ -12,7 +12,8 @@
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
     "drizzle-orm": "^0.45.2",
-    "postgres": "^3.4.4"
+    "postgres": "^3.4.4",
+    "@epios/observability": "workspace:*"
   },
   "scripts": {
     "generate": "drizzle-kit generate",

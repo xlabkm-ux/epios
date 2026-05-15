@@ -12,9 +12,14 @@ export interface CastVoteRequest {
 }
 
 export class CastVoteUseCase {
-  constructor(private readonly uowProvider: UnitOfWorkPort) {}
+  constructor(
+    private readonly uowProvider: UnitOfWorkPort,
+    private readonly security: SecurityPort,
+  ) {}
 
   async execute(request: CastVoteRequest): Promise<void> {
+    await this.security.authorize("approver", "cast_vote", request.nodeId);
+
     await this.uowProvider.runInTransaction(async (uow) => {
       const governanceProcess =
         await uow.governanceRepository.findProcessByNodeId(request.nodeId);
@@ -65,7 +70,12 @@ export class CastVoteUseCase {
             await uow.graphRepository.saveNode(node);
 
             // Collect events from node
-            await this.persistEvents(uow, node.domainEvents, "EpistemicNode", node.id);
+            await this.persistEvents(
+              uow,
+              node.domainEvents,
+              "EpistemicNode",
+              node.id,
+            );
             node.clearDomainEvents();
           }
         } else if (!patch) {
@@ -76,7 +86,12 @@ export class CastVoteUseCase {
             await uow.graphRepository.saveNode(node);
 
             // Collect events from node
-            await this.persistEvents(uow, node.domainEvents, "EpistemicNode", node.id);
+            await this.persistEvents(
+              uow,
+              node.domainEvents,
+              "EpistemicNode",
+              node.id,
+            );
             node.clearDomainEvents();
           }
         }
@@ -123,12 +138,22 @@ export class CastVoteUseCase {
       await uow.governanceRepository.saveProcess(governanceProcess);
 
       // Collect and persist events from governance process
-      await this.persistEvents(uow, governanceProcess.domainEvents, "GovernanceProcess", governanceProcess.nodeId);
+      await this.persistEvents(
+        uow,
+        governanceProcess.domainEvents,
+        "GovernanceProcess",
+        governanceProcess.nodeId,
+      );
       governanceProcess.clearDomainEvents();
     });
   }
 
-  private async persistEvents(uow: any, events: DomainEvent[], aggregateType: string, aggregateId: string): Promise<void> {
+  private async persistEvents(
+    uow: any,
+    events: DomainEvent[],
+    aggregateType: string,
+    aggregateId: string,
+  ): Promise<void> {
     for (const event of events) {
       const message: OutboxMessage = {
         id: randomUUID(),
