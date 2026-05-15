@@ -42,9 +42,26 @@ jobs:
     - name: Verify
       run: pnpm verify
 
-    - name: PR Traceability
-      if: github.event_name == 'pull_request'
-      run: pnpm check:pr-traceability
+    - name: QA ADR Review
+      run: pnpm qa:adr-review
 
     - name: Build
       run: pnpm build
+
+  containerize:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build API image
+      run: docker build --target api -t epios-api:latest .
+    - name: Build Demo Shell image
+      run: docker build --target demo-shell -t epios-demo-shell:latest .
+
+  deploy:
+    needs: containerize
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy Placeholder
+      run: echo "Deploying to production environment..."

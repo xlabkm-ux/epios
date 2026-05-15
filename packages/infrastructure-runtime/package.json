@@ -10,5 +10,9 @@
     "@epios/ports": "workspace:*",
     "@epios/domain": "workspace:*",
     "@epios/observability": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
   }
 }

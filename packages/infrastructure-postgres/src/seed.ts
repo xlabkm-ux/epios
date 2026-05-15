@@ -198,9 +198,11 @@ async function seed() {
       });
   }
 
-  // 5. Sources for Scenario F
-  console.log("Seeding sources for Scenario F...");
+  // 5. Scenario F: ADR Review - Event Sourcing
+  console.log("Seeding Pilot Pack: Scenario F (ADR Review)...");
   const wsF_UUID = "00000000-0000-0000-0000-000000000006";
+
+  // Source
   await db
     .insert(schema.sources)
     .values({
@@ -208,12 +210,118 @@ async function seed() {
       missionId: wsF_UUID,
       type: "file",
       content:
-        "Proposed decision to adopt Event Sourcing for all mission history.",
+        "# ADR Draft: Adopting Event Sourcing for Mission History\n\n## Status\nProposed\n\n## Context\nWe need a robust way to track all changes to mission state, including source ratings, claims extraction, and governance decisions. Current state-based persistence makes it hard to reconstruct the exact reasoning flow at a specific point in time.\n\n## Decision\nWe will adopt Event Sourcing for all mission history. Every change will be recorded as an immutable event. The current state will be a projection of these events.\n\n## Consequences\n- **Positive:** Perfect audit trail, ability to time-travel, decoupled read models.\n- **Negative:** Increased complexity, eventual consistency, need for snapshotting, team needs to learn the pattern.\n\n## Claims\n1. Event sourcing provides a perfect audit trail.\n2. It allows us to reconstruct state at any point in time.\n3. It simplifies complex business logic by focusing on events.",
       metadata: {
         title: "Event Sourcing Draft ADR",
         url: "fixtures/adr-review/event-sourcing-draft.md",
         reliability: "unrated",
         author: "architect",
+      },
+    })
+    .onConflictDoNothing();
+
+  // Nodes for Scenario F
+  const nodesF = [
+    {
+      id: "f1",
+      type: "claim",
+      content: "Event sourcing provides a perfect audit trail",
+    },
+    {
+      id: "f2",
+      type: "claim",
+      content: "It allows us to reconstruct state at any point in time",
+    },
+    {
+      id: "f3",
+      type: "claim",
+      content: "It simplifies complex business logic by focusing on events",
+    },
+    {
+      id: "f4",
+      type: "risk",
+      content: "Increased complexity of the persistence layer",
+    },
+    {
+      id: "f5",
+      type: "observation",
+      content: "Team has limited experience with event sourcing",
+    },
+  ];
+
+  for (const node of nodesF) {
+    await db
+      .insert(schema.epistemicNodes)
+      .values({
+        id: `00000000-0000-0000-0000-600000000${node.id.replace("f", "").padStart(3, "0")}`,
+        workspaceId: wsF_UUID,
+        type: node.type as "claim" | "hypothesis" | "observation" | "risk",
+        content: node.content,
+        strength: "strong",
+      })
+      .onConflictDoUpdate({
+        target: schema.epistemicNodes.id,
+        set: { content: node.content },
+      });
+  }
+
+  // Edges for Scenario F
+  await db
+    .insert(schema.epistemicEdges)
+    .values([
+      {
+        id: "00000000-0000-0000-0000-600000001001",
+        workspaceId: wsF_UUID,
+        sourceNodeId: "00000000-0000-0000-0000-600000000005", // limited experience
+        targetNodeId: "00000000-0000-0000-0000-600000000004", // increased complexity
+        type: "supports",
+      },
+      {
+        id: "00000000-0000-0000-0000-600000001002",
+        workspaceId: wsF_UUID,
+        sourceNodeId: "00000000-0000-0000-0000-600000000004", // increased complexity
+        targetNodeId: "00000000-0000-0000-0000-600000000003", // simplifies logic
+        type: "contradicts",
+      },
+    ])
+    .onConflictDoNothing();
+
+  // Patch for Scenario F
+  const patchId = "00000000-0000-0000-0000-600000002001";
+  await db
+    .insert(schema.artifactPatches)
+    .values({
+      id: patchId,
+      workspaceId: wsF_UUID,
+      artifactType: "ADR",
+      targetId: "adr-001",
+      status: "proposed",
+      diff: {
+        added: ["Add Snapshotting pattern to mitigate complexity"],
+        removed: [],
+        metadata: { author: "senior-dev" },
+      },
+      reason:
+        "Addressing the risk of increased complexity noted in Gate 4 review.",
+      authorId: "contributor-1",
+      authorType: "user",
+      version: 1,
+    })
+    .onConflictDoNothing();
+
+  // Approval for Scenario F
+  await db
+    .insert(schema.approvalRequests)
+    .values({
+      id: "00000000-0000-0000-0000-600000003001",
+      workspaceId: wsF_UUID,
+      targetType: "artifact_patch",
+      targetId: patchId,
+      status: "pending",
+      requiredRole: "approver",
+      metadata: {
+        urgency: "high",
+        context: "Sprint S7 Pilot",
       },
     })
     .onConflictDoNothing();

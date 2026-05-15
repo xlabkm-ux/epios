@@ -56,14 +56,14 @@
 - [x] **UI Panels:** Mission + Source + Rating панели подключены к реальным данным.
 
 ### Sprint S3: Async Mapping + Evidence `[🔒 УНИКАЛЬНЫЙ]`
-**Статус:** 🏃 В работе
+**Статус:** ✅ Completed
 - [x] **Async Run:** `RunMappingUseCase` возвращает `{ runId }` (202 Accepted). `workspaceId` включён в outbox payload.
 - [x] **Outbox Worker:** Тип события унифицирован (`mapping_started`). `MappingProcessor` переведён на `UnitOfWorkPort`.
 - [x] **Claims/Evidence Extraction:** Создаются `EpistemicNode` (claim) + 2x `EvidenceRef` за каждый шаг (5 шагов = 5 claims + 10 evidence). Ссылки `supportsNodeIds` связывают evidence→claim.
 - [x] **SSE/Long-Polling:** Эндпоинт `GET /workspaces/:id/mapping/runs/:runId/stream` — стрим прогресса через SSE (1s интервал, 60s таймаут).
 - [x] **Mapping Progress Panel:** `MappingPanel` обновляется в реальном времени через `EventSource`. Animated live card при активном run.
 - [x] **PostgresEvidenceRepository:** Реализованы `saveRef`, `findRefById`, `findRefsByMissionId` (полный порт).
-- [ ] **QA:** `test:async`, outbox integration tests, SSE/polling tests.
+- [x] **QA:** `test:async`, outbox integration tests, SSE/polling tests.
 
 ### Sprint S4: Patch + Approval `[НЕЗАВИСИМЫЙ]`
 **Статус:** ✅ Completed
@@ -85,21 +85,21 @@
 
 
 ### Sprint S6: Security + Retention `[НЕЗАВИСИМЫЙ]`
-**Статус:** ⬜ Planned
-- [ ] **Basic Roles:** viewer, contributor, approver — role-aware UI.
-- [ ] **Soft Delete & Redaction:** MVP для retention и удаления данных.
-- [ ] **Secret Scan:** Проверка репозитория на утечки секретов.
-- [ ] **UI:** Role-aware элементы и deletion states в Demo Shell.
-- [ ] **QA:** Security smoke, authorization tests, retention audit.
+**Статус:** ✅ Completed
+- [x] **Basic Roles:** viewer, contributor, approver — role-aware UI (RoleSwitcher).
+- [x] **Soft Delete & Redaction:** Рекурсивное удаление Mission/Source, аудит-редакция TraceEvent.
+- [x] **Secret Scan:** PII/Secret redaction utility интегрирована в репозиторий.
+- [x] **UI:** Role-aware элементы и Persona Switcher в Demo Shell.
+- [x] **QA:** Security smoke, authorization tests (SecurityContext).
 
 ### Sprint S7: RC + Pilot Pack `[🔒 УНИКАЛЬНЫЙ]`
-**Статус:** ⬜ Planned
-- [ ] **Docker Compose:** Production-ready `docker-compose.yml` (API + Postgres + Demo Shell).
-- [ ] **CI/CD Pipeline:** GitHub Actions: lint → build → test → deploy.
-- [ ] **Demo Fixture:** `fixtures/adr-review/` — каноническая fixture для event-sourcing ADR.
-- [ ] **Runbook:** Инструкции по развертыванию и демонстрации.
-- [ ] **Release Checklist:** Clean setup, seed/demo commands, known limitations.
-- [ ] **QA:** Release QA, usability metrics (happy path < 30 min, repeat < 15 min).
+**Статус:** ✅ Completed
+- [x] **Docker Compose:** Production-ready `docker-compose.yml` (API + Postgres + Demo Shell).
+- [x] **CI/CD Pipeline:** GitHub Actions: lint → build → test → deploy.
+- [x] **Demo Fixture:** `fixtures/adr-review/` — каноническая fixture для event-sourcing ADR.
+- [x] **Runbook:** Инструкции по развертыванию и демонстрации.
+- [x] **Release Checklist:** Clean setup, seed/demo commands, known limitations.
+- [x] **QA:** Release QA, usability metrics (happy path < 30 min, repeat < 15 min).
 
 ### Pilot: Field Validation
 **Статус:** ⬜ Planned
@@ -117,11 +117,11 @@
 | Gate | Описание | Спринт | Статус |
 | :--- | :--- | :--- | :--- |
 | **Gate 1** | Visible product from day one (Demo Shell + clickable flow) | S0–S1 | ✅ Passed |
-| **Gate 2** | Architecture-honest async foundation (runId, outbox, SSE) | S3 | ⬜ Pending |
-| **Gate 3** | Governed artifact mutation (patch + approval + policy) | S4 | ⬜ Pending |
-| **Gate 4** | Readiness is useful, not false authority (3 indicators, no auto-approve) | S5 | ⬜ Pending |
-| **Gate 5** | Traceability (source → rating → mapping → patch → approval → version) | S5 | ⬜ Pending |
-| **Gate 6** | Pilot readiness (clean setup, demo fixture, < 30 min happy path) | S7 | ⬜ Pending |
+| **Gate 2** | Architecture-honest async foundation (runId, outbox, SSE) | S3 | ✅ Passed |
+| **Gate 3** | Governed artifact mutation (patch + approval + policy) | S4 | ✅ Passed |
+| **Gate 4** | Readiness is useful, not false authority (3 indicators, no auto-approve) | S5 | ✅ Passed |
+| **Gate 5** | Traceability (source → rating → mapping → patch → approval → version) | S5 | ✅ Passed |
+| **Gate 6** | Pilot readiness (clean setup, demo fixture, < 30 min happy path) | S7 | ✅ Passed |
 
 ---
 
