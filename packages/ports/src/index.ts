@@ -11,3 +11,4 @@ export * from "./artifact.repository.port.js";
 export * from "./decision.repository.port.js";
 export * from "./mcp.port.js";
 export * from "./security.port.js";
+export * from "./identity.repository.port.js";

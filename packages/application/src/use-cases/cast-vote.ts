@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { randomUUID } from "node:crypto";
-import { UnitOfWorkPort, OutboxMessage } from "@epios/ports";
+import { UnitOfWorkPort, OutboxMessage, SecurityPort } from "@epios/ports";
 import { auditLogger } from "@epios/observability";
 import { DomainEvent } from "@epios/domain";
 

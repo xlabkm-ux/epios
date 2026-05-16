@@ -19,6 +19,7 @@ import {
   InMemoryMissionRunRepository,
   InMemoryEvidenceRepository,
   InMemoryMappingRepository,
+  MockSecurityService,
 } from "@epios/infrastructure-runtime";
 import { LivingArtifact } from "@epios/domain";
 
@@ -28,8 +29,11 @@ describe("Artifact Patch Flow Integration", () => {
   let resolveUseCase: ResolveApprovalUseCase;
   let applyUseCase: ApplyArtifactPatchUseCase;
   let artifactRepo: InMemoryArtifactRepository;
+  let security: MockSecurityService;
 
   beforeEach(async () => {
+    security = new MockSecurityService();
+    security.authorize = vi.fn().mockResolvedValue(true);
     artifactRepo = new InMemoryArtifactRepository();
     const approvalRepo = new InMemoryApprovalRepository();
     const decisionRepo = new InMemoryDecisionRepository();
@@ -60,9 +64,9 @@ describe("Artifact Patch Flow Integration", () => {
       mappingRepo,
     );
 
-    proposeUseCase = new ProposeArtifactPatchUseCase(uowProvider);
-    resolveUseCase = new ResolveApprovalUseCase(uowProvider);
-    applyUseCase = new ApplyArtifactPatchUseCase(uowProvider);
+    proposeUseCase = new ProposeArtifactPatchUseCase(uowProvider, security);
+    resolveUseCase = new ResolveApprovalUseCase(uowProvider, security);
+    applyUseCase = new ApplyArtifactPatchUseCase(uowProvider, security);
 
     // Setup an artifact
     await artifactRepo.saveArtifact(
@@ -94,6 +98,7 @@ describe("Artifact Patch Flow Integration", () => {
       decisionRefs: [],
       riskClass: "high",
       author,
+      idempotencyKey: "key-1",
     });
 
     expect(proposeResult.requiresApproval).toBe(true);
@@ -139,6 +144,7 @@ describe("Artifact Patch Flow Integration", () => {
       decisionRefs: [],
       riskClass: "low",
       author,
+      idempotencyKey: "key-2",
     });
 
     expect(proposeResult.requiresApproval).toBe(false);
@@ -170,6 +176,7 @@ describe("Artifact Patch Flow Integration", () => {
       decisionRefs: [],
       riskClass: "critical",
       author,
+      idempotencyKey: "key-3",
     });
 
     await expect(

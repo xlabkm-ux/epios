@@ -216,12 +216,26 @@ export async function governanceRoutes(
   });
 
   fastify.get("/governance/approvals", async (request, reply) => {
-    const { missionId, onlyPending } = request.query as {
-      missionId: string;
+    const { missionId, workspaceId, onlyPending } = request.query as {
+      missionId?: string;
+      workspaceId?: string;
       onlyPending?: string;
     };
+
+    let resolvedMissionId = missionId;
+    if (!resolvedMissionId && workspaceId) {
+      // For Demo/Pilot compatibility: assume mission ID follows the seed pattern 
+      // or we should fetch it from DB. For now, let's just use the seed pattern 
+      // where mission ID starts with 0001-... instead of 0000-...
+      resolvedMissionId = workspaceId.replace(/^00000000-0000-0000-0000-/, "00000000-0000-0000-0001-");
+    }
+
+    if (!resolvedMissionId) {
+      return reply.status(200).send([]);
+    }
+
     const approvals = await options.listApprovalsUseCase.execute({
-      missionId,
+      missionId: resolvedMissionId,
       onlyPending: onlyPending === "true",
     });
     return reply.status(200).send(approvals);

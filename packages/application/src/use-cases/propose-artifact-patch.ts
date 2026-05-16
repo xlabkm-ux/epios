@@ -18,7 +18,7 @@ export interface ProposeArtifactPatchRequest {
   decisionRefs: string[];
   riskClass: "low" | "medium" | "high" | "critical";
   author: ActorRef;
-  idempotencyKey: string;
+  idempotencyKey?: string;
 }
 
 export class ProposeArtifactPatchUseCase {

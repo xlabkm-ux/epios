@@ -1,6 +1,6 @@
 import React from "react";
 import { useSecurity } from "../context/SecurityContext";
-import { Shield, User, Eye, Edit3, CheckCircle } from "lucide-react";
+import { Shield, Eye, Edit3, CheckCircle } from "lucide-react";
 
 const roles = [
   {

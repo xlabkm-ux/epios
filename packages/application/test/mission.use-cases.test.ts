@@ -32,6 +32,11 @@ const mockOutboxRepo = {
   save: vi.fn(),
 };
 
+const mockSecurity = {
+  authorize: vi.fn().mockResolvedValue(true),
+  getCurrentWorkPlace: vi.fn().mockResolvedValue({ id: "wp-1", role: "admin" }),
+} as any;
+
 const mockUnitOfWork = {
   missionRepository: mockMissionRepo,
   missionRunRepository: mockMissionRunRepo,
@@ -42,7 +47,8 @@ const mockUnitOfWork = {
 
 const mockUowProvider = {
   runInTransaction: vi.fn((fn) => fn(mockUnitOfWork)),
-} as unknown as UnitOfWorkPort;
+  security: mockSecurity,
+} as any;
 
 describe("Mission Use Cases", () => {
   beforeEach(() => {
@@ -52,7 +58,7 @@ describe("Mission Use Cases", () => {
 
   describe("CreateMissionUseCase", () => {
     it("should create a mission", async () => {
-      const useCase = new CreateMissionUseCase(mockUowProvider);
+      const useCase = new CreateMissionUseCase(mockUowProvider, mockSecurity);
       const request = {
         workspaceId: "ws-1",
         title: "New Mission",
@@ -78,7 +84,7 @@ describe("Mission Use Cases", () => {
 
   describe("UpdateMissionBriefUseCase", () => {
     it("should update mission brief", async () => {
-      const useCase = new UpdateMissionBriefUseCase(mockUowProvider);
+      const useCase = new UpdateMissionBriefUseCase(mockUowProvider, mockSecurity);
       const mission = new Mission({
         id: "m1",
         workspaceId: "ws1",
@@ -113,7 +119,7 @@ describe("Mission Use Cases", () => {
 
   describe("IngestSourceUseCase", () => {
     it("should ingest a source into a mission", async () => {
-      const useCase = new IngestSourceUseCase(mockUowProvider);
+      const useCase = new IngestSourceUseCase(mockUowProvider, mockSecurity);
       const mission = new Mission({
         id: "m1",
         workspaceId: "ws1",
@@ -152,7 +158,7 @@ describe("Mission Use Cases", () => {
 
   describe("RunMappingUseCase", () => {
     it("should start a mapping run", async () => {
-      const useCase = new RunMappingUseCase(mockUowProvider);
+      const useCase = new RunMappingUseCase(mockUowProvider, mockSecurity);
       const mission = new Mission({
         id: "m1",
         workspaceId: "ws1",

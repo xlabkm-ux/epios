@@ -16,6 +16,10 @@ import {
   ArtifactVersion,
   DecisionRecord,
   ApprovalRequest,
+  Assignment,
+  OrgUnit,
+  OrgPosition,
+  User,
 } from "@epios/domain";
 import {
   WorkspaceRepositoryPort,
@@ -31,6 +35,9 @@ import {
   ArtifactRepositoryPort,
   DecisionRepositoryPort,
   ApprovalRepositoryPort,
+  AssignmentRepositoryPort,
+  OrgRepositoryPort,
+  IdentityRepositoryPort,
 } from "@epios/ports";
 
 export class InMemoryADRRepository {
@@ -211,6 +218,18 @@ export class InMemorySourceRepository implements SourceRepositoryPort {
     );
   }
 
+  async findActiveByWorkspaceId(workspaceId: string): Promise<Source[]> {
+    return Array.from(this.sources.values()).filter(
+      (s) => s.workspaceId === workspaceId && !s.deletedAt,
+    );
+  }
+
+  async findActiveByMissionId(missionId: string): Promise<Source[]> {
+    return Array.from(this.sources.values()).filter(
+      (s) => s.missionId === missionId && !s.deletedAt,
+    );
+  }
+
   async findById(id: string): Promise<Source | null> {
     return this.sources.get(id) || null;
   }
@@ -223,8 +242,8 @@ export class InMemoryRatingRepository implements RatingRepositoryPort {
     this.ratings.set(rating.id, rating);
   }
 
-  async findByNodeId(nodeId: string): Promise<Rating[]> {
-    return Array.from(this.ratings.values()).filter((r) => r.nodeId === nodeId);
+  async findBySubjectId(subjectId: string): Promise<Rating[]> {
+    return Array.from(this.ratings.values()).filter((r) => r.subjectId === subjectId);
   }
 }
 
@@ -289,6 +308,12 @@ export class InMemoryMissionRepository implements MissionRepositoryPort {
   async findByWorkspaceId(workspaceId: string): Promise<Mission[]> {
     return Array.from(this.missions.values()).filter(
       (m) => m.workspaceId === workspaceId,
+    );
+  }
+
+  async findActiveByWorkspaceId(workspaceId: string): Promise<Mission[]> {
+    return Array.from(this.missions.values()).filter(
+      (m) => m.workspaceId === workspaceId && !m.deletedAt,
     );
   }
 }
@@ -443,5 +468,95 @@ export class InMemoryApprovalRepository implements ApprovalRepositoryPort {
     return Array.from(this.approvals.values()).filter(
       (a) => a.missionId === missionId && a.status === "pending",
     );
+  }
+}
+
+export class InMemoryAssignmentRepository implements AssignmentRepositoryPort {
+  private assignments: Map<string, Assignment> = new Map();
+
+  constructor(initial: Assignment[] = []) {
+    for (const a of initial) {
+      this.assignments.set(a.id, a);
+    }
+  }
+
+  async findById(workplaceId: string): Promise<Assignment | null> {
+    return this.assignments.get(workplaceId) || null;
+  }
+
+  async findByUserId(userId: string): Promise<Assignment[]> {
+    return Array.from(this.assignments.values()).filter(
+      (a) => a.userId === userId,
+    );
+  }
+
+  async save(assignment: Assignment): Promise<void> {
+    this.assignments.set(assignment.id, assignment);
+  }
+
+  async delete(workplaceId: string): Promise<void> {
+    this.assignments.delete(workplaceId);
+  }
+
+  async listAll(): Promise<Assignment[]> {
+    return Array.from(this.assignments.values());
+  }
+}
+
+export class InMemoryOrgRepository implements OrgRepositoryPort {
+  private units: Map<string, OrgUnit> = new Map();
+  private positions: Map<string, OrgPosition> = new Map();
+
+  constructor(units: OrgUnit[] = [], positions: OrgPosition[] = []) {
+    for (const u of units) this.units.set(u.id, u);
+    for (const p of positions) this.positions.set(p.id, p);
+  }
+
+  async listUnits(): Promise<OrgUnit[]> {
+    return Array.from(this.units.values());
+  }
+
+  async listPositions(): Promise<OrgPosition[]> {
+    return Array.from(this.positions.values());
+  }
+
+  async saveUnit(unit: OrgUnit): Promise<void> {
+    this.units.set(unit.id, unit);
+  }
+
+  async savePosition(position: OrgPosition): Promise<void> {
+    this.positions.set(position.id, position);
+  }
+
+  async deleteUnit(id: string): Promise<void> {
+    this.units.delete(id);
+  }
+
+  async deletePosition(id: string): Promise<void> {
+    this.positions.delete(id);
+  }
+}
+
+export class InMemoryIdentityRepository implements IdentityRepositoryPort {
+  private users: Map<string, User> = new Map();
+
+  async findById(id: string): Promise<User | null> {
+    const user = this.users.get(id) || null;
+    return user;
+  }
+
+  async findByUsername(username: string): Promise<User | null> {
+    return (
+      Array.from(this.users.values()).find((u) => u.username === username) ||
+      null
+    );
+  }
+
+  async save(user: User): Promise<void> {
+    this.users.set(user.id, user);
+  }
+
+  async listAll(): Promise<User[]> {
+    return Array.from(this.users.values());
   }
 }

@@ -4,9 +4,7 @@ import {
   ShieldCheck,
   CheckCircle,
   XCircle,
-  Clock,
   Info,
-  AlertTriangle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSecurity } from "../context/SecurityContext";

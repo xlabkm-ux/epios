@@ -22,10 +22,10 @@ describe("Readiness Domain Invariants", () => {
         type: "claim",
         content: "test",
         workspaceId: "w1",
-      } as unknown as Record<string, unknown>,
+      } as any,
     ]);
     vi.mocked(mockGovernanceRepo.findProcessesByWorkspaceId).mockResolvedValue([
-      { id: "p1", status: "completed" } as unknown as Record<string, unknown>,
+      { id: "p1", status: "completed" } as any,
     ]);
 
     const result = await useCase.execute({
@@ -45,22 +45,22 @@ describe("Readiness Domain Invariants", () => {
         type: "claim",
         content: "test",
         workspaceId: "w1",
-      } as unknown as Record<string, unknown>,
+      } as any,
       {
         id: "2",
         type: "claim",
         content: "test",
         workspaceId: "w1",
-      } as unknown as Record<string, unknown>,
+      } as any,
       {
         id: "3",
         type: "risk",
         content: "test",
         workspaceId: "w1",
-      } as unknown as Record<string, unknown>,
+      } as any,
     ]);
     vi.mocked(mockGovernanceRepo.findProcessesByWorkspaceId).mockResolvedValue([
-      { id: "p1", status: "completed" } as unknown as Record<string, unknown>,
+      { id: "p1", status: "completed" } as any,
     ]);
 
     const result = await useCase.execute({
@@ -80,31 +80,31 @@ describe("Readiness Domain Invariants", () => {
         content: "test",
         workspaceId: "w1",
         evidenceSetId: "e1",
-      } as unknown as Record<string, unknown>,
+      } as any,
       {
         id: "2",
         type: "risk",
         content: "test",
         workspaceId: "w1",
         evidenceSetId: "e2",
-      } as unknown as Record<string, unknown>,
+      } as any,
       {
         id: "3",
         type: "risk",
         content: "test",
         workspaceId: "w1",
         evidenceSetId: "e3",
-      } as unknown as Record<string, unknown>,
+      } as any,
       {
         id: "4",
         type: "risk",
         content: "test",
         workspaceId: "w1",
         evidenceSetId: "e4",
-      } as unknown as Record<string, unknown>,
+      } as any,
     ]);
     vi.mocked(mockGovernanceRepo.findProcessesByWorkspaceId).mockResolvedValue([
-      { id: "p1", status: "completed" } as unknown as Record<string, unknown>,
+      { id: "p1", status: "completed" } as any,
     ]);
 
     const result = await useCase.execute({

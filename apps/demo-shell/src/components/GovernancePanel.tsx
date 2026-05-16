@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "../api-config";
 import React, { useState, useEffect } from "react";
-import { Shield, Send, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Shield, Send, CheckCircle, XCircle, Clock, History } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSecurity } from "../context/SecurityContext";
 
@@ -40,6 +40,7 @@ export const GovernancePanel: React.FC<{
   const [patches, setPatches] = useState<Patch[]>([]);
   const [newClaim, setNewClaim] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
   const { currentUser } = useSecurity();
 
   const canVote = currentUser?.role === "approver";
@@ -182,10 +183,32 @@ export const GovernancePanel: React.FC<{
             fontWeight: 600,
             color: "var(--text-main)",
             letterSpacing: "0.02em",
+            flex: 1,
           }}
         >
           Governance & Claims
         </h2>
+        <button
+          onClick={() => setShowHistory(true)}
+          title="Traceability Summary"
+          style={{
+            background: "rgba(255,255,255,0.05)",
+            border: "1px solid var(--border)",
+            borderRadius: "8px",
+            padding: "6px",
+            color: "var(--text-dim)",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+            fontSize: "0.75rem",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
+          onMouseOut={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.05)")}
+        >
+          <History size={14} />
+          Trace
+        </button>
       </div>
 
       <div style={{ marginBottom: "1.5rem" }}>
@@ -488,6 +511,68 @@ export const GovernancePanel: React.FC<{
           ))}
         </AnimatePresence>
       </div>
+
+      <AnimatePresence>
+        {showHistory && (
+          <div 
+            style={{
+              position: "fixed",
+              top: 0, left: 0, right: 0, bottom: 0,
+              backgroundColor: "rgba(0,0,0,0.8)",
+              backdropFilter: "blur(4px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 2000,
+              padding: "20px"
+            }}
+            onClick={() => setShowHistory(false)}
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              style={{
+                backgroundColor: "var(--bg-panel)",
+                border: "1px solid var(--border)",
+                borderRadius: "20px",
+                padding: "32px",
+                maxWidth: "600px",
+                width: "100%",
+                maxHeight: "80vh",
+                overflowY: "auto",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.5)"
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 style={{ marginBottom: "20px", display: "flex", alignItems: "center", gap: "10px" }}>
+                <History size={20} color="var(--primary)" /> Traceability Summary
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                {[
+                  { time: "10:25", event: "Patch #821 Applied", actor: "Alexey Architect", impact: "Readiness +12%" },
+                  { time: "09:12", event: "New Claim Proposed", actor: "Observer-7", impact: "Pending Validation" },
+                  { time: "Yesterday", event: "Source Verified", actor: "System Core", impact: "Confidence High" },
+                ].map((item, idx) => (
+                  <div key={idx} style={{ padding: "12px", background: "rgba(255,255,255,0.03)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
+                      <span style={{ fontSize: "0.75rem", opacity: 0.5 }}>{item.time} — {item.actor}</span>
+                      <span style={{ fontSize: "0.75rem", color: "var(--success)" }}>{item.impact}</span>
+                    </div>
+                    <div style={{ fontSize: "0.9rem", fontWeight: 500 }}>{item.event}</div>
+                  </div>
+                ))}
+              </div>
+              <button 
+                onClick={() => setShowHistory(false)}
+                style={{ marginTop: "24px", width: "100%", padding: "12px", borderRadius: "12px", border: "none", background: "var(--primary)", color: "white", cursor: "pointer" }}
+              >
+                Close
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 

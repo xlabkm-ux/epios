@@ -1,5 +1,5 @@
 **Owner**: @architect
-**Status**: accepted_concept
+**Status**: accepted_contract
 
 # EPIOS — v1.1 ADR Review Roadmap
 

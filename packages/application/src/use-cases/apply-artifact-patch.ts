@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { UnitOfWorkPort, SecurityPort } from "@epios/ports";
-import { PatchPolicyService } from "@epios/domain";
+import { PatchPolicyService, ActorRef } from "@epios/domain";
 
 export interface ApplyArtifactPatchRequest {
   patchId: string;

@@ -1,3 +1,6 @@
+**Owner**: @architect
+**Status**: accepted_contract
+
 # 📘 RUNBOOK: Epistemic OS (epios)
 
 This runbook provides step-by-step instructions for deploying, seeding, and demonstrating the Epistemic OS MVP (v0.1.0-rc.1).

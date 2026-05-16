@@ -1,5 +1,5 @@
 import { Mission, MissionBrief, ActorRef, DomainEvent } from "@epios/domain";
-import { UnitOfWorkPort } from "@epios/ports";
+import { UnitOfWorkPort, SecurityPort } from "@epios/ports";
 import { randomUUID } from "node:crypto";
 
 export interface CreateMissionRequest {

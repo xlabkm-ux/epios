@@ -33,8 +33,6 @@ export const ArtifactPatchPanel: React.FC<{
   const { currentUser } = useSecurity();
 
   const isAdmin = currentUser?.role === "approver";
-  const canPropose =
-    currentUser?.role === "contributor" || currentUser?.role === "approver";
 
   useEffect(() => {
     fetchPatches();

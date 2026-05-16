@@ -13,4 +13,5 @@ export * from "./events.js";
 export * from "./rating.js";
 export * from "./mapping.js";
 export * from "./security.js";
+export * from "./identity.js";
 export * from "./adr.js";

@@ -267,6 +267,7 @@ export interface ArtifactVersion {
   version: number;
   content: string;
   authorId: string;
+  patchId?: string;
   createdAt: Date;
 }
 

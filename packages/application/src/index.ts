@@ -37,3 +37,7 @@ export * from "./use-cases/resolve-approval.js";
 export * from "./use-cases/apply-artifact-patch.js";
 export * from "./use-cases/list-artifact-patches.js";
 export * from "./use-cases/list-approvals.js";
+export * from "./use-cases/identity/list-user-assignments.js";
+export * from "./use-cases/identity/list-all-assignments.js";
+export * from "./use-cases/identity/manage-assignment.js";
+export * from "./use-cases/login.js";

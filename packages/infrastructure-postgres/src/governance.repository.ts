@@ -292,6 +292,7 @@ export class PostgresGovernanceRepository implements GovernanceRepositoryPort {
       version: version.version,
       content: version.content,
       contentHash: "",
+      patchId: version.patchId,
       authorId: version.authorId,
       createdByType: "user",
       createdById: version.authorId,
@@ -314,6 +315,7 @@ export class PostgresGovernanceRepository implements GovernanceRepositoryPort {
       version: record.version,
       content: record.content,
       authorId: record.authorId,
+      patchId: record.patchId || undefined,
       createdAt: record.createdAt,
     }));
   }
@@ -331,8 +333,10 @@ export class PostgresGovernanceRepository implements GovernanceRepositoryPort {
     return {
       id: record.id,
       artifactId: record.artifactId,
+      workspaceId: record.workspaceId,
       version: record.version,
       content: record.content,
+      authorId: record.authorId,
       patchId: record.patchId || undefined,
       createdAt: record.createdAt,
     };

@@ -7,7 +7,12 @@ import React, {
 } from "react";
 import { Node, Edge } from "reactflow";
 
-import { Workspace, WorkspaceStatus } from "@epios/domain";
+import { Workspace } from "@epios/api";
+import { API_BASE_URL } from "../api-config";
+import { useApi } from "../hooks/useApi";
+import { useSecurity } from "./SecurityContext";
+
+
 
 interface WorkspaceContextType {
   selectedWorkspaceId: string | null;
@@ -25,10 +30,12 @@ interface WorkspaceContextType {
     y: number,
     zoom: number,
   ) => void;
-  activeView: "ROOM" | "ADR" | "ARCHIVE";
-  setActiveView: (view: "ROOM" | "ADR" | "ARCHIVE") => void;
-  restoreWorkspace: (id: string) => void;
+  activeView: "ROOM" | "ADR" | "ARCHIVE" | "SECURITY";
+  setActiveView: (view: "ROOM" | "ADR" | "ARCHIVE" | "SECURITY") => void;
+  restoreWorkspace: (id: string) => Promise<void>;
+  refreshWorkspaces: () => Promise<void>;
 }
+
 
 const WorkspaceContext = createContext<WorkspaceContextType | undefined>(
   undefined,
@@ -42,9 +49,9 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
       return localStorage.getItem("selectedWorkspaceId");
     },
   );
-  const [activeView, setActiveView] = useState<"ROOM" | "ADR" | "ARCHIVE">(
-    "ROOM",
-  );
+  const [activeView, setActiveView] = useState<
+    "ROOM" | "ADR" | "ARCHIVE" | "SECURITY"
+  >("ROOM");
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
 
@@ -102,17 +109,65 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
     }));
   };
 
-  const restoreWorkspace = (id: string) => {
-    setWorkspaces(
-      workspaces.map((w) =>
-        w.id === id
-          ? ({ ...w, status: "running" as WorkspaceStatus } as Workspace)
-          : w,
-      ),
-    );
-    setSelectedWorkspaceId(id);
-    setActiveView("ROOM");
+  const { activeWorkplace } = useSecurity();
+  const { data: fetchedWorkspaces, refresh: refreshWorkspacesApi } =
+    useApi<Workspace[]>("/workspaces", 30000); // Poll every 30s
+
+  // Sync fetched workspaces with state and local storage overrides
+  useEffect(() => {
+    if (fetchedWorkspaces) {
+      const savedStatuses = JSON.parse(
+        localStorage.getItem("workspaceStatuses") || "{}",
+      );
+      const workspacesWithOverrides = fetchedWorkspaces.map((ws) => ({
+        ...ws,
+        status: savedStatuses[ws.id] || ws.status,
+      })) as Workspace[];
+
+      setWorkspaces(workspacesWithOverrides);
+
+      // Auto-select first if none selected or no longer valid
+      const isValidSelection = workspacesWithOverrides.some(
+        (ws) => ws.id === selectedWorkspaceId,
+      );
+      if (
+        workspacesWithOverrides.length > 0 &&
+        (!selectedWorkspaceId || !isValidSelection)
+      ) {
+        setSelectedWorkspaceId(workspacesWithOverrides[0].id);
+      } else if (workspacesWithOverrides.length === 0) {
+        setSelectedWorkspaceId(null);
+      }
+    }
+  }, [fetchedWorkspaces, selectedWorkspaceId, activeWorkplace]);
+
+  const refreshWorkspaces = async () => {
+    await refreshWorkspacesApi();
   };
+
+  const restoreWorkspace = async (id: string) => {
+    try {
+      // 1. Persist to server
+      const response = await fetch(`${API_BASE_URL}/workspaces/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "running" }),
+      });
+
+      if (!response.ok) throw new Error("Failed to patch workspace");
+
+      // 2. Refresh from server to ensure sync
+      await refreshWorkspaces();
+
+      // 3. Update UI state
+      setSelectedWorkspaceId(id);
+      setActiveView("ROOM");
+    } catch (error) {
+      console.error("Failed to restore workspace:", error);
+      alert("Failed to restore workspace. Please check your connection.");
+    }
+  };
+
 
   return (
     <WorkspaceContext.Provider
@@ -130,7 +185,9 @@ export const WorkspaceProvider: React.FC<{ children: ReactNode }> = ({
         activeView,
         setActiveView,
         restoreWorkspace,
+        refreshWorkspaces,
       }}
+
     >
       {children}
     </WorkspaceContext.Provider>

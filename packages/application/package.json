@@ -8,8 +8,9 @@
   },
   "dependencies": {
     "@epios/domain": "workspace:*",
+    "@epios/observability": "workspace:*",
     "@epios/ports": "workspace:*",
-    "@epios/observability": "workspace:*"
+    "bcrypt": "^6.0.0"
   },
   "scripts": {
     "build": "tsc",

@@ -144,7 +144,37 @@ export const identities = pgTable("identities", {
   username: text("username").notNull(),
   email: text("email").notNull(),
   role: text("role").notNull(),
+  passwordHash: text("password_hash"),
   isActive: integer("is_active").notNull().default(1), // 1 for true
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const orgUnits = pgTable("org_units", {
+  id: uuid("id").primaryKey(),
+  name: text("name").notNull(),
+  parentId: uuid("parent_id"),
+});
+
+export const orgPositions = pgTable("org_positions", {
+  id: uuid("id").primaryKey(),
+  name: text("name").notNull(),
+  level: integer("level").notNull().default(1),
+});
+
+export const userAssignments = pgTable("user_assignments", {
+  id: uuid("id").primaryKey(), // workplace_id
+  userId: text("user_id")
+    .notNull()
+    .references(() => identities.id, { onDelete: "cascade" }),
+  unitId: uuid("unit_id").references(() => orgUnits.id, { onDelete: "set null" }),
+  positionId: uuid("position_id").references(() => orgPositions.id, {
+    onDelete: "set null",
+  }),
+  role: text("role").notNull(),
+  workspaceId: uuid("workspace_id"),
+  isActive: boolean("is_active").notNull().default(true),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),

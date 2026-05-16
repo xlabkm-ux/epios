@@ -152,7 +152,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
       <AnimatePresence>
         {showMenu && (
           <motion.div
-            ref={menuRef}
+            key="menu"
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
@@ -169,58 +169,60 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               minWidth: "180px",
             }}
           >
-            <MenuItem
-              icon={<Share2 size={14} />}
-              label={t("workspace_menu.share")}
-              onClick={() => {
-                setShowMenu(false);
-                onAction?.("share");
-              }}
-            />
-            <MenuItem
-              icon={<Pin size={14} />}
-              label={
-                isPinned ? t("workspace_menu.unpin") : t("workspace_menu.pin")
-              }
-              onClick={() => {
-                setShowMenu(false);
-                onAction?.("pin");
-              }}
-            />
-            <MenuItem
-              icon={<Edit2 size={14} />}
-              label={t("workspace_menu.rename")}
-              onClick={() => {
-                setShowMenu(false);
-                onAction?.("rename");
-              }}
-            />
-            <div
-              style={{
-                height: "1px",
-                backgroundColor: "var(--border)",
-                margin: "4px 0",
-              }}
-            />
-            <MenuItem
-              icon={
-                status === "archived" ? (
-                  <RefreshCcw size={14} />
-                ) : (
-                  <Archive size={14} />
-                )
-              }
-              label={
-                status === "archived"
-                  ? t("workspace_menu.restore")
-                  : t("workspace_menu.archive")
-              }
-              onClick={() => {
-                setShowMenu(false);
-                onAction?.(status === "archived" ? "restore" : "archive");
-              }}
-              danger={status !== "archived"}
-            />
+            <div ref={menuRef} style={{ width: "100%", height: "100%" }}>
+              <MenuItem
+                icon={<Share2 size={14} />}
+                label={t("workspace_menu.share")}
+                onClick={() => {
+                  setShowMenu(false);
+                  onAction?.("share");
+                }}
+              />
+              <MenuItem
+                icon={<Pin size={14} />}
+                label={
+                  isPinned ? t("workspace_menu.unpin") : t("workspace_menu.pin")
+                }
+                onClick={() => {
+                  setShowMenu(false);
+                  onAction?.("pin");
+                }}
+              />
+              <MenuItem
+                icon={<Edit2 size={14} />}
+                label={t("workspace_menu.rename")}
+                onClick={() => {
+                  setShowMenu(false);
+                  onAction?.("rename");
+                }}
+              />
+              <div
+                style={{
+                  height: "1px",
+                  backgroundColor: "var(--border)",
+                  margin: "4px 0",
+                }}
+              />
+              <MenuItem
+                icon={
+                  status === "archived" ? (
+                    <RefreshCcw size={14} />
+                  ) : (
+                    <Archive size={14} />
+                  )
+                }
+                label={
+                  status === "archived"
+                    ? t("workspace_menu.restore")
+                    : t("workspace_menu.archive")
+                }
+                onClick={() => {
+                  setShowMenu(false);
+                  onAction?.(status === "archived" ? "restore" : "archive");
+                }}
+                danger={status !== "archived"}
+              />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

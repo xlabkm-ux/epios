@@ -28,8 +28,13 @@ describe("Async Runtime & Idempotency", () => {
       runInTransaction: vi.fn((fn) => fn(mockUnitOfWork)),
     };
 
+    const mockSecurity = {
+      authorize: vi.fn().mockResolvedValue(true),
+    };
+
     const useCase = new RunMappingUseCase(
       mockUowProvider as any,
+      mockSecurity as any,
     );
 
     const missionId = randomUUID();

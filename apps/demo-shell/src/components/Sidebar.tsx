@@ -8,22 +8,20 @@ import {
   Terminal,
   Zap,
   FileText,
-  Shield,
-  User as UserIcon,
   Copy,
 } from "lucide-react";
-import { useApi } from "../hooks/useApi";
 import { useWorkspace } from "../context/WorkspaceContext";
 import { useSecurity } from "../context/SecurityContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Workspace } from "@epios/domain";
+import { Workspace } from "@epios/api";
 import { API_BASE_URL } from "../api-config";
+
 
 // Refactored Components
 import { Modal } from "./Modal";
 import { SidebarItem } from "./SidebarItem";
-import { RoleSwitcher } from "./RoleSwitcher";
+import SettingsModal from "./SettingsModal";
 
 const Sidebar: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -34,20 +32,19 @@ const Sidebar: React.FC = () => {
   const [shareModalWs, setShareModalWs] = useState<Workspace | null>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const { data: fetchedWorkspaces, refresh: refreshWorkspaces } =
-    useApi<Workspace[]>("/workspaces");
   const {
     workspaces,
-    setWorkspaces,
     selectedWorkspaceId,
     setSelectedWorkspaceId,
     activeView,
     setActiveView,
+    refreshWorkspaces,
   } = useWorkspace();
-  const { currentUser, setCurrentUserId } = useSecurity();
+
+  const { currentUser } = useSecurity();
 
   // Theme Logic
-  const [theme, setTheme] = useState(() => {
+  const [theme] = useState(() => {
     return localStorage.getItem("theme") || "system";
   });
 
@@ -87,39 +84,8 @@ const Sidebar: React.FC = () => {
     };
   }, [resize, stopResizing]);
 
-  useEffect(() => {
-    if (fetchedWorkspaces) {
-      // Apply locally saved status overrides (e.g. archived)
-      const savedStatuses = JSON.parse(
-        localStorage.getItem("workspaceStatuses") || "{}",
-      );
-      const workspacesWithOverrides = fetchedWorkspaces.map((ws) => ({
-        ...ws,
-        status: savedStatuses[ws.id] || ws.status,
-      })) as Workspace[];
 
-      setWorkspaces(workspacesWithOverrides);
 
-      const isValidSelection = workspacesWithOverrides.some(
-        (ws) => ws.id === selectedWorkspaceId,
-      );
-      if (
-        workspacesWithOverrides.length > 0 &&
-        (!selectedWorkspaceId || !isValidSelection)
-      ) {
-        setSelectedWorkspaceId(workspacesWithOverrides[0].id);
-      }
-    }
-  }, [
-    fetchedWorkspaces,
-    setWorkspaces,
-    setSelectedWorkspaceId,
-    selectedWorkspaceId,
-  ]);
-
-  const toggleLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
 
   const handleAction = async (ws: Workspace, action: string) => {
     if (action === "share") {
@@ -336,6 +302,7 @@ const Sidebar: React.FC = () => {
             }
           />
 
+
           {/* ── Workspaces List (Pinned first, no headers) ── */}
           <div
             style={{
@@ -396,8 +363,34 @@ const Sidebar: React.FC = () => {
             gap: "0.25rem",
           }}
         >
-          {/* Role Switcher Block */}
-          {!isCollapsed && <RoleSwitcher />}
+          {/* User Status Line (Position > RM > Role) */}
+          {!isCollapsed && currentUser && (
+            <div style={{ 
+              padding: "0.85rem 1rem", 
+              background: "rgba(255,255,255,0.03)", 
+              borderRadius: "16px", 
+              marginBottom: "0.75rem",
+              border: "1px solid rgba(255,255,255,0.06)",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+            }}>
+              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-main)", display: "flex", alignItems: "center", gap: "6px" }}>
+                 <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#9ece6a" }} />
+                 {currentUser.username}
+              </div>
+              <div style={{ fontSize: "0.65rem", color: "var(--text-dim)", marginTop: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                {currentUser.username.toLowerCase().includes("admin") ? "Администратор" : "Ведущий архитектор"}
+              </div>
+              
+              <div style={{ margin: "8px 0", height: "1px", background: "rgba(255,255,255,0.05)" }} />
+
+              <div style={{ fontSize: "0.7rem", color: "var(--primary)", fontWeight: 600 }}>
+                {workspaces.find(ws => ws.id === selectedWorkspaceId)?.name || "Demo Workspace"}
+              </div>
+              <div style={{ fontSize: "0.65rem", color: "var(--text-dim)", opacity: 0.8 }}>
+                {currentUser.role === "approver" ? "Владелец РМ" : "Рецензент"}
+              </div>
+            </div>
+          )}
 
           <SidebarItem
             icon={<Settings size={18} />}
@@ -473,114 +466,10 @@ const Sidebar: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Settings Modal */}
-      <AnimatePresence>
-        {showSettings && (
-          <Modal
-            onClose={() => setShowSettings(false)}
-            title={t("sidebar.settings")}
-          >
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
-            >
-              <section>
-                <h3
-                  style={{
-                    fontSize: "0.9rem",
-                    color: "var(--text-dim)",
-                    marginBottom: "1rem",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {i18n.language === "ru"
-                    ? "Язык интерфейса"
-                    : "Interface Language"}
-                </h3>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "0.5rem",
-                    backgroundColor: "rgba(255,255,255,0.03)",
-                    padding: "4px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  {["ru", "en"].map((lang) => (
-                    <button
-                      key={lang}
-                      onClick={() => toggleLanguage(lang)}
-                      style={{
-                        flex: 1,
-                        padding: "8px",
-                        borderRadius: "8px",
-                        border: "none",
-                        backgroundColor:
-                          i18n.language === lang
-                            ? "rgba(255,255,255,0.1)"
-                            : "transparent",
-                        color:
-                          i18n.language === lang ? "white" : "var(--text-dim)",
-                        cursor: "pointer",
-                        textTransform: "uppercase",
-                        fontSize: "0.8rem",
-                      }}
-                    >
-                      {lang === "ru" ? "Русский" : "English"}
-                    </button>
-                  ))}
-                </div>
-              </section>
-              <section>
-                <h3
-                  style={{
-                    fontSize: "0.9rem",
-                    color: "var(--text-dim)",
-                    marginBottom: "1rem",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {i18n.language === "ru"
-                    ? "Тема оформления"
-                    : "Theme Settings"}
-                </h3>
-                <div style={{ display: "flex", gap: "0.5rem" }}>
-                  {["Light", "Dark", "System"].map((tOption) => {
-                    const themeVal = tOption.toLowerCase();
-                    const isActive = theme === themeVal;
-                    return (
-                      <button
-                        key={tOption}
-                        onClick={() => setTheme(themeVal)}
-                        style={{
-                          flex: 1,
-                          padding: "12px 8px",
-                          borderRadius: "10px",
-                          border: isActive
-                            ? "1px solid var(--primary)"
-                            : "1px solid var(--border)",
-                          textAlign: "center",
-                          fontSize: "0.75rem",
-                          color: isActive
-                            ? "var(--text-main)"
-                            : "var(--text-dim)",
-                          backgroundColor: isActive
-                            ? "var(--surface-active)"
-                            : "transparent",
-                          cursor: "pointer",
-                          fontWeight: isActive ? 600 : 400,
-                          transition: "all 0.2s",
-                        }}
-                      >
-                        {tOption}
-                      </button>
-                    );
-                  })}
-                </div>
-              </section>
-            </div>
-          </Modal>
-        )}
-      </AnimatePresence>
+      <SettingsModal 
+        isOpen={showSettings} 
+        onClose={() => setShowSettings(false)} 
+      />
     </>
   );
 };

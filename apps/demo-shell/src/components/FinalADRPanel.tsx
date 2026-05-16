@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "../api-config";
 import React, { useState, useEffect } from "react";
-import { FileText, Copy, Download, History, ExternalLink } from "lucide-react";
+import { FileText, Copy, Download, History } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface FinalADROutput {

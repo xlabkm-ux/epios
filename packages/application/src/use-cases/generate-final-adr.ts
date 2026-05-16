@@ -38,7 +38,7 @@ export class GenerateFinalADRUseCase {
       request.workspaceId,
     );
 
-    const title = workspace.name || "Architecture Decision Record";
+    const title = workspace.title || "Architecture Decision Record";
     const date = new Date().toISOString().split("T")[0];
     const status = assessment?.status === "ready" ? "Approved" : "Proposed";
 
