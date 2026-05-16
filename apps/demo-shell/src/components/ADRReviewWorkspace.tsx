@@ -8,12 +8,17 @@ import {
   Zap,
   Check,
   Loader2,
+  FileText,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApi } from "../hooks/useApi";
 import { ReadinessPanel } from "./ReadinessPanel";
 import { GovernancePanel } from "./GovernancePanel";
+import { FinalADRPanel } from "./FinalADRPanel";
 import { SecureMcpIframe } from "./SecureMcpIframe";
+import { ArtifactPatchPanel } from "./ArtifactPatchPanel";
+import { ApprovalPanel } from "./ApprovalPanel";
+
 import { API_BASE_URL } from "../api-config";
 import { useSecurity } from "../context/SecurityContext";
 
@@ -41,6 +46,7 @@ const ADRReviewWorkspace: React.FC = () => {
   const [flowStep, setFlowStep] = useState<FlowStep>("idle");
   const [localStatus, setLocalStatus] = useState<ADR["status"] | null>(null);
   const [showGovernance, setShowGovernance] = useState(false);
+  const [showFinalADR, setShowFinalADR] = useState(false);
   const [showExternalApproval, setShowExternalApproval] = useState(false);
   const { currentUser } = useSecurity();
 
@@ -52,19 +58,53 @@ const ADRReviewWorkspace: React.FC = () => {
 
   const selectedAdr = adrs?.find((a) => a.id === selectedAdrId);
 
-  const startAnalysis = () => {
+  const startAnalysis = async () => {
+    if (!selectedAdrId) return;
     setFlowStep("analyzing");
-    setTimeout(() => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/governance/readiness`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": currentUser?.id || "admin-1",
+        },
+        body: JSON.stringify({
+          workspaceId: selectedAdrId,
+          profileId: "epistemic-profile-1",
+        }),
+      });
+      if (!res.ok) throw new Error("Analysis failed");
       setFlowStep("reviewing");
-    }, 2000);
+    } catch (err) {
+      console.error(err);
+      setFlowStep("idle");
+    }
   };
 
-  const approveDecision = () => {
+  const approveDecision = async () => {
+    if (!selectedAdrId) return;
     setFlowStep("finalizing");
-    setTimeout(() => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/governance/votes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": currentUser?.id || "admin-1",
+        },
+        body: JSON.stringify({
+          nodeId: selectedAdrId,
+          actorId: currentUser?.id || "admin-1",
+          decision: "approve",
+          rationale: "Approved via ADR Workspace",
+        }),
+      });
+      if (!res.ok) throw new Error("Approval failed");
       setFlowStep("completed");
       setLocalStatus("Accepted");
-    }, 1500);
+    } catch (err) {
+      console.error(err);
+      setFlowStep("reviewing");
+    }
   };
 
   if (loading) {
@@ -185,6 +225,8 @@ const ADRReviewWorkspace: React.FC = () => {
                     setSelectedAdrId(adr.id);
                     setFlowStep("idle");
                     setLocalStatus(null);
+                    setShowFinalADR(false);
+                    setShowGovernance(false);
                   }}
                   style={{
                     display: "flex",
@@ -424,6 +466,33 @@ const ADRReviewWorkspace: React.FC = () => {
 
                 <button
                   className="glass"
+                  onClick={() => {
+                    setShowFinalADR(!showFinalADR);
+                    setShowGovernance(false);
+                  }}
+                  style={{
+                    padding: "0.75rem 1.25rem",
+                    borderRadius: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    backgroundColor: showFinalADR
+                      ? "var(--primary-alpha)"
+                      : "transparent",
+                    color: showFinalADR ? "var(--primary)" : "var(--text-main)",
+                    border: showFinalADR
+                      ? "1px solid var(--primary)"
+                      : "1px solid var(--border)",
+                  }}
+                >
+                  <FileText size={16} />
+                  Artifact
+                </button>
+
+                <button
+                  className="glass"
                   onClick={() => setShowExternalApproval(!showExternalApproval)}
                   style={{
                     padding: "0.75rem 1.25rem",
@@ -473,7 +542,34 @@ const ADRReviewWorkspace: React.FC = () => {
                       }}
                     >
                       <ReadinessPanel workspaceId={selectedAdr.id} />
-                      <GovernancePanel workspaceId={selectedAdr.id} minimal />
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "1.5rem",
+                          overflowY: "auto",
+                        }}
+                      >
+                        <ApprovalPanel missionId={selectedAdr.id} minimal />
+                        <ArtifactPatchPanel
+                          missionId={selectedAdr.id}
+                          artifactId={selectedAdr.id}
+                          minimal
+                        />
+                        <GovernancePanel workspaceId={selectedAdr.id} minimal />
+                      </div>
+                    </motion.div>
+                  ) : showFinalADR ? (
+                    <motion.div
+                      key="final-adr"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      style={{
+                        height: "calc(100vh - 250px)",
+                      }}
+                    >
+                      <FinalADRPanel workspaceId={selectedAdr.id} />
                     </motion.div>
                   ) : showExternalApproval ? (
                     <motion.div
@@ -508,7 +604,7 @@ const ADRReviewWorkspace: React.FC = () => {
                         <SecureMcpIframe
                           appUrl="/approval-app.html"
                           allowedOrigin={window.location.origin}
-                          onCommand={async (method, payload) => {
+                          onCommand={async (method, payload: unknown) => {
                             console.log(
                               `[Host] Received MCP command: ${method}`,
                               payload,
@@ -527,8 +623,11 @@ const ADRReviewWorkspace: React.FC = () => {
                                   body: JSON.stringify({
                                     nodeId: selectedAdr.id,
                                     actorId: currentUser?.id || "observer-1",
-                                    decision: payload.decision,
-                                    rationale: payload.rationale,
+                                    decision: (payload as { decision: string })
+                                      .decision,
+                                    rationale: (
+                                      payload as { rationale: string }
+                                    ).rationale,
                                   }),
                                 },
                               );
@@ -536,7 +635,10 @@ const ADRReviewWorkspace: React.FC = () => {
                               if (!res.ok) throw new Error("API_REJECTION");
 
                               // Trigger UI update if needed
-                              if (payload.decision === "approve") {
+                              if (
+                                (payload as { decision?: string }).decision ===
+                                "approve"
+                              ) {
                                 setLocalStatus("Accepted");
                               }
 

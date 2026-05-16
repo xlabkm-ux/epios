@@ -14,7 +14,7 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import { useWorkspace } from "../context/WorkspaceContext";
 import { useApi } from "../hooks/useApi";
-import { Plus, Layout, Activity } from "lucide-react";
+import { Plus, Layout, Activity, Maximize, Target } from "lucide-react";
 import CustomNode from "./CustomNode";
 
 interface GraphData {
@@ -555,6 +555,23 @@ const GraphCanvasInner: React.FC = () => {
             icon={<Layout size={16} />}
             label="Auto Layout"
             onClick={() => alert("Organizing Neural Map...")}
+          />
+          <ToolbarButton
+            icon={<Maximize size={16} />}
+            label="Fit View"
+            onClick={() => fitView({ duration: 800, padding: 0.3 })}
+          />
+          <ToolbarButton
+            icon={<Target size={16} />}
+            label="Center Selected"
+            onClick={() => {
+              if (selectedNodeId) {
+                const node = nodes.find((n) => n.id === selectedNodeId);
+                if (node) {
+                   setCenter(node.position.x + 110, node.position.y + 75, { zoom: 1, duration: 800 });
+                }
+              }
+            }}
           />
           <ToolbarButton
             icon={<Activity size={16} />}

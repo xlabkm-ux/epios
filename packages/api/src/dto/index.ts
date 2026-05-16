@@ -18,6 +18,7 @@ export interface CreateWorkspaceDto {
 }
 
 export interface AddNodeDto {
+  missionId: string;
   type: NodeType;
   content: string;
   strength?: NodeStrength;

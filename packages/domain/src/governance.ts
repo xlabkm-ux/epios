@@ -2,7 +2,7 @@ import { ValidationError, InvalidTransitionError } from "./errors.js";
 import { DomainEvent } from "./events.js";
 import { EpistemicNode } from "./node.js";
 
-export type ApprovalStatus = "pending" | "approved" | "rejected";
+export type GovernanceStatus = "pending" | "approved" | "rejected";
 
 export interface Vote {
   actorId: string;
@@ -14,7 +14,7 @@ export interface Vote {
 export interface GovernanceProcessProps {
   nodeId: string;
   workspaceId: string;
-  status: ApprovalStatus;
+  status: GovernanceStatus;
   votes: Vote[];
   requiredVotes: number;
   version: number;
@@ -24,7 +24,7 @@ export interface GovernanceProcessProps {
 
 export class GovernanceProcess {
   protected props: GovernanceProcessProps;
-  private _status: ApprovalStatus;
+  private _status: GovernanceStatus;
   private _domainEvents: DomainEvent[] = [];
 
   constructor(props: GovernanceProcessProps) {
@@ -267,6 +267,7 @@ export interface ArtifactVersion {
   version: number;
   content: string;
   authorId: string;
+  patchId?: string;
   createdAt: Date;
 }
 

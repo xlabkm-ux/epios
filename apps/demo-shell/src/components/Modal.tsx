@@ -6,9 +6,10 @@ interface ModalProps {
   children: ReactNode;
   onClose: () => void;
   title: string;
+  width?: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children, onClose, title }) => {
+export const Modal: React.FC<ModalProps> = ({ children, onClose, title, width = "480px" }) => {
   // Close on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -41,7 +42,8 @@ export const Modal: React.FC<ModalProps> = ({ children, onClose, title }) => {
         exit={{ opacity: 0, scale: 0.95, y: 10 }}
         onClick={(e) => e.stopPropagation()}
         style={{
-          width: "480px",
+          width: width,
+          maxWidth: "95vw",
           backgroundColor: "var(--bg-card)",
           borderRadius: "24px",
           padding: "2.5rem",

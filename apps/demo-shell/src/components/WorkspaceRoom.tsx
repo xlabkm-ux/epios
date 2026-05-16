@@ -8,7 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import { MissionPanel } from "./MissionPanel";
 import { RatingPanel } from "./RatingPanel";
 import { ShieldAlert } from "lucide-react";
-import { Workspace } from "@epios/domain";
+import { Workspace } from "@epios/api";
 
 const WorkspaceRoom: React.FC = () => {
   const {
@@ -23,9 +23,9 @@ const WorkspaceRoom: React.FC = () => {
   const [editContent, setEditContent] = useState("");
   const { currentUser } = useSecurity();
 
-  const isAdmin = currentUser?.role === "admin";
+  const isAdmin = currentUser?.role === "approver";
   const canEdit =
-    currentUser?.role === "admin" || currentUser?.role === "reviewer";
+    currentUser?.role === "contributor" || currentUser?.role === "approver";
 
   const selectedWorkspace = workspaces.find(
     (m) => m.id === selectedWorkspaceId,

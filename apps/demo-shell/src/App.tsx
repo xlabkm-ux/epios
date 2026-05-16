@@ -4,11 +4,19 @@ import WorkspaceRoom from "./components/WorkspaceRoom";
 import CommandPalette from "./components/CommandPalette";
 import ADRReviewWorkspace from "./components/ADRReviewWorkspace";
 import { ArchiveView } from "./components/ArchiveView";
+import SecurityDashboard from "./components/SecurityDashboard";
 import { useWorkspace } from "./context/WorkspaceContext";
+import { useSecurity } from "./context/SecurityContext";
+import AuthScreen from "./components/AuthScreen";
 
 function App() {
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const { activeView, restoreWorkspace } = useWorkspace();
+  const { currentUser, login } = useSecurity();
+
+  if (!currentUser) {
+    return <AuthScreen onLogin={login} />;
+  }
 
   const renderContent = () => {
     switch (activeView) {
@@ -18,6 +26,8 @@ function App() {
         return <ADRReviewWorkspace />;
       case "ARCHIVE":
         return <ArchiveView onRestore={restoreWorkspace} />;
+      case "SECURITY":
+        return <SecurityDashboard />;
       default:
         return <WorkspaceRoom />;
     }

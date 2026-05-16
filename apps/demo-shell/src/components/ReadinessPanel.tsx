@@ -188,28 +188,22 @@ export const ReadinessPanel: React.FC<{ workspaceId: string }> = ({
           >
             <div
               style={{
-                width: "56px",
-                height: "56px",
-                borderRadius: "50%",
+                width: "48px",
+                height: "48px",
+                borderRadius: "12px",
                 backgroundColor: `${getStatusColor(assessment.status)}22`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: `2px solid ${getStatusColor(assessment.status)}`,
-                boxShadow: `0 0 15px ${getStatusColor(assessment.status)}33`,
+                border: `1px solid ${getStatusColor(assessment.status)}`,
               }}
             >
-              <span
-                style={{
-                  fontSize: "1rem",
-                  fontWeight: 800,
-                  color: getStatusColor(assessment.status),
-                }}
-              >
-                {assessment.numericScore}%
-              </span>
+              <ShieldCheck
+                size={24}
+                color={getStatusColor(assessment.status)}
+              />
             </div>
-            <div>
+            <div style={{ flex: 1 }}>
               <div
                 style={{
                   fontSize: "0.65rem",
@@ -229,6 +223,26 @@ export const ReadinessPanel: React.FC<{ workspaceId: string }> = ({
                 }}
               >
                 {assessment.status.replace("_", " ").toUpperCase()}
+              </div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div
+                style={{
+                  fontSize: "0.9rem",
+                  fontWeight: 700,
+                  color: "var(--text-main)",
+                }}
+              >
+                {assessment.numericScore}%
+              </div>
+              <div
+                style={{
+                  fontSize: "0.55rem",
+                  color: "var(--text-dim)",
+                  textTransform: "uppercase",
+                }}
+              >
+                Experimental Score
               </div>
             </div>
           </div>
@@ -399,4 +413,3 @@ export const ReadinessPanel: React.FC<{ workspaceId: string }> = ({
     </div>
   );
 };
-
